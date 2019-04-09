@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1总架构(manager:类的实例) -->
+<!ELEMENT controller (property*, connection-list?, dao-list?, manager-list?, interface-list?)>
+
+<!-- 2对配置(*.properties)文件的载入控制 -->
+<!ELEMENT property EMPTY>
+<!-- 配置属性，名称；文件路径 -->
+<!ATTLIST property id ID #REQUIRED
+					file CDATA #REQUIRED>
+
+<!-- 2数据库连接部分(connection:单个连接) -->
+<!ELEMENT connection-list (connection+)>
+<!-- 3单个连接 -->
+<!ELEMENT connection (connection-driver, connection-url, connection-user, connection-password, connection-description?, connection-time-out?, connection-socket-time-out?, connection-min-count?, connection-max-count?)>
+<!-- 连接名称 -->
+<!ATTLIST connection name ID #REQUIRED>
+<!-- 4连接是否使用Unicode -->
+<!ATTLIST connection useUnicode (true|false) #REQUIRED>
+<!-- 4连接字符格式-->
+<!ATTLIST connection characterEncoding (utf-8|utf8|gbk|gb2312) #REQUIRED>
+<!-- 4是否只读连接。1，只读；other，非只读 -->
+<!ATTLIST connection readOnly (true|false) #REQUIRED>
+<!-- 4是否只用于可变 -->
+<!ATTLIST connection isChangeable (true|false) #IMPLIED>
+<!-- 4连接驱动类路径 -->
+<!ELEMENT connection-driver (#PCDATA)>
+<!-- 4连接地址 -->
+<!ELEMENT connection-url (#PCDATA)>
+<!-- 4连接用户名 -->
+<!ELEMENT connection-user (#PCDATA)>
+<!-- 4连接用户密码 -->
+<!ELEMENT connection-password (#PCDATA)>
+<!-- 4连接说明 -->
+<!ELEMENT connection-description (#PCDATA)>
+<!-- 4通道超时断开时间，毫秒数 -->
+<!ELEMENT connection-time-out (#PCDATA)>
+<!-- 4创建连接时超时时间，毫秒数 -->
+<!ELEMENT connection-socket-time-out (#PCDATA)>
+<!-- 4连接最小线程数量 -->
+<!ELEMENT connection-min-count (#PCDATA)>
+<!-- 4连接最大线程数量 -->
+<!ELEMENT connection-max-count (#PCDATA)>
+
+<!-- 2DAO部分(dao:单个DAO) -->
+<!ELEMENT dao-list (dao+)>
+<!-- 3单个DAO -->
+<!ELEMENT dao (dao-class, dao-connection, dao-description?)>
+<!-- dao名称 -->
+<!ATTLIST dao name ID #REQUIRED >
+<!-- 4类的路径 -->
+<!ELEMENT dao-class (#PCDATA)>
+<!-- 4需要的数据库连接池名称 -->
+<!ELEMENT dao-connection (#PCDATA)>
+<!-- 属性的方法名称，类型 -->
+<!ATTLIST dao-connection name CDATA #REQUIRED 
+							type (unique|changeable) #IMPLIED >
+<!-- 4类的说明 -->
+<!ELEMENT dao-description (#PCDATA)>
+
+<!-- 2实例部分(manager:单个实例) -->
+<!ELEMENT manager-list (manager+)>
+
+<!-- 3单个实例(manager-class:类的路径, manager-description:类的说明)-->
+<!ELEMENT manager (manager-class, manager-property-list?, manager-description?)>
+<!-- 指向的包路径 -->
+<!ATTLIST manager name ID #REQUIRED >
+<!-- 4类的路径 -->
+<!ELEMENT manager-class (#PCDATA)>
+<!-- 4类的属性(property:属性字段) -->
+<!ELEMENT manager-property-list (manager-property+)>
+<!-- 5类中的属性字段(dao:对应DAO) -->
+<!ELEMENT manager-property (manager-property-dao|manager-property-manager|manager-property-string|manager-property-integer|manager-property-short|manager-property-long|manager-property-double|manager-property-float|manager-property-boolean)>
+<!-- 属性的方法名称 -->
+<!ATTLIST manager-property name CDATA #REQUIRED >
+<!-- 6DAO属性字段 -->
+<!ELEMENT manager-property-dao (#PCDATA)>
+<!-- 6Manager属性字段 -->
+<!ELEMENT manager-property-manager (#PCDATA)>
+<!-- 6string属性字段 -->
+<!ELEMENT manager-property-string (#PCDATA)>
+<!-- 6integer属性字段 -->
+<!ELEMENT manager-property-integer (#PCDATA)>
+<!-- 6short属性字段 -->
+<!ELEMENT manager-property-short (#PCDATA)>
+<!-- 6long属性字段 -->
+<!ELEMENT manager-property-long (#PCDATA)>
+<!-- 6double属性字段 -->
+<!ELEMENT manager-property-double (#PCDATA)>
+<!-- 6float属性字段 -->
+<!ELEMENT manager-property-float (#PCDATA)>
+<!-- 6boolean属性字段 -->
+<!ELEMENT manager-property-boolean (#PCDATA)>
+<!-- 4类的说明 -->
+<!ELEMENT manager-description (#PCDATA)>
+
+
+<!-- 2接口部分(interface:单个接口) -->
+<!ELEMENT interface-list (interface+)>
+
+<!-- 3单个接口() -->
+<!ELEMENT interface EMPTY>
+<!-- 程序中该接口的名称，在程序中实现该接口的实例 -->
+<!ATTLIST interface name CDATA #REQUIRED
+							implement IDREF #REQUIRED >

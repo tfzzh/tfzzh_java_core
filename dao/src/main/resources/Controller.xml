@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE note SYSTEM "dtd/ControllerDTD.dtd">
+<controller>
+	<property file="/database.properties" id="d" />
+	<property file="/database1.properties" id="d1" />
+	<!-- 数据源设置 -->
+	<connection-list path="com.tfzzh.model.pools.ConnectionPoolManager">
+		<!-- 非只读库连接 -->
+		<connection-info name="sysInfo" useUnicode="true" characterEncoding="utf8" readOnly="false">
+			<connection-driver>${d.manager.dbDriver}</connection-driver>
+			<connection-url>jdbc:mysql://${d.manager.host}/${d.manager.dbName}</connection-url>
+			<connection-user>${d.manager.dbUser}</connection-user>
+			<connection-password>${d.manager.dbPass}</connection-password>
+			<connection-time-out>${d.manager.connectionTimeOut}</connection-time-out>
+			<connection-socket-time-out>${d.manager.connectionSocketTimeOut}</connection-socket-time-out>
+			<connection-min-count>${d.manager.connectionMinCount}</connection-min-count>
+			<connection-max-count>${d.manager.connectionMaxCount}</connection-max-count>
+		</connection-info>
+		<!-- 非只读库连接 -->
+		<connection-info name="gmSysInfo" useUnicode="true" characterEncoding="utf8" readOnly="false">
+			<connection-driver>${d1.manager.dbDriver}</connection-driver>
+			<connection-url>jdbc:mysql://${d1.manager.host}/${d1.manager.dbName}</connection-url>
+			<connection-user>${d1.manager.dbUser}</connection-user>
+			<connection-password>${d1.manager.dbPass}</connection-password>
+			<connection-time-out>${d1.manager.connectionTimeOut}</connection-time-out>
+			<connection-socket-time-out>${d1.manager.connectionSocketTimeOut}</connection-socket-time-out>
+			<connection-min-count>${d1.manager.connectionMinCount}</connection-min-count>
+			<connection-max-count>${d1.manager.connectionMaxCount}</connection-max-count>
+		</connection-info>
+	</connection-list>
+	<connection-pools path="com.tfzzh.model.pools.ConnectionPoolManager" default="sys">
+		<static-pool name="sys" infoName="sysInfo" />
+		<static-pool name="gmSys" infoName="gmSysInfo" />
+		<dynamic-pool name="dyna" />
+	</connection-pools>
+	<dao-list>
+		<dao name="testDao">
+			<dao-class>com.tfzzh.test.dao.impl.TestDAOImpl</dao-class>
+			<dao-connection name="connectionPool">sys</dao-connection>
+			<dao-description>测试用表</dao-description>
+		</dao>
+	</dao-list>
+	<manager-list>
+		<manager name="testManager">
+			<manager-class>com.tfzzh.test.manager.impl.TestManagerImpl</manager-class>
+			<manager-description>测试管理器</manager-description>
+		</manager>
+	</manager-list>
+	<interface-list>
+		<interface name="testManager" implement="testManager" />
+	</interface-list>
+</controller>
