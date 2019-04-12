@@ -375,6 +375,7 @@ public class QLBean {
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2018年2月28日_下午7:22:56
+	 * @param <E> 数据对象
 	 * @return 条件包用对象，需要向内增加自元素
 	 */
 	public <E extends BaseDataBean> QLPackTermBean getPackTerm() {
@@ -386,6 +387,7 @@ public class QLBean {
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2018年3月1日_上午9:23:24
+	 * @param <E> 数据对象
 	 * @param parentLs 所相关的父域
 	 * @return 条件包用对象，需要向内增加自元素
 	 */
@@ -588,9 +590,9 @@ public class QLBean {
 				sql.append('(');
 				this.assemblyTermSQL(ls.getChildScopes(), sql, ic);
 				sql.append(')');
-// if (isFirst) {
-// isFirst = false;
-// }
+				// if (isFirst) {
+				// isFirst = false;
+				// }
 			} else {
 				ls.assemblySQL(sql, ic);
 			}

@@ -38,9 +38,9 @@ public class XmlToBean {
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2018年1月18日_下午2:09:31
+	 * @param <T> 任意对象
 	 * @param path 目标xml路径
 	 * @param clz xml对应的主类
-	 *           // * @param fieldWithBean xml中对应Bean的属性
 	 * @return 解析后得到的数据列表
 	 */
 	public static <T extends Object> List<T> readXmlToBean(final String path, final Class<T> clz) {// , final Map<String, Class<?>> fieldWithBean
@@ -84,11 +84,11 @@ public class XmlToBean {
 				Node n;
 				for (int i = 0; i < nl.getLength(); i++) {
 					n = nl.item(i);
-// System.out.println("node[" + n.getNodeType() + "] >> " + n.getNodeName() + "::" + n.getNamespaceURI());
+					// System.out.println("node[" + n.getNodeType() + "] >> " + n.getNodeName() + "::" + n.getNamespaceURI());
 					if (!n.getNodeName().startsWith("#")) {
 						// 是有效数据
 						final T t = clz.newInstance();
-// tl.add(XmlToBean.nodeElement(n, t, fieldWithBean));
+						// tl.add(XmlToBean.nodeElement(n, t, fieldWithBean));
 						tl.add(XmlToBean.nodeElement(n, t));
 					}
 				}
@@ -104,9 +104,9 @@ public class XmlToBean {
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2018年1月18日_下午5:53:33
+	 * @param <T> 任意对象
 	 * @param pn 目标节点元素
 	 * @param t 目标数据对象
-	 *           // * @param fieldWithBean xml中对应Bean的属性
 	 * @return 处理后的数据对象
 	 */
 	private static <T extends Object> T nodeElement(final Node pn, final T t) { // , final Map<String, Class<?>> fieldWithBean
@@ -123,20 +123,20 @@ public class XmlToBean {
 				}
 			}
 		}
-// System.out.println(mm);
+		// System.out.println(mm);
 		Method m;
 		if ((null != nm) && (nm.getLength() > 0)) {
 			// 存在属性
 			for (int i = 0; i < nm.getLength(); i++) {
 				n = nm.item(i);
 				m = mm.get(n.getNodeName());
-// System.out.println("\t" + pn.getNodeName() + " >> attr >> " + n.getNodeName() + " >>> " + m);
+				// System.out.println("\t" + pn.getNodeName() + " >> attr >> " + n.getNodeName() + " >>> " + m);
 				if (null != m) {
 					final Class<?>[] pc = m.getParameterTypes(); // 参数列表
 					try {
-// Object val = XmlToBean.fieldValue(pc[0], n.getNodeValue());
+						// Object val = XmlToBean.fieldValue(pc[0], n.getNodeValue());
 						final Object val = XmlToBean.fieldValue(pc[0], n);
-// System.out.println("\t\t" + n.getNodeName() + " >> attr >> " + val);
+						// System.out.println("\t\t" + n.getNodeName() + " >> attr >> " + val);
 						if (null != val) {
 							m.invoke(t, val);
 						}
@@ -151,19 +151,19 @@ public class XmlToBean {
 		for (int i = 0; i < nl.getLength(); i++) {
 			n = nl.item(i);
 			if (!n.getNodeName().startsWith("#")) {
-// System.out.println(pn.getNodeName() + " >> node >> " + n.getNodeName() + " >>>> " + n.getTextContent());
+				// System.out.println(pn.getNodeName() + " >> node >> " + n.getNodeName() + " >>>> " + n.getTextContent());
 				m = mm.get(n.getNodeName());
 				if (null != m) {
 					final Class<?>[] pc = m.getParameterTypes(); // 参数列表
-// Object val = XmlToBean.fieldValue(pc[0], n.getTextContent());
+					// Object val = XmlToBean.fieldValue(pc[0], n.getTextContent());
 					final Object val = XmlToBean.fieldValue(pc[0], n);
 					if (null == val) {
 						// 不存在目标值
 						// 看是否对象属性
-// final Class<?> clz = fieldWithBean.get(n.getNodeName());
+						// final Class<?> clz = fieldWithBean.get(n.getNodeName());
 						final Class<?> clz = pc[0];
-// if (null != clz) {
-// System.out.println(" clz >> " + clz);
+						// if (null != clz) {
+						// System.out.println(" clz >> " + clz);
 						if (m.getName().startsWith("add")) {
 							// 是列表
 							final NodeList cnl = n.getChildNodes();
@@ -177,7 +177,7 @@ public class XmlToBean {
 										try {
 											final Constructor<?> ct = clz.getConstructor(t.getClass());
 											cnt = ct.newInstance(t);
-// XmlToBean.nodeElement(cn, cnt, fieldWithBean);
+											// XmlToBean.nodeElement(cn, cnt, fieldWithBean);
 											XmlToBean.nodeElement(cn, cnt);
 											m.invoke(t, cnt);
 										} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -192,7 +192,7 @@ public class XmlToBean {
 									try {
 										final Constructor<?> ct = clz.getConstructor(t.getClass());
 										final Object cnt = ct.newInstance(t);
-// XmlToBean.nodeElement(n, cnt, fieldWithBean);
+										// XmlToBean.nodeElement(n, cnt, fieldWithBean);
 										XmlToBean.nodeElement(n, cnt);
 										m.invoke(t, cnt);
 									} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -215,8 +215,8 @@ public class XmlToBean {
 							try {
 								final Constructor<?> ct = clz.getConstructor(t.getClass());
 								final Object cnt = ct.newInstance(t);
-// System.out.println(" xml>bean>>>" + n + "::" + cnt);
-// XmlToBean.nodeElement(n, cnt, fieldWithBean);
+								// System.out.println(" xml>bean>>>" + n + "::" + cnt);
+								// XmlToBean.nodeElement(n, cnt, fieldWithBean);
 								XmlToBean.nodeElement(n, cnt);
 								m.invoke(t, cnt);
 								continue;
@@ -225,9 +225,9 @@ public class XmlToBean {
 							}
 						}
 					}
-// }
+					// }
 					try {
-// System.out.println("\t\t" + n.getNodeName() + " >> node >> " + val);
+						// System.out.println("\t\t" + n.getNodeName() + " >> node >> " + val);
 						m.invoke(t, val);
 						continue;
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | DOMException e) {
@@ -249,7 +249,7 @@ public class XmlToBean {
 	 * @return 处理后的使用值
 	 */
 	public static Object fieldValue(final Class<?> clz, Node n) {
-// System.out.println("\t fieldValue type >> " + n.getNodeType());
+		// System.out.println("\t fieldValue type >> " + n.getNodeType());
 		String v;
 		switch (n.getNodeType()) {
 		case Node.ELEMENT_NODE: // 是元素
