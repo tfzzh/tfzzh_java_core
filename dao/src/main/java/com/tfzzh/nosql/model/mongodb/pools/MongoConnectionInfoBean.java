@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.tfzzh.tools.StringTools;
@@ -50,7 +51,8 @@ public class MongoConnectionInfoBean {
 	 * @author tfzzh
 	 * @dateTime 2016年11月18日 下午3:26:02
 	 */
-	private final List<MongoCredential> credential;
+	// private final List<MongoCredential> credential;
+	private final MongoCredential credential;
 
 	/**
 	 * @author tfzzh
@@ -61,7 +63,8 @@ public class MongoConnectionInfoBean {
 	 * @param userName 用户名
 	 * @param password 密码
 	 */
-	public MongoConnectionInfoBean(final String name, final String url, final String dbName, final String userName, final String password) {
+	public MongoConnectionInfoBean(final String name, final String url, final String dbName, final String userName,
+			final String password) {
 		this.name = name;
 		this.hostInfo = this.initServerAddress(url);
 		this.dbName = dbName;
@@ -78,7 +81,8 @@ public class MongoConnectionInfoBean {
 	 * @param userName 用户名
 	 * @param password 密码
 	 */
-	public MongoConnectionInfoBean(final String name, final String url, final int post, final String dbName, final String userName, final String password) {
+	public MongoConnectionInfoBean(final String name, final String url, final int post, final String dbName,
+			final String userName, final String password) {
 		this.name = name;
 		this.hostInfo = this.initServerAddress(url, post);
 		this.dbName = dbName;
@@ -94,7 +98,8 @@ public class MongoConnectionInfoBean {
 	 * @param userName 用户名
 	 * @param password 密码
 	 */
-	public MongoConnectionInfoBean(final String name, final List<String> urlList, final String dbName, final String userName, final String password) {
+	public MongoConnectionInfoBean(final String name, final List<String> urlList, final String dbName, final String userName,
+			final String password) {
 		this.name = name;
 		this.hostInfo = this.initServerAddress(urlList);
 		this.dbName = dbName;
@@ -180,14 +185,14 @@ public class MongoConnectionInfoBean {
 	 * @param password 密码
 	 * @return 凭证列表
 	 */
-	private List<MongoCredential> initCredential(final String dbName, final String userName, final String password) {
+	private MongoCredential initCredential(final String dbName, final String userName, final String password) {
 		if (null == userName) {
 			return null;
 		}
 		final MongoCredential mc = MongoCredential.createCredential(userName, dbName, password.toCharArray());
-		final List<MongoCredential> list = new ArrayList<>();
-		list.add(mc);
-		return list;
+		// final List<MongoCredential> list = new ArrayList<>();
+		// list.add(mc);
+		return mc;
 	}
 
 	/**
@@ -230,7 +235,7 @@ public class MongoConnectionInfoBean {
 	 * @dateTime 2016年11月18日 下午5:19:33
 	 * @return the credential
 	 */
-	public List<MongoCredential> getCredential() {
+	public MongoCredential getCredential() {
 		return this.credential;
 	}
 
@@ -245,7 +250,7 @@ public class MongoConnectionInfoBean {
 		if (null == this.credential) {
 			return new MongoClient(this.hostInfo);
 		} else {
-			return new MongoClient(this.hostInfo, this.credential);
+			return new MongoClient(this.hostInfo, this.credential, MongoClientOptions.builder().build());
 		}
 	}
 }

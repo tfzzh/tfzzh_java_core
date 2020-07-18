@@ -168,7 +168,8 @@ public class MongoDatabaseData {
 			// 得到通用自增ID表
 			final MongoCollection<Document> imc = this.md.getCollection("increment_key");
 			final String k = ent.getEntityInfo().getDefaultTableName() + "_" + ent.getEntityInfo().getIncrementDataFieldName();
-			if (0 == imc.count()) {
+			// if (0 == imc.count()) {
+			if (0 == imc.countDocuments()) {
 				// 还没有数据
 				// 创建数据
 				final BasicDBObject bof = new BasicDBObject();
@@ -316,7 +317,8 @@ public class MongoDatabaseData {
 	 * @param size 数据数量，可空
 	 * @return 未被处理的结果数据集合
 	 */
-	public MongoIterable<Document> find(final String tableName, final Bson find, final Bson sort, final Integer start, final Integer size) {
+	public MongoIterable<Document> find(final String tableName, final Bson find, final Bson sort, final Integer start,
+			final Integer size) {
 		FindIterable<Document> fi;
 		final MongoCollection<Document> dm = this.md.getCollection(tableName);
 		if (null != find) {

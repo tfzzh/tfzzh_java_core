@@ -16,6 +16,7 @@ import java.util.Set;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import com.alibaba.fastjson.JSON;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
@@ -23,7 +24,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoIterable;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import com.mongodb.util.JSON;
 import com.tfzzh.exception.ConfigurationException;
 import com.tfzzh.exception.NotAvailableOperationModeException;
 import com.tfzzh.log.CoreLog;
@@ -45,7 +45,8 @@ public class QLBean {
 	// * @author tfzzh
 	// * @dateTime 2017年1月7日 下午10:14:24
 	// */
-	// protected static final Logger log = LogManager.getLogger(QLBean.class.getName());
+	// protected static final Logger log =
+	// LogManager.getLogger(QLBean.class.getName());
 	/**
 	 * TODO 之后需要慎密处理多表相关逻辑，同时需要注意效率问题，当前先不做太多此方面问题处理<br />
 	 * 表命名空间说明集合<br />
@@ -55,7 +56,8 @@ public class QLBean {
 	 * @author Weijie Xu
 	 * @dateTime 2015年4月24日 下午3:06:06
 	 */
-	// private Map<String, TableScope<? extends BaseEntityBean, ? extends BaseDAO<?>>> tsm = null;
+	// private Map<String, TableScope<? extends BaseEntityBean, ? extends
+	// BaseDAO<?>>> tsm = null;
 	private final Map<EntityInfoBean<? extends BaseDataBean>, String> tsm = new HashMap<>(1);
 
 	/**
@@ -187,7 +189,8 @@ public class QLBean {
 	 */
 	public void putTableScope(final EntityInfoBean<? extends BaseDataBean> eib, final String tableName) {
 		// if (null == this.tsm) {
-		// this.tsm = new HashMap<String, TableScope<? extends BaseEntityBean, ? extends BaseDAO<?>>>();
+		// this.tsm = new HashMap<String, TableScope<? extends BaseEntityBean, ? extends
+		// BaseDAO<?>>>();
 		// }
 		// this.tsm.put(ts.getName(), ts);
 		if (null == this.mainEib) {
@@ -364,7 +367,8 @@ public class QLBean {
 	 * @param parentLs 所相关的父域
 	 * @return 条件用对象
 	 */
-	public <E extends BaseDataBean> QLTermBean getNewTerm(final EntityInfoBean<E>.FieldInfoBean tfb, final SymbolEnum symbol, final LocalScope parentLs) {
+	public <E extends BaseDataBean> QLTermBean getNewTerm(final EntityInfoBean<E>.FieldInfoBean tfb, final SymbolEnum symbol,
+			final LocalScope parentLs) {
 		// this.setType(QLBean.TYPE_TERM);
 		this.validateEntityInfo(tfb.getEntityInfo());
 		return new QLTermBean(this, tfb, symbol, parentLs);
@@ -420,7 +424,8 @@ public class QLBean {
 	 * @param symbol 主符号，一般仅针对更新时，字符串拼接
 	 * @return 更新用对象
 	 */
-	public <E extends BaseDataBean> QLUpdateBean getNewUpdate(final EntityInfoBean<E>.FieldInfoBean tfb, final SymbolEnum symbol) {
+	public <E extends BaseDataBean> QLUpdateBean getNewUpdate(final EntityInfoBean<E>.FieldInfoBean tfb,
+			final SymbolEnum symbol) {
 		// this.setType(QLBean.TYPE_UPDATE);
 		this.validateEntityInfo(tfb.getEntityInfo());
 		return new QLUpdateBean(this, tfb, symbol);
@@ -742,7 +747,9 @@ public class QLBean {
 	public UpdateResult assemblyMongoAggregateFieldInsert(final MongoCollection<Document> mCol, final MongoDatabaseData mdd) {
 		// db.to_like.update(
 		// {"function":2,"function_id":2},
-		// {$addToSet:{users:{$each:[{user_id:3,create_time:"2017-05-17 11:21:18",time:1494991278356},{user_id:4,create_time:"2017-05-17 12:21:18",time:1494992278356}]}}})
+		// {$addToSet:{users:{$each:[{user_id:3,create_time:"2017-05-17
+		// 11:21:18",time:1494991278356},{user_id:4,create_time:"2017-05-17
+		// 12:21:18",time:1494992278356}]}}})
 		final Bson fb = this.assemblyMongoFind();
 		final Bson ub = this.assemblyMongoFieldInsert(mdd);
 		if ((null != fb) && (ub != null)) {
@@ -752,8 +759,7 @@ public class QLBean {
 	}
 
 	/**
-	 * 组合mongo查询指定条件数据中数组字段的数量
-	 * 集合中必然存在字段“size”为该内容数量
+	 * 组合mongo查询指定条件数据中数组字段的数量 集合中必然存在字段“size”为该内容数量
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年5月17日 下午7:52:39
@@ -856,9 +862,11 @@ public class QLBean {
 			}
 			sb.append('}');
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] find > ", sb.toString());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] find > ",
+						sb.toString());
 			}
-			return (BasicDBObject) JSON.parse(sb.toString());
+			// return (BasicDBObject) JSON.parse(sb.toString());
+			return new BasicDBObject(JSON.parseObject(sb.toString()));
 		}
 		return null;
 	}
@@ -870,7 +878,6 @@ public class QLBean {
 	 * @dateTime 2017年6月12日 上午11:09:11
 	 * @return 查询所相关条件集合
 	 */
-	@SuppressWarnings({ "unchecked" })
 	private List<Bson> assemblyMongoAggregateMatch() {
 		// match
 		// {$match:{function:2,function_id:2}}
@@ -905,9 +912,11 @@ public class QLBean {
 				sb.append("\"}]");
 			}
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Match > ", sb.toString());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Match > ",
+						sb.toString());
 			}
-			return (List<Bson>) JSON.parse(sb.toString());
+			return JSON.parseArray(sb.toString(), Bson.class);
+			// return (List<Bson>) JSON.parse(sb.toString());
 		}
 		return null;
 	}
@@ -923,7 +932,8 @@ public class QLBean {
 	// // match
 	// // {$match:{function:2,function_id:2}}
 	// if ((null != this.termScopes) && (null != this.listFieldScopes)) {
-	// final StringBuilder sb = new StringBuilder(16 + (16 * this.termScopes.size()));
+	// final StringBuilder sb = new StringBuilder(16 + (16 *
+	// this.termScopes.size()));
 	// sb.append("{$match:{");
 	// boolean isFirst = true;
 	// for (final LocalScope ls : this.termScopes) {
@@ -947,7 +957,8 @@ public class QLBean {
 	// }
 	// sb.append("}}");
 	// if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-	// CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Match > ", sb.toString());
+	// CoreLog.getInstance().debug(QLBean.class, "MongoThread[",
+	// Thread.currentThread().getName(), "] Aggregate Match > ", sb.toString());
 	// }
 	// return (BasicDBObject) JSON.parse(sb.toString());
 	// }
@@ -970,7 +981,8 @@ public class QLBean {
 	// sb.append(this.listFieldScopes.getTargetName());
 	// sb.append("\"}");
 	// if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-	// CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Unwind > ", sb.toString());
+	// CoreLog.getInstance().debug(QLBean.class, "MongoThread[",
+	// Thread.currentThread().getName(), "] Aggregate Unwind > ", sb.toString());
 	// }
 	// return (BasicDBObject) JSON.parse(sb.toString());
 	// }
@@ -984,7 +996,6 @@ public class QLBean {
 	 * @param isCount 是否查询数量
 	 * @return 总量查询所相关查询结果输出内容
 	 */
-	@SuppressWarnings({ "unchecked" })
 	private List<Bson> assemblyMongoAggregateGroup(final boolean isCount) {
 		// group
 		// {$group:{_id:{"function":"$function",function_id:"$function_id"},users:{$push:"$users"},size:{$sum:1}}}
@@ -993,7 +1004,8 @@ public class QLBean {
 			sb.append("[");
 			boolean isFirst = true;
 			if (!isCount) {
-				if ((null != this.orderScopes) || ((null != this.listFieldScopes) && (null != this.listFieldScopes.getOrderScopes()))) {
+				if ((null != this.orderScopes)
+						|| ((null != this.listFieldScopes) && (null != this.listFieldScopes.getOrderScopes()))) {
 					// 排序
 					// {$sort:{"users.user_id":1}},
 					sb.append("{$sort:{");
@@ -1023,7 +1035,8 @@ public class QLBean {
 				if (null != this.prb) {
 					// 分页
 					// {$skip:1},{$limit:2}
-					sb.append("{$skip:").append(this.prb.getDataStartIndex()).append("},{$limit:").append(this.prb.getSize()).append("},");
+					sb.append("{$skip:").append(this.prb.getDataStartIndex()).append("},{$limit:").append(this.prb.getSize())
+							.append("},");
 				}
 			}
 			// 条件部分
@@ -1072,10 +1085,12 @@ public class QLBean {
 				sb.append("list:{$push:\"$").append(afn).append("\"}}}");
 			}
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Group > ", sb.toString());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Group > ",
+						sb.toString());
 			}
 			sb.append("]");
-			return (List<Bson>) JSON.parse(sb.toString());
+			return JSON.parseArray(sb.toString(), Bson.class);
+			// return (List<Bson>) JSON.parse(sb.toString());
 		}
 		return null;
 	}
@@ -1096,10 +1111,12 @@ public class QLBean {
 			final BasicDBObject bak = new BasicDBObject();
 			bak.append("$set", bo);
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] update > ", bak.toJson());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] update > ",
+						bak.toJson());
 			}
 			// if (QLBean.log.isDebugEnabled()) {
-			// QLBean.log.debug("MongoThread[" + Thread.currentThread().getName() + "] update > " + bak.toJson());
+			// QLBean.log.debug("MongoThread[" + Thread.currentThread().getName() + "]
+			// update > " + bak.toJson());
 			// }
 			return bak;
 		}
@@ -1115,7 +1132,9 @@ public class QLBean {
 	 * @return 组合的对象
 	 */
 	private Bson assemblyMongoFieldInsert(final MongoDatabaseData mdd) {
-		// {$addToSet:{users:{$each:[{user_id:3,create_time:"2017-05-17 11:21:18",time:1494991278356},{user_id:4,create_time:"2017-05-17 12:21:18",time:1494992278356}]}}})
+		// {$addToSet:{users:{$each:[{user_id:3,create_time:"2017-05-17
+		// 11:21:18",time:1494991278356},{user_id:4,create_time:"2017-05-17
+		// 12:21:18",time:1494992278356}]}}})
 		if (null != this.listFieldScopes) {
 			final StringBuilder sb = new StringBuilder();
 			final String lfn = this.listFieldScopes.getTargetName();
@@ -1127,7 +1146,8 @@ public class QLBean {
 			final BasicDBList ebo = (BasicDBList) fbo.get("$each");
 			this.listFieldScopes.assemblyRelationalMongo(ebo, mdd);
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Field Insert > ", bak.toJson());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Field Insert > ",
+						bak.toJson());
 			}
 			return bak;
 		}
