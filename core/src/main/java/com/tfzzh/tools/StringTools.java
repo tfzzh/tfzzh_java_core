@@ -16,6 +16,14 @@ import java.util.List;
 public class StringTools {
 
 	/**
+	 * 空对象
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 上午11:38:09
+	 */
+	private final static String empty = "";
+
+	/**
 	 * 根据字符串中的分隔符“_”对字母进行从新组合，将存在的该符号去掉，并将其之后的字符大写<br />
 	 * 例如：“aa_a_BbbCc_c” -> “aaABbbCcC”<br />
 	 * 
@@ -843,5 +851,29 @@ public class StringTools {
 			return null;
 		}
 		return Double.valueOf(val).byteValue();
+	}
+
+	/**
+	 * 判定string是否为null或""
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 上午11:38:37
+	 * @param str 目标字串
+	 * @return true，是null或者""
+	 */
+	public static boolean isNullOrEmpty(String str) {
+		return null == str || str.length() == 0;
+	}
+
+	/**
+	 * 得到一个非null的string
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 上午11:38:36
+	 * @param str 目标字串
+	 * @return 如果是null，则返回""，其他返回自身
+	 */
+	public static String getStringNoNull(String str) {
+		return null == str ? StringTools.empty : str;
 	}
 }
