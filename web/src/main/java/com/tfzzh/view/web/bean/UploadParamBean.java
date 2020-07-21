@@ -60,11 +60,12 @@ public abstract class UploadParamBean extends BaseParamBean {
 	 */
 	private final String suffixLimit;
 	/**
-	 * 得到文件最大字节数量限制
+	 * 得到文件最大字节数量限制，与后缀名限制<br />
+	 * maxSize:最大字节数限制<br />
+	 * suffixLimit:后缀名限制<br />
 	 * 
 	 * @author Xu Weijie
 	 * @dateTime 2012-9-11 上午2:21:22
-	 * @return the maxSize
 	 */
 	{
 		// 先判定缓存中数据
