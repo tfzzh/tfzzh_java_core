@@ -45,5 +45,19 @@ public enum PropertiesValueTypeEnum {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:42:51
 	 */
-	Short;
+	Short,
+	/**
+	 * 针对泛型的list对象，内容为Double
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 下午2:33:40
+	 */
+	Double,
+	/**
+	 * 针对泛型的list对象，内容为Float
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 下午2:33:40
+	 */
+	Float;
 }

@@ -166,7 +166,7 @@ public class ClientSessionBean extends BaseBean {
 	 * @dateTime 2017年3月28日 上午10:01:49
 	 * @param referenceTime 参考时间
 	 * @return true，已经过期；<br />
-	 * false，还未过期；<br />
+	 *         false，还未过期；<br />
 	 */
 	public boolean validateOverdue(final long referenceTime) {
 		return (referenceTime - this.lastUseTime) > WebBaseConstants.SESSION_EXPIRATION_TIME;

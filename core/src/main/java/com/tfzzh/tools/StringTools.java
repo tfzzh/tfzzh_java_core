@@ -450,6 +450,110 @@ public class StringTools {
 	}
 
 	/**
+	 * 将字符串转为Double数组
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 下午2:36:53
+	 * @param txt 文本内容
+	 * @param separator 分隔符
+	 * @return Double数组
+	 */
+	public static Double[] toDoubleObjArray(final String txt, final String separator) {
+		final List<Double> tl = StringTools.splitToDoubleArray(txt, separator);
+		return tl.toArray(new Double[tl.size()]);
+	}
+
+	/**
+	 * 最小化消耗来替代String.split的方法<br />
+	 * 直接获取到Double列表<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 下午2:36:53
+	 * @param str 准备做分割处理的字串
+	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @return Double列表
+	 */
+	public static List<Double> splitToDoubleArray(final String str, final String splitFlag) {
+		final List<Double> arr = new ArrayList<>();
+		// start index
+		int si = 0;
+		// end index
+		int ei = 0;
+		while (true) {
+			ei = str.indexOf(splitFlag, si);
+			if (ei == -1) {
+				// 已经结束
+				break;
+			}
+			if (ei != si) {
+				try {
+					arr.add(Double.valueOf(str.substring(si, ei)).doubleValue());
+				} catch (final Exception e) {
+				}
+			}
+			si = ei + splitFlag.length();
+		}
+		// 增加最后一段
+		try {
+			arr.add(Double.valueOf(str.substring(si)).doubleValue());
+		} catch (final Exception e) {
+		}
+		return arr;
+	}
+
+	/**
+	 * 将字符串转为Float数组
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 下午2:36:53
+	 * @param txt 文本内容
+	 * @param separator 分隔符
+	 * @return Float数组
+	 */
+	public static Float[] toFloatObjArray(final String txt, final String separator) {
+		final List<Float> tl = StringTools.splitToFloatArray(txt, separator);
+		return tl.toArray(new Float[tl.size()]);
+	}
+
+	/**
+	 * 最小化消耗来替代String.split的方法<br />
+	 * 直接获取到Float列表<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 下午2:36:53
+	 * @param str 准备做分割处理的字串
+	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @return Float列表
+	 */
+	public static List<Float> splitToFloatArray(final String str, final String splitFlag) {
+		final List<Float> arr = new ArrayList<>();
+		// start index
+		int si = 0;
+		// end index
+		int ei = 0;
+		while (true) {
+			ei = str.indexOf(splitFlag, si);
+			if (ei == -1) {
+				// 已经结束
+				break;
+			}
+			if (ei != si) {
+				try {
+					arr.add(Double.valueOf(str.substring(si, ei)).floatValue());
+				} catch (final Exception e) {
+				}
+			}
+			si = ei + splitFlag.length();
+		}
+		// 增加最后一段
+		try {
+			arr.add(Double.valueOf(str.substring(si)).floatValue());
+		} catch (final Exception e) {
+		}
+		return arr;
+	}
+
+	/**
 	 * 直接获取，通过分隔符处理后的部分的，目标位置的内容<br />
 	 * 这里不会将零字长字串过滤掉，因为占位是不能被跳过的<br />
 	 * 

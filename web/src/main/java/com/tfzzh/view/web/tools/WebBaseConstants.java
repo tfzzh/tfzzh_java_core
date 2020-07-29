@@ -92,78 +92,78 @@ public class WebBaseConstants extends BaseConstants {
 	@PropertiesValue
 	public static String URL_POS;
 
-// /**
-// * 私有的，连接名称，针对HttpRequest
-// *
-// * @author xuweijie
-// * @dateTime 2012-2-13 下午12:07:22
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_REQUEST;
-// /**
-// * 私有的，连接名称，针对HttpResponse
-// *
-// * @author xuweijie
-// * @dateTime 2012-2-13 下午12:07:24
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_RESPONSE;
-// /**
-// * 私有的，连接名称，针对HttpSession
-// *
-// * @author Xu Weijie
-// * @dateTime 2012-7-6 下午4:09:04
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_SESSION;
-// /**
-// * 私有的，连接名称，针对请求的所有参数
-// *
-// * @author tfzzh
-// * @dateTime 2016年10月10日 下午10:31:07
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_ALL_PARAM;
-// /**
-// * 私有的，连接名称，针对Bean集合
-// *
-// * @author xuweijie
-// * @dateTime 2012-2-13 下午12:09:20
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_BEAN;
-// /**
-// * 私有的，连接名称，针对登陆帐号信息
-// *
-// * @author Weijie Xu
-// * @dateTime 2012-7-17 上午1:54:28
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_ACCOUNT;
-// /**
-// * 私有的，连接名称，针对IP
-// *
-// * @author Xu Weijie
-// * @dateTime 2012-7-6 下午4:13:42
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_IP;
-// /**
-// * 私有的，连接名称，来自当前请求的完整url
-// *
-// * @author XuWeijie
-// * @datetime 2015年8月25日_下午8:17:46
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_URL;
-// /**
-// * 私有的，连接名称，针对请求后缀名
-// *
-// * @author Xu Weijie
-// * @dateTime 2012-9-9 下午12:24:55
-// */
-// @PropertiesValue
-// public static String PRIVATE_LINK_NAME_SUFFIX;
+	// /**
+	// * 私有的，连接名称，针对HttpRequest
+	// *
+	// * @author xuweijie
+	// * @dateTime 2012-2-13 下午12:07:22
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_REQUEST;
+	// /**
+	// * 私有的，连接名称，针对HttpResponse
+	// *
+	// * @author xuweijie
+	// * @dateTime 2012-2-13 下午12:07:24
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_RESPONSE;
+	// /**
+	// * 私有的，连接名称，针对HttpSession
+	// *
+	// * @author Xu Weijie
+	// * @dateTime 2012-7-6 下午4:09:04
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_SESSION;
+	// /**
+	// * 私有的，连接名称，针对请求的所有参数
+	// *
+	// * @author tfzzh
+	// * @dateTime 2016年10月10日 下午10:31:07
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_ALL_PARAM;
+	// /**
+	// * 私有的，连接名称，针对Bean集合
+	// *
+	// * @author xuweijie
+	// * @dateTime 2012-2-13 下午12:09:20
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_BEAN;
+	// /**
+	// * 私有的，连接名称，针对登陆帐号信息
+	// *
+	// * @author Weijie Xu
+	// * @dateTime 2012-7-17 上午1:54:28
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_ACCOUNT;
+	// /**
+	// * 私有的，连接名称，针对IP
+	// *
+	// * @author Xu Weijie
+	// * @dateTime 2012-7-6 下午4:13:42
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_IP;
+	// /**
+	// * 私有的，连接名称，来自当前请求的完整url
+	// *
+	// * @author XuWeijie
+	// * @datetime 2015年8月25日_下午8:17:46
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_URL;
+	// /**
+	// * 私有的，连接名称，针对请求后缀名
+	// *
+	// * @author Xu Weijie
+	// * @dateTime 2012-9-9 下午12:24:55
+	// */
+	// @PropertiesValue
+	// public static String PRIVATE_LINK_NAME_SUFFIX;
 	/**
 	 * 跳转请求参数Bean命名后缀
 	 * 

@@ -126,12 +126,31 @@ public class FileTools {
 			}
 		} else {
 			try {
-				return new PropertyResourceBundle(new BufferedInputStream(new FileInputStream(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")))));
+				return new PropertyResourceBundle(
+						new BufferedInputStream(new FileInputStream(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")))));
 			} catch (final IOException e) {
 				e.printStackTrace();
 				System.exit(0);
 				return null;
 			}
+		}
+	}
+
+	/**
+	 * 获取配置资源文件对象内容
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param bundleFile 目标资源文件文件对象
+	 * @return 资源文件内容对象
+	 */
+	public static ResourceBundle getResourceBundle(final File bundleFile) {
+		try {
+			return new PropertyResourceBundle(new BufferedInputStream(new FileInputStream(bundleFile)));
+		} catch (final IOException e) {
+			e.printStackTrace();
+			System.exit(0);
+			return null;
 		}
 	}
 

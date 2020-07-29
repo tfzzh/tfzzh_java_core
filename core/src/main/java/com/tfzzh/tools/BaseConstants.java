@@ -4,6 +4,7 @@
  */
 package com.tfzzh.tools;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -19,6 +20,8 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.tfzzh.core.annotation.PropertiesFile;
 import com.tfzzh.core.annotation.PropertiesMethod;
 import com.tfzzh.core.annotation.PropertiesValue;
@@ -50,6 +53,14 @@ public abstract class BaseConstants {
 	private final static Map<ClassLoader, List<String>> clPool = new HashMap<>();
 
 	/**
+	 * 文件信息类型
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 */
+	private final static int FILE_TYPE = 2;
+
+	/**
 	 * properties
 	 * 
 	 * @author tfzzh
@@ -64,6 +75,24 @@ public abstract class BaseConstants {
 	 * @dateTime 2016年11月21日 上午11:39:25
 	 */
 	private String bundleName;
+
+	/**
+	 * 目标资源文件信息
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 */
+	private File bundleFile;
+
+	/**
+	 * 读取类型：<br />
+	 * 0，文件路径读取；<br />
+	 * 1，文件对象读取；<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 */
+	private int readType = 0;
 
 	/**
 	 * 相关资源包
@@ -107,6 +136,17 @@ public abstract class BaseConstants {
 	}
 
 	/**
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param bundleFile 所相关资源文件信息
+	 */
+	public BaseConstants(final File bundleFile) {
+		this.setBundleFile(bundleFile);
+		// 因为初始化加入到池
+		CoreConstantsPool.getInstance().putConstants(this);
+	}
+
+	/**
 	 * 设置目标文件路径
 	 * 
 	 * @author tfzzh
@@ -128,6 +168,30 @@ public abstract class BaseConstants {
 	}
 
 	/**
+	 * 设置目标资源文件
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param bundleFile 所相关资源文件
+	 */
+	protected void setBundleFile(final File bundleFile) {
+		if (this.readType != BaseConstants.FILE_TYPE) {
+			this.readType = BaseConstants.FILE_TYPE;
+		}
+		if (null == this.bundleFile) {
+			this.bundleFile = bundleFile;
+		} else if (this.bundleFile.equals(bundleFile)) {
+			// 此情况，不进行处理
+		} else {
+			// 需要对之前的存在进行清理
+			this.clearCache();
+			this.bundleFile = bundleFile;
+		}
+		// 在这里刷新值
+		this.refreshValue();
+	}
+
+	/**
 	 * 得到所相关资源数据
 	 * 
 	 * @author tfzzh
@@ -138,19 +202,18 @@ public abstract class BaseConstants {
 		return this.resourceBundle;
 	}
 
-	/**
-	 * 刷新数据<br />
-	 * 当前就是清理缓存<br />
-	 * 
-	 * @author tfzzh
-	 * @dateTime 2016年11月21日 上午11:31:04
-	 */
-	public void refresh() {
-		this.clearCache();
-		// 在这里刷新值
-		this.refreshValue();
-	}
-
+	// /**
+	// * 刷新数据<br />
+	// * 当前就是清理缓存<br />
+	// *
+	// * @author tfzzh
+	// * @dateTime 2016年11月21日 上午11:31:04
+	// */
+	// public void refresh() {
+	// this.clearCache();
+	// // 在这里刷新值
+	// this.refreshValue();
+	// }
 	/**
 	 * 清理缓存
 	 * 
@@ -181,9 +244,6 @@ public abstract class BaseConstants {
 	 */
 	private void clearResource() {
 		this.resourceBundle = null;
-		// synchronized (this.valMap) {
-		// this.valMap.clear();
-		// }
 	}
 
 	/**
@@ -216,9 +276,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:48:29
 	 */
-	@SuppressWarnings("unchecked")
 	private void refreshValue() {
-		this.resourceBundle = FileTools.getResourceBundle(this.bundleName, this.getClass());
+		if (this.readType == BaseConstants.FILE_TYPE) {
+			this.resourceBundle = FileTools.getResourceBundle(this.bundleFile);
+		} else {
+			this.resourceBundle = FileTools.getResourceBundle(this.bundleName, this.getClass());
+		}
 		synchronized (BaseConstants.messagePool) {
 			final ClassLoader cl = this.getClass().getClassLoader();
 			List<String> sl = BaseConstants.clPool.get(cl);
@@ -226,13 +289,19 @@ public abstract class BaseConstants {
 				sl = new ArrayList<>();
 				BaseConstants.clPool.put(cl, sl);
 			}
-			sl.add(this.bundleName);
-			BaseConstants.messagePool.put(this.bundleName, this);
+			if (this.readType == BaseConstants.FILE_TYPE) {
+				final String bundlePath = this.bundleFile.getPath();
+				sl.add(bundlePath);
+				BaseConstants.messagePool.put(bundlePath, this);
+			} else {
+				sl.add(this.bundleName);
+				BaseConstants.messagePool.put(this.bundleName, this);
+			}
 		}
 		// 得到所有字段
 		Class<?> clz = this.getClass();
 		do {
-			this.setParameters((Class<? extends BaseConstants>) clz);
+			this.setParameters();
 			clz = clz.getSuperclass();
 		} while (BaseConstants.class.isAssignableFrom(clz.getSuperclass()));
 	}
@@ -242,9 +311,8 @@ public abstract class BaseConstants {
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午3:03:19
-	 * @param pClz 所相关的类对象
 	 */
-	private void setParameters(final Class<? extends BaseConstants> pClz) {
+	private void setParameters() {
 		final PropertiesFile pf = this.getClass().getAnnotation(PropertiesFile.class);
 		if (null == this.ppn) {
 			if (null == pf) {
@@ -255,128 +323,220 @@ public abstract class BaseConstants {
 				this.ppn = pf.value() + ".";
 			}
 		}
-		final Field[] fields = pClz.getDeclaredFields();
-		PropertiesValue fv;
-		PropertiesMethod fm;
-		Method m;
-		String fn, mn;
-		PropertiesValueTypeEnum pvt;
+		final Map<String, String> pps = new HashMap<>();
+		final Field[] fields = this.getClass().getDeclaredFields();
 		for (final Field field : fields) {
-			fv = field.getAnnotation(PropertiesValue.class);
-			if (null != fv) {
-				// 需要进行的操作
-				fn = fv.value();
+			this.valToField(field, pps);
+		}
+	}
+
+	/**
+	 * 将值放入到字段
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param field 目标字段
+	 * @param pps 配置表内容
+	 */
+	private void valToField(final Field field, final Map<String, String> pps) {
+		PropertiesValue fv = field.getAnnotation(PropertiesValue.class);
+		if (null != fv) {
+			// 需要进行的操作
+			String fn = fv.value();
+			if (fn.length() == 0) {
+				fn = this.ppn + field.getName();
+			} else {
+				fn = this.ppn + fn;
+			}
+			PropertiesValueTypeEnum pvt = fv.type();
+			// 进行转译
+			final Class<?> fc = field.getType();
+			try {
+				if (fc == String.class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getString(fn));
+					return;
+				} else if (fc == int.class) {
+					field.setInt((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getInt(fn));
+					return;
+				} else if (fc == Integer.class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntObj(fn));
+					return;
+				} else if (fc == long.class) {
+					field.setLong((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLong(fn));
+					return;
+				} else if (fc == Long.class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongObj(fn));
+					return;
+				} else if (fc == short.class) {
+					field.setShort((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShort(fn));
+					return;
+				} else if (fc == Short.class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortObj(fn));
+					return;
+				} else if (fc == double.class) {
+					field.setDouble((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDouble(fn));
+					return;
+				} else if (fc == Double.class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleObj(fn));
+					return;
+				} else if (fc == float.class) {
+					field.setFloat((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloat(fn));
+					return;
+				} else if (fc == Float.class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatObj(fn));
+					return;
+				} else if (fc == boolean.class) {
+					field.setBoolean((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getBoolean(fn));
+					return;
+				} else if (fc == Boolean.class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getBooleanObj(fn));
+					return;
+				} else if (fc == int[].class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerArray(fn, fv.specialValue()));
+					return;
+				} else if (fc == String[].class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringArray(fn, fv.specialValue()));
+					return;
+				} else if (fc == long[].class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongArray(fn, fv.specialValue()));
+					return;
+				} else if (fc == short[].class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortArray(fn, fv.specialValue()));
+					return;
+				} else if (fc == Integer[].class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerObjArray(fn, fv.specialValue()));
+					return;
+				} else if (fc == Long[].class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongObjArray(fn, fv.specialValue()));
+					return;
+				} else if (fc == Short[].class) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortObjArray(fn, fv.specialValue()));
+					return;
+				} else if (List.class.isAssignableFrom(fc)) {
+					final Type ft = field.getGenericType();
+					if ((null != ft) && ParameterizedType.class.isAssignableFrom(ft.getClass())) {
+						// 自动处理
+						final Type lt = ((ParameterizedType) ft).getActualTypeArguments()[0];
+						switch (lt.getTypeName()) {
+						case "java.lang.String":
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringList(fn, fv.specialValue()));
+							return;
+						case "java.lang.Integer":
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerList(fn, fv.specialValue()));
+							return;
+						case "java.lang.Long":
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongList(fn, fv.specialValue()));
+							return;
+						case "java.lang.Short":
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortList(fn, fv.specialValue()));
+							return;
+						case "java.lang.Double":
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleList(fn, fv.specialValue()));
+							return;
+						case "java.lang.Float":
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatList(fn, fv.specialValue()));
+							return;
+						}
+					} else if (JSONArray.class.getName().equals(ft.getTypeName())) {
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonArrList(fn));
+						return;
+					}
+					// 注解处理
+					switch (pvt) {
+					case String:
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringList(fn, fv.specialValue()));
+						return;
+					case Integer:
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerList(fn, fv.specialValue()));
+						return;
+					case Long:
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongList(fn, fv.specialValue()));
+						return;
+					case Short:
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortList(fn, fv.specialValue()));
+						return;
+					case Double:
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleList(fn, fv.specialValue()));
+						return;
+					case Float:
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatList(fn, fv.specialValue()));
+						return;
+					default:
+						throw new ConfigurationException("Error Annotation type in [" + this.getClass().getName() + "::" + field.getName() + "]--" + pvt.name());
+					}
+				} else if (JSONObject.class.isAssignableFrom(fc)) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonObjList(fn));
+					return;
+				} else if (JSONArray.class.isAssignableFrom(fc)) {
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonArrList(fn));
+					return;
+				}
+			} catch (final IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		} else {
+			PropertiesMethod fm = field.getAnnotation(PropertiesMethod.class);
+			if (null != fm) {
+				String mn = fm.value();
+				String fn = fm.name();
 				if (fn.length() == 0) {
 					fn = this.ppn + field.getName();
 				} else {
 					fn = this.ppn + fn;
 				}
-				pvt = fv.type();
-				// if (pvt == PropertiesValueTypeEnum.Auto) {
-				// 进行转译
-				final Class<?> fc = field.getType();
+				if (fm.value().length() == 0) {
+					mn = "asse" + StringTools.assemblyStringWhitInterval(field.getName(), true, true);
+				} else {
+					mn = fm.value();
+				}
+				Method m;
 				try {
-					if (fc == String.class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getString(fn));
-					} else if (fc == int.class) {
-						field.setInt((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getInt(fn));
-					} else if (fc == Integer.class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntObj(fn));
-					} else if (fc == long.class) {
-						field.setLong((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLong(fn));
-					} else if (fc == Long.class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongObj(fn));
-					} else if (fc == short.class) {
-						field.setShort((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShort(fn));
-					} else if (fc == Short.class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortObj(fn));
-					} else if (fc == double.class) {
-						field.setDouble((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDouble(fn));
-					} else if (fc == Double.class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleObj(fn));
-					} else if (fc == float.class) {
-						field.setFloat((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloat(fn));
-					} else if (fc == Float.class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatObj(fn));
-					} else if (fc == boolean.class) {
-						field.setBoolean((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getBoolean(fn));
-					} else if (fc == Boolean.class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getBooleanObj(fn));
-					} else if (fc == int[].class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerArray(fn, fv.specialValue()));
-					} else if (fc == String[].class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringArray(fn, fv.specialValue()));
-					} else if (fc == long[].class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongArray(fn, fv.specialValue()));
-					} else if (fc == short[].class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortArray(fn, fv.specialValue()));
-					} else if (fc == Integer[].class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerObjArray(fn, fv.specialValue()));
-					} else if (fc == Long[].class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongObjArray(fn, fv.specialValue()));
-					} else if (fc == Short[].class) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortObjArray(fn, fv.specialValue()));
-					} else if (List.class.isAssignableFrom(fc)) {
-						final Type ft = field.getGenericType();
-						if ((null != ft) && ParameterizedType.class.isAssignableFrom(ft.getClass())) {
-							// 自动处理
-							final Type lt = ((ParameterizedType) ft).getActualTypeArguments()[0];
-							switch (lt.getTypeName()) {
-							case "java.lang.String":
-								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringList(fn, fv.specialValue()));
-								continue;
-							case "java.lang.Integer":
-								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerList(fn, fv.specialValue()));
-								continue;
-							case "java.lang.Long":
-								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongList(fn, fv.specialValue()));
-								continue;
-							case "java.lang.Short":
-								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortList(fn, fv.specialValue()));
-								continue;
+					m = this.getClass().getDeclaredMethod(mn);
+					m.setAccessible(true);
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this));
+					m.setAccessible(false);
+					return;
+				} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e11) {
+					try {
+						m = this.getClass().getDeclaredMethod(mn, String.class);
+						m.setAccessible(true);
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn)));
+						m.setAccessible(false);
+						return;
+					} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e12) {
+						// 增加对assemble全称前缀的支持
+						if (fm.value().length() == 0) {
+							mn = "assemble" + StringTools.assemblyStringWhitInterval(field.getName(), true, true);
+							try {
+								m = this.getClass().getDeclaredMethod(mn);
+								m.setAccessible(true);
+								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this));
+								m.setAccessible(false);
+								return;
+							} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e21) {
+								try {
+									m = this.getClass().getDeclaredMethod(mn, String.class);
+									m.setAccessible(true);
+									field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn)));
+									m.setAccessible(false);
+									return;
+								} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e22) {
+									// 结束
+									e22.printStackTrace();
+								}
 							}
-						}
-						// 注解处理
-						switch (pvt) {
-						case String:
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringList(fn, fv.specialValue()));
-							break;
-						case Integer:
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerList(fn, fv.specialValue()));
-							break;
-						case Long:
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongList(fn, fv.specialValue()));
-							break;
-						case Short:
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortList(fn, fv.specialValue()));
-							break;
-						default:
-							throw new ConfigurationException("Error Annotation type in [" + pClz.getName() + "::" + field.getName() + "]--" + pvt.name());
+						} else {
+							// 结束
+							e12.printStackTrace();
 						}
 					}
-				} catch (final IllegalArgumentException | IllegalAccessException e) {
-					e.printStackTrace();
 				}
 			} else {
-				fm = field.getAnnotation(PropertiesMethod.class);
-				if (null != fm) {
-					mn = fm.value();
-					if (fm.value().length() == 0) {
-						mn = "asse" + StringTools.assemblyStringWhitInterval(field.getName(), true, true);
-					} else {
-						mn = fm.value();
-					}
-					try {
-						m = this.getClass().getDeclaredMethod(mn);
-						m.setAccessible(true);
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this));
-						m.setAccessible(false);
-					} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-						e.printStackTrace();
-					}
-				}
+				// 不是值也不是方法的，直接跳出，无之后的判定处理
+				return;
 			}
 		}
+		System.err.println("in properties[" + (null == this.bundleName ? this.bundleFile.getPath() : this.bundleName) + "] not find[" + (null == field ? "null" : field.getName()) + "] ... ");
 	}
 
 	/**
@@ -782,6 +942,62 @@ public abstract class BaseConstants {
 	}
 
 	/**
+	 * 得到List<Double>类型的值
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param key 目标键
+	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @return 对应的List<Double>值
+	 */
+	private List<Double> getDoubleList(final String key, final String splitFlag) {
+		final String sv = this.getValue(key);
+		final List<Double> ll = StringTools.splitToDoubleArray(sv, splitFlag);
+		return ll;
+	}
+
+	/**
+	 * 得到List<Float>类型的值
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param key 目标键
+	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @return 对应的List<Float>值
+	 */
+	private List<Float> getFloatList(final String key, final String splitFlag) {
+		final String sv = this.getValue(key);
+		final List<Float> ll = StringTools.splitToFloatArray(sv, splitFlag);
+		return ll;
+	}
+
+	/**
+	 * 得到JSONObject类型的值
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param key 目标键
+	 * @return 对应的JSONObject值
+	 */
+	private JSONObject getJsonObjList(final String key) {
+		final String sv = this.getValue(key);
+		return JSONObject.parseObject(sv);
+	}
+
+	/**
+	 * 得到JSONArray类型的值
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param key 目标键
+	 * @return 对应的JSONArray值
+	 */
+	private JSONArray getJsonArrList(final String key) {
+		final String sv = this.getValue(key);
+		return JSONArray.parseArray(sv);
+	}
+
+	/**
 	 * 得到目标键的值
 	 * 
 	 * @author tfzzh
@@ -791,13 +1007,52 @@ public abstract class BaseConstants {
 	 */
 	private String getValue(final String key) {
 		try {
-			final String val = this.getResourceBundle().getString(key);
-			return new String(val.getBytes("ISO-8859-1"), null == Constants.SYSTEM_CODE ? "UTF-8" : Constants.SYSTEM_CODE);
+			// 直接获取值
+			String val = this.getResourceBundle().getString(key);
+			// 处理可能存在的编码问题
+			val = new String(val.getBytes("ISO-8859-1"), null == Constants.SYSTEM_CODE ? "UTF-8" : Constants.SYSTEM_CODE);
+			// 进行可能的内容替换操作
+			return this.rep(val);
 		} catch (final MissingResourceException e) {
 			return null;
 		} catch (final UnsupportedEncodingException e) {
 			throw new ConfigurationException("Constants Class [" + this.getClass().getSimpleName() + "] key [" + key + "] is Not Exists");
 		}
+	}
+
+	/**
+	 * 进行嵌套值替换
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 * @param cont 目标内容
+	 * @return 最后的值
+	 */
+	private String rep(String cont) {
+		if (null == cont) {
+			return cont;
+		}
+		final String ss = "{p:", es = "}";
+		int ei = 0;
+		int si = cont.indexOf(ss, ei);
+		while (si != -1) {
+			ei = cont.indexOf(es, si);
+			if (ei == -1) {
+				return cont;
+			}
+			String tk = cont.substring(si + ss.length(), ei);
+			if (tk.length() > 0) {
+				String tv = this.getValue(this.ppn + tk);
+				if (null == tv) {
+					tv = "";
+				}
+				cont = cont.replace(ss + tk + es, tv);
+				si = cont.indexOf(ss, si);
+			} else {
+				break;
+			}
+		}
+		return cont;
 	}
 
 	/**
@@ -808,7 +1063,12 @@ public abstract class BaseConstants {
 	 * @return 自身相关常量类
 	 */
 	protected BaseConstants getConstants() {
-		return BaseConstants.getConstants(this.bundleName);
+		if (this.readType == BaseConstants.FILE_TYPE) {
+			final String bundlePath = this.bundleFile.getPath();
+			return BaseConstants.getConstants(bundlePath);
+		} else {
+			return BaseConstants.getConstants(this.bundleName);
+		}
 	}
 
 	/**
@@ -833,5 +1093,59 @@ public abstract class BaseConstants {
 	 */
 	public String getTargetValue(final String key) {
 		return this.getValue(this.ppn + key);
+	}
+
+	/**
+	 * 打印所有可见属性信息<br />
+	 * 测试用方法<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月27日 下午1:25:57
+	 */
+	public void printAllAttr() {
+		final Field[] fields = this.getClass().getFields();
+		Object val;
+		for (final Field field : fields) {
+			try {
+				val = field.get(this);
+				if (null != val) {
+					if (field.getGenericType() == int.class) {
+						if ((int) val == 0) {
+							System.err.println("\terr >>> " + field.getName() + "<may be int Err>");
+							continue;
+						}
+					}
+					if (field.getGenericType() == long.class) {
+						if ((long) val == 0) {
+							System.err.println("\terr >>> " + field.getName() + "<may be long Err>");
+							continue;
+						}
+					}
+					if (field.getGenericType() == short.class) {
+						if ((short) val == 0) {
+							System.err.println("\terr >>> " + field.getName() + "<may be short Err>");
+							continue;
+						}
+					}
+					if (field.getGenericType() == double.class) {
+						if ((double) val == 0) {
+							System.err.println("\terr >>> " + field.getName() + "<may be double Err>");
+							continue;
+						}
+					}
+					if (field.getGenericType() == float.class) {
+						if ((float) val == 0) {
+							System.err.println("\terr >>> " + field.getName() + "<may be float Err>");
+							continue;
+						}
+					}
+					System.out.println(field.getName() + "=><" + field.get(this) + ">");
+					continue;
+				}
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			System.err.println("\terr >>> " + field.getName() + "<err>");
+		}
 	}
 }

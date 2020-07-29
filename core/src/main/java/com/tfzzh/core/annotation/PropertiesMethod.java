@@ -28,4 +28,14 @@ public @interface PropertiesMethod {
 	 * @return 目标方法的方法名
 	 */
 	public String value() default "";
+
+	/**
+	 * 对应的配置文件属性名<br />
+	 * 可空，空时同属性名<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年7月21日 下午2:34:54
+	 * @return 对应的配置文件属性名
+	 */
+	public String name() default "";
 }

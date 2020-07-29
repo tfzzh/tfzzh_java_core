@@ -63,20 +63,6 @@ public class CoreConstantsPool {
 	}
 
 	/**
-	 * 重置常量池数据
-	 * 
-	 * @author Weijie Xu
-	 * @dateTime 2017年3月22日 下午6:33:58
-	 */
-	public void reloadConstants() {
-		synchronized (this.cp) {
-			for (final BaseConstants bc : this.cp.values()) {
-				bc.refresh();
-			}
-		}
-	}
-
-	/**
 	 * 放入常量实例到常量池<br />
 	 * 暂时不允许同对象多实例<br />
 	 * 
