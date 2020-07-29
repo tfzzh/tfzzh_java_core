@@ -20,6 +20,9 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tfzzh.core.annotation.PropertiesFile;
@@ -35,6 +38,12 @@ import com.tfzzh.exception.ConfigurationException;
  * @dateTime 2016年11月21日 上午11:10:24
  */
 public abstract class BaseConstants {
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2020年7月29日 下午8:36:39
+	 */
+	protected final Logger log = LogManager.getLogger(this.getClass());
 
 	/**
 	 * 消息池
