@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.tfzzh.core.annotation.DontShow;
 import com.tfzzh.exception.NestedRuntimeException;
 
@@ -30,10 +33,16 @@ import com.tfzzh.exception.NestedRuntimeException;
 public class BaseBean implements Serializable {
 
 	/**
-	 * @author Weijie Xu
-	 * @dateTime Aug 19, 2014 2:16:38 PM
+	 * @author tfzzh
+	 * @dateTime 2020年7月30日 下午1:24:07
 	 */
-	private static final long serialVersionUID = 9108656001291946343L;
+	private static final long serialVersionUID = 7232821655810501700L;
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2020年7月30日 下午1:23:47
+	 */
+	protected final Logger log = LogManager.getLogger(this.getClass());
 
 	/**
 	 * 当前线程，专为打印控制
