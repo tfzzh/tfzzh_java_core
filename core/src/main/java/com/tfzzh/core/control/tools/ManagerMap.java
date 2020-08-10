@@ -76,6 +76,22 @@ public class ManagerMap {
 	}
 
 	/**
+	 * 根据接口对象类型得到实现其的实体
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月10日 下午4:17:28
+	 * @param <M> 目标对象
+	 * @param clz 目标对象类型
+	 * @return 接口实体
+	 */
+	@SuppressWarnings("unchecked")
+	public <M> M getManager(final Class<M> clz) {
+		String mn = clz.getSimpleName();
+		mn = mn.substring(0, 1).toLowerCase() + mn.substring(1);
+		return (M) this.MANAGER_MAP.get(this.INTERFACE_IMPL.get(mn));
+	}
+
+	/**
 	 * 根据接口名称得到实现其的实体
 	 * 
 	 * @author tfzzh

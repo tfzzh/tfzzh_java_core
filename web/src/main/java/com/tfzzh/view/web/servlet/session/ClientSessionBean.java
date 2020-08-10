@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.tools.BaseBean;
+import com.tfzzh.tools.StringTools;
 import com.tfzzh.view.web.bean.LoginSessionBean;
 import com.tfzzh.view.web.iface.TokenControl;
 import com.tfzzh.view.web.tools.ClientTypeEnum;
@@ -233,7 +234,10 @@ public class ClientSessionBean extends BaseBean {
 		}
 		// 刷新cookie中的客户相关信息
 		this.saveDataToCookie(request, response, WebBaseConstants.CUSTOM_SESSION_NAME_KEY, loginInfo.getClientId(), WebBaseConstants.COOKIE_TIME);
-		this.saveDataToCookie(request, response, WebBaseConstants.CUSTOM_SESSION_SCOPE_KEY, loginInfo.getClientScope(), WebBaseConstants.COOKIE_TIME);
+		final String scope = loginInfo.getClientScope();
+		if (!StringTools.isNullOrEmpty(scope)) {
+			this.saveDataToCookie(request, response, WebBaseConstants.CUSTOM_SESSION_SCOPE_KEY, scope, WebBaseConstants.COOKIE_TIME);
+		}
 	}
 
 	/**

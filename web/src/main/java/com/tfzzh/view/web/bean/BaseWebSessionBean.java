@@ -31,7 +31,7 @@ public abstract class BaseWebSessionBean extends BaseSessionBean {
 	public abstract String getToken();
 
 	/**
-	 * 得到客户端Id
+	 * 得到客户端Id，比如存在
 	 * 
 	 * @author Weijie Xu
 	 * @datetime 2017年8月8日_下午3:30:30
@@ -40,7 +40,7 @@ public abstract class BaseWebSessionBean extends BaseSessionBean {
 	public abstract String getClientId();
 
 	/**
-	 * 得到客户端所相关作用域
+	 * 得到客户端所相关作用域，可null
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年12月6日_上午11:36:24
