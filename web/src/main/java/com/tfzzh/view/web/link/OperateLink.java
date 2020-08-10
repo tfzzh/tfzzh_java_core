@@ -1287,7 +1287,7 @@ public class OperateLink {
 				// 放入参数
 				requestParas.putAll(map);
 			} else {
-				if (ct.indexOf("/json") != -1) {
+				if (null != ct && ct.indexOf("/json") != -1) {
 					// 是 json结构数据
 					try (InputStreamReader reader = new InputStreamReader(request.getInputStream(), Constants.SYSTEM_CODE)) {
 						char[] buff = new char[1024];

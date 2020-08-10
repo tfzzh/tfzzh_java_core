@@ -161,11 +161,13 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 						// rs.getString("IS_GENERATEDCOLUMN") 是否生成的列
 						// rs.getString("IS_NULLABLE")同rs.getInt("NULLABLE")：Yes-1；No-0；
 						// rs.getInt("CHAR_OCTET_LENGTH")
-						// System.out.println(fieldName + " -- " + rs.getString("TYPE_NAME") + " -- " + rs.getInt("COLUMN_SIZE") + " -- " + rs.getInt("DECIMAL_DIGITS") + " -- " + rs.getInt("NULLABLE") + " -- " + rs.getString("COLUMN_DEF") + " -- " + rs.getString("IS_AUTOINCREMENT") + " -- " + rs.getString("REMARKS") + " -- " + rs.getInt("ORDINAL_POSITION"));
+						// System.out.println(fieldName + " -- " + rs.getString("TYPE_NAME") + " -- " + rs.getInt("COLUMN_SIZE") + " -- " + rs.getInt("DECIMAL_DIGITS") + " -- " + rs.getInt("NULLABLE") + " -- " + rs.getString("COLUMN_DEF") + " -- " +
+						// rs.getString("IS_AUTOINCREMENT") + " -- " + rs.getString("REMARKS") + " -- " + rs.getInt("ORDINAL_POSITION"));
 						// 需要比较的，名字为主，类型，长度，非空，无符号，自增，默认值，注释
 						if (null != (fi = fis.remove(fieldName))) {
 							// 因为已经存在，需要进行数据交验，是否与之前相同
-							if (!fi.validate(rs.getString("TYPE_NAME").toUpperCase(), rs.getInt("COLUMN_SIZE"), rs.getInt("NULLABLE") == 1, "YES".equals(rs.getString("IS_AUTOINCREMENT")), rs.getInt("DECIMAL_DIGITS"), rs.getString("COLUMN_DEF"), rs.getString("REMARKS"), behindField)) {
+							if (!fi.validate(rs.getString("TYPE_NAME").toUpperCase(), rs.getInt("COLUMN_SIZE"), rs.getInt("NULLABLE") == 1, "YES".equals(rs.getString("IS_AUTOINCREMENT")), rs.getInt("DECIMAL_DIGITS"), rs.getString("COLUMN_DEF"),
+									rs.getString("REMARKS"), behindField)) {
 								efs.put(fieldName, fi);
 							}
 							behindField = fieldName;
@@ -230,7 +232,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 					final EntityInfoBean<E>.FieldInfoBean[] pfs = this.eib.getPrimaryFieldsCopy();
 					while (rs.next()) {
 						// 仅比较名字
-						// System.out.println(rs.getString("INDEX_NAME") + " -- " + rs.getString("COLUMN_NAME") + " -- " + rs.getBoolean("NON_UNIQUE") + " -- " + rs.getString("ASC_OR_DESC") + " -- " + rs.getShort("TYPE") + " -- " + rs.getInt("CARDINALITY") + " -- " + rs.getShort("PAGES") + " -- " + rs.getShort("ORDINAL_POSITION"));
+						// System.out.println(rs.getString("INDEX_NAME") + " -- " + rs.getString("COLUMN_NAME") + " -- " + rs.getBoolean("NON_UNIQUE") + " -- " + rs.getString("ASC_OR_DESC") + " -- " + rs.getShort("TYPE") + " -- " + rs.getInt("CARDINALITY") + "
+						// -- " + rs.getShort("PAGES") + " -- " + rs.getShort("ORDINAL_POSITION"));
 						indexName = rs.getString("INDEX_NAME").toUpperCase();
 						if (null == (ii = iis.remove(indexName))) {
 							if (!sas.contains(indexName)) {
@@ -547,7 +550,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 				conn.release();
 			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " insert data: ", sql, " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " insert data: ", sql, " >",
+						(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
 		}
 		return back;
@@ -635,7 +639,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append("}]");
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " inserts data: ", sql, " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " inserts data: ", sql, " >",
+						(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
 		}
 		return back;
@@ -736,7 +741,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			qlb.clearPsLocation();
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append('}');
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >",
+						(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
 		}
 	}
@@ -798,7 +804,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 				qlb.clearPsLocation();
 				if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 					log.append('}');
-					CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run(", Integer.toString(ts), "): ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+					CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run(", Integer.toString(ts), "): ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >",
+							(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 				}
 			}
 		}
@@ -871,10 +878,13 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			if (null != conn) {
 				conn.release();
 			}
-			qlb.clearPsLocation();
+			if (null != qlb) {
+				qlb.clearPsLocation();
+			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append('}');
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >",
+						(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
 		}
 		// 准备设置相关查询条件
@@ -960,7 +970,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			qlb.clearPsLocation();
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append('}');
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " update data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " update data: ", sql.toString(), " >",
+						(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
 		}
 		return back;
@@ -1013,7 +1024,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append('}');
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " update data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " update data: ", sql.toString(), " >",
+						(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
 		}
 		return back;
@@ -1088,7 +1100,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append("}]");
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " update data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " update data: ", sql.toString(), " >",
+						(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
 		}
 		return back;
@@ -1136,7 +1149,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			qlb.clearPsLocation();
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append('}');
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " delete data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " delete data: ", sql.toString(), " >",
+						(log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
 		}
 		// 准备设置相关查询条件

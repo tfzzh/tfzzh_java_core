@@ -542,7 +542,8 @@ public class ModelMapTool extends NewManagerMapTool {
 							useUnicode = Boolean.parseBoolean(PropertiesTools.getPropertiesValue(((Map<String, String>) connection.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlConnectionUseUnicodeAttlist), this.pps));
 							readOnly = Boolean.parseBoolean(PropertiesTools.getPropertiesValue(((Map<String, String>) connection.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlConnectionReadOnlyAttlist), this.pps));
 							timeOut = Long.parseLong(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) connection.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlConnectionTimeOutTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), this.pps));
-							socketTimeOut = Long.parseLong(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) connection.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlConnectionSocketTimeOutTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), this.pps));
+							socketTimeOut = Long
+									.parseLong(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) connection.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlConnectionSocketTimeOutTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), this.pps));
 							min = Integer.parseInt(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) connection.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlConnectionMinCountTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), this.pps));
 							max = Integer.parseInt(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) connection.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlConnectionMaxCountTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), this.pps));
 							// 进行连接池消息放入
@@ -696,10 +697,12 @@ public class ModelMapTool extends NewManagerMapTool {
 		}
 		try {
 			// 前得到属性值MANAGE的名称,后得到CLASS文件的路径并生成实体
-			final Object managerObject = InstanceFactory.classInstance(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlManagerClassTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), super.pps));
+			final Object managerObject = InstanceFactory
+					.classInstance(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlManagerClassTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), super.pps));
 			// 得到
 			if (((Map<String, Map<String, Object>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).containsKey(this.xmlManagerPropertyListTag)) {
-				final List<Map<String, Object>> propertyList = ((Map<String, List<Map<String, Map<String, List<Map<String, Object>>>>>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlManagerPropertyListTag).get(0).get(XMLAnalyse.XML_TAG_ELEMENT).get(super.xmlManagerPropertyTag);
+				final List<Map<String, Object>> propertyList = ((Map<String, List<Map<String, Map<String, List<Map<String, Object>>>>>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlManagerPropertyListTag).get(0).get(XMLAnalyse.XML_TAG_ELEMENT)
+						.get(super.xmlManagerPropertyTag);
 				if (null != propertyList) {
 					for (final Map<String, Object> propertyMap : propertyList) {
 						final Map<String, List<Map<String, String>>> propertyType = (Map<String, List<Map<String, String>>>) propertyMap.get(XMLAnalyse.XML_TAG_ELEMENT);
