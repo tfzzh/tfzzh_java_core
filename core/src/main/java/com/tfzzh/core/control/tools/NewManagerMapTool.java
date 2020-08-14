@@ -359,7 +359,15 @@ public class NewManagerMapTool {
 					final String file = map.get(XMLAnalyse.XML_TAG_ATTRIBUTE).get(this.xmlPropertyFileAttlist);
 					// final InputStream in = this.getClass().getResourceAsStream(file);
 					try {
-						final InputStream in = new FileInputStream(new File(Constants.INIT_CONFIG_PATH_BASE + file));
+						File f = new File(Constants.INIT_CONFIG_PATH_BASE + file);
+						if (!f.exists()) {
+							f = new File(file);
+							if (!f.exists()) {
+								// 都不存在下一个
+								continue;
+							}
+						}
+						final InputStream in = new FileInputStream(f);
 						final Properties pp = new Properties();
 						pp.load(in);
 						this.pps.put(id, pp);

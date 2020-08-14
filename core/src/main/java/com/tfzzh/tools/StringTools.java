@@ -965,8 +965,8 @@ public class StringTools {
 	 * @param str 目标字串
 	 * @return true，是null或者""
 	 */
-	public static boolean isNullOrEmpty(String str) {
-		return null == str || str.length() == 0;
+	public static boolean isNullOrEmpty(final String str) {
+		return (null == str) || (str.length() == 0);
 	}
 
 	/**
@@ -977,7 +977,29 @@ public class StringTools {
 	 * @param str 目标字串
 	 * @return 如果是null，则返回""，其他返回自身
 	 */
-	public static String getStringNoNull(String str) {
+	public static String getStringNoNull(final String str) {
 		return null == str ? StringTools.empty : str;
+	}
+
+	/**
+	 * 得到目标string的字符位长度<br />
+	 * 一个中文为两个字符位<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月14日 下午12:38:57
+	 * @param str 目标string串
+	 * @return 得到的字符位长度
+	 */
+	public static int getStringCharLenght(final String str) {
+		int len = str.length();
+		for (int i = 0; i < str.length(); i++) {
+			final int ascii = str.charAt(i);
+			if ((ascii >= 0) && (ascii <= 255)) {
+				continue;
+			} else {
+				len++;
+			}
+		}
+		return len;
 	}
 }

@@ -485,8 +485,15 @@ public class ModelMapTool extends NewManagerMapTool {
 					final String id = map.get(XMLAnalyse.XML_TAG_ATTRIBUTE).get(this.xmlPropertyIdAttlist);
 					final String file = map.get(XMLAnalyse.XML_TAG_ATTRIBUTE).get(this.xmlPropertyFileAttlist);
 					// final InputStream in = this.getClass().getResourceAsStream(file);
+					File f = new File(Constants.INIT_CONFIG_PATH_BASE + file);
+					if (!f.exists()) {
+						f = new File(file);
+						if (!f.exists()) {
+							continue;
+						}
+					}
 					try {
-						final InputStream in = new FileInputStream(new File(Constants.INIT_CONFIG_PATH_BASE + file));
+						final InputStream in = new FileInputStream(f);
 						final Properties pp = new Properties();
 						pp.load(in);
 						this.pps.put(id, pp);
