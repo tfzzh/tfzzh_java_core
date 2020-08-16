@@ -1111,8 +1111,8 @@ public class EntityInfoBean<E extends BaseDataBean> {
 				try {
 					this.adts.createOrEditTable(tableName);
 					// 然后同步基础数据
-					this.adts.execInitData();
 					EntityInfoBean.VALIDATED_TABLE.put(tableName, new Object());
+					this.adts.execInitData();
 				} catch (final SQLException e) {
 					e.printStackTrace();
 				}

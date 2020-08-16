@@ -738,7 +738,9 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			if (null != conn) {
 				conn.release();
 			}
-			qlb.clearPsLocation();
+			if (null != qlb) {
+				qlb.clearPsLocation();
+			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append('}');
 				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >",
@@ -801,7 +803,9 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 				if (null != conn) {
 					conn.release();
 				}
-				qlb.clearPsLocation();
+				if (null != qlb) {
+					qlb.clearPsLocation();
+				}
 				if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 					log.append('}');
 					CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run(", Integer.toString(ts), "): ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >",
@@ -967,7 +971,9 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			if (null != conn) {
 				conn.release();
 			}
-			qlb.clearPsLocation();
+			if (null != qlb) {
+				qlb.clearPsLocation();
+			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append('}');
 				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " update data: ", sql.toString(), " >",
@@ -1146,7 +1152,9 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			if (null != conn) {
 				conn.release();
 			}
-			qlb.clearPsLocation();
+			if (null != qlb) {
+				qlb.clearPsLocation();
+			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 				log.append('}');
 				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " delete data: ", sql.toString(), " >",
