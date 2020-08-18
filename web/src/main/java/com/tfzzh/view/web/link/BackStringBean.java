@@ -5,7 +5,6 @@
 package com.tfzzh.view.web.link;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,51 +29,39 @@ public class BackStringBean extends BaseBackOperationBean {
 	private final String type;
 
 	/**
-	 * 数据所在键名
+	 * 数据对应的内容
 	 * 
-	 * @author Xu Weijie
-	 * @dateTime 2012-12-24 下午6:35:45
+	 * @author tfzzh
+	 * @dateTime 2020年8月18日 下午1:29:18
 	 */
-	private final String key;
+	private final String value;
 
 	/**
 	 * 默认数据所在键名为“data”<br />
 	 * 默认数据类型为“json”<br />
 	 * 
 	 * @author Xu Weijie
-	 * @dateTime 2012-7-6 下午12:38:46
-	 * @param attributes 可用于操作的数据集合
+	 * @dateTime 2020年8月18日 下午1:32:37
+	 * @param cont 目标内容
 	 */
-	public BackStringBean(final Map<String, ? extends Object> attributes) {
+	public BackStringBean(String cont) {
 		// 确实的不需要其他参数
-		this(attributes, "data", "json");
+		this("json", cont);
 	}
 
 	/**
 	 * 默认数据类型为“json”
 	 * 
 	 * @author Xu Weijie
-	 * @dateTime 2012-12-24 下午6:38:01
-	 * @param attributes 可用于操作的数据集合
-	 * @param key 对应数据键名
+	 * @dateTime 2020年8月18日 下午1:32:37
+	 * @param type 目标内容类型
+	 * @param cont 目标内容
 	 */
-	public BackStringBean(final Map<String, ? extends Object> attributes, final String key) {
+	public BackStringBean(final String type, String cont) {
 		// 确实的不需要其他参数
-		this(attributes, key, "json");
-	}
-
-	/**
-	 * @author Xu Weijie
-	 * @dateTime 2012-12-24 下午6:38:06
-	 * @param attributes 可用于操作的数据集合
-	 * @param key 对应数据键名
-	 * @param type 返回数据的类型
-	 */
-	public BackStringBean(final Map<String, ? extends Object> attributes, final String key, final String type) {
-		// 确实的不需要其他参数
-		super(null, attributes);
-		this.key = key;
+		super(null, null);
 		this.type = type;
+		this.value = cont;
 	}
 
 	/**
@@ -113,11 +100,6 @@ public class BackStringBean extends BaseBackOperationBean {
 	 * @return the key
 	 */
 	public String getValue() {
-		final Object obj = super.getAttributes().get(this.key);
-		if (null == obj) {
-			return null;
-		} else {
-			return obj.toString();
-		}
+		return this.value;
 	}
 }
