@@ -11,6 +11,7 @@ import com.tfzzh.tools.BaseBean;
 import com.tfzzh.tools.Constants;
 import com.tfzzh.tools.FileTools;
 import com.tfzzh.tools.PropertiesTools;
+import com.tfzzh.tools.StringTools;
 import com.tfzzh.view.web.tools.UploadBackCodeEnum;
 import com.tfzzh.view.web.tools.UploadFileNameTypeEnum;
 
@@ -58,7 +59,7 @@ public abstract class BaseUploadFileBean extends BaseBean {
 	 * @author Xu Weijie
 	 * @dateTime 2016年10月14日 下午4:40:29
 	 */
-	private final String fileName;
+	private String fileName;
 
 	/**
 	 * 后缀名
@@ -121,9 +122,9 @@ public abstract class BaseUploadFileBean extends BaseBean {
 		diskPath = PropertiesTools.getConstantsValue(diskPath);
 		this.relativeFolderPath = FileTools.purifyFilePath(mainUrlPath + File.separator + urlPrefix);
 		if (diskPath.startsWith("-")) {
-			this.folderPath = FileTools.purifyFilePath(Constants.INIT_CONFIG_FILE_PATH_BASE + File.separator + diskPath.substring(1));
+			this.folderPath = FileTools.purifyFilePath(Constants.INIT_CONFIG_FILE_PATH_BASE + File.separator + diskPath.substring(1) + File.separator + urlPrefix);
 		} else {
-			this.folderPath = FileTools.purifyFilePath(diskPath);
+			this.folderPath = FileTools.purifyFilePath(diskPath + File.separator + urlPrefix);
 		}
 	}
 
@@ -159,29 +160,32 @@ public abstract class BaseUploadFileBean extends BaseBean {
 	 * @return 真实的文件名称
 	 */
 	private String getTrueFileName(final String localName, final boolean addTimestamp, final UploadFileNameTypeEnum fileNameType, final String targetFileName, final String suffixs, final Map<String, Object> paramMap) {
+		if (!StringTools.isNullOrEmpty(this.fileName)) {
+			return this.fileName;
+		}
 		String pos = null;
 		final String fileNamePrefix;
 		// 得到后缀名
 		final int posInd = localName.lastIndexOf(".");
 		if (posInd != -1) {
-// if (!"||".equals(suffixs) && !"|*|".equals(suffixs)) {
-// pos = "|" + localName.substring(posInd + 1) + "|";
-// if (null != suffixs) { // 分析后缀名
-// // 存在后缀名情况
-// if (!suffixs.equals("*")) {
-// // 需要指定文件类型
-// if (suffixs.indexOf(pos) == -1) {
-// // 不在指定的后缀名之列
-// error.put("fileError", "Dno't support the file type.");
-// return null;
-// }
-// } else {
-// // 不存在后缀
-// error.put("fileError", "文件不存在后缀");
-// return null;
-// }
-// }
-// }
+			// if (!"||".equals(suffixs) && !"|*|".equals(suffixs)) {
+			// pos = "|" + localName.substring(posInd + 1) + "|";
+			// if (null != suffixs) { // 分析后缀名
+			// // 存在后缀名情况
+			// if (!suffixs.equals("*")) {
+			// // 需要指定文件类型
+			// if (suffixs.indexOf(pos) == -1) {
+			// // 不在指定的后缀名之列
+			// error.put("fileError", "Dno't support the file type.");
+			// return null;
+			// }
+			// } else {
+			// // 不存在后缀
+			// error.put("fileError", "文件不存在后缀");
+			// return null;
+			// }
+			// }
+			// }
 			fileNamePrefix = localName.substring(0, posInd);
 			pos = localName.substring(posInd + 1);
 		} else {
@@ -203,6 +207,22 @@ public abstract class BaseUploadFileBean extends BaseBean {
 	 */
 	protected String getFolderPath() {
 		return this.folderPath;
+	}
+
+	/**
+	 * 完全自定义设置文件名<br />
+	 * 表示向现实低头的方法<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月21日 下午2:42:22
+	 * @param fileName 目标文件名
+	 */
+	public void setFileName(final String fileName) {
+		if (fileName.indexOf("[.]") == -1) {
+			this.fileName = fileName + "." + this.posName;
+		} else {
+			this.fileName = fileName;
+		}
 	}
 
 	/**
@@ -362,6 +382,17 @@ public abstract class BaseUploadFileBean extends BaseBean {
 		 */
 		public String getRelativePath() {
 			return BaseUploadFileBean.this.relativeFolderPath;
+		}
+
+		/**
+		 * 得到完整的url访问路径
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2020年8月21日 下午6:25:41
+		 * @return 完整的url访问路径
+		 */
+		public String getFullUrlPath() {
+			return BaseUploadFileBean.this.relativeFolderPath + "/" + BaseUploadFileBean.this.fileName;
 		}
 
 		/**

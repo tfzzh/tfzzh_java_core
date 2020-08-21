@@ -253,6 +253,17 @@ public class DateFormat {
 	}
 
 	/**
+	 * 将当天日历转换为字符串：短型(yyyyMMdd)
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月21日 下午2:54:27
+	 * @return yyyyMMdd格式字符串
+	 */
+	public static String getShortDate() {
+		return DateFormat.getShortDate(Calendar.getInstance());
+	}
+
+	/**
 	 * 将日历内容转换为字符串：短型(yyyyMMdd)
 	 * 
 	 * @author tfzzh

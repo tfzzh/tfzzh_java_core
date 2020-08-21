@@ -143,6 +143,53 @@ public class CalendarExpand {
 	}
 
 	/**
+	 * 得到目标时间月最后时间：yyyy-MM
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月21日 下午7:22:54
+	 * @param cal 目标时间
+	 * @return 目标时间月最后时间：yyyy-MM
+	 */
+	public static Calendar timeToMonthEnd(final Calendar cal) {
+		// +1个月
+		cal.add(Calendar.MONTH, 1);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		// -1天
+		cal.add(Calendar.DATE, -1);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		cal.set(Calendar.MILLISECOND, 999);
+		return cal;
+	}
+
+	/**
+	 * 得到目标时间月最后时间：yyyy-MM
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月21日 下午7:23:10
+	 * @param time 目标时间
+	 * @return 目标时间月最后时间：yyyy-MM
+	 */
+	public static Calendar timeToMonthEnd(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToDayEnd(cal);
+	}
+
+	/**
+	 * 得到当前月最后时间：yyyy-MM
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月21日 下午7:23:11
+	 * @return 当前月最后时间：yyyy-MM
+	 */
+	public static Calendar timeToMonthEnd() {
+		final Calendar cal = Calendar.getInstance();
+		return CalendarExpand.timeToDayEnd(cal);
+	}
+
+	/**
 	 * 得到下一次运算时间
 	 * 
 	 * @author 许纬杰

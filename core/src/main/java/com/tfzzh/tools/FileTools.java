@@ -30,6 +30,10 @@ public class FileTools {
 	 * @return 净化后的路径
 	 */
 	public static String purifyFilePath(String path) {
+		boolean firstX = false;
+		if (path.startsWith("/") || path.startsWith("\\\\")) {
+			firstX = true;
+		}
 		// 替换统一字符
 		path = path.replaceAll("\\\\", "/");
 		int ind = path.indexOf("://");
@@ -65,7 +69,13 @@ public class FileTools {
 		if (ind > 0) {
 			return path.substring(0, ind + 1) + StringTools.listToString(ls, "/");
 		} else {
-			return (Constants.OS_WIN ? "" : "/") + StringTools.listToString(ls, "/");
+			if (ls.get(0).endsWith(":")) {
+				// 是盘符路径
+				return StringTools.listToString(ls, "/");
+			} else {
+				// 是一般路径
+				return (firstX ? "/" : "") + StringTools.listToString(ls, "/");
+			}
 		}
 	}
 
