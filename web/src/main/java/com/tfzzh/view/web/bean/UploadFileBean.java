@@ -78,18 +78,35 @@ public final class UploadFileBean extends BaseUploadFileBean {
 			final File folder = new File(this.getFolderPath());
 			if (!folder.exists()) {
 				folder.mkdirs();
+				try {
+					Runtime.getRuntime().exec("chmod 777 -R " + folder.getPath());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		final File file = new File(this.getFolderPath() + "/" + this.getFileName());
 		try {
 			// 创建内容文件
-			file.createNewFile();
+			// file.createNewFile();
 			// 写入内容到文件
+			file.setReadable(true, false);
+			file.setWritable(true, false);
+			file.setExecutable(true, false);
 			this.fileInfo.write(file);
+			try {
+				Runtime.getRuntime().exec("chmod 777 -R " + file.getPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return new SaveFileBackBean(UploadBackCodeEnum.OK, file);
 		} catch (final IOException e) {
+			e.printStackTrace();
 			return new SaveFileBackBean(UploadBackCodeEnum.IOException);
 		} catch (final Exception e) {
+			e.printStackTrace();
 			return new SaveFileBackBean(UploadBackCodeEnum.UnknowExceptioin);
 		}
 	}
