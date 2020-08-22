@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.commons.fileupload.FileItem;
 
+import com.tfzzh.tools.Constants;
 import com.tfzzh.view.web.tools.UploadBackCodeEnum;
 import com.tfzzh.view.web.tools.UploadFileNameTypeEnum;
 
@@ -78,11 +79,13 @@ public final class UploadFileBean extends BaseUploadFileBean {
 			final File folder = new File(this.getFolderPath());
 			if (!folder.exists()) {
 				folder.mkdirs();
-				try {
-					Runtime.getRuntime().exec("chmod 777 -R " + folder.getPath());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (!Constants.OS_WIN) {
+					try {
+						Runtime.getRuntime().exec("chmod 777 -R " + folder.getPath());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -95,11 +98,13 @@ public final class UploadFileBean extends BaseUploadFileBean {
 			file.setWritable(true, false);
 			file.setExecutable(true, false);
 			this.fileInfo.write(file);
-			try {
-				Runtime.getRuntime().exec("chmod 777 -R " + file.getPath());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (!Constants.OS_WIN) {
+				try {
+					Runtime.getRuntime().exec("chmod 777 -R " + file.getPath());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			return new SaveFileBackBean(UploadBackCodeEnum.OK, file);
 		} catch (final IOException e) {
