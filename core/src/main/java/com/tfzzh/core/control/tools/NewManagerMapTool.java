@@ -554,18 +554,18 @@ public class NewManagerMapTool {
 				} while ((tmp != Object.class) && Object.class.isAssignableFrom(tmp.getSuperclass()));
 			}
 			final String suf;
-			final String fmName;
+			// final String fmName;
 			String managerName = clz.getSimpleName();
 			if (managerName.indexOf("ManagerImpl") != -1) {
-				fmName = StringTools.cutTail(managerName, "ManagerImpl", false);
+				// fmName = StringTools.cutTail(managerName, "ManagerImpl", false);
 				managerName = StringTools.cutTail(managerName, "ManagerImpl") + "Manager";
 				suf = "Manager";
 			} else if (managerName.indexOf("ControlImpl") != -1) {
-				fmName = StringTools.cutTail(managerName, "ControlImpl", false);
+				// fmName = StringTools.cutTail(managerName, "ControlImpl", false);
 				managerName = StringTools.cutTail(managerName, "ControlImpl") + "Control";
 				suf = "Control";
 			} else if (managerName.indexOf("ServiceImpl") != -1) {
-				fmName = StringTools.cutTail(managerName, "ServiceImpl", false);
+				// fmName = StringTools.cutTail(managerName, "ServiceImpl", false);
 				managerName = StringTools.cutTail(managerName, "ServiceImpl") + "Service";
 				suf = "Service";
 			} else {
