@@ -575,15 +575,17 @@ public class NewManagerMapTool {
 			ManagerMap.getInstance().putManager(managerName, managerObject);
 			this.putClaPathObj(managerObject);
 			// 处理所实现接口列表，暂不管接口自己的继承关系
-			final StringBuilder fName = new StringBuilder();
+			StringBuilder fName;
 			for (final Class<?> iface : clz.getInterfaces()) {
+				fName = new StringBuilder();
 				if (mi.value().length() == 0) {
 					fName.append(StringTools.cutTail(iface.getSimpleName(), suf));
-					if (fmName.equalsIgnoreCase(fName.toString())) {
-						fName.append(suf);
-					} else {
-						fName.append(fmName).append(suf);
-					}
+					// if (fmName.equalsIgnoreCase(fName.toString())) {
+					// fName.append(suf);
+					// } else {
+					// fName.append(fmName).append(suf);
+					// }
+					fName.append(suf);
 				} else {
 					fName.append(mi.value());
 				}
