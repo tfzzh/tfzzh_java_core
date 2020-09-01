@@ -87,6 +87,20 @@ public class CalendarExpand {
 	}
 
 	/**
+	 * 时间到一天的开始
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午7:01:40
+	 * @param time 目标时间
+	 * @return 日历对象
+	 */
+	public static Calendar timeToDayStart(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToDayStart(cal);
+	}
+
+	/**
 	 * 得到当天的结束时间
 	 * 
 	 * @author XuWeijie
@@ -143,12 +157,161 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 得到目标时间月最后时间：yyyy-MM
+	 * 得到目标时间周起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:11:41
+	 * @param cal 目标时间
+	 * @return 目标时间周起始时间的时间点cal
+	 */
+	public static Calendar timeToWeekStart(final Calendar cal) {
+		int wday = cal.get(Calendar.DAY_OF_WEEK);
+		switch (wday) {
+		case 1:
+			cal.add(Calendar.DAY_OF_YEAR, -6);
+			break;
+		case 2:
+			break;
+		default:
+			// 直接设置到周一
+			cal.set(Calendar.DAY_OF_WEEK, 2);
+			break;
+		}
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal;
+	}
+
+	/**
+	 * 得到目标时间周起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:14:08
+	 * @param time 目标时间
+	 * @return 目标时间周起始时间的时间点cal
+	 */
+	public static Calendar timeToWeekStart(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToWeekStart(cal);
+	}
+
+	/**
+	 * 得到当前时间周起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:14:09
+	 * @return 当前时间周起始时间的时间点cal
+	 */
+	public static Calendar timeToWeekStart() {
+		final Calendar cal = Calendar.getInstance();
+		return CalendarExpand.timeToWeekStart(cal);
+	}
+
+	/**
+	 * 得到目标时间周最后时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:41:07
+	 * @param cal 目标时间
+	 * @return 目标时间周最后时间的时间点cal
+	 */
+	public static Calendar timeToWeekEnd(final Calendar cal) {
+		int wday = cal.get(Calendar.DAY_OF_WEEK);
+		switch (wday) {
+		case 1:
+			break;
+		default:
+			// 直接设置到周一
+			cal.add(Calendar.WEEK_OF_YEAR, 1);
+			cal.set(Calendar.DAY_OF_WEEK, 1);
+			break;
+		}
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		cal.set(Calendar.MILLISECOND, 999);
+		return cal;
+	}
+
+	/**
+	 * 得到目标时间周最后时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:39:43
+	 * @param time 目标时间
+	 * @return 目标时间周最后时间的时间点cal
+	 */
+	public static Calendar timeToWeekEnd(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToWeekEnd(cal);
+	}
+
+	/**
+	 * 得到当前时间周最后时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:39:42
+	 * @return 当前时间周最后时间的时间点cal
+	 */
+	public static Calendar timeToWeekEnd() {
+		final Calendar cal = Calendar.getInstance();
+		return CalendarExpand.timeToWeekEnd(cal);
+	}
+
+	/**
+	 * 得到目标时间月起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:06:19
+	 * @param cal 目标时间
+	 * @return 目标时间月起始时间的时间点cal
+	 */
+	public static Calendar timeToMonthStart(final Calendar cal) {
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal;
+	}
+
+	/**
+	 * 得到目标时间月起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:07:24
+	 * @param time 目标时间
+	 * @return 目标时间月起始时间的时间点cal
+	 */
+	public static Calendar timeToMonthStart(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToMonthStart(cal);
+	}
+
+	/**
+	 * 得到当前时间月起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午5:07:25
+	 * @return 当前时间月起始时间的时间点cal
+	 */
+	public static Calendar timeToMonthStart() {
+		final Calendar cal = Calendar.getInstance();
+		return CalendarExpand.timeToMonthStart(cal);
+	}
+
+	/**
+	 * 得到目标时间月最后时间点cal
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年8月21日 下午7:22:54
 	 * @param cal 目标时间
-	 * @return 目标时间月最后时间：yyyy-MM
+	 * @return 目标时间月最后时间的时间点cal
 	 */
 	public static Calendar timeToMonthEnd(final Calendar cal) {
 		// +1个月
@@ -164,29 +327,117 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 得到目标时间月最后时间：yyyy-MM
+	 * 得到目标时间月最后时间点cal
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年8月21日 下午7:23:10
 	 * @param time 目标时间
-	 * @return 目标时间月最后时间：yyyy-MM
+	 * @return 目标时间月最后时间的时间点cal
 	 */
 	public static Calendar timeToMonthEnd(final long time) {
 		final Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(time);
-		return CalendarExpand.timeToDayEnd(cal);
+		return CalendarExpand.timeToMonthEnd(cal);
 	}
 
 	/**
-	 * 得到当前月最后时间：yyyy-MM
+	 * 得到当前时间月最后时间点cal
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年8月21日 下午7:23:11
-	 * @return 当前月最后时间：yyyy-MM
+	 * @return 当前时间月最后时间的时间点cal
 	 */
 	public static Calendar timeToMonthEnd() {
 		final Calendar cal = Calendar.getInstance();
-		return CalendarExpand.timeToDayEnd(cal);
+		return CalendarExpand.timeToMonthEnd(cal);
+	}
+
+	/**
+	 * 得到目标时间年起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午7:07:25
+	 * @param cal 目标时间
+	 * @return 目标时间年起始时间的时间点cal
+	 */
+	public static Calendar timeToYearStart(final Calendar cal) {
+		cal.set(Calendar.MONTH, 0);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal;
+	}
+
+	/**
+	 * 得到目标时间年起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午7:07:25
+	 * @param time 目标时间
+	 * @return 目标时间年起始时间的时间点cal
+	 */
+	public static Calendar timeToYearStart(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToYearStart(cal);
+	}
+
+	/**
+	 * 得到当前时间年起始时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午7:07:25
+	 * @return 当前时间年起始时间的时间点cal
+	 */
+	public static Calendar timeToYearStart() {
+		final Calendar cal = Calendar.getInstance();
+		return CalendarExpand.timeToYearStart(cal);
+	}
+
+	/**
+	 * 得到目标时间年最后时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午7:07:25
+	 * @param cal 目标时间
+	 * @return 目标时间年最后时间的时间点cal
+	 */
+	public static Calendar timeToYearEnd(final Calendar cal) {
+		cal.set(Calendar.MONTH, 11);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		cal.set(Calendar.MILLISECOND, 999);
+		return cal;
+	}
+
+	/**
+	 * 得到目标时间年最后时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午7:07:25
+	 * @param time 目标时间
+	 * @return 目标时间年最后时间的时间点cal
+	 */
+	public static Calendar timeToYearEnd(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToYearEnd(cal);
+	}
+
+	/**
+	 * 得到当前时间年最后时间点cal
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月31日 下午7:07:25
+	 * @return 当前时间年最后时间的时间点cal
+	 */
+	public static Calendar timeToYearEnd() {
+		final Calendar cal = Calendar.getInstance();
+		return CalendarExpand.timeToYearEnd(cal);
 	}
 
 	/**
