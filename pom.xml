@@ -12,7 +12,7 @@
 
 	<properties>
 		<argLine>-Dfile.encoding=UTF-8</argLine>
-		<jdk.version>1.8</jdk.version>
+		<jdk.version>11</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<servlet.version>3.1.0</servlet.version>
 		<servlet.jsp.version>2.3.1</servlet.jsp.version>
@@ -112,7 +112,16 @@
 		</repository> <snapshotRepository> <id>nexus-snapshots</id> <name>Nexus Snapshot 
 		Repository</name> <url>http://127.0.0.1:8080/nexus/content/repositories/snapshots/</url> 
 		</snapshotRepository> </distributionManagement> -->
-
+	<distributionManagement>
+		<repository>
+			<id>rdc-releases</id>
+			<url>https://repo.rdc.aliyun.com/repository/134985-release-5BE6C2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>rdc-snapshots</id>
+			<url>https://repo.rdc.aliyun.com/repository/134985-snapshot-wqpVCQ/</url>
+		</snapshotRepository>
+	</distributionManagement>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
