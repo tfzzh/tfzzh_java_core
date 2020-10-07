@@ -101,7 +101,7 @@ public class RequestAnnotationTool extends BaseAnnotationTool {
 					// 是目标类型
 					try {
 						if (null != (as = clz.getAnnotation(ActionSpace.class))) {
-							ra = (RequestAction) clz.newInstance();
+							ra = (RequestAction) clz.getDeclaredConstructor().newInstance();
 							// 将对象放入到池中
 							rp = RequestPool.getInstance(as.spaceName());
 							// rp.putRequestAction(as.value(), ra);
@@ -164,9 +164,7 @@ public class RequestAnnotationTool extends BaseAnnotationTool {
 								}
 							}
 						}
-					} catch (final InstantiationException e) {
-						e.printStackTrace();
-					} catch (final IllegalAccessException e) {
+					} catch (final Exception e) {
 						e.printStackTrace();
 					}
 				}

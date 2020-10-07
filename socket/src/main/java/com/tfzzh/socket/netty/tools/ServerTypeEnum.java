@@ -20,6 +20,7 @@ import io.netty.channel.ChannelInitializer;
  * @dateTime 2014年6月13日 下午7:08:00
  */
 public enum ServerTypeEnum {
+
 	/**
 	 * 服务器类型，创建监听
 	 * 

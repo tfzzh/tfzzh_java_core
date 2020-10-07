@@ -87,7 +87,7 @@ public class XmlToBean {
 					// System.out.println("node[" + n.getNodeType() + "] >> " + n.getNodeName() + "::" + n.getNamespaceURI());
 					if (!n.getNodeName().startsWith("#")) {
 						// 是有效数据
-						final T t = clz.newInstance();
+						final T t = clz.getDeclaredConstructor().newInstance();
 						// tl.add(XmlToBean.nodeElement(n, t, fieldWithBean));
 						tl.add(XmlToBean.nodeElement(n, t));
 					}

@@ -20,6 +20,7 @@ import com.tfzzh.core.validate.element.ValidateElement;
  * @datetime 2017年9月26日_下午12:00:43
  */
 public enum FieldValidateEnum {
+
 	/**
 	 * 非空，必须存在内容，零字长也认为null
 	 * 

@@ -121,20 +121,20 @@ public class DTDAnalyse {
 				return;
 			}
 		}
-// final File file = new File(this.fileName);
-// try {
-// final DTDParser dp = new DTDParser(file);
-// final DTD dtd = dp.parse(false);
-// 得到DTD入口TAG名
+		// final File file = new File(this.fileName);
+		// try {
+		// final DTDParser dp = new DTDParser(file);
+		// final DTD dtd = dp.parse(false);
+		// 得到DTD入口TAG名
 		final DTDElement elem = (DTDElement) dtd.elements.get(this.root);
 		if (elem != null) {
 			// 存在入口则继续做向下分析
 			this.map = new HashMap<>();
 			this.map.put(elem.getName(), this.analyseElement(elem, dtd));
 		}
-// } catch (final IOException e) {
-// e.printStackTrace();
-// }
+		// } catch (final IOException e) {
+		// e.printStackTrace();
+		// }
 	}
 
 	/**

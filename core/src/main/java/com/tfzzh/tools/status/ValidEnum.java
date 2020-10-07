@@ -12,6 +12,7 @@ package com.tfzzh.tools.status;
  * @dateTime 2011-10-16 下午12:09:08
  */
 public enum ValidEnum {
+
 	/**
 	 * 有效的<br />
 	 * value：1<br />

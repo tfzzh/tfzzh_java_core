@@ -271,8 +271,7 @@ public class DataTypeChangeHelper {
 	public static long getLong(final byte[] bytes, final int posInd) {
 		// return (bytes[posInd] & 0xff) | ((long) (bytes[posInd + 1] & 0xff) << 8) | ((long) (bytes[posInd + 2] & 0xff) << 16) | ((long) (bytes[posInd + 3] & 0xff) << 24) | ((long) (bytes[posInd + 4] & 0xff) << 32) | ((long) (bytes[posInd + 5] & 0xff) << 40)
 		// | ((long) (bytes[posInd + 6] & 0xff) << 48) | ((long) (bytes[posInd + 7] & 0xff) << 56);
-		return (bytes[posInd + 7] & 0xff) | ((long) (bytes[posInd + 6] & 0xff) << 8) | ((long) (bytes[posInd + 5] & 0xff) << 16) | ((long) (bytes[posInd + 4] & 0xff) << 24) | ((long) (bytes[posInd + 3] & 0xff) << 32)
-				| ((long) (bytes[posInd + 2] & 0xff) << 40) | ((long) (bytes[posInd + 1] & 0xff) << 48) | ((long) (bytes[posInd] & 0xff) << 56);
+		return (bytes[posInd + 7] & 0xff) | ((long) (bytes[posInd + 6] & 0xff) << 8) | ((long) (bytes[posInd + 5] & 0xff) << 16) | ((long) (bytes[posInd + 4] & 0xff) << 24) | ((long) (bytes[posInd + 3] & 0xff) << 32) | ((long) (bytes[posInd + 2] & 0xff) << 40) | ((long) (bytes[posInd + 1] & 0xff) << 48) | ((long) (bytes[posInd] & 0xff) << 56);
 	}
 
 	// public static void main(String[] args) {

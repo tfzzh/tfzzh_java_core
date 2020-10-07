@@ -13,6 +13,7 @@ import com.tfzzh.exception.NotAvailableOperationModeException;
  * @dateTime 2015年4月20日 下午8:45:14
  */
 public enum AlterTypeEnum {
+
 	/**
 	 * 新增
 	 * 

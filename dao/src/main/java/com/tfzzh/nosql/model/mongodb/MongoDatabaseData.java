@@ -317,8 +317,7 @@ public class MongoDatabaseData {
 	 * @param size 数据数量，可空
 	 * @return 未被处理的结果数据集合
 	 */
-	public MongoIterable<Document> find(final String tableName, final Bson find, final Bson sort, final Integer start,
-			final Integer size) {
+	public MongoIterable<Document> find(final String tableName, final Bson find, final Bson sort, final Integer start, final Integer size) {
 		FindIterable<Document> fi;
 		final MongoCollection<Document> dm = this.md.getCollection(tableName);
 		if (null != find) {
@@ -442,10 +441,10 @@ public class MongoDatabaseData {
 	 */
 	private <E extends BaseMongoBean> E assemData(final Document doc, final Class<E> clz) {
 		try {
-			final E e = clz.newInstance();
+			final E e = clz.getDeclaredConstructor().newInstance();
 			e.putDocumentData(doc);
 			return e;
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return null;

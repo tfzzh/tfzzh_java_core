@@ -165,7 +165,7 @@ public class CalendarExpand {
 	 * @return 目标时间周起始时间的时间点cal
 	 */
 	public static Calendar timeToWeekStart(final Calendar cal) {
-		int wday = cal.get(Calendar.DAY_OF_WEEK);
+		final int wday = cal.get(Calendar.DAY_OF_WEEK);
 		switch (wday) {
 		case 1:
 			cal.add(Calendar.DAY_OF_YEAR, -6);
@@ -219,7 +219,7 @@ public class CalendarExpand {
 	 * @return 目标时间周最后时间的时间点cal
 	 */
 	public static Calendar timeToWeekEnd(final Calendar cal) {
-		int wday = cal.get(Calendar.DAY_OF_WEEK);
+		final int wday = cal.get(Calendar.DAY_OF_WEEK);
 		switch (wday) {
 		case 1:
 			break;

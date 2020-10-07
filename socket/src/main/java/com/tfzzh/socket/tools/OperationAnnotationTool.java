@@ -34,21 +34,17 @@ public class OperationAnnotationTool extends BaseAnnotationTool {
 		Class<?>[] ifs;
 		OperationAction oa;
 		for (final Class<?> clz : clzs) {
-			// System.out.println("\t read class >> " + clz.getName());
 			ifs = clz.getInterfaces();
 			for (final Class<?> cl : ifs) {
 				if (cl == OperationAction.class) {
 					// 是目标类型
 					as = clz.getAnnotation(InitiativeOperation.class);
 					if (null != as) {
-						// System.out.println("\t\t read ok class >> " + clz.getName());
 						try {
-							oa = (OperationAction) clz.newInstance();
+							oa = (OperationAction) clz.getDeclaredConstructor().newInstance();
 							// 将对象放入到池中
 							OperationPool.getInstance().putOperationAction(as.value(), oa);
-						} catch (final InstantiationException e) {
-							e.printStackTrace();
-						} catch (final IllegalAccessException e) {
+						} catch (final Exception e) {
 							e.printStackTrace();
 						}
 					}

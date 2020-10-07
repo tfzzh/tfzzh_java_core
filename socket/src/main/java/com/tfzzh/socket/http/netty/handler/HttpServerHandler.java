@@ -99,13 +99,13 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
 	 */
 	private int code;
 
-// /**
-// * 参数集合
-// *
-// * @author 许纬杰
-// * @datetime 2016年5月7日_上午11:13:35
-// */
-// private final Map<String, String> params = new HashMap<>();
+	// /**
+	// * 参数集合
+	// *
+	// * @author 许纬杰
+	// * @datetime 2016年5月7日_上午11:13:35
+	// */
+	// private final Map<String, String> params = new HashMap<>();
 	/**
 	 * Session控制
 	 * 

@@ -13,6 +13,7 @@ import com.tfzzh.model.dao.tools.QLLocation.ArithmeticSymbolLocation;
  * @dateTime 2015年4月24日 下午8:26:39
  */
 public enum ArithmeticSymbolEnum {
+
 	/**
 	 * 加法符号（针对数值）
 	 * 

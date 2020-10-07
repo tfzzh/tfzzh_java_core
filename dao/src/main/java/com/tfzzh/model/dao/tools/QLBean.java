@@ -367,8 +367,7 @@ public class QLBean {
 	 * @param parentLs 所相关的父域
 	 * @return 条件用对象
 	 */
-	public <E extends BaseDataBean> QLTermBean getNewTerm(final EntityInfoBean<E>.FieldInfoBean tfb, final SymbolEnum symbol,
-			final LocalScope parentLs) {
+	public <E extends BaseDataBean> QLTermBean getNewTerm(final EntityInfoBean<E>.FieldInfoBean tfb, final SymbolEnum symbol, final LocalScope parentLs) {
 		// this.setType(QLBean.TYPE_TERM);
 		this.validateEntityInfo(tfb.getEntityInfo());
 		return new QLTermBean(this, tfb, symbol, parentLs);
@@ -424,8 +423,7 @@ public class QLBean {
 	 * @param symbol 主符号，一般仅针对更新时，字符串拼接
 	 * @return 更新用对象
 	 */
-	public <E extends BaseDataBean> QLUpdateBean getNewUpdate(final EntityInfoBean<E>.FieldInfoBean tfb,
-			final SymbolEnum symbol) {
+	public <E extends BaseDataBean> QLUpdateBean getNewUpdate(final EntityInfoBean<E>.FieldInfoBean tfb, final SymbolEnum symbol) {
 		// this.setType(QLBean.TYPE_UPDATE);
 		this.validateEntityInfo(tfb.getEntityInfo());
 		return new QLUpdateBean(this, tfb, symbol);
@@ -862,8 +860,7 @@ public class QLBean {
 			}
 			sb.append('}');
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] find > ",
-						sb.toString());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] find > ", sb.toString());
 			}
 			// return (BasicDBObject) JSON.parse(sb.toString());
 			return new BasicDBObject(JSON.parseObject(sb.toString()));
@@ -912,8 +909,7 @@ public class QLBean {
 				sb.append("\"}]");
 			}
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Match > ",
-						sb.toString());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Match > ", sb.toString());
 			}
 			return JSON.parseArray(sb.toString(), Bson.class);
 			// return (List<Bson>) JSON.parse(sb.toString());
@@ -1004,8 +1000,7 @@ public class QLBean {
 			sb.append("[");
 			boolean isFirst = true;
 			if (!isCount) {
-				if ((null != this.orderScopes)
-						|| ((null != this.listFieldScopes) && (null != this.listFieldScopes.getOrderScopes()))) {
+				if ((null != this.orderScopes) || ((null != this.listFieldScopes) && (null != this.listFieldScopes.getOrderScopes()))) {
 					// 排序
 					// {$sort:{"users.user_id":1}},
 					sb.append("{$sort:{");
@@ -1035,8 +1030,7 @@ public class QLBean {
 				if (null != this.prb) {
 					// 分页
 					// {$skip:1},{$limit:2}
-					sb.append("{$skip:").append(this.prb.getDataStartIndex()).append("},{$limit:").append(this.prb.getSize())
-							.append("},");
+					sb.append("{$skip:").append(this.prb.getDataStartIndex()).append("},{$limit:").append(this.prb.getSize()).append("},");
 				}
 			}
 			// 条件部分
@@ -1085,8 +1079,7 @@ public class QLBean {
 				sb.append("list:{$push:\"$").append(afn).append("\"}}}");
 			}
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Group > ",
-						sb.toString());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Aggregate Group > ", sb.toString());
 			}
 			sb.append("]");
 			return JSON.parseArray(sb.toString(), Bson.class);
@@ -1111,8 +1104,7 @@ public class QLBean {
 			final BasicDBObject bak = new BasicDBObject();
 			bak.append("$set", bo);
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] update > ",
-						bak.toJson());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] update > ", bak.toJson());
 			}
 			// if (QLBean.log.isDebugEnabled()) {
 			// QLBean.log.debug("MongoThread[" + Thread.currentThread().getName() + "]
@@ -1146,8 +1138,7 @@ public class QLBean {
 			final BasicDBList ebo = (BasicDBList) fbo.get("$each");
 			this.listFieldScopes.assemblyRelationalMongo(ebo, mdd);
 			if (CoreLog.getInstance().debugEnabled(QLBean.class)) {
-				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Field Insert > ",
-						bak.toJson());
+				CoreLog.getInstance().debug(QLBean.class, "MongoThread[", Thread.currentThread().getName(), "] Field Insert > ", bak.toJson());
 			}
 			return bak;
 		}

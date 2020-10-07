@@ -11,6 +11,7 @@ import com.tfzzh.model.dao.tools.QLLocation.SortLocation;
  * @dateTime 2015年4月25日 下午4:14:49
  */
 public enum SortEnum {
+
 	/**
 	 * 升序排列
 	 * 

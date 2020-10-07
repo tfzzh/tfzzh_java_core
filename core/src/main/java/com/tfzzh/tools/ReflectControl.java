@@ -96,9 +96,7 @@ public class ReflectControl {
 		if (null == (reflect = this.objs.get(clzName))) {
 			try {
 				reflect = InstanceFactory.classInstance(clz);
-			} catch (final InstantiationException e) {
-				throw new InitializeException("Cannt instance BaseReflectOperate with: " + clzName);
-			} catch (final IllegalAccessException e) {
+			} catch (final IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException e) {
 				throw new InitializeException("Cannt instance BaseReflectOperate with: " + clzName);
 			}
 			this.objs.put(clzName, reflect);

@@ -129,7 +129,7 @@ public class OperateLink {
 	 * @param targetNode 目标节点连接
 	 * @param result 结果控制集合
 	 * @param params 参数集合，有序的<br />
-	 *    <参数对应key,参数的对象类型><br />
+	 *           <参数对应key,参数的对象类型><br />
 	 * @param canCrossDomain 是否可以跨域，true，可以跨域
 	 * @param needToken 是否需要token验证
 	 * @param description 说明
@@ -157,7 +157,7 @@ public class OperateLink {
 	 * @param targetNode 目标节点连接
 	 * @param result 结果控制集合
 	 * @param params 参数集合，有序的<br />
-	 *    <参数对应key,参数的对象类型><br />
+	 *           <参数对应key,参数的对象类型><br />
 	 * @param canCrossDomain 是否可以跨域，true，可以跨域
 	 * @param needToken 是否需要token验证
 	 * @param description 说明
@@ -260,7 +260,7 @@ public class OperateLink {
 	 * @param targetNode 目标节点连接
 	 * @param result 结果控制集合
 	 * @param params 参数集合，有序的<br />
-	 *    <参数对应key,参数的对象类型><br />
+	 *           <参数对应key,参数的对象类型><br />
 	 * @param canCrossDomain 是否可以跨域，true，可以跨域
 	 * @param needToken 是否需要token验证
 	 * @param description 说明
@@ -408,7 +408,7 @@ public class OperateLink {
 		 * @dateTime 2012-2-3 下午4:41:05
 		 * @param type 待比较的类型
 		 * @return true，相同类型；<br />
-		 * false，不同类型；<br />
+		 *         false，不同类型；<br />
 		 */
 		protected abstract boolean validateLinkType(LinkType type);
 
@@ -420,7 +420,7 @@ public class OperateLink {
 		 * @param key 子路径/适配信息/分流ID
 		 * @param info 控制连接
 		 * @return true，放入成功；<br />
-		 * false，放入失败，因为已经存在一个相同的key内容，不能覆盖；<br />
+		 *         false，放入失败，因为已经存在一个相同的key内容，不能覆盖；<br />
 		 */
 		@SuppressWarnings("unchecked")
 		private boolean addLink(final String key, final OperateLinkInfo info) {
@@ -435,7 +435,7 @@ public class OperateLink {
 		 * @param info 控制连接
 		 * @param key 子路径/适配信息/分流ID
 		 * @return true，放入成功；<br />
-		 * false，放入失败，因为已经存在一个相同的key内容，不能覆盖；<br />
+		 *         false，放入失败，因为已经存在一个相同的key内容，不能覆盖；<br />
 		 */
 		protected abstract boolean addLink(final T info, final String key);
 
@@ -814,7 +814,7 @@ public class OperateLink {
 		 * @param targetNode 目标节点连接
 		 * @param result 结果控制集合
 		 * @param params 参数集合，有序的<br />
-		 *    <参数对应key,参数的对象类型><br />
+		 *           <参数对应key,参数的对象类型><br />
 		 * @param canCrossDomain 是否可以跨域，true，可以跨域
 		 * @param needToken 是否需要token验证
 		 * @param description 说明
@@ -837,12 +837,12 @@ public class OperateLink {
 						// 属于有文件上传的请求
 						try {
 							// 纯临时对象
-							final UploadParamBean tmp = (UploadParamBean) clz.newInstance();
+							final UploadParamBean tmp = (UploadParamBean) clz.getDeclaredConstructor().newInstance();
 							if (maxSize < tmp.getMaxSize()) {
 								maxSize = tmp.getMaxSize();
 							}
 							suffixLimit += tmp.getSuffixLimit();
-						} catch (InstantiationException | IllegalAccessException e) {
+						} catch (final Exception e) {
 							// 无信息
 						}
 					}
@@ -893,13 +893,13 @@ public class OperateLink {
 		 * @param paraLog 参数日志信息，用于记录
 		 * @param errorMap 错误信息集合
 		 * @return 0，正确情况；<br />
-		 * 1，权限错误情况；<br />
-		 * 2，上传文件超过预期限制，针对文件上传部分；<br />
-		 * 3，文件类型非限定范围内；<br />
-		 * 4，文件上传时发生位置错误；<br />
-		 * 7，对应Param对象处理问题；<br />
-		 * 8，有不可为null的字段为null；<br />
-		 * 9，Param对象必须为BaseParamBean子类；<br />
+		 *         1，权限错误情况；<br />
+		 *         2，上传文件超过预期限制，针对文件上传部分；<br />
+		 *         3，文件类型非限定范围内；<br />
+		 *         4，文件上传时发生位置错误；<br />
+		 *         7，对应Param对象处理问题；<br />
+		 *         8，有不可为null的字段为null；<br />
+		 *         9，Param对象必须为BaseParamBean子类；<br />
 		 */
 		public short validateParas(final Map<String, List<String>> pathParas, final Map<String, Object> requestParas, final HttpServletRequest request, final HttpServletResponse response, final TmpSessionBean tab, final Object[] methodParas, final StringBuilder paraLog, final Map<String, String> errorMap) {
 			// 首先验证IP add by xwj 2017-08-23
@@ -1141,9 +1141,9 @@ public class OperateLink {
 		 * @param pathParas 路径相关参数
 		 * @param errorMap 错误信息集合
 		 * @return 0，正确情况；<br />
-		 * 2，上传文件超过预期限制，针对文件上传部分；<br />
-		 * 3，文件类型非限定范围内；<br />
-		 * 4，文件上传时发生位置错误；<br />
+		 *         2，上传文件超过预期限制，针对文件上传部分；<br />
+		 *         3，文件类型非限定范围内；<br />
+		 *         4，文件上传时发生位置错误；<br />
 		 */
 		@SuppressWarnings("unchecked")
 		private short handleRequestContant(final HttpServletRequest request, final Map<String, Object> requestParas, final Map<String, List<String>> pathParas, final Map<String, String> errorMap) {
@@ -1408,9 +1408,9 @@ public class OperateLink {
 		 * @param paraLog 参数日志信息，用于记录
 		 * @param errorMap 错误信息集合
 		 * @return 0，正常情况；<br />
-		 * 7，对应Param对象处理问题；<br />
-		 * 8，有不可为null的字段为null；<br />
-		 * 9，Param对象必须为BaseParamBean子类；<br />
+		 *         7，对应Param对象处理问题；<br />
+		 *         8，有不可为null的字段为null；<br />
+		 *         9，Param对象必须为BaseParamBean子类；<br />
 		 */
 		@SuppressWarnings("unchecked")
 		private short handleParam(final HttpServletRequest request, final HttpServletResponse response, final ClientSessionBean cs, final Map<String, Object> requestParas, final Object[] paras, final StringBuilder paraLog, final Map<String, String> errorMap) {
@@ -1597,7 +1597,7 @@ public class OperateLink {
 								// }
 								// }
 								// }
-								param = (BaseParamBean) ent.getValue().newInstance();
+								param = (BaseParamBean) ent.getValue().getDeclaredConstructor().newInstance();
 								param.setParameters(requestParas);
 								// if (errorMap.size() > 0) {
 								// return 7;
@@ -2275,7 +2275,7 @@ public class OperateLink {
 		 * @param response 返回数据
 		 * @param cs 客户端会话
 		 * @return true，验证成功；<br />
-		 * false，验证失败，但该情况一般多认为抛出了异常；<br />
+		 *         false，验证失败，但该情况一般多认为抛出了异常；<br />
 		 */
 		public boolean validateAccessPermission(final HttpServletRequest request, final HttpServletResponse response, final ClientSessionBean cs) {
 			return AccessPermissionsControl.getInstance().validateAccessPermission(this.accessPermissions, request, response, cs);
@@ -2289,7 +2289,7 @@ public class OperateLink {
 		 * @dateTime 2012-2-8 下午2:49:43
 		 * @param paths 路径信息，要求：首尾去掉“/”的
 		 * @return 匹配后的参数信息，如果不包含参数，也是零长，不会null；<br />
-		 * null，不存在匹配；<br />
+		 *         null，不存在匹配；<br />
 		 */
 		protected abstract Map<String, List<String>> getKeyBack(final String[] paths);
 
@@ -2325,7 +2325,7 @@ public class OperateLink {
 		 * @author Xu Weijie
 		 * @dateTime 2012-7-18 下午8:16:00
 		 * @return true，是节点；<br />
-		 * false，不是节点；<br />
+		 *         false，不是节点；<br />
 		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#isNode()
 		 */
 		@Override
@@ -2351,7 +2351,7 @@ public class OperateLink {
 		 * @param targetNode 目标节点连接
 		 * @param result 结果控制集合
 		 * @param params 参数集合，有序的<br />
-		 *    <参数对应key,参数的对象类型><br />
+		 *           <参数对应key,参数的对象类型><br />
 		 * @param canCrossDomain 是否可以跨域，true，可以跨域
 		 * @param needToken 是否需要token验证
 		 * @param description 说明
@@ -2493,7 +2493,7 @@ public class OperateLink {
 		 * @param targetNode 目标节点连接
 		 * @param result 结果控制集合
 		 * @param params 参数集合，有序的<br />
-		 *    <参数对应key,参数的对象类型><br />
+		 *           <参数对应key,参数的对象类型><br />
 		 * @param canCrossDomain 是否可以跨域，true，可以跨域
 		 * @param needToken 是否需要token验证
 		 * @param description 说明
@@ -2542,7 +2542,7 @@ public class OperateLink {
 		 * @dateTime 2012-2-7 上午10:26:44
 		 * @param obj 目标对象
 		 * @return true，相似；<br />
-		 * false，不相似；<br />
+		 *         false，不相似；<br />
 		 */
 		@Override
 		public boolean equals(final Object obj) {
@@ -2577,7 +2577,7 @@ public class OperateLink {
 		 * @dateTime 2012-2-7 下午5:39:45
 		 * @param path 路径信息，要求：首尾去掉“/”的
 		 * @return 匹配后的参数信息，如果不包含参数，也是零长，不会null；<br />
-		 * null，不匹配；<br />
+		 *         null，不匹配；<br />
 		 */
 		private boolean validatePath(final String path) {
 			// 分解path
@@ -2659,7 +2659,7 @@ public class OperateLink {
 		 * @param targetNode 目标节点连接
 		 * @param result 结果控制集合
 		 * @param params 参数集合，有序的<br />
-		 *    <参数对应key,参数的对象类型><br />
+		 *           <参数对应key,参数的对象类型><br />
 		 * @param canCrossDomain 是否可以跨域，true，可以跨域
 		 * @param needToken 是否需要token验证
 		 * @param description 说明
@@ -2831,7 +2831,7 @@ public class OperateLink {
 		 * @author Xu Weijie
 		 * @dateTime 2012-7-18 下午8:15:10
 		 * @return true，是节点；<br />
-		 * false，不是节点；<br />
+		 *         false，不是节点；<br />
 		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#isNode()
 		 */
 		@Override

@@ -152,8 +152,8 @@ public class ValidateCenter {
 			tm.put(field, vl);
 		}
 	}
-// public static void main(String[] args) {
-// ValidateControl vc = new ValidateControl();
-// vc.processingClassRules(BaseSystemBean.class, null);
-// }
+	// public static void main(String[] args) {
+	// ValidateControl vc = new ValidateControl();
+	// vc.processingClassRules(BaseSystemBean.class, null);
+	// }
 }

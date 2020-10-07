@@ -6,6 +6,7 @@ package com.tfzzh.socket.bean;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -86,8 +87,12 @@ public class InputMessageBean extends BaseBean {
 	 * @throws IOException 抛
 	 * @throws IllegalAccessException 抛
 	 * @throws InstantiationException 抛
+	 * @throws SecurityException 抛
+	 * @throws NoSuchMethodException 抛
+	 * @throws InvocationTargetException 抛
+	 * @throws IllegalArgumentException 抛
 	 */
-	public InputMessageBean(final RequestPool spaceRequestPool, final int code, final byte[] bytes, final long startTime) throws IOException, InstantiationException, IllegalAccessException {
+	public InputMessageBean(final RequestPool spaceRequestPool, final int code, final byte[] bytes, final long startTime) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		this.code = code;
 		this.requestInfo = spaceRequestPool.getRequestInfo(code);
 		// 得到数据操作对象

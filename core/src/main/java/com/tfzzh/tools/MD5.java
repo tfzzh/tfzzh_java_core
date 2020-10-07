@@ -31,7 +31,7 @@ public final class MD5 {
 	 * @param target 目标字串
 	 * @return MD5编码
 	 */
-	public final static String getMD5(final String target) {
+	public static String getMD5(final String target) {
 		try {
 			// 使用MD5创建MessageDigest对象
 			final MessageDigest mdTemp = MessageDigest.getInstance("MD5");

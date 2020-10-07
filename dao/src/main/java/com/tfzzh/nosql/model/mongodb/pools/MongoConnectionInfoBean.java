@@ -63,8 +63,7 @@ public class MongoConnectionInfoBean {
 	 * @param userName 用户名
 	 * @param password 密码
 	 */
-	public MongoConnectionInfoBean(final String name, final String url, final String dbName, final String userName,
-			final String password) {
+	public MongoConnectionInfoBean(final String name, final String url, final String dbName, final String userName, final String password) {
 		this.name = name;
 		this.hostInfo = this.initServerAddress(url);
 		this.dbName = dbName;
@@ -81,8 +80,7 @@ public class MongoConnectionInfoBean {
 	 * @param userName 用户名
 	 * @param password 密码
 	 */
-	public MongoConnectionInfoBean(final String name, final String url, final int post, final String dbName,
-			final String userName, final String password) {
+	public MongoConnectionInfoBean(final String name, final String url, final int post, final String dbName, final String userName, final String password) {
 		this.name = name;
 		this.hostInfo = this.initServerAddress(url, post);
 		this.dbName = dbName;
@@ -98,8 +96,7 @@ public class MongoConnectionInfoBean {
 	 * @param userName 用户名
 	 * @param password 密码
 	 */
-	public MongoConnectionInfoBean(final String name, final List<String> urlList, final String dbName, final String userName,
-			final String password) {
+	public MongoConnectionInfoBean(final String name, final List<String> urlList, final String dbName, final String userName, final String password) {
 		this.name = name;
 		this.hostInfo = this.initServerAddress(urlList);
 		this.dbName = dbName;

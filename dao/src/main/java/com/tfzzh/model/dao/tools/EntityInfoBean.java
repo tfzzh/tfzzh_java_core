@@ -960,10 +960,8 @@ public class EntityInfoBean<E extends BaseDataBean> {
 	 */
 	public E getEntityInstance() {
 		try {
-			return this.entClz.newInstance();
-		} catch (final InstantiationException e) {
-			e.printStackTrace();
-		} catch (final IllegalAccessException e) {
+			return this.entClz.getDeclaredConstructor().newInstance();
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return null;

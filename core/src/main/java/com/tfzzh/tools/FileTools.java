@@ -136,8 +136,7 @@ public class FileTools {
 			}
 		} else {
 			try {
-				return new PropertyResourceBundle(
-						new BufferedInputStream(new FileInputStream(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")))));
+				return new PropertyResourceBundle(new BufferedInputStream(new FileInputStream(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")))));
 			} catch (final IOException e) {
 				e.printStackTrace();
 				System.exit(0);

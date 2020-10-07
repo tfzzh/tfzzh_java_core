@@ -173,12 +173,12 @@ public abstract class NormalParamBean extends BaseParamBean {
 					// 是个对象
 					// 初始化这个属性所相关对象
 					try {
-						final Object innerObj = clz.newInstance();
+						final Object innerObj = clz.getDeclaredConstructor().newInstance();
 						field.setAccessible(true);
 						field.set(obj, innerObj);
 						field.setAccessible(false);
 						this.setInnerParameters(innerObj, paraMap);
-					} catch (final InstantiationException e) {
+					} catch (final Exception e) {
 						e.printStackTrace();
 					}
 				}

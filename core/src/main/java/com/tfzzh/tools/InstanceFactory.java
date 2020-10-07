@@ -24,8 +24,12 @@ public final class InstanceFactory {
 	 * @throws InstantiationException 抛
 	 * @throws IllegalAccessException 抛
 	 * @throws ClassNotFoundException 抛
+	 * @throws SecurityException 抛
+	 * @throws NoSuchMethodException 抛
+	 * @throws InvocationTargetException 抛
+	 * @throws IllegalArgumentException 抛
 	 */
-	public static Object classInstance(final String path) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static Object classInstance(final String path) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return InstanceFactory.classInstance(Class.forName(path));
 	}
 
@@ -39,9 +43,13 @@ public final class InstanceFactory {
 	 * @return 类实体
 	 * @throws IllegalAccessException 抛
 	 * @throws InstantiationException 抛
+	 * @throws SecurityException 抛
+	 * @throws NoSuchMethodException 抛
+	 * @throws InvocationTargetException 抛
+	 * @throws IllegalArgumentException 抛
 	 */
-	public static <T> T classInstance(final Class<T> clz) throws InstantiationException, IllegalAccessException {
-		return clz.newInstance();
+	public static <T> T classInstance(final Class<T> clz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return clz.getDeclaredConstructor().newInstance();
 	}
 
 	/**

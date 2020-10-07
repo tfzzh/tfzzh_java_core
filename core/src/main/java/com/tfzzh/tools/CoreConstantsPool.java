@@ -4,6 +4,7 @@
  */
 package com.tfzzh.tools;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -90,9 +91,9 @@ public class CoreConstantsPool {
 			synchronized (this.cp) {
 				if (null == (c = (C) this.cp.get(clz))) {
 					try {
-						c = clz.newInstance();
+						c = clz.getDeclaredConstructor().newInstance();
 						this.cp.put(clz, c);
-					} catch (final InstantiationException | IllegalAccessException e) {
+					} catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 						e.printStackTrace();
 					}
 				}

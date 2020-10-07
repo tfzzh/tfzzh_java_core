@@ -4,6 +4,7 @@
  */
 package com.tfzzh.socket.bean;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -178,9 +179,13 @@ public class RequestInfoBean {
 	 * @return the beanCode
 	 * @throws IllegalAccessException 抛
 	 * @throws InstantiationException 抛
+	 * @throws SecurityException 抛
+	 * @throws NoSuchMethodException 抛
+	 * @throws InvocationTargetException 抛
+	 * @throws IllegalArgumentException 抛
 	 */
-	public BaseMessageBean getBeanInstance() throws InstantiationException, IllegalAccessException {
-		return this.msgClz == null ? null : this.msgClz.newInstance();
+	public BaseMessageBean getBeanInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return this.msgClz == null ? null : this.msgClz.getDeclaredConstructor().newInstance();
 	}
 
 	/**

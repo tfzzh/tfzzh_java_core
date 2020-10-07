@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tfzzh.core.annotation.PropertiesFile;
@@ -348,7 +349,7 @@ public abstract class BaseConstants {
 	 * @param pps 配置表内容
 	 */
 	private void valToField(final Field field, final Map<String, String> pps) {
-		PropertiesValue fv = field.getAnnotation(PropertiesValue.class);
+		final PropertiesValue fv = field.getAnnotation(PropertiesValue.class);
 		if (null != fv) {
 			// 需要进行的操作
 			String fn = fv.value();
@@ -357,7 +358,7 @@ public abstract class BaseConstants {
 			} else {
 				fn = this.ppn + fn;
 			}
-			PropertiesValueTypeEnum pvt = fv.type();
+			final PropertiesValueTypeEnum pvt = fv.type();
 			// 进行转译
 			final Class<?> fc = field.getType();
 			try {
@@ -484,7 +485,7 @@ public abstract class BaseConstants {
 				e.printStackTrace();
 			}
 		} else {
-			PropertiesMethod fm = field.getAnnotation(PropertiesMethod.class);
+			final PropertiesMethod fm = field.getAnnotation(PropertiesMethod.class);
 			if (null != fm) {
 				String mn = fm.value();
 				String fn = fm.name();
@@ -990,7 +991,7 @@ public abstract class BaseConstants {
 	 */
 	private JSONObject getJsonObjList(final String key) {
 		final String sv = this.getValue(key);
-		return JSONObject.parseObject(sv);
+		return JSON.parseObject(sv);
 	}
 
 	/**
@@ -1003,7 +1004,7 @@ public abstract class BaseConstants {
 	 */
 	private JSONArray getJsonArrList(final String key) {
 		final String sv = this.getValue(key);
-		return JSONArray.parseArray(sv);
+		return JSON.parseArray(sv);
 	}
 
 	/**
@@ -1049,7 +1050,7 @@ public abstract class BaseConstants {
 			if (ei == -1) {
 				return cont;
 			}
-			String tk = cont.substring(si + ss.length(), ei);
+			final String tk = cont.substring(si + ss.length(), ei);
 			if (tk.length() > 0) {
 				String tv = this.getValue(this.ppn + tk);
 				if (null == tv) {

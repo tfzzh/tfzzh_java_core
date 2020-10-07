@@ -129,8 +129,7 @@ public class DateFormat {
 	 */
 	public static String getFullDate(final Calendar cal) {
 		final StringBuilder sb = new StringBuilder(17);
-		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2))
-				.append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
+		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
 		return sb.toString();
 	}
 
@@ -197,9 +196,7 @@ public class DateFormat {
 	 */
 	public static String getFullDateShow(final Calendar cal) {
 		final StringBuilder sb = new StringBuilder(23);
-		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ')
-				.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(':')
-				.append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
+		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ').append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
 		return sb.toString();
 	}
 
@@ -391,8 +388,7 @@ public class DateFormat {
 	 */
 	public static String getShortHourDateShow(final Calendar cal) {
 		final StringBuilder sb = new StringBuilder(13);
-		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ')
-				.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2));
+		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ').append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2));
 		return sb.toString();
 	}
 
@@ -451,8 +447,7 @@ public class DateFormat {
 	 */
 	public static String getLongDate(final Calendar cal) {
 		final StringBuilder sb = new StringBuilder(14);
-		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2))
-				.append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2));
+		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2));
 		return sb.toString();
 	}
 
@@ -515,8 +510,7 @@ public class DateFormat {
 	 */
 	public static String getLongDateShow(final Calendar cal) {
 		final StringBuilder sb = new StringBuilder(19);
-		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ')
-				.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2));
+		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ').append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2));
 		return sb.toString();
 	}
 
@@ -829,8 +823,7 @@ public class DateFormat {
 	public static String getLongDate() {
 		final Calendar cal = Calendar.getInstance();
 		final StringBuilder sb = new StringBuilder(14);
-		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2))
-				.append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2));
+		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2));
 		return sb.toString();
 	}
 
@@ -844,8 +837,7 @@ public class DateFormat {
 	public static String getLongDateShow() {
 		final Calendar cal = Calendar.getInstance();
 		final StringBuilder sb = new StringBuilder(19);
-		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ')
-				.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2));
+		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ').append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2));
 		return sb.toString();
 	}
 
@@ -859,8 +851,7 @@ public class DateFormat {
 	public static String getFullDate() {
 		final Calendar cal = Calendar.getInstance();
 		final StringBuilder sb = new StringBuilder(17);
-		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2))
-				.append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
+		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
 		return sb.toString();
 	}
 
@@ -874,9 +865,7 @@ public class DateFormat {
 	public static String getFullDateShow() {
 		final Calendar cal = Calendar.getInstance();
 		final StringBuilder sb = new StringBuilder(23);
-		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ')
-				.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(':')
-				.append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
+		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ').append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
 		return sb.toString();
 	}
 
@@ -890,8 +879,7 @@ public class DateFormat {
 	public static String getShortHourDateShow() {
 		final Calendar cal = Calendar.getInstance();
 		final StringBuilder sb = new StringBuilder(13);
-		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ')
-				.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2));
+		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(' ').append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2));
 		return sb.toString();
 	}
 
@@ -933,8 +921,7 @@ public class DateFormat {
 	public static String getTimeLongStr() {
 		final Calendar cal = Calendar.getInstance();
 		final StringBuilder sb = new StringBuilder(6);
-		sb.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2))
-				.append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
+		sb.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
 		return sb.toString();
 	}
 
@@ -948,8 +935,7 @@ public class DateFormat {
 	public static String getTimeLongStrShow() {
 		final Calendar cal = Calendar.getInstance();
 		final StringBuilder sb = new StringBuilder(8);
-		sb.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(' ')
-				.append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
+		sb.append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(' ').append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
 		return sb.toString();
 	}
 

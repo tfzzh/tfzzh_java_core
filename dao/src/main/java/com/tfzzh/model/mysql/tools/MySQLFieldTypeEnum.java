@@ -31,6 +31,7 @@ import com.tfzzh.tools.DateFormat;
  * @dateTime 2015年4月20日 下午3:16:05
  */
 public enum MySQLFieldTypeEnum implements FieldType {
+
 	/**
 	 * @author Weijie Xu
 	 * @dateTime 2015年4月20日 下午3:38:55

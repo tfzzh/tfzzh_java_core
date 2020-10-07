@@ -103,7 +103,7 @@ public class InitServlet extends HttpServlet {
 						f.setAccessible(true);
 						try {
 							f.set(info, InstanceFactory.classInstance(this.getInitParameter(pName)));
-						} catch (IllegalArgumentException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+						} catch (final Exception e) {
 							e.printStackTrace();
 						}
 						f.setAccessible(false);
@@ -119,7 +119,7 @@ public class InitServlet extends HttpServlet {
 						f.setAccessible(true);
 						try {
 							f.set(upc, InstanceFactory.classInstance(this.getInitParameter(pName)));
-						} catch (IllegalArgumentException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+						} catch (final Exception e) {
 							e.printStackTrace();
 						}
 						f.setAccessible(false);

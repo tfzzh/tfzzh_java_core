@@ -41,8 +41,7 @@ public class SimpleMongoDAOImpl extends CoreMongoDAOImpl implements SimpleMongoD
 	 *      java.lang.Integer, java.lang.Integer)
 	 */
 	@Override
-	public MongoIterable<Document> find(final String tableName, final String find, final String sort, final Integer start,
-			final Integer size) {
+	public MongoIterable<Document> find(final String tableName, final String find, final String sort, final Integer start, final Integer size) {
 		final Bson findb = new BasicDBObject(JSON.parseObject(find));
 		final Bson sortb = new BasicDBObject(JSON.parseObject(sort));
 		return this.find(tableName, findb, sortb, start, size);
@@ -63,8 +62,7 @@ public class SimpleMongoDAOImpl extends CoreMongoDAOImpl implements SimpleMongoD
 	 *      org.bson.conversions.Bson, java.lang.Integer, java.lang.Integer)
 	 */
 	@Override
-	public MongoIterable<Document> find(final String tableName, final Bson find, final Bson sort, final Integer start,
-			final Integer size) {
+	public MongoIterable<Document> find(final String tableName, final Bson find, final Bson sort, final Integer start, final Integer size) {
 		return super.getPool().find(tableName, find, sort, start, size);
 	}
 

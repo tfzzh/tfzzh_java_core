@@ -76,9 +76,9 @@ public class RegularValidateElement extends ValidateElement {
 			return new ValidateErrorInfo(name, ValidateErrorTypeConstants.REGULAR, this.name, null);
 		}
 	}
-// public static void main(String[] args) {
-// String[] s = { "^(\\w)+([-_.]*(\\w)+)*@(\\w)+([-_.]*(\\w)+)*((.\\w+)+)$" };
-// RegularValidateElement rv = new RegularValidateElement("email", s);
-// System.out.println(rv.validate("ha", "a_a.-b.a@a-ds.c_.a.a34343"));
-// }
+	// public static void main(String[] args) {
+	// String[] s = { "^(\\w)+([-_.]*(\\w)+)*@(\\w)+([-_.]*(\\w)+)*((.\\w+)+)$" };
+	// RegularValidateElement rv = new RegularValidateElement("email", s);
+	// System.out.println(rv.validate("ha", "a_a.-b.a@a-ds.c_.a.a34343"));
+	// }
 }

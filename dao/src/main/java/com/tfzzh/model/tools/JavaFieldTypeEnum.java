@@ -16,6 +16,7 @@ import java.sql.Types;
  * @dateTime 2015年4月20日 下午7:55:25
  */
 public enum JavaFieldTypeEnum {
+
 	/**
 	 * 字符串
 	 * 

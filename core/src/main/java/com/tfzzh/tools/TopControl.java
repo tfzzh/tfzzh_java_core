@@ -954,6 +954,7 @@ public class TopControl<K, B extends TopDataInfo<K>> {
 	 * @datetime 2016年6月2日_下午4:07:01
 	 */
 	private enum OrderEnum {
+
 		/**
 		 * 从小到大
 		 * 

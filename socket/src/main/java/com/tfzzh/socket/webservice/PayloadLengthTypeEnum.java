@@ -13,6 +13,7 @@ import com.tfzzh.exception.UnknowRuntimeException;
  * @dateTime 2015年2月11日 上午10:02:12
  */
 public enum PayloadLengthTypeEnum {
+
 	/**
 	 * 普通的，实际来说是最简的方式：%x00-7D
 	 * 

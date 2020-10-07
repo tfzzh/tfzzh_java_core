@@ -89,7 +89,7 @@ public class WebSocketHandshake extends Handshake {
 	 */
 	public static WebSocketHandshake toHandshake(final String txt) {
 		{ // 一些基础验证
-			 // get host....
+			// get host....
 			if (txt.indexOf("Host:") == -1) {
 				return null;
 			}

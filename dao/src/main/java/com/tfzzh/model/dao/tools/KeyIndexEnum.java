@@ -11,6 +11,7 @@ package com.tfzzh.model.dao.tools;
  * @dateTime 2015年4月20日 下午2:09:06
  */
 public enum KeyIndexEnum {
+
 	/**
 	 * 主键
 	 * 

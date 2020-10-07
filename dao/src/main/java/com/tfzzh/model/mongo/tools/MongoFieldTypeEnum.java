@@ -27,6 +27,7 @@ import com.tfzzh.tools.DateFormat;
  * @dateTime 2016年11月18日 上午11:01:51
  */
 public enum MongoFieldTypeEnum implements FieldType {
+
 	/**
 	 * 这是最常用的数据类型来存储数据在MongoDB中的字符串必须是有效的UTF-8
 	 * 

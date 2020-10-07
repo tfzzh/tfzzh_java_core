@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.HashMap;
@@ -402,8 +403,7 @@ public class NewManagerMapTool {
 					if ((interfaceList != null) && (interfaceList.size() != 0)) {
 						for (final Map<String, Object> interFace : interfaceList) {
 							// 前得到属性值interface在类中的使用名,后得到对应的控制类的名称
-							ManagerMap.getInstance().putInterface(PropertiesTools.getPropertiesValue(((Map<String, String>) interFace.get(XMLAnalyse.XML_TAG_ATTRIBUTE)).get(this.xmlInterfaceNameAttlist), this.pps),
-									PropertiesTools.getPropertiesValue(((Map<String, String>) interFace.get(XMLAnalyse.XML_TAG_ATTRIBUTE)).get(this.xmlInterfaceImplementAttlist), this.pps));
+							ManagerMap.getInstance().putInterface(PropertiesTools.getPropertiesValue(((Map<String, String>) interFace.get(XMLAnalyse.XML_TAG_ATTRIBUTE)).get(this.xmlInterfaceNameAttlist), this.pps), PropertiesTools.getPropertiesValue(((Map<String, String>) interFace.get(XMLAnalyse.XML_TAG_ATTRIBUTE)).get(this.xmlInterfaceImplementAttlist), this.pps));
 						}
 					}
 				}
@@ -425,12 +425,10 @@ public class NewManagerMapTool {
 		}
 		try {
 			// 前得到属性值MANAGE的名称,后得到CLASS文件的路径并生成实体
-			final Object managerObject = InstanceFactory
-					.classInstance(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlManagerClassTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), this.pps));
+			final Object managerObject = InstanceFactory.classInstance(PropertiesTools.getPropertiesValue(((Map<String, List<Map<String, String>>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlManagerClassTag).get(0).get(XMLAnalyse.XML_TAG_CONTENT), this.pps));
 			// 得到
 			if (((Map<String, Map<String, Object>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).containsKey(this.xmlManagerPropertyListTag)) {
-				final List<Map<String, Object>> propertyList = ((Map<String, List<Map<String, Map<String, List<Map<String, Object>>>>>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlManagerPropertyListTag).get(0).get(XMLAnalyse.XML_TAG_ELEMENT)
-						.get(this.xmlManagerPropertyTag);
+				final List<Map<String, Object>> propertyList = ((Map<String, List<Map<String, Map<String, List<Map<String, Object>>>>>>) manager.get(XMLAnalyse.XML_TAG_ELEMENT)).get(this.xmlManagerPropertyListTag).get(0).get(XMLAnalyse.XML_TAG_ELEMENT).get(this.xmlManagerPropertyTag);
 				if (null != propertyList) {
 					for (final Map<String, Object> propertyMap : propertyList) {
 						final Map<String, List<Map<String, String>>> propertyType = (Map<String, List<Map<String, String>>>) propertyMap.get(XMLAnalyse.XML_TAG_ELEMENT);
@@ -591,9 +589,7 @@ public class NewManagerMapTool {
 				}
 				ManagerMap.getInstance().putInterface(fName.toString(), managerName);
 			}
-		} catch (final InstantiationException e) {
-			e.printStackTrace();
-		} catch (final IllegalAccessException e) {
+		} catch (final IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	}

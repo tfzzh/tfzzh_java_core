@@ -11,6 +11,7 @@ package com.tfzzh.socket.tools;
  * @dateTime 2014年4月11日 下午7:57:04
  */
 public enum ConnectionStatusEnum {
+
 	/**
 	 * 顺畅，最好
 	 * 

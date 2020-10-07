@@ -96,8 +96,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 				// 存在问题的情况，需要向请求端进行数据返回
 				if (this.log.isDebugEnabled()) {
 					if (!imsg.getRequestInfo().isKeep()) {
-						this.log.debug(new StringBuilder(100).append("use[").append(imsg.getRunningTime()).append("] [").append(ctx.channel().localAddress()).append("] Receive [").append(ctx.channel().remoteAddress()).append("] ").append(imsg.showLinkInfo())
-								.append(" error msg >> ").append(imsg));
+						this.log.debug(new StringBuilder(100).append("use[").append(imsg.getRunningTime()).append("] [").append(ctx.channel().localAddress()).append("] Receive [").append(ctx.channel().remoteAddress()).append("] ").append(imsg.showLinkInfo()).append(" error msg >> ").append(imsg));
 					}
 				}
 			} else {
@@ -125,8 +124,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 		bean.transpondExec(rs);
 		if (this.log.isDebugEnabled()) {
 			if (!bean.getRequestInfo().isKeep()) {
-				this.log.debug(new StringBuilder(100).append("use[").append(bean.getRunningTime()).append("] [").append(channel.localAddress()).append("] Receive [").append(channel.remoteAddress()).append("] ").append(bean.showLinkInfo()).append(" ok msg(")
-						.append(bean.getDataLen()).append(") >> ").append(bean.getMsg()));
+				this.log.debug(new StringBuilder(100).append("use[").append(bean.getRunningTime()).append("] [").append(channel.localAddress()).append("] Receive [").append(channel.remoteAddress()).append("] ").append(bean.showLinkInfo()).append(" ok msg(").append(bean.getDataLen()).append(") >> ").append(bean.getMsg()));
 			}
 		}
 	}

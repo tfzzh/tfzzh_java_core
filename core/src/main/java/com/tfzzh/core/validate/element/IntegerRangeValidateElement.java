@@ -149,9 +149,9 @@ public class IntegerRangeValidateElement extends ValidateElement {
 		}
 		return null;
 	}
-// public static void main(String[] args) {
-// String[] s = { "<2133", ">=2132" };
-// IntegerRangeValidateElement irv = new IntegerRangeValidateElement(s);
-// System.out.println(irv.validate("2132"));
-// }
+	// public static void main(String[] args) {
+	// String[] s = { "<2133", ">=2132" };
+	// IntegerRangeValidateElement irv = new IntegerRangeValidateElement(s);
+	// System.out.println(irv.validate("2132"));
+	// }
 }
