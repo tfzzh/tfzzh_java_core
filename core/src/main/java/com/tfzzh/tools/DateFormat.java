@@ -51,6 +51,14 @@ public class DateFormat {
 	private final static String DATE_FORMAT_SHOW_SHORT_HOUR = "yyyy-MM-dd HH";
 
 	/**
+	 * 格式化时间，显示用，日期+小时数:分钟数
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年10月25日 下午12:34:09
+	 */
+	private final static String DATE_FORMAT_SHOW_SHORT_HOUR_MINUTE = "yyyy-MM-dd HH:mm";
+
+	/**
 	 * 格式化时间，日期
 	 */
 	private final static String DATE_FORMAT_SHORT = "yyyyMMdd";
@@ -397,7 +405,7 @@ public class DateFormat {
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年6月2日_下午3:12:19
-	 * @param date yyyy-MM-dd HH格式字符串
+	 * @param date yyyy-MM-dd HH 格式字符串
 	 * @return 日期对象
 	 */
 	public static Date getShortHourDateShow(final String date) {
@@ -410,12 +418,29 @@ public class DateFormat {
 	}
 
 	/**
+	 * 将短型日期(yyyy-MM-dd HH:mm)字符转换为日期,如果有异常,返回null
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年10月25日 下午12:35:03
+	 * @param date yyyy-MM-dd HH:mm 格式字符串
+	 * @return 日期对象
+	 */
+	public static Date getShortHourMinuteDateShow(final String date) {
+		try {
+			final SimpleDateFormat sdfss = new SimpleDateFormat(DateFormat.DATE_FORMAT_SHOW_SHORT_HOUR_MINUTE);
+			return sdfss.parse(date);
+		} catch (final ParseException e) {
+			return null;
+		}
+	}
+
+	/**
 	 * 将日期转换为字符串：长型(yyyyMMddHHmmss)
 	 * 
 	 * @author tfzzh
 	 * @createDate 2008-11-25 下午04:06:41
 	 * @param date 日期对象
-	 * @return yyyyMMddHHmmss格式字符串
+	 * @return yyyyMMddHHmmss 格式字符串
 	 */
 	public static String getLongDate(final Date date) {
 		final Calendar cal = Calendar.getInstance();
@@ -953,5 +978,58 @@ public class DateFormat {
 		day = day.replaceAll(":", "");
 		day = day.replaceAll(" ", "");
 		return day;
+	}
+
+	/**
+	 * 仅针对excel模版数据导入时，时间类型字段直接转为时间戳模型
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年10月25日 下午12:26:37
+	 * @param str 目标内容
+	 * @return 被处理完成的时间戳；<br />
+	 *         null，表示不是时间格式内容；<br />
+	 */
+	public static Long formatStringToTime(String str) {
+		if (StringTools.isNullOrEmpty(str)) {
+			return null;
+		}
+		switch (str.length()) {
+		case 7: { // yyyy-MM
+			Date d = DateFormat.getYearMonthDateShow(str);
+			if (null == d) {
+				return null;
+			}
+			return d.getTime();
+		}
+		case 10: { // yyyy-MM-dd
+			Date d = DateFormat.getShortDateShow(str);
+			if (null == d) {
+				return null;
+			}
+			return d.getTime();
+		}
+		case 13: { // yyyy-MM-dd HH
+			Date d = DateFormat.getShortHourDateShow(str);
+			if (null == d) {
+				return null;
+			}
+			return d.getTime();
+		}
+		case 16: { // yyyy-MM-dd HH:mm
+			Date d = DateFormat.getShortHourMinuteDateShow(str);
+			if (null == d) {
+				return null;
+			}
+			return d.getTime();
+		}
+		case 19: { // yyyy-MM-dd HH:mm:ss
+			Date d = DateFormat.getLongDateShow(str);
+			if (null == d) {
+				return null;
+			}
+			return d.getTime();
+		}
+		}
+		return null;
 	}
 }

@@ -879,7 +879,11 @@ public class StringTools {
 		if ((null == val) || (val.length() == 0)) {
 			return null;
 		}
-		return Double.valueOf(val).longValue();
+		try {
+			return Double.valueOf(val).longValue();
+		} catch (Exception e) {
+			return DateFormat.formatStringToTime(val);
+		}
 	}
 
 	/**
