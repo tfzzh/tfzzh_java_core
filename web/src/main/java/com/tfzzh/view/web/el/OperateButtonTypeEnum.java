@@ -12,6 +12,7 @@ package com.tfzzh.view.web.el;
  * @dateTime 2012-7-20 下午5:30:51
  */
 public enum OperateButtonTypeEnum {
+
 	/**
 	 * 按钮提交
 	 * 

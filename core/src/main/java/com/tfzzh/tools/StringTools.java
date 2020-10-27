@@ -881,7 +881,7 @@ public class StringTools {
 		}
 		try {
 			return Double.valueOf(val).longValue();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			return DateFormat.formatStringToTime(val);
 		}
 	}

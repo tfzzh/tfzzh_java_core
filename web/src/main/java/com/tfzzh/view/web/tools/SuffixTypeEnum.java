@@ -11,6 +11,7 @@ package com.tfzzh.view.web.tools;
  * @datetime 2015年9月6日_下午5:35:16
  */
 public enum SuffixTypeEnum {
+
 	/**
 	 * @author XuWeijie
 	 * @datetime 2015年9月6日_下午5:41:09

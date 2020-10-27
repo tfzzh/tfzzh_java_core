@@ -1287,10 +1287,10 @@ public class OperateLink {
 				// 放入参数
 				requestParas.putAll(map);
 			} else {
-				if (null != ct && ct.indexOf("/json") != -1) {
+				if ((null != ct) && (ct.indexOf("/json") != -1)) {
 					// 是 json结构数据
 					try (InputStreamReader reader = new InputStreamReader(request.getInputStream(), Constants.SYSTEM_CODE)) {
-						char[] buff = new char[1024];
+						final char[] buff = new char[1024];
 						int len = 0;
 						final StringBuilder sb = new StringBuilder();
 						while ((len = reader.read(buff)) != -1) {
@@ -1372,7 +1372,7 @@ public class OperateLink {
 		 */
 		private void analysisJsonData(final Map<String, Object> requestParas, final JSONObject jo, final String path) {
 			String key;
-			for (Entry<String, Object> ent : jo.entrySet()) {
+			for (final Entry<String, Object> ent : jo.entrySet()) {
 				key = null == path ? ent.getKey() : (path + "." + ent.getKey());
 				if (null != requestParas.get(key)) {
 					continue;
@@ -1949,7 +1949,7 @@ public class OperateLink {
 				bf = null;
 			}
 			final InnerIndex ii = new InnerIndex(sb.indexOf("?"));
-			final Object oj = RunThreadLocal.getInstance().getObject();
+			final Object oj = RunThreadLocal.getInstance().getObject(WebBaseConstants.TL_KEY);
 			if (back.isTakeToken()) {
 				if ((null != oj) && (oj instanceof ClientSessionBean)) {
 					// 得到当前客户端信息
@@ -2062,7 +2062,7 @@ public class OperateLink {
 				if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 					CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("To Dispatcher >> ").append(target).toString());
 				}
-				request.setAttribute(WebBaseConstants.SESSION_KEY_USER, RunThreadLocal.getInstance().getObject());
+				request.setAttribute(WebBaseConstants.SESSION_KEY_USER, RunThreadLocal.getInstance().getObject(WebBaseConstants.TL_KEY));
 				request.getRequestDispatcher(target).forward(request, response);
 			}
 		}
@@ -2082,8 +2082,8 @@ public class OperateLink {
 		public void executeResult(final BackOutsideBean back, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
 			final StringBuilder sb = new StringBuilder(back.getTarget());
 			final Map<String, ? extends Object> param = back.getAttributes();
-			final Object oj = RunThreadLocal.getInstance().getObject();
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
+				final Object oj = RunThreadLocal.getInstance().getObject(WebBaseConstants.TL_KEY);
 				CoreLog.getInstance().debug(this.getClass(), "BackOutsideBean executeResult .. [", null == oj ? "null" : oj.getClass().getName(), ":", null == oj ? "null" : oj.toString(), "]");
 			}
 			final InnerIndex ii = new InnerIndex(sb.indexOf("?"));

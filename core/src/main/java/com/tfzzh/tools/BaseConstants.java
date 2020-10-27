@@ -363,64 +363,64 @@ public abstract class BaseConstants {
 			final Class<?> fc = field.getType();
 			try {
 				if (fc == String.class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getString(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getString(fn, fv));
 					return;
 				} else if (fc == int.class) {
-					field.setInt((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getInt(fn));
+					field.setInt((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getInt(fn, fv));
 					return;
 				} else if (fc == Integer.class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntObj(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntObj(fn, fv));
 					return;
 				} else if (fc == long.class) {
-					field.setLong((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLong(fn));
+					field.setLong((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLong(fn, fv));
 					return;
 				} else if (fc == Long.class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongObj(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongObj(fn, fv));
 					return;
 				} else if (fc == short.class) {
-					field.setShort((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShort(fn));
+					field.setShort((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShort(fn, fv));
 					return;
 				} else if (fc == Short.class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortObj(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortObj(fn, fv));
 					return;
 				} else if (fc == double.class) {
-					field.setDouble((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDouble(fn));
+					field.setDouble((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDouble(fn, fv));
 					return;
 				} else if (fc == Double.class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleObj(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleObj(fn, fv));
 					return;
 				} else if (fc == float.class) {
-					field.setFloat((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloat(fn));
+					field.setFloat((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloat(fn, fv));
 					return;
 				} else if (fc == Float.class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatObj(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatObj(fn, fv));
 					return;
 				} else if (fc == boolean.class) {
-					field.setBoolean((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getBoolean(fn));
+					field.setBoolean((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getBoolean(fn, fv));
 					return;
 				} else if (fc == Boolean.class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getBooleanObj(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getBooleanObj(fn, fv));
 					return;
 				} else if (fc == int[].class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerArray(fn, fv.specialValue()));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerArray(fn, fv));
 					return;
 				} else if (fc == String[].class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringArray(fn, fv.specialValue()));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringArray(fn, fv));
 					return;
 				} else if (fc == long[].class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongArray(fn, fv.specialValue()));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongArray(fn, fv));
 					return;
 				} else if (fc == short[].class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortArray(fn, fv.specialValue()));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortArray(fn, fv));
 					return;
 				} else if (fc == Integer[].class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerObjArray(fn, fv.specialValue()));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerObjArray(fn, fv));
 					return;
 				} else if (fc == Long[].class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongObjArray(fn, fv.specialValue()));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongObjArray(fn, fv));
 					return;
 				} else if (fc == Short[].class) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortObjArray(fn, fv.specialValue()));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortObjArray(fn, fv));
 					return;
 				} else if (List.class.isAssignableFrom(fc)) {
 					final Type ft = field.getGenericType();
@@ -429,56 +429,56 @@ public abstract class BaseConstants {
 						final Type lt = ((ParameterizedType) ft).getActualTypeArguments()[0];
 						switch (lt.getTypeName()) {
 						case "java.lang.String":
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringList(fn, fv.specialValue()));
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringList(fn, fv));
 							return;
 						case "java.lang.Integer":
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerList(fn, fv.specialValue()));
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerList(fn, fv));
 							return;
 						case "java.lang.Long":
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongList(fn, fv.specialValue()));
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongList(fn, fv));
 							return;
 						case "java.lang.Short":
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortList(fn, fv.specialValue()));
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortList(fn, fv));
 							return;
 						case "java.lang.Double":
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleList(fn, fv.specialValue()));
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleList(fn, fv));
 							return;
 						case "java.lang.Float":
-							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatList(fn, fv.specialValue()));
+							field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatList(fn, fv));
 							return;
 						}
 					} else if (JSONArray.class.getName().equals(ft.getTypeName())) {
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonArrList(fn));
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonArrList(fn, fv));
 						return;
 					}
 					// 注解处理
 					switch (pvt) {
 					case String:
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringList(fn, fv.specialValue()));
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getStringList(fn, fv));
 						return;
 					case Integer:
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerList(fn, fv.specialValue()));
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getIntegerList(fn, fv));
 						return;
 					case Long:
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongList(fn, fv.specialValue()));
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getLongList(fn, fv));
 						return;
 					case Short:
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortList(fn, fv.specialValue()));
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getShortList(fn, fv));
 						return;
 					case Double:
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleList(fn, fv.specialValue()));
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getDoubleList(fn, fv));
 						return;
 					case Float:
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatList(fn, fv.specialValue()));
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getFloatList(fn, fv));
 						return;
 					default:
 						throw new ConfigurationException("Error Annotation type in [" + this.getClass().getName() + "::" + field.getName() + "]--" + pvt.name());
 					}
 				} else if (JSONObject.class.isAssignableFrom(fc)) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonObjList(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonObjList(fn, fv));
 					return;
 				} else if (JSONArray.class.isAssignableFrom(fc)) {
-					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonArrList(fn));
+					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), this.getJsonArrList(fn, fv));
 					return;
 				}
 			} catch (final IllegalArgumentException | IllegalAccessException e) {
@@ -510,7 +510,7 @@ public abstract class BaseConstants {
 					try {
 						m = this.getClass().getDeclaredMethod(mn, String.class);
 						m.setAccessible(true);
-						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn)));
+						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv)));
 						m.setAccessible(false);
 						return;
 					} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e12) {
@@ -527,7 +527,7 @@ public abstract class BaseConstants {
 								try {
 									m = this.getClass().getDeclaredMethod(mn, String.class);
 									m.setAccessible(true);
-									field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn)));
+									field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv)));
 									m.setAccessible(false);
 									return;
 								} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e22) {
@@ -555,11 +555,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:00:18
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的String值
 	 */
-	private String getString(final String key) {
+	private String getString(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		return sv;
 	}
 
@@ -569,11 +570,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午5:26:09
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的int值
 	 */
-	private int getInt(final String key) {
+	private int getInt(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		try {
 			return Integer.parseInt(sv);
 		} catch (final Exception e) {
@@ -587,11 +589,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:00:20
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的Integer值
 	 */
-	private Integer getIntObj(final String key) {
+	private Integer getIntObj(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		if (null == sv) {
 			return null;
 		}
@@ -608,11 +611,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午5:26:09
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的long值
 	 */
-	private long getLong(final String key) {
+	private long getLong(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		try {
 			return Long.parseLong(sv);
 		} catch (final Exception e) {
@@ -626,11 +630,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:08:07
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的Long值
 	 */
-	private Long getLongObj(final String key) {
+	private Long getLongObj(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		if (null == sv) {
 			return null;
 		}
@@ -647,11 +652,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午5:26:09
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的float值
 	 */
-	private float getFloat(final String key) {
+	private float getFloat(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		try {
 			return Float.parseFloat(sv);
 		} catch (final Exception e) {
@@ -665,11 +671,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:08:05
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的Float值
 	 */
-	private Float getFloatObj(final String key) {
+	private Float getFloatObj(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		if (null == sv) {
 			return null;
 		}
@@ -686,11 +693,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午5:26:09
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的double值
 	 */
-	private double getDouble(final String key) {
+	private double getDouble(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		try {
 			return Double.parseDouble(sv);
 		} catch (final Exception e) {
@@ -704,11 +712,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:08:03
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的Double值
 	 */
-	private Double getDoubleObj(final String key) {
+	private Double getDoubleObj(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key);
+		final String sv = this.getValue(key, pv);
 		if (null == sv) {
 			return null;
 		}
@@ -725,10 +734,11 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午5:26:09
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的short值
 	 */
-	private short getShort(final String key) {
-		final String sv = this.getValue(key);
+	private short getShort(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
 		try {
 			return Short.parseShort(sv);
 		} catch (final Exception e) {
@@ -742,10 +752,11 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:08:02
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的Short值
 	 */
-	private Short getShortObj(final String key) {
-		final String sv = this.getValue(key);
+	private Short getShortObj(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
 		if (null == sv) {
 			return null;
 		}
@@ -762,10 +773,11 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午5:26:09
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的boolean值
 	 */
-	private boolean getBoolean(final String key) {
-		final String sv = this.getValue(key);
+	private boolean getBoolean(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
 		try {
 			return Boolean.parseBoolean(sv);
 		} catch (final Exception e) {
@@ -779,10 +791,11 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午5:26:09
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的Boolean值
 	 */
-	private Boolean getBooleanObj(final String key) {
-		final String sv = this.getValue(key);
+	private Boolean getBooleanObj(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
 		if (null == sv) {
 			return null;
 		}
@@ -799,12 +812,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 上午11:27:32
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的String[]值
 	 */
-	private String[] getStringArray(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		final String[] sa = StringTools.split(sv, splitFlag);
+	private String[] getStringArray(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		final String[] sa = StringTools.split(sv, pv.specialValue());
 		return sa;
 	}
 
@@ -814,12 +827,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:08:00
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的List<String>值
 	 */
-	private List<String> getStringList(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		final List<String> sl = StringTools.splitToArray(sv, splitFlag);
+	private List<String> getStringList(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		final List<String> sl = StringTools.splitToArray(sv, pv.specialValue());
 		return sl;
 	}
 
@@ -829,12 +842,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午3:28:49
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的int[]值
 	 */
-	private int[] getIntegerArray(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		return StringTools.toIntArray(sv, splitFlag);
+	private int[] getIntegerArray(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		return StringTools.toIntArray(sv, pv.specialValue());
 	}
 
 	/**
@@ -843,12 +856,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 上午11:34:32
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的Integer[]值
 	 */
-	private Integer[] getIntegerObjArray(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		return StringTools.toIntObjArray(sv, splitFlag);
+	private Integer[] getIntegerObjArray(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		return StringTools.toIntObjArray(sv, pv.specialValue());
 	}
 
 	/**
@@ -857,12 +870,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:07:59
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的List<Integer>值
 	 */
-	private List<Integer> getIntegerList(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		final List<Integer> il = StringTools.splitToIntArray(sv, splitFlag);
+	private List<Integer> getIntegerList(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		final List<Integer> il = StringTools.splitToIntArray(sv, pv.specialValue());
 		return il;
 	}
 
@@ -872,12 +885,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午3:33:35
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的long[]值
 	 */
-	private long[] getLongArray(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		return StringTools.toLongArray(sv, splitFlag);
+	private long[] getLongArray(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		return StringTools.toLongArray(sv, pv.specialValue());
 	}
 
 	/**
@@ -886,12 +899,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 上午11:34:34
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的Long[]值
 	 */
-	private Long[] getLongObjArray(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		return StringTools.toLongObjArray(sv, splitFlag);
+	private Long[] getLongObjArray(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		return StringTools.toLongObjArray(sv, pv.specialValue());
 	}
 
 	/**
@@ -900,12 +913,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:07:57
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的List<Long>值
 	 */
-	private List<Long> getLongList(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		return StringTools.splitToLongArray(sv, splitFlag);
+	private List<Long> getLongList(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		return StringTools.splitToLongArray(sv, pv.specialValue());
 	}
 
 	/**
@@ -914,12 +927,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 下午3:31:33
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的short[]值
 	 */
-	private short[] getShortArray(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		return StringTools.toShortArray(sv, splitFlag);
+	private short[] getShortArray(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		return StringTools.toShortArray(sv, pv.specialValue());
 	}
 
 	/**
@@ -928,12 +941,12 @@ public abstract class BaseConstants {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月24日 上午11:34:37
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的Short[]值
 	 */
-	private Short[] getShortObjArray(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		return StringTools.toShortObjArray(sv, splitFlag);
+	private Short[] getShortObjArray(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		return StringTools.toShortObjArray(sv, pv.specialValue());
 	}
 
 	/**
@@ -942,12 +955,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:07:56
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的List<Short>值
 	 */
-	private List<Short> getShortList(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		final List<Short> ll = StringTools.splitToShortArray(sv, splitFlag);
+	private List<Short> getShortList(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		final List<Short> ll = StringTools.splitToShortArray(sv, pv.specialValue());
 		return ll;
 	}
 
@@ -957,12 +970,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的List<Double>值
 	 */
-	private List<Double> getDoubleList(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		final List<Double> ll = StringTools.splitToDoubleArray(sv, splitFlag);
+	private List<Double> getDoubleList(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		final List<Double> ll = StringTools.splitToDoubleArray(sv, pv.specialValue());
 		return ll;
 	}
 
@@ -972,12 +985,12 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
 	 * @param key 目标键
-	 * @param splitFlag 分隔符，一般认为是单字节字符串
+	 * @param pv 属性值控制注解
 	 * @return 对应的List<Float>值
 	 */
-	private List<Float> getFloatList(final String key, final String splitFlag) {
-		final String sv = this.getValue(key);
-		final List<Float> ll = StringTools.splitToFloatArray(sv, splitFlag);
+	private List<Float> getFloatList(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
+		final List<Float> ll = StringTools.splitToFloatArray(sv, pv.specialValue());
 		return ll;
 	}
 
@@ -987,10 +1000,11 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的JSONObject值
 	 */
-	private JSONObject getJsonObjList(final String key) {
-		final String sv = this.getValue(key);
+	private JSONObject getJsonObjList(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
 		return JSON.parseObject(sv);
 	}
 
@@ -1000,10 +1014,11 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 对应的JSONArray值
 	 */
-	private JSONArray getJsonArrList(final String key) {
-		final String sv = this.getValue(key);
+	private JSONArray getJsonArrList(final String key, final PropertiesValue pv) {
+		final String sv = this.getValue(key, pv);
 		return JSON.parseArray(sv);
 	}
 
@@ -1013,16 +1028,25 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 上午11:26:25
 	 * @param key 目标键
+	 * @param pv 属性值控制注解
 	 * @return 目标键的值
 	 */
-	private String getValue(final String key) {
+	private String getValue(final String key, final PropertiesValue pv) {
 		try {
 			// 直接获取值
 			String val = this.getResourceBundle().getString(key);
-			// 处理可能存在的编码问题
-			val = new String(val.getBytes("ISO-8859-1"), null == Constants.SYSTEM_CODE ? "UTF-8" : Constants.SYSTEM_CODE);
+			if (null == val) {
+				final String dv = pv.defVal();
+				if (!StringTools.isNullOrEmpty(dv)) {
+					return dv;
+				}
+				return null;
+			} else {
+				// 处理可能存在的编码问题
+				val = new String(val.getBytes("ISO-8859-1"), null == Constants.SYSTEM_CODE ? "UTF-8" : Constants.SYSTEM_CODE);
+			}
 			// 进行可能的内容替换操作
-			return this.rep(val);
+			return this.rep(val, pv);
 		} catch (final MissingResourceException e) {
 			return null;
 		} catch (final UnsupportedEncodingException e) {
@@ -1036,9 +1060,10 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
 	 * @param cont 目标内容
+	 * @param pv 属性值控制注解
 	 * @return 最后的值
 	 */
-	private String rep(String cont) {
+	private String rep(String cont, final PropertiesValue pv) {
 		if (null == cont) {
 			return cont;
 		}
@@ -1052,7 +1077,7 @@ public abstract class BaseConstants {
 			}
 			final String tk = cont.substring(si + ss.length(), ei);
 			if (tk.length() > 0) {
-				String tv = this.getValue(this.ppn + tk);
+				String tv = this.getValue(this.ppn + tk, pv);
 				if (null == tv) {
 					tv = "";
 				}
@@ -1099,10 +1124,11 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年12月8日 下午12:23:21
 	 * @param key 目标key名
+	 * @param pv 属性值控制注解
 	 * @return 对应的内容
 	 */
-	public String getTargetValue(final String key) {
-		return this.getValue(this.ppn + key);
+	public String getTargetValue(final String key, final PropertiesValue pv) {
+		return this.getValue(this.ppn + key, pv);
 	}
 
 	/**

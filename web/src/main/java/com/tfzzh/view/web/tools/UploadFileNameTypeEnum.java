@@ -18,6 +18,7 @@ import com.tfzzh.tools.Spelling;
  * @dateTime 2012-9-16 下午12:06:48
  */
 public enum UploadFileNameTypeEnum {
+
 	/**
 	 * 与名称相同
 	 * 

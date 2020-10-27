@@ -11,6 +11,7 @@ package com.tfzzh.view.web.tools;
  * @datetime 2015年11月19日_下午8:37:49
  */
 public enum BrowserTypeEnum {
+
 	/**
 	 * IE系列浏览器
 	 * 

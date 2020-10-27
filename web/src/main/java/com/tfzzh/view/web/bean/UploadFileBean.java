@@ -82,7 +82,7 @@ public final class UploadFileBean extends BaseUploadFileBean {
 				if (!Constants.OS_WIN) {
 					try {
 						Runtime.getRuntime().exec("chmod 777 -R " + folder.getPath());
-					} catch (IOException e) {
+					} catch (final IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -101,7 +101,7 @@ public final class UploadFileBean extends BaseUploadFileBean {
 			if (!Constants.OS_WIN) {
 				try {
 					Runtime.getRuntime().exec("chmod 777 -R " + file.getPath());
-				} catch (IOException e) {
+				} catch (final IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

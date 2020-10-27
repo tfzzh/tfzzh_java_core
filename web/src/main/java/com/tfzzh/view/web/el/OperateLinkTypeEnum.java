@@ -11,6 +11,7 @@ package com.tfzzh.view.web.el;
  * @dateTime 2012-7-20 下午6:24:30
  */
 public enum OperateLinkTypeEnum {
+
 	/**
 	 * 普通连接
 	 * 

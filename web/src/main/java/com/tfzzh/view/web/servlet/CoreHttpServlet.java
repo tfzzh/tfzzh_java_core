@@ -91,7 +91,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 			// 进行参数分析
 			final short s = link.validateParas(pathParas, requestParas, request, response, tab, methodParas, paraLog, errorMap);
 			// 放入clientsession到线程存储
-			RunThreadLocal.getInstance().putObject(tab.csb);
+			RunThreadLocal.getInstance().putObject(WebBaseConstants.TL_KEY, tab.csb);
 			if (link.isCanCrossDomain()) {
 				this.putAccessAllow(request, response);
 			}
@@ -113,7 +113,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 									CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("run: ").append(System.currentTimeMillis() - l).append(" with [").append(WebTools.getClientIp(request)).append("]> error Parameter Data: ").append(link.getReflectControlKey()).append(">>").append(bpb.getErrorInfo()).append(" params {").append(requestParas).append("}..").toString());
 								}
 								bbob.linkTo(link, request, response);
-								RunThreadLocal.getInstance().removeUserSession();
+								RunThreadLocal.getInstance().removeUserSession(WebBaseConstants.TL_KEY);
 								break;
 							}
 						}
@@ -127,7 +127,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 						// 进行消息的再处理
 						InfoControl.getInstantce().putProblemRequest(request, response, link, requestParas, l);
 						// 将线程中的clientsession信息移除，针对动态数据库连接池
-						RunThreadLocal.getInstance().removeUserSession();
+						RunThreadLocal.getInstance().removeUserSession(WebBaseConstants.TL_KEY);
 						return;
 					}
 				}
@@ -219,7 +219,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 						InfoControl.getInstantce().putProblemRequest(request, response, link, requestParas, l);
 					}
 					// 将线程中的clientsession信息移除，针对动态数据库连接池
-					RunThreadLocal.getInstance().removeUserSession();
+					RunThreadLocal.getInstance().removeUserSession(WebBaseConstants.TL_KEY);
 				}
 				break;
 			}
@@ -231,7 +231,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 				// 进行消息的再处理
 				InfoControl.getInstantce().putErrorAccessRequest(request, response, link, l);
 				// 将线程中的clientsession信息移除，针对动态数据库连接池
-				RunThreadLocal.getInstance().removeUserSession();
+				RunThreadLocal.getInstance().removeUserSession(WebBaseConstants.TL_KEY);
 				return;
 			}
 			case 2: { // IP限制问题
@@ -241,7 +241,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 				// 进行消息的再处理
 				InfoControl.getInstantce().putIpRestrictionRequest(request, response, link, l);
 				// 将线程中的clientsession信息移除，针对动态数据库连接池
-				RunThreadLocal.getInstance().removeUserSession();
+				RunThreadLocal.getInstance().removeUserSession(WebBaseConstants.TL_KEY);
 				return;
 			}
 			}
@@ -254,7 +254,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 			// 记录请求错误日志
 			InfoControl.getInstantce().putErrorRequest(request, response, link, l);
 			// 将线程中的clientsession信息移除，针对动态数据库连接池
-			RunThreadLocal.getInstance().removeUserSession();
+			RunThreadLocal.getInstance().removeUserSession(WebBaseConstants.TL_KEY);
 		}
 	}
 

@@ -123,7 +123,7 @@ public class SessionPool {
 	 * @return 被创建的客户端会话
 	 */
 	public ClientSessionBean createSession(final HttpServletRequest request, final HttpServletResponse response, final ClientTypeEnum type) {
-// System.out.println("\t\t\t >>> create >>> new token >> ");
+		// System.out.println("\t\t\t >>> create >>> new token >> ");
 		return this.createSession(request, response, SessionPool.createToken(), type);
 	}
 
@@ -144,7 +144,7 @@ public class SessionPool {
 		try {
 			this.uLock.lock();
 			final ClientSessionBean us = new ClientSessionBean(request, response, token, type);
-// System.out.println("\t\t\t >>> new token >> " + us.getToken());
+			// System.out.println("\t\t\t >>> new token >> " + us.getToken());
 			this.tsm.put(us.getToken(), us);
 			return us;
 		} catch (final Exception e) {
@@ -166,7 +166,7 @@ public class SessionPool {
 	 */
 	public ClientSessionBean getSessionByToken(final String token) {
 		final ClientSessionBean cs = this.tsm.get(token);
-// System.out.println("\t\t\t >>> get token >> " + token + ">>" + (cs != null));
+		// System.out.println("\t\t\t >>> get token >> " + token + ">>" + (cs != null));
 		if (null != cs) {
 			cs.refreshUseTime();
 		}

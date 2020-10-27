@@ -53,4 +53,13 @@ public @interface PropertiesValue {
 	 * @return 特殊值，部分类型需要
 	 */
 	public String specialValue() default "|";
+
+	/**
+	 * 默认值
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年10月27日 下午5:09:32
+	 * @return 可选默认值
+	 */
+	public String defVal() default "";
 }

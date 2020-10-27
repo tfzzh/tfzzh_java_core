@@ -15,6 +15,7 @@ import com.tfzzh.tools.DateFormat;
  * @dateTime 2012-7-19 下午10:37:43
  */
 enum ElementTypeEnum {
+
 	/**
 	 * 显示时间
 	 * 

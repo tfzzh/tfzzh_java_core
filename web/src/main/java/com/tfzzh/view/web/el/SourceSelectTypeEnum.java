@@ -12,6 +12,7 @@ package com.tfzzh.view.web.el;
  * @dateTime 2012-7-23 上午2:52:25
  */
 public enum SourceSelectTypeEnum {
+
 	/**
 	 * 单选下拉框
 	 * 

@@ -11,6 +11,7 @@ package com.tfzzh.view.web.el;
  * @dateTime 2012-7-19 下午9:46:14
  */
 enum FormTypeEnum {
+
 	/**
 	 * table模式表单
 	 * 

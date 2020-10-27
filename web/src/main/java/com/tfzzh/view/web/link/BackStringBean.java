@@ -44,7 +44,7 @@ public class BackStringBean extends BaseBackOperationBean {
 	 * @dateTime 2020年8月18日 下午1:32:37
 	 * @param cont 目标内容
 	 */
-	public BackStringBean(String cont) {
+	public BackStringBean(final String cont) {
 		// 确实的不需要其他参数
 		this("json", cont);
 	}
@@ -57,7 +57,7 @@ public class BackStringBean extends BaseBackOperationBean {
 	 * @param type 目标内容类型
 	 * @param cont 目标内容
 	 */
-	public BackStringBean(final String type, String cont) {
+	public BackStringBean(final String type, final String cont) {
 		// 确实的不需要其他参数
 		super(null, null);
 		this.type = type;

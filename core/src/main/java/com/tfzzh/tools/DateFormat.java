@@ -989,41 +989,41 @@ public class DateFormat {
 	 * @return 被处理完成的时间戳；<br />
 	 *         null，表示不是时间格式内容；<br />
 	 */
-	public static Long formatStringToTime(String str) {
+	public static Long formatStringToTime(final String str) {
 		if (StringTools.isNullOrEmpty(str)) {
 			return null;
 		}
 		switch (str.length()) {
 		case 7: { // yyyy-MM
-			Date d = DateFormat.getYearMonthDateShow(str);
+			final Date d = DateFormat.getYearMonthDateShow(str);
 			if (null == d) {
 				return null;
 			}
 			return d.getTime();
 		}
 		case 10: { // yyyy-MM-dd
-			Date d = DateFormat.getShortDateShow(str);
+			final Date d = DateFormat.getShortDateShow(str);
 			if (null == d) {
 				return null;
 			}
 			return d.getTime();
 		}
 		case 13: { // yyyy-MM-dd HH
-			Date d = DateFormat.getShortHourDateShow(str);
+			final Date d = DateFormat.getShortHourDateShow(str);
 			if (null == d) {
 				return null;
 			}
 			return d.getTime();
 		}
 		case 16: { // yyyy-MM-dd HH:mm
-			Date d = DateFormat.getShortHourMinuteDateShow(str);
+			final Date d = DateFormat.getShortHourMinuteDateShow(str);
 			if (null == d) {
 				return null;
 			}
 			return d.getTime();
 		}
 		case 19: { // yyyy-MM-dd HH:mm:ss
-			Date d = DateFormat.getLongDateShow(str);
+			final Date d = DateFormat.getLongDateShow(str);
 			if (null == d) {
 				return null;
 			}

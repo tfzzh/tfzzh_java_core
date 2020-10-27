@@ -10,49 +10,49 @@ package com.tfzzh.view.web.tools;
  */
 public interface WebConstants {
 
-// /**
-// * 初始化：连接页面配置：DTD文件名称
-// *
-// * @author TFZZH
-// * @dateTime 2011-2-21 上午10:33:15
-// */
-// String INIT_LINK_PAGE_DTD = "dtd/LinkPageDTD.dtd";
-// /**
-// * 已经登录到系统的用户，作为存储在Session的信息的key名称
-// *
-// * @author xuweijie
-// * @dateTime 2012-2-28 上午11:17:23
-// */
-// String SESSION_KEY_USER = "la";
-// /**
-// * 请求信息中所产生的问题数据集合<br />
-// * 在request中出去的非null内容一定是Map结构<br />
-// *
-// * @author Xu Weijie
-// * @dateTime 2012-10-11 上午11:32:45
-// */
-// String REQUEST_KEY_ERROR_BACK = "err_bak";
-// /**
-// * 与JSP合成时，jsp文件的路径前缀
-// *
-// * @author TFZZH
-// * @dateTime 2011-5-6 下午11:38:55
-// */
-// String JSP_PREFIX = "/WEB-INF/jsp/";
-// /**
-// * 与JSP合成时，jsp文件的路径后缀
-// *
-// * @author TFZZH
-// * @dateTime 2011-5-7 上午01:58:56
-// */
-// String JSP_SUFFIX = ".jsp";
-// /**
-// * URL后缀
-// *
-// * @author TFZZH
-// * @dateTime 2011-5-4 下午03:53:06
-// */
-// String URL_POS = ".shtml";
+	// /**
+	// * 初始化：连接页面配置：DTD文件名称
+	// *
+	// * @author TFZZH
+	// * @dateTime 2011-2-21 上午10:33:15
+	// */
+	// String INIT_LINK_PAGE_DTD = "dtd/LinkPageDTD.dtd";
+	// /**
+	// * 已经登录到系统的用户，作为存储在Session的信息的key名称
+	// *
+	// * @author xuweijie
+	// * @dateTime 2012-2-28 上午11:17:23
+	// */
+	// String SESSION_KEY_USER = "la";
+	// /**
+	// * 请求信息中所产生的问题数据集合<br />
+	// * 在request中出去的非null内容一定是Map结构<br />
+	// *
+	// * @author Xu Weijie
+	// * @dateTime 2012-10-11 上午11:32:45
+	// */
+	// String REQUEST_KEY_ERROR_BACK = "err_bak";
+	// /**
+	// * 与JSP合成时，jsp文件的路径前缀
+	// *
+	// * @author TFZZH
+	// * @dateTime 2011-5-6 下午11:38:55
+	// */
+	// String JSP_PREFIX = "/WEB-INF/jsp/";
+	// /**
+	// * 与JSP合成时，jsp文件的路径后缀
+	// *
+	// * @author TFZZH
+	// * @dateTime 2011-5-7 上午01:58:56
+	// */
+	// String JSP_SUFFIX = ".jsp";
+	// /**
+	// * URL后缀
+	// *
+	// * @author TFZZH
+	// * @dateTime 2011-5-4 下午03:53:06
+	// */
+	// String URL_POS = ".shtml";
 	/**
 	 * 私有的，连接名称，针对HttpRequest
 	 * 
@@ -148,27 +148,27 @@ public interface WebConstants {
 	 * @datetime 2017年9月28日_下午6:01:05
 	 */
 	String PRIVATE_PARAM_ERROR = "param_err";
-// /**
-// * 跳转请求参数Bean命名后缀
-// *
-// * @author Xu Weijie
-// * @dateTime 2012-7-21 下午4:00:28
-// */
-// String REDIRECT_SESSION_PARAM_BEAN_POS = "-ParamBean";
-//
-// /**
-// * 上传文件块大小设置
-// *
-// * @author Xu Weijie
-// * @dateTime 2012-9-11 上午1:39:56
-// */
-// int UPLOAD_FILE_SIZE_THRESHOLD = 1024 * 2;
-//
-// /**
-// * 默认的跨域情况，true，为可跨域
-// *
-// * @author XuWeijie
-// * @datetime 2015年9月21日_下午5:17:17
-// */
-// boolean DEFAULT_CROSS_DOMAIN = Boolean.parseBoolean("true");
+	// /**
+	// * 跳转请求参数Bean命名后缀
+	// *
+	// * @author Xu Weijie
+	// * @dateTime 2012-7-21 下午4:00:28
+	// */
+	// String REDIRECT_SESSION_PARAM_BEAN_POS = "-ParamBean";
+	//
+	// /**
+	// * 上传文件块大小设置
+	// *
+	// * @author Xu Weijie
+	// * @dateTime 2012-9-11 上午1:39:56
+	// */
+	// int UPLOAD_FILE_SIZE_THRESHOLD = 1024 * 2;
+	//
+	// /**
+	// * 默认的跨域情况，true，为可跨域
+	// *
+	// * @author XuWeijie
+	// * @datetime 2015年9月21日_下午5:17:17
+	// */
+	// boolean DEFAULT_CROSS_DOMAIN = Boolean.parseBoolean("true");
 }

@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.tfzzh.exception.UnknowRuntimeException;
 import com.tfzzh.log.CoreLog;
 import com.tfzzh.model.exception.UnknowDaoException;
+import com.tfzzh.model.tools.DaoBaseConstants;
 import com.tfzzh.model.tools.DaoConstants;
 import com.tfzzh.tools.RunThreadLocal;
 
@@ -307,7 +308,7 @@ public abstract class ConnectionPool {
 		 */
 		@Override
 		public void setConnectionInfo(final ConnectionInfoBean info) {
-			final Object tmpObj = RunThreadLocal.getInstance().getObject();
+			final Object tmpObj = RunThreadLocal.getInstance().getObject(DaoBaseConstants.TL_KEY);
 			if (null != tmpObj) {
 				// 放入的一定是Copy版本的
 				final ConnectionInfoBean oldInfo = this.userConnectionInfo.put(tmpObj, info);
@@ -329,7 +330,7 @@ public abstract class ConnectionPool {
 		 */
 		@Override
 		public ConnectionInfoBean getConnectionInfo() {
-			final Object tmpObj = RunThreadLocal.getInstance().getObject();
+			final Object tmpObj = RunThreadLocal.getInstance().getObject(DaoBaseConstants.TL_KEY);
 			if (null != tmpObj) {
 				final ConnectionInfoBean cib = this.userConnectionInfo.get(tmpObj);
 				if (null != cib) {

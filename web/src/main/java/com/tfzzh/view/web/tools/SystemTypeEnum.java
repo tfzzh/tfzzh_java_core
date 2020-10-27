@@ -11,6 +11,7 @@ package com.tfzzh.view.web.tools;
  * @datetime 2015年11月19日_下午8:39:18
  */
 public enum SystemTypeEnum {
+
 	/**
 	 * windows桌面系统
 	 * 

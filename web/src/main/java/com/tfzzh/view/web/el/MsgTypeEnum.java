@@ -11,6 +11,7 @@ package com.tfzzh.view.web.el;
  * @dateTime 2012-7-19 下午10:37:43
  */
 enum MsgTypeEnum {
+
 	/**
 	 * 纯粹为了显示
 	 * 

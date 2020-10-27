@@ -9,6 +9,7 @@ package com.tfzzh.view.web.tools;
  * @dateTime 2011-11-3 下午4:21:00
  */
 public enum UploadBackCodeEnum {
+
 	/**
 	 * 文件写入成功
 	 * 

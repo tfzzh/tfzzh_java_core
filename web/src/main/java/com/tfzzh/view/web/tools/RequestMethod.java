@@ -11,6 +11,7 @@ package com.tfzzh.view.web.tools;
  * @dateTime 2011-2-16 下午05:45:31
  */
 public enum RequestMethod {
+
 	/**
 	 * Get类型
 	 * 

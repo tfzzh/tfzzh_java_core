@@ -56,6 +56,15 @@ public class WebBaseConstants extends BaseConstants {
 	public static String SESSION_KEY_USER;
 
 	/**
+	 * web用户sess线程池中用key
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年10月27日 下午5:02:46
+	 */
+	@PropertiesValue(defVal = "WEB_CS")
+	public static String TL_KEY;
+
+	/**
 	 * 请求信息中所产生的问题数据集合<br />
 	 * 在request中出去的非null内容一定是Map结构<br />
 	 * 

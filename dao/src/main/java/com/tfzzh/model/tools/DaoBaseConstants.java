@@ -81,4 +81,13 @@ public class DaoBaseConstants extends BaseConstants {
 	 */
 	@PropertiesValue
 	public static int SQL_MAX_LENGTH;
+
+	/**
+	 * dao连接线程池中用key
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年10月27日 下午4:55:30
+	 */
+	@PropertiesValue(defVal = "DAO_CON")
+	public static String TL_KEY;
 }
