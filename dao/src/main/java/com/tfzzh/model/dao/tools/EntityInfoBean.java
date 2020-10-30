@@ -1786,7 +1786,7 @@ public class EntityInfoBean<E extends BaseDataBean> {
 						} else {
 							sbName.append('_');
 						}
-						sbName.append(fi.df.fieldName());
+						sbName.append(this.getShortName(fi.df.fieldName()));
 						if (null != (se = this.sortTypes[i])) {
 							sbName.append(se.getIndexNameSuf());
 						}
@@ -1827,6 +1827,26 @@ public class EntityInfoBean<E extends BaseDataBean> {
 				sb.append(')');
 			}
 			return sb.toString();
+		}
+
+		/**
+		 * 进行短名称处理
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2020年10月27日 下午9:11:29
+		 * @param name 原名
+		 * @return 处理后的名字
+		 */
+		private String getShortName(String name) {
+			if (name.length() <= 12) {
+				return name;
+			} else {
+				String sn = name.substring(name.length() - 12);
+				if (sn.startsWith("_")) {
+					sn = sn.substring(1);
+				}
+				return sn;
+			}
 		}
 
 		/**

@@ -93,6 +93,22 @@ public class RunThreadLocal {
 	}
 
 	/**
+	 * 得到存放在当前线程中的目标String类型值
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年10月27日 下午6:20:46
+	 * @param key 数据类型key
+	 * @return 目标对象String类型值
+	 */
+	public String getString(final String key) {
+		Object obj = this.getObject(key);
+		if (null != obj) {
+			return obj.toString();
+		}
+		return null;
+	}
+
+	/**
 	 * 移除当前线程中的目标对象
 	 * 
 	 * @author xuweijie
