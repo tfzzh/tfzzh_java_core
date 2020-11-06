@@ -919,7 +919,7 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 	 */
 	public int[] updateDatas(final List<E> ents) throws SQLException {
 		if ((null == ents) || (ents.size() == 0)) {
-			return null;
+			return new int[0];
 		}
 		return this.updateDatas(ents, ents.get(0).getTableName());
 	}
@@ -1044,7 +1044,7 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 	 */
 	public int[] updateDatas(final List<E> ents, String tableName) throws SQLException {
 		if ((null == ents) || (ents.size() == 0)) {
-			return null;
+			return new int[0];
 		}
 		final long l = System.currentTimeMillis();
 		ConnectionBean conn = null;
