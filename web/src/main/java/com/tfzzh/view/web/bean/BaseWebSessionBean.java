@@ -46,5 +46,7 @@ public abstract class BaseWebSessionBean extends BaseSessionBean {
 	 * @datetime 2017年12月6日_上午11:36:24
 	 * @return 客户端相关域
 	 */
-	public abstract String getClientScope();
+	public String getClientScope() {
+		return null;
+	}
 }

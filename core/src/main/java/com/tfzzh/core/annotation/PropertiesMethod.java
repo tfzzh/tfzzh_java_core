@@ -38,4 +38,23 @@ public @interface PropertiesMethod {
 	 * @return 对应的配置文件属性名
 	 */
 	public String name() default "";
+
+	/**
+	 * 可能被用到的对象类
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年11月17日 下午4:56:07
+	 * @return 可能被用到的对象类
+	 */
+	public Class<?> clz() default Object.class;
+
+	/**
+	 * 目标用到的类属性对象<br />
+	 * 对应clz存在时<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年11月17日 下午6:58:38
+	 * @return 目标用到的类属性对象
+	 */
+	public Class<?> tarclz() default Object.class;
 }

@@ -51,5 +51,7 @@ public interface LoginAccount extends UserSession {
 	 * @return true，可以访问；<br />
 	 *         false，不可以访问；<br />
 	 */
-	boolean canAccess(int accessPermission);
+	public default boolean canAccess(int accessPermission) {
+		return true;
+	}
 }

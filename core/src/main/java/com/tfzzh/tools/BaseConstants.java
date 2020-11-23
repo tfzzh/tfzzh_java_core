@@ -234,11 +234,13 @@ public abstract class BaseConstants {
 		if (null != this.resourceBundle) {
 			synchronized (BaseConstants.messagePool) {
 				final List<String> sl = BaseConstants.clPool.remove(this.getClass().getClassLoader());
-				BaseConstants bm;
-				for (final String s : sl) {
-					bm = BaseConstants.messagePool.remove(s);
-					if (null != bm) {
-						bm.clearResource();
+				if (null != sl) {
+					BaseConstants bm;
+					for (final String s : sl) {
+						bm = BaseConstants.messagePool.remove(s);
+						if (null != bm) {
+							bm.clearResource();
+						}
 					}
 				}
 			}
@@ -273,6 +275,7 @@ public abstract class BaseConstants {
 				for (final String s : sl) {
 					bm = BaseConstants.messagePool.remove(s);
 					if (null != bm) {
+						bm.clearCache();
 						bm.clearResource();
 					}
 				}
@@ -514,30 +517,55 @@ public abstract class BaseConstants {
 						m.setAccessible(false);
 						return;
 					} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e12) {
-						// 增加对assemble全称前缀的支持
-						if (fm.value().length() == 0) {
-							mn = "assemble" + StringTools.assemblyStringWhitInterval(field.getName(), true, true);
+						if (fm.clz() != Object.class) {
 							try {
-								m = this.getClass().getDeclaredMethod(mn);
+								m = this.getClass().getDeclaredMethod(mn, String.class, Class.class);
 								m.setAccessible(true);
-								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this));
+								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv), fm.clz()));
 								m.setAccessible(false);
-								return;
-							} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e21) {
-								try {
-									m = this.getClass().getDeclaredMethod(mn, String.class);
-									m.setAccessible(true);
-									field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv)));
-									m.setAccessible(false);
-									return;
-								} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e22) {
-									// 结束
-									e22.printStackTrace();
-								}
+							} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e13) {
+								// 结束
+								e13.printStackTrace();
 							}
 						} else {
-							// 结束
-							e12.printStackTrace();
+							// 增加对assemble全称前缀的支持
+							if (fm.value().length() == 0) {
+								mn = "assemble" + StringTools.assemblyStringWhitInterval(field.getName(), true, true);
+								try {
+									m = this.getClass().getDeclaredMethod(mn);
+									m.setAccessible(true);
+									field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this));
+									m.setAccessible(false);
+									return;
+								} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e21) {
+									try {
+										m = this.getClass().getDeclaredMethod(mn, String.class);
+										m.setAccessible(true);
+										field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv)));
+										m.setAccessible(false);
+										return;
+									} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e22) {
+										// 结束
+										if (fm.clz() != Object.class) {
+											try {
+												m = this.getClass().getDeclaredMethod(mn, String.class, Class.class);
+												m.setAccessible(true);
+												field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv), fm.clz()));
+												m.setAccessible(false);
+												return;
+											} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e23) {
+												// 结束
+												e23.printStackTrace();
+											}
+										} else {
+											e22.printStackTrace();
+										}
+									}
+								}
+							} else {
+								// 结束
+								e12.printStackTrace();
+							}
 						}
 					}
 				}
@@ -1043,14 +1071,49 @@ public abstract class BaseConstants {
 				return null;
 			} else {
 				// 处理可能存在的编码问题
-				val = new String(val.getBytes("ISO-8859-1"), null == Constants.SYSTEM_CODE ? "UTF-8" : Constants.SYSTEM_CODE);
+				int couLm = 0;
+				String tVal = val;
+				char c;
+				for (int i = 0; i < tVal.length(); i++) {
+					c = tVal.charAt(i);
+					if ((int) c == 63) {
+						if (++couLm >= 2) {
+							break;
+						}
+					} else {
+						if (couLm > 0) {
+							couLm = 0;
+						}
+					}
+				}
+				if (couLm >= 2) {
+					try {
+						tVal = new String(tVal.getBytes("ISO-8859-1"), null == Constants.SYSTEM_CODE ? "UTF-8" : Constants.SYSTEM_CODE);
+						for (int i = 0; i < tVal.length(); i++) {
+							c = tVal.charAt(i);
+							if ((int) c == 63) {
+								if (++couLm >= 2) {
+									break;
+								}
+							} else {
+								if (couLm > 0) {
+									couLm = 0;
+								}
+							}
+						}
+						if (couLm >= 2) {
+							tVal = val;
+						}
+					} catch (final UnsupportedEncodingException e) {
+						throw new ConfigurationException("Constants Class [" + this.getClass().getSimpleName() + "] key [" + key + "] is Not Exists");
+					}
+				}
+				val = tVal;
 			}
 			// 进行可能的内容替换操作
 			return this.rep(val, pv);
 		} catch (final MissingResourceException e) {
 			return null;
-		} catch (final UnsupportedEncodingException e) {
-			throw new ConfigurationException("Constants Class [" + this.getClass().getSimpleName() + "] key [" + key + "] is Not Exists");
 		}
 	}
 

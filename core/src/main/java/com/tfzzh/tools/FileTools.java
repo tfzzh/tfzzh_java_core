@@ -8,6 +8,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
@@ -136,7 +137,7 @@ public class FileTools {
 			}
 		} else {
 			try {
-				return new PropertyResourceBundle(new BufferedInputStream(new FileInputStream(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")))));
+				return new PropertyResourceBundle(new InputStreamReader(new BufferedInputStream(new FileInputStream(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")))), Constants.SYSTEM_CODE));
 			} catch (final IOException e) {
 				e.printStackTrace();
 				System.exit(0);
@@ -155,7 +156,7 @@ public class FileTools {
 	 */
 	public static ResourceBundle getResourceBundle(final File bundleFile) {
 		try {
-			return new PropertyResourceBundle(new BufferedInputStream(new FileInputStream(bundleFile)));
+			return new PropertyResourceBundle(new InputStreamReader(new BufferedInputStream(new FileInputStream(bundleFile)), Constants.SYSTEM_CODE));
 		} catch (final IOException e) {
 			e.printStackTrace();
 			System.exit(0);
