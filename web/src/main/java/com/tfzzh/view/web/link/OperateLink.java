@@ -1299,6 +1299,7 @@ public class OperateLink {
 						// JSON
 						System.out.println(" >>> " + sb.toString());
 						final JSONObject jo = JSON.parseObject(sb.toString());
+						requestParas.putAll(pathParas);
 						this.analysisJsonData(requestParas, jo, null);
 					} catch (final UnsupportedEncodingException e) {
 						e.printStackTrace();

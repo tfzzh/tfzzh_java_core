@@ -51,6 +51,14 @@ public class DateFormat {
 	private final static String DATE_FORMAT_SHOW_SHORT_HOUR = "yyyy-MM-dd HH";
 
 	/**
+	 * 格式化时间，日期+小时数
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月12日 下午11:02:12
+	 */
+	private final static String DATE_FORMAT_SHORT_HOUR = "yyyyMMddHH";
+
+	/**
 	 * 格式化时间，显示用，日期+小时数:分钟数
 	 * 
 	 * @author tfzzh
@@ -94,6 +102,14 @@ public class DateFormat {
 	 * @dateTime Aug 19, 2014 8:17:50 PM
 	 */
 	private final static String DATE_FORMAT_TIME = "HHmmss";
+
+	/**
+	 * 格式化时间：带有时区相关显示
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月10日 下午3:21:59
+	 */
+	private final static String DATE_FORMAT_EXPIRE = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 将日期转换为字符串:完整(yyyyMMddHHmmssSSS)
@@ -418,6 +434,65 @@ public class DateFormat {
 	}
 
 	/**
+	 * 将日期转换为字符串：短型(yyyyMMddHH)
+	 * 
+	 * @author XuWeijie
+	 * @dateTime 2020年12月12日 下午11:03:10
+	 * @param date 日期对象
+	 * @return yyyyMMddHH格式字符串
+	 */
+	public static String getShortHourDate(final Date date) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return DateFormat.getShortHourDate(cal);
+	}
+
+	/**
+	 * 将毫秒串转换为字符串：短型(yyyyMMddHH)
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月12日 下午11:03:10
+	 * @param time 时间毫秒串
+	 * @return yyyyMMddHH格式字符串
+	 */
+	public static String getShortHourDate(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return DateFormat.getShortHourDate(cal);
+	}
+
+	/**
+	 * 将日历内容转换为字符串：短型(yyyyMMddHH)
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月12日 下午11:03:10
+	 * @param cal 日历对象
+	 * @return yyyyMMddHH格式字符串
+	 */
+	public static String getShortHourDate(final Calendar cal) {
+		final StringBuilder sb = new StringBuilder(13);
+		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2));
+		return sb.toString();
+	}
+
+	/**
+	 * 将短型日期(yyyyMMddHH)字符转换为日期,如果有异常,返回null
+	 * 
+	 * @author XuWeijie
+	 * @datetime 2015年6月2日_下午3:12:19
+	 * @param date yyyyMMddHH 格式字符串
+	 * @return 日期对象
+	 */
+	public static Date getShortHourDate(final String date) {
+		try {
+			final SimpleDateFormat sdfss = new SimpleDateFormat(DateFormat.DATE_FORMAT_SHORT_HOUR);
+			return sdfss.parse(date);
+		} catch (final ParseException e) {
+			return null;
+		}
+	}
+
+	/**
 	 * 将短型日期(yyyy-MM-dd HH:mm)字符转换为日期,如果有异常,返回null
 	 * 
 	 * @author tfzzh
@@ -672,6 +747,75 @@ public class DateFormat {
 		final StringBuilder sb = new StringBuilder(7);
 		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2));
 		return sb.toString();
+	}
+
+	/**
+	 * 将日期转换为字符串:rfc3339标准(yyyy-MM-ddTHH:mm:ssSZ)
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月10日 下午3:26:15
+	 * @param date 日期对象
+	 * @return yyyy-MM-ddTHH:mm:ssSZ格式字符串
+	 */
+	public static String getExpireDate(final Date date) {
+		if (null == date) {
+			return null;
+		} else {
+			final Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			return DateFormat.getExpireDate(cal);
+		}
+	}
+
+	/**
+	 * 将毫秒串转换为字符串:rfc3339标准(yyyy-MM-ddTHH:mm:ssSZ)
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月10日 下午3:26:15
+	 * @param time 时间毫秒串
+	 * @return yyyy-MM-ddTHH:mm:ssSZ格式字符串
+	 */
+	public static String getExpireDate(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return DateFormat.getExpireDate(cal);
+	}
+
+	/**
+	 * 将日历内容转换为字符串:rfc3339标准(yyyy-MM-ddTHH:mm:ssSZ)
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月10日 下午3:26:15
+	 * @param cal 日历对象
+	 * @return yyyy-MM-ddTHH:mm:ssSZ格式字符串
+	 */
+	public static String getExpireDate(final Calendar cal) {
+		final StringBuilder sb = new StringBuilder(17);
+		sb.append(cal.get(Calendar.YEAR)).append('-').append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append('-').append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append('T').append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(':').append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append("+08:00");
+		return sb.toString();
+	}
+
+	/**
+	 * 将rfc3339标准(yyyy-MM-ddTHH:mm:ssSZ)字符转换为日期,如果有异常,返回null
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月10日 下午3:26:15
+	 * @param date yyyy-MM-ddTHH:mm:ssSZ格式字符串
+	 * @return 日期对象
+	 */
+	public static Date getExpireDate(String date) {
+		if ((null == date) || (date.length() == 0)) {
+			return null;
+		} else {
+			try {
+				date = date.replaceAll("T", " ");
+				date = date.replaceAll("\\+08:00T", "");
+				final SimpleDateFormat sdff = new SimpleDateFormat(DateFormat.DATE_FORMAT_EXPIRE);
+				return sdff.parse(date);
+			} catch (final ParseException e) {
+				return null;
+			}
+		}
 	}
 
 	/**
