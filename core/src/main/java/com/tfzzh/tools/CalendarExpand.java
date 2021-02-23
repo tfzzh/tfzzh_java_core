@@ -21,7 +21,7 @@ public class CalendarExpand {
 	 * @author XuWeijie
 	 * @datetime 2015年7月16日_上午10:50:54
 	 */
-	public final static long TIMEZONE_CORRECTED_VALUE = Calendar.getInstance().getTimeZone().getRawOffset();
+	public static final long TIMEZONE_CORRECTED_VALUE = Calendar.getInstance().getTimeZone().getRawOffset();
 
 	/**
 	 * 一小时所相关的毫秒数
@@ -29,7 +29,7 @@ public class CalendarExpand {
 	 * @author XuWeijie
 	 * @datetime 2015年7月16日_上午11:02:45
 	 */
-	public final static long ONE_HOUR_TIME = 1000l * 60l * 60l;
+	public static final long ONE_HOUR_TIME = 1000l * 60l * 60l;
 
 	/**
 	 * 一天所相关的毫秒数
@@ -37,7 +37,7 @@ public class CalendarExpand {
 	 * @author XuWeijie
 	 * @datetime 2015年7月16日_上午10:54:10
 	 */
-	public final static long ONE_DAY_TIME = CalendarExpand.ONE_HOUR_TIME * 24l;
+	public static final long ONE_DAY_TIME = CalendarExpand.ONE_HOUR_TIME * 24l;
 
 	/**
 	 * 根据日期字串得到当时日历对象

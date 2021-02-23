@@ -52,7 +52,7 @@ public class SessionPool {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月21日 下午12:57:18
 	 */
-	private final static SessionPool sp = new SessionPool();
+	private static final SessionPool sp = new SessionPool();
 
 	/**
 	 * @author Weijie Xu

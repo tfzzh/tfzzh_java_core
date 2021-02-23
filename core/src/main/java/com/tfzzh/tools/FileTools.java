@@ -137,7 +137,10 @@ public class FileTools {
 			}
 		} else {
 			try {
-				return new PropertyResourceBundle(new InputStreamReader(new BufferedInputStream(new FileInputStream(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")))), Constants.SYSTEM_CODE));
+				final File f = new File(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")));
+				final FileInputStream fis = new FileInputStream(f);
+				final ResourceBundle rb = new PropertyResourceBundle(new InputStreamReader(new BufferedInputStream(fis), Constants.SYSTEM_CODE));
+				return rb;
 			} catch (final IOException e) {
 				e.printStackTrace();
 				System.exit(0);

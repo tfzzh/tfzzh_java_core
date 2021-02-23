@@ -39,7 +39,7 @@ public class XMLAnalyse {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:17:12
 	 */
-	public final static String XML_TAG_ATTRIBUTE = "attribute";
+	public static final String XML_TAG_ATTRIBUTE = "attribute";
 
 	/**
 	 * XML中TAG名
@@ -47,7 +47,7 @@ public class XMLAnalyse {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:17:14
 	 */
-	public final static String XML_TAG_ELEMENT = "element";
+	public static final String XML_TAG_ELEMENT = "element";
 
 	/**
 	 * XML中TAG中内容
@@ -55,7 +55,7 @@ public class XMLAnalyse {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:17:13
 	 */
-	public final static String XML_TAG_CONTENT = "content";
+	public static final String XML_TAG_CONTENT = "content";
 
 	/**
 	 * xml内容

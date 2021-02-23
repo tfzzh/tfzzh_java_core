@@ -22,7 +22,7 @@ public class DAOProcessFactory {
 	 * @author Weijie Xu
 	 * @dateTime 2015年4月25日 下午6:11:27
 	 */
-	private final static DAOProcessFactory factory = new DAOProcessFactory();
+	private static final DAOProcessFactory factory = new DAOProcessFactory();
 
 	/**
 	 * @author Weijie Xu

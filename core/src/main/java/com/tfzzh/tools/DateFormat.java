@@ -20,27 +20,27 @@ public class DateFormat {
 	/**
 	 * 格式化时间，显示用，完整，日期+时间+毫秒
 	 */
-	private final static String DATE_FORMAT_SHOW_FULL = "yyyy-MM-dd HH:mm:ss SSS";
+	private static final String DATE_FORMAT_SHOW_FULL = "yyyy-MM-dd HH:mm:ss SSS";
 
 	/**
 	 * 格式化时间，完整，日期+时间+毫秒
 	 */
-	private final static String DATE_FORMAT_FULL = "yyyyMMddHHmmssSSS";
+	private static final String DATE_FORMAT_FULL = "yyyyMMddHHmmssSSS";
 
 	/**
 	 * 格式化时间，显示用，日期+时间
 	 */
-	private final static String DATE_FORMAT_SHOW_LONG = "yyyy-MM-dd HH:mm:ss";
+	private static final String DATE_FORMAT_SHOW_LONG = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 格式化时间，日期+时间
 	 */
-	private final static String DATE_FORMAT_LONG = "yyyyMMddHHmmss";
+	private static final String DATE_FORMAT_LONG = "yyyyMMddHHmmss";
 
 	/**
 	 * 格式化时间，显示用，日期
 	 */
-	private final static String DATE_FORMAT_SHOW_SHORT = "yyyy-MM-dd";
+	private static final String DATE_FORMAT_SHOW_SHORT = "yyyy-MM-dd";
 
 	/**
 	 * 格式化时间，显示用，日期+小时数
@@ -48,7 +48,7 @@ public class DateFormat {
 	 * @author XuWeijie
 	 * @datetime 2015年6月2日_下午3:07:06
 	 */
-	private final static String DATE_FORMAT_SHOW_SHORT_HOUR = "yyyy-MM-dd HH";
+	private static final String DATE_FORMAT_SHOW_SHORT_HOUR = "yyyy-MM-dd HH";
 
 	/**
 	 * 格式化时间，日期+小时数
@@ -56,7 +56,7 @@ public class DateFormat {
 	 * @author tfzzh
 	 * @dateTime 2020年12月12日 下午11:02:12
 	 */
-	private final static String DATE_FORMAT_SHORT_HOUR = "yyyyMMddHH";
+	private static final String DATE_FORMAT_SHORT_HOUR = "yyyyMMddHH";
 
 	/**
 	 * 格式化时间，显示用，日期+小时数:分钟数
@@ -64,12 +64,12 @@ public class DateFormat {
 	 * @author tfzzh
 	 * @dateTime 2020年10月25日 下午12:34:09
 	 */
-	private final static String DATE_FORMAT_SHOW_SHORT_HOUR_MINUTE = "yyyy-MM-dd HH:mm";
+	private static final String DATE_FORMAT_SHOW_SHORT_HOUR_MINUTE = "yyyy-MM-dd HH:mm";
 
 	/**
 	 * 格式化时间，日期
 	 */
-	private final static String DATE_FORMAT_SHORT = "yyyyMMdd";
+	private static final String DATE_FORMAT_SHORT = "yyyyMMdd";
 
 	/**
 	 * 格式化时间，年月
@@ -77,7 +77,7 @@ public class DateFormat {
 	 * @author xuweijie
 	 * @dateTime 2012-3-30 下午4:38:50
 	 */
-	private final static String DATE_FORMAT_YEAR_MONTH = "yyyyMM";
+	private static final String DATE_FORMAT_YEAR_MONTH = "yyyyMM";
 
 	/**
 	 * 格式化时间，年月，显示用
@@ -85,7 +85,7 @@ public class DateFormat {
 	 * @author tfzzh
 	 * @dateTime 2020年8月20日 下午7:33:21
 	 */
-	private final static String DATE_FORMAT_YEAR_MONTH_SHOW = "yyyy-MM";
+	private static final String DATE_FORMAT_YEAR_MONTH_SHOW = "yyyy-MM";
 
 	/**
 	 * 格式化时间：时分秒
@@ -93,7 +93,7 @@ public class DateFormat {
 	 * @author Weijie Xu
 	 * @dateTime Aug 19, 2014 8:17:49 PM
 	 */
-	private final static String DATE_FORMAT_SHOW_TIME = "HH:mm:ss";
+	private static final String DATE_FORMAT_SHOW_TIME = "HH:mm:ss";
 
 	/**
 	 * 格式化时间：时分秒
@@ -101,7 +101,7 @@ public class DateFormat {
 	 * @author Weijie Xu
 	 * @dateTime Aug 19, 2014 8:17:50 PM
 	 */
-	private final static String DATE_FORMAT_TIME = "HHmmss";
+	private static final String DATE_FORMAT_TIME = "HHmmss";
 
 	/**
 	 * 格式化时间：带有时区相关显示
@@ -109,7 +109,7 @@ public class DateFormat {
 	 * @author tfzzh
 	 * @dateTime 2020年12月10日 下午3:21:59
 	 */
-	private final static String DATE_FORMAT_EXPIRE = "yyyy-MM-dd HH:mm:ss";
+	private static final String DATE_FORMAT_EXPIRE = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 将日期转换为字符串:完整(yyyyMMddHHmmssSSS)

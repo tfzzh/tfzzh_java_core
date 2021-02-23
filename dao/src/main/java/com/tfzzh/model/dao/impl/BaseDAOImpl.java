@@ -32,7 +32,7 @@ import com.tfzzh.model.tools.DaoBaseConstants;
  * 
  * @author Weijie Xu
  * @dateTime 2015年4月28日 上午11:00:58
- * @param <E> 数据实例对象
+ * @param <E> 数据实例对象insertData
  */
 public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl {
 

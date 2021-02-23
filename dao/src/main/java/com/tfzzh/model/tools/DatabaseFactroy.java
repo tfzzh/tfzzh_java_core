@@ -24,7 +24,7 @@ public abstract class DatabaseFactroy {
 	 * @author Weijie Xu
 	 * @dateTime 2015年4月20日 下午5:07:40
 	 */
-	private final static String DATABASE_MYSQL = "mysql";
+	private static final String DATABASE_MYSQL = "mysql";
 
 	/**
 	 * 根据字段类型名得到字段数据库相关类型对象

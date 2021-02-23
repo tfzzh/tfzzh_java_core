@@ -26,7 +26,7 @@ public class FilterWordDFA {
 	 * @author 许纬杰
 	 * @datetime 2016年3月25日_上午11:35:34
 	 */
-	private final static FilterWordDFA dfa = new FilterWordDFA();
+	private static final FilterWordDFA dfa = new FilterWordDFA();
 
 	/**
 	 * @author 许纬杰

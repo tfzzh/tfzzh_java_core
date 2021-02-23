@@ -37,7 +37,7 @@ public class DaoListenerPool {
 	 * @author Weijie Xu
 	 * @dateTime 2015年4月23日 上午9:38:03
 	 */
-	private final static DaoListenerPool pool = new DaoListenerPool();
+	private static final DaoListenerPool pool = new DaoListenerPool();
 
 	/**
 	 * @author Weijie Xu

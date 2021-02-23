@@ -32,7 +32,7 @@ public class CoreConstantsPool {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月22日 下午6:23:01
 	 */
-	private final static CoreConstantsPool ccp = new CoreConstantsPool();
+	private static final CoreConstantsPool ccp = new CoreConstantsPool();
 
 	/**
 	 * @author Weijie Xu

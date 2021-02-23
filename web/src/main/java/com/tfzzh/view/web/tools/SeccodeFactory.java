@@ -76,7 +76,7 @@ public class SeccodeFactory {
 	 * @author XuWeijie
 	 * @datetime 2015年9月6日_下午4:48:32
 	 */
-	private final static String[] FONTS = new String[] { "Helvetica", "Garamond", "Frutiger", "Bodoni", "Futura", "Times", "Arial" };
+	private static final String[] FONTS = new String[] { "Helvetica", "Garamond", "Frutiger", "Bodoni", "Futura", "Times", "Arial" };
 
 	/**
 	 * 得到验证码图形内容

@@ -23,7 +23,7 @@ public class EnvironmentIdentificationTool {
 	 * @author XuWeijie
 	 * @datetime 2015年11月19日_下午9:03:48
 	 */
-	private final static String HEAD_NAME_EI = "user-agent";
+	private static final String HEAD_NAME_EI = "user-agent";
 
 	/**
 	 * 识别手机环境

@@ -130,7 +130,7 @@ public class QLBean {
 	 * @author Weijie Xu
 	 * @dateTime 2015年5月7日 下午5:07:07
 	 */
-	protected final static int TYPE_TERM = 0;
+	protected static final int TYPE_TERM = 0;
 
 	/**
 	 * 更新类型
@@ -138,7 +138,7 @@ public class QLBean {
 	 * @author Weijie Xu
 	 * @dateTime 2015年5月7日 下午5:07:08
 	 */
-	protected final static int TYPE_UPDATE = 1;
+	protected static final int TYPE_UPDATE = 1;
 
 	/**
 	 * 排序类型
@@ -146,7 +146,7 @@ public class QLBean {
 	 * @author Weijie Xu
 	 * @dateTime 2015年5月7日 下午5:07:09
 	 */
-	protected final static int TYPE_ORDER = 2;
+	protected static final int TYPE_ORDER = 2;
 
 	/**
 	 * 数组字段模式
@@ -154,7 +154,7 @@ public class QLBean {
 	 * @author Weijie Xu
 	 * @dateTime 2017年6月2日 下午2:09:35
 	 */
-	protected final static int TYPE_LIST_FIELD = 11;
+	protected static final int TYPE_LIST_FIELD = 11;
 
 	/**
 	 * 主动放入主实例对象

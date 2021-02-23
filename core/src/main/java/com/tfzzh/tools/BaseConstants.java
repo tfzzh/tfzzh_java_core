@@ -14,11 +14,14 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,7 +55,7 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 上午11:45:13
 	 */
-	private final static Map<String, BaseConstants> messagePool = new HashMap<>();
+	private static final Map<String, BaseConstants> messagePool = new HashMap<>();
 
 	/**
 	 * 类加载对象池
@@ -60,7 +63,7 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午12:08:52
 	 */
-	private final static Map<ClassLoader, List<String>> clPool = new HashMap<>();
+	private static final Map<ClassLoader, List<String>> clPool = new HashMap<>();
 
 	/**
 	 * 文件信息类型
@@ -68,7 +71,7 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
 	 */
-	private final static int FILE_TYPE = 2;
+	private static final int FILE_TYPE = 2;
 
 	/**
 	 * properties
@@ -118,7 +121,7 @@ public abstract class BaseConstants {
 	 * @author Xu Weijie
 	 * @datetime 2017年10月17日_下午2:28:38
 	 */
-	public BaseConstants() {
+	protected BaseConstants() {
 		final String cn = this.getClass().getSimpleName();
 		String ccn = StringTools.cutTail(cn, "Constants");
 		if (cn.equalsIgnoreCase(ccn)) {
@@ -139,7 +142,7 @@ public abstract class BaseConstants {
 	 * @dateTime 2016年11月21日 上午11:38:54
 	 * @param bundleName 所相关资源名
 	 */
-	public BaseConstants(final String bundleName) {
+	protected BaseConstants(final String bundleName) {
 		this.setBundleName(bundleName);
 		// 因为初始化加入到池
 		CoreConstantsPool.getInstance().putConstants(this);
@@ -150,7 +153,7 @@ public abstract class BaseConstants {
 	 * @dateTime 2020年7月27日 下午1:25:57
 	 * @param bundleFile 所相关资源文件信息
 	 */
-	public BaseConstants(final File bundleFile) {
+	protected BaseConstants(final File bundleFile) {
 		this.setBundleFile(bundleFile);
 		// 因为初始化加入到池
 		CoreConstantsPool.getInstance().putConstants(this);
@@ -336,10 +339,10 @@ public abstract class BaseConstants {
 				this.ppn = pf.value() + ".";
 			}
 		}
-		final Map<String, String> pps = new HashMap<>();
+		// final Map<String, String> pps = new HashMap<>();
 		final Field[] fields = this.getClass().getDeclaredFields();
 		for (final Field field : fields) {
-			this.valToField(field, pps);
+			this.valToField(field);
 		}
 	}
 
@@ -349,9 +352,8 @@ public abstract class BaseConstants {
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
 	 * @param field 目标字段
-	 * @param pps 配置表内容
 	 */
-	private void valToField(final Field field, final Map<String, String> pps) {
+	private void valToField(final Field field) {
 		final PropertiesValue fv = field.getAnnotation(PropertiesValue.class);
 		if (null != fv) {
 			// 需要进行的操作
@@ -504,25 +506,38 @@ public abstract class BaseConstants {
 				}
 				Method m;
 				try {
-					m = this.getClass().getDeclaredMethod(mn);
-					m.setAccessible(true);
+					// m = this.getClass().getDeclaredMethod(mn);
+					m = this.classMethod(this.getClass(), mn);
+					if (!m.trySetAccessible()) {
+						m.setAccessible(true);
+					}
+					// m.setAccessible(true);
 					field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this));
-					m.setAccessible(false);
+					// m.setAccessible(false);
 					return;
 				} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e11) {
 					try {
-						m = this.getClass().getDeclaredMethod(mn, String.class);
-						m.setAccessible(true);
+						// m = this.getClass().getDeclaredMethod(mn, String.class);
+						m = this.classMethod(this.getClass(), mn, String.class);
+						if (!m.trySetAccessible()) {
+							m.setAccessible(true);
+						}
+						// m.setAccessible(true);
 						field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv)));
-						m.setAccessible(false);
+						// m.setAccessible(false);
 						return;
 					} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e12) {
 						if (fm.clz() != Object.class) {
 							try {
-								m = this.getClass().getDeclaredMethod(mn, String.class, Class.class);
-								m.setAccessible(true);
+								// m = this.getClass().getDeclaredMethod(mn, String.class, Class.class);
+								m = this.classMethod(this.getClass(), mn, String.class, Class.class);
+								if (!m.trySetAccessible()) {
+									m.setAccessible(true);
+								}
+								// m.setAccessible(true);
 								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv), fm.clz()));
-								m.setAccessible(false);
+								// m.setAccessible(false);
+								return;
 							} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e13) {
 								// 结束
 								e13.printStackTrace();
@@ -532,26 +547,38 @@ public abstract class BaseConstants {
 							if (fm.value().length() == 0) {
 								mn = "assemble" + StringTools.assemblyStringWhitInterval(field.getName(), true, true);
 								try {
-									m = this.getClass().getDeclaredMethod(mn);
-									m.setAccessible(true);
+									// m = this.getClass().getDeclaredMethod(mn);
+									m = this.classMethod(this.getClass(), mn);
+									if (!m.trySetAccessible()) {
+										m.setAccessible(true);
+									}
+									// m.setAccessible(true);
 									field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this));
-									m.setAccessible(false);
+									// m.setAccessible(false);
 									return;
 								} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e21) {
 									try {
-										m = this.getClass().getDeclaredMethod(mn, String.class);
-										m.setAccessible(true);
+										// m = this.getClass().getDeclaredMethod(mn, String.class);
+										m = this.classMethod(this.getClass(), mn, String.class);
+										if (!m.trySetAccessible()) {
+											m.setAccessible(true);
+										}
+										// m.setAccessible(true);
 										field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv)));
-										m.setAccessible(false);
+										// m.setAccessible(false);
 										return;
 									} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e22) {
 										// 结束
 										if (fm.clz() != Object.class) {
 											try {
-												m = this.getClass().getDeclaredMethod(mn, String.class, Class.class);
-												m.setAccessible(true);
+												// m = this.getClass().getDeclaredMethod(mn, String.class, Class.class);
+												m = this.classMethod(this.getClass(), mn, String.class, Class.class);
+												if (!m.trySetAccessible()) {
+													m.setAccessible(true);
+												}
+												// m.setAccessible(true);
 												field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv), fm.clz()));
-												m.setAccessible(false);
+												// m.setAccessible(false);
 												return;
 											} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e23) {
 												// 结束
@@ -575,6 +602,29 @@ public abstract class BaseConstants {
 			}
 		}
 		System.err.println("in properties[" + (null == this.bundleName ? this.bundleFile.getPath() : this.bundleName) + "] not find[" + (null == field ? "null" : field.getName()) + "] ... ");
+	}
+
+	/**
+	 * 得到类方法
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年1月19日 下午3:58:38
+	 * @param clz 目标类
+	 * @param methodName 目标方法名
+	 * @param clzs 请求参数
+	 * @return 目标 方法
+	 * @throws NoSuchMethodException 抛
+	 */
+	private Method classMethod(Class<?> clz, String methodName, Class<?>... clzs) throws NoSuchMethodException {
+		while (clz != Object.class) {
+			try {
+				Method m = clz.getDeclaredMethod(methodName, clzs);
+				return m;
+			} catch (final NoSuchMethodException | SecurityException e) {
+			}
+			clz = clz.getSuperclass();
+		}
+		throw new NoSuchMethodException();
 	}
 
 	/**
@@ -1130,7 +1180,8 @@ public abstract class BaseConstants {
 		if (null == cont) {
 			return cont;
 		}
-		final String ss = "{p:", es = "}";
+		final String ss = "{p:";
+		final String es = "}";
 		int ei = 0;
 		int si = cont.indexOf(ss, ei);
 		while (si != -1) {
@@ -1246,5 +1297,256 @@ public abstract class BaseConstants {
 			}
 			System.err.println("\terr >>> " + field.getName() + "<err>");
 		}
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年9月20日 下午9:34:17
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Set<String> strToSet(final String cont) {
+		final List<String> sl = StringTools.splitToArray(cont, "|");
+		return new HashSet<>(sl);
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年11月18日 下午12:54:09
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Map<String, Set<String>> strToStrSet(final String cont) {
+		// this.log.debug("in strToStrSet ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<String, Set<String>> bak = new HashMap<>();
+		Set<String> ss;
+		for (final String key : jo.keySet()) {
+			final List<String> sl = StringTools.splitToArray(jo.getString(key), "|");
+			ss = new HashSet<>(sl);
+			bak.put(key, ss);
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf strToStrSet ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月8日 下午3:35:08
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Map<String, Set<String>> strToStrLinkedSet(final String cont) {
+		// this.log.debug("in strToStrLinkedSet ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<String, Set<String>> bak = new HashMap<>();
+		Set<String> ss;
+		for (final String key : jo.keySet()) {
+			final List<String> sl = StringTools.splitToArray(jo.getString(key), "|");
+			ss = new LinkedHashSet<>(sl);
+			bak.put(key, ss);
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf strToStrLinkedSet ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月17日 下午3:39:09
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Map<String, Integer> strToStrInt(final String cont) {
+		// this.log.debug("in strToStrInt ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<String, Integer> bak = new HashMap<>();
+		for (final String key : jo.keySet()) {
+			bak.put(key, jo.getInteger(key));
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf strToStrInt ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年10月19日 下午12:42:24
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Map<String, String> strToStrStr(final String cont) {
+		// this.log.debug("in strToStrStr ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<String, String> bak = new HashMap<>();
+		for (final String key : jo.keySet()) {
+			bak.put(key, jo.getString(key));
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf strToStrStr ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年11月17日 下午5:48:34
+	 * @param <O> 目标数据对象
+	 * @param cont 配置文件内容
+	 * @param clz 目标数据对象类
+	 * @return 解析后的内容
+	 */
+	protected <O extends ObjectInfo> Map<String, List<O>> strToListObject(final String cont, final Class<O> clz) {
+		// this.log.debug("in strToListObject ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<String, List<O>> bak = new HashMap<>();
+		List<O> sl;
+		JSONArray ja;
+		JSONObject ijo;
+		O o;
+		final Class<?>[] clza = new Class[] { JSONObject.class };
+		Object[] obja;
+		for (final String key : jo.keySet()) {
+			ja = jo.getJSONArray(key);
+			sl = new ArrayList<>();
+			for (int i = 0; i < ja.size(); i++) {
+				ijo = ja.getJSONObject(i);
+				obja = new Object[] { ijo };
+				try {
+					o = InstanceFactory.classInstance(clz, clza, obja);
+					sl.add(o);
+				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
+			bak.put(key, sl);
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf strToListObject ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年11月20日 下午8:17:26
+	 * @param <O> 目标数据对象
+	 * @param cont 配置文件内容
+	 * @param clz 目标数据对象类
+	 * @return 解析后的内容
+	 */
+	protected <O extends ObjectInfo> Map<String, O> strToObject(final String cont, final Class<O> clz) {
+		// this.log.debug("in strToListObject ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<String, O> bak = new HashMap<>();
+		JSONObject ijo;
+		O o;
+		final Class<?>[] clza = new Class[] { JSONObject.class };
+		Object[] obja;
+		for (final String key : jo.keySet()) {
+			ijo = jo.getJSONObject(key);
+			obja = new Object[] { ijo };
+			try {
+				o = InstanceFactory.classInstance(clz, clza, obja);
+				bak.put(key, o);
+			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf strToListObject ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年9月12日 下午3:23:10
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Map<Integer, List<String>> strToMilTask(final String cont) {
+		// this.log.debug("in strToMilTask ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<Integer, List<String>> bak = new HashMap<>();
+		List<String> sl;
+		JSONArray ja;
+		for (final String key : jo.keySet()) {
+			sl = new ArrayList<>();
+			ja = jo.getJSONArray(key);
+			for (int i = 0; i < ja.size(); i++) {
+				sl.add(ja.getString(i));
+			}
+			bak.put(Integer.parseInt(key), sl);
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf ORUN_MILEAGE_TASK ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年9月19日 下午5:49:23
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Map<Integer, String> strToFTTask(final String cont) {
+		// this.log.debug("in strToFTTask ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<Integer, String> bak = new HashMap<>();
+		for (final String key : jo.keySet()) {
+			bak.put(Integer.parseInt(key), jo.getString(key));
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf TASK_FILETYPE_CODE ... ");
+		// }
+		return bak;
 	}
 }

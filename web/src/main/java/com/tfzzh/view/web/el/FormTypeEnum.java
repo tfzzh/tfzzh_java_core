@@ -85,7 +85,7 @@ enum FormTypeEnum {
 	 * @author Xu Weijie
 	 * @dateTime 2012-7-19 下午9:55:52
 	 */
-	protected final static String CONTEXT_KEY_FORM_TYPE = "ft";
+	protected static final String CONTEXT_KEY_FORM_TYPE = "ft";
 
 	/**
 	 * 得到表单标签开始内容

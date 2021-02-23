@@ -24,7 +24,7 @@ public class TfzzhRandom extends Random {
 	 * @author xuweijie
 	 * @dateTime 2011-12-30 下午12:39:37
 	 */
-	private final static TfzzhRandom ran = new TfzzhRandom();
+	private static final TfzzhRandom ran = new TfzzhRandom();
 
 	/**
 	 * @author xuweijie

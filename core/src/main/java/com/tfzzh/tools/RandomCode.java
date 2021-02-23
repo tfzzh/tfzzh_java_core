@@ -21,7 +21,7 @@ public class RandomCode {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:59:01
 	 */
-	public final static int CODE_TYPE_LOWERCASE = 1;
+	public static final int CODE_TYPE_LOWERCASE = 1;
 
 	/**
 	 * 大写字符
@@ -29,7 +29,7 @@ public class RandomCode {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:59:02
 	 */
-	public final static int CODE_TYPE_UPPERCASE = 2;
+	public static final int CODE_TYPE_UPPERCASE = 2;
 
 	/**
 	 * 数值
@@ -37,7 +37,7 @@ public class RandomCode {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:59:03
 	 */
-	public final static int CODE_TYPE_DIGITAL = 4;
+	public static final int CODE_TYPE_DIGITAL = 4;
 
 	/**
 	 * 小写字符，大写字符
@@ -45,7 +45,7 @@ public class RandomCode {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:59:04
 	 */
-	public final static int CODE_TYPE_LOWERCASE_UPPERCASE = RandomCode.CODE_TYPE_LOWERCASE | RandomCode.CODE_TYPE_UPPERCASE;
+	public static final int CODE_TYPE_LOWERCASE_UPPERCASE = RandomCode.CODE_TYPE_LOWERCASE | RandomCode.CODE_TYPE_UPPERCASE;
 
 	/**
 	 * 小写字符，数值
@@ -53,7 +53,7 @@ public class RandomCode {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:59:05
 	 */
-	public final static int CODE_TYPE_LOWERCASE_DIGITAL = RandomCode.CODE_TYPE_LOWERCASE | RandomCode.CODE_TYPE_DIGITAL;
+	public static final int CODE_TYPE_LOWERCASE_DIGITAL = RandomCode.CODE_TYPE_LOWERCASE | RandomCode.CODE_TYPE_DIGITAL;
 
 	/**
 	 * 大写字符，数值
@@ -61,7 +61,7 @@ public class RandomCode {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:59:06
 	 */
-	public final static int CODE_TYPE_UPPERCASE_DIGITAL = RandomCode.CODE_TYPE_UPPERCASE | RandomCode.CODE_TYPE_DIGITAL;
+	public static final int CODE_TYPE_UPPERCASE_DIGITAL = RandomCode.CODE_TYPE_UPPERCASE | RandomCode.CODE_TYPE_DIGITAL;
 
 	/**
 	 * 小写字符，大写字符，数值
@@ -69,7 +69,7 @@ public class RandomCode {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:59:08
 	 */
-	public final static int CODE_TYPE_LOWERCASE_UPPERCASE_DIGITAL = RandomCode.CODE_TYPE_LOWERCASE | RandomCode.CODE_TYPE_UPPERCASE | RandomCode.CODE_TYPE_DIGITAL;
+	public static final int CODE_TYPE_LOWERCASE_UPPERCASE_DIGITAL = RandomCode.CODE_TYPE_LOWERCASE | RandomCode.CODE_TYPE_UPPERCASE | RandomCode.CODE_TYPE_DIGITAL;
 
 	/**
 	 * 对象列表
@@ -77,7 +77,7 @@ public class RandomCode {
 	 * @author XuWeijie
 	 * @datetime 2015年9月9日_下午12:48:20
 	 */
-	private final static RandomCode[] rca = new RandomCode[RandomCode.CODE_TYPE_LOWERCASE_UPPERCASE_DIGITAL + 1];
+	private static final RandomCode[] rca = new RandomCode[RandomCode.CODE_TYPE_LOWERCASE_UPPERCASE_DIGITAL + 1];
 
 	/**
 	 * @author Weijie Xu

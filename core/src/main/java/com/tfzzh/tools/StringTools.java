@@ -21,7 +21,7 @@ public class StringTools {
 	 * @author tfzzh
 	 * @dateTime 2020年7月21日 上午11:38:09
 	 */
-	private final static String empty = "";
+	private static final String empty = "";
 
 	/**
 	 * 根据字符串中的分隔符“_”对字母进行从新组合，将存在的该符号去掉，并将其之后的字符大写<br />

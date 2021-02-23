@@ -26,7 +26,7 @@ public class CoreLog {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午9:48:29
 	 */
-	private final static CoreLog lp = new CoreLog();
+	private static final CoreLog lp = new CoreLog();
 
 	/**
 	 * @author Weijie Xu

@@ -92,7 +92,7 @@ public class OperateLink {
 	 * @author xuweijie
 	 * @dateTime 2012-2-1 下午2:09:43
 	 */
-	private final static OperateLink operate = new OperateLink();
+	private static final OperateLink operate = new OperateLink();
 
 	/**
 	 * @author xuweijie

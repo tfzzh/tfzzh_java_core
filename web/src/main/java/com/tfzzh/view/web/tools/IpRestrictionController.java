@@ -29,7 +29,7 @@ public class IpRestrictionController {
 	 * @author Xu Weijie
 	 * @datetime 2017年8月24日_下午5:04:13
 	 */
-	private final static IpRestrictionController irc = new IpRestrictionController();
+	private static final IpRestrictionController irc = new IpRestrictionController();
 
 	/**
 	 * IP限制列表<br />

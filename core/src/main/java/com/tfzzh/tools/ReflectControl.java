@@ -43,7 +43,7 @@ public class ReflectControl {
 	 * @author xuweijie
 	 * @dateTime 2012-2-7 下午6:12:24
 	 */
-	private final static ReflectControl control = new ReflectControl();
+	private static final ReflectControl control = new ReflectControl();
 
 	/**
 	 * @author xuweijie

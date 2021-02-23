@@ -47,7 +47,7 @@ public class AccessPermissionsControl {
 	 * @author Xu Weijie
 	 * @dateTime 2012-7-9 下午4:54:02
 	 */
-	private final static AccessPermissionsControl control = new AccessPermissionsControl();
+	private static final AccessPermissionsControl control = new AccessPermissionsControl();
 
 	/**
 	 * 验证信息

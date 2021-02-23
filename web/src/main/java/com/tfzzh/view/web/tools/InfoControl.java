@@ -38,7 +38,7 @@ public class InfoControl {
 	 * @author xuweijie
 	 * @dateTime 2012-2-24 下午4:35:24
 	 */
-	private final static InfoControl info = new InfoControl();
+	private static final InfoControl info = new InfoControl();
 
 	/**
 	 * @author xuweijie

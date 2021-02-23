@@ -39,7 +39,7 @@ public class ValidateCenter {
 	 * @author Xu Weijie
 	 * @datetime 2017年9月27日_下午5:31:39
 	 */
-	private final static ValidateCenter vc = new ValidateCenter();
+	private static final ValidateCenter vc = new ValidateCenter();
 
 	/**
 	 * @author Xu Weijie

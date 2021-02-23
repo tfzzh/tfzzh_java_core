@@ -67,7 +67,7 @@ public class WeightCalculation {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月16日 上午11:17:31
 	 */
-	private final static Comparator<WeightBean> cp = new Comparator<>() {
+	private static final Comparator<WeightBean> cp = new Comparator<>() {
 
 		/**
 		 * 结果大值在前，小值在后，能保证0，范围的不出现性

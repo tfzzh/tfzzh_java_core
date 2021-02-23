@@ -21,7 +21,7 @@ public final class MD5 {
 	 * @author tfzzh
 	 * @dateTime 2010-8-1 下午08:19:55
 	 */
-	private final static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+	private static final char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
 	/**
 	 * 获得指定字串的MD5编码

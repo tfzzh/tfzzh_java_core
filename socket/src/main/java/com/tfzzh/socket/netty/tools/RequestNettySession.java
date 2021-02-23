@@ -48,7 +48,7 @@ public class RequestNettySession extends RequestSession {
 	 * @author 许纬杰
 	 * @datetime 2016年7月19日_下午5:43:50
 	 */
-	private final static Logger log = LogManager.getLogger(RequestNettySession.class);
+	private static final Logger log = LogManager.getLogger(RequestNettySession.class);
 
 	/**
 	 * 相关的频道信息

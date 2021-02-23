@@ -16,7 +16,7 @@ public class MemoryTools {
 	 * @author 许纬杰
 	 * @datetime 2016年7月22日_下午6:55:25
 	 */
-	private final static String[] names = { "", "K", "M", "G", "T", "P", "E", "Z", "Y", "B", "N", "D", "C" };
+	private static final String[] names = { "", "K", "M", "G", "T", "P", "E", "Z", "Y", "B", "N", "D", "C" };
 
 	/**
 	 * 显示内存中容量
