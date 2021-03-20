@@ -65,6 +65,17 @@ public final class UploadFileBean extends BaseUploadFileBean {
 	}
 
 	/**
+	 * 得到文件原始名
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年2月5日 下午3:26:05
+	 * @return 文件原始名
+	 */
+	public String getOriginalName() {
+		return this.fileInfo.getName();
+	}
+
+	/**
 	 * 将文件存盘
 	 * 
 	 * @author Xu Weijie

@@ -184,15 +184,29 @@ public class ReflectControl {
 	/**
 	 * 得到目标类已经存在的实体
 	 * 
-	 * @author xuweijie
-	 * @dateTime 2012-2-16 下午5:11:37
+	 * @author tfzzh
+	 * @dateTime 2021年3月4日 下午1:33:44
+	 * @param <T> 目标类型
 	 * @param clz 类信息
 	 * @return 实体信息；<br />
-	 *         null，还不存在目标类实体<br />
+	 *         // * null，还不存在目标类实体<br />
 	 */
-	public BaseReflectOperate getReflectImpl(final Class<?> clz) {
-		return this.getReflectImpl(clz.getName());
+	@SuppressWarnings("unchecked")
+	public <T extends BaseReflectOperate> T getReflectImpl(final Class<T> clz) {
+		return (T) this.getReflectImpl(clz.getName());
 	}
+	// /**
+	// * 得到目标类已经存在的实体
+	// *
+	// * @author xuweijie
+	// * @dateTime 2012-2-16 下午5:11:37
+	// * @param clz 类信息
+	// * @return 实体信息；<br />
+	// * null，还不存在目标类实体<br />
+	// */
+	// public BaseReflectOperate getReflectImpl(final Class<?> clz) {
+	// return this.getReflectImpl(clz.getName());
+	// }
 
 	/**
 	 * 得到目标类名已经存在的实体

@@ -122,6 +122,7 @@ public abstract class BaseConstants {
 	 * @datetime 2017年10月17日_下午2:28:38
 	 */
 	protected BaseConstants() {
+		ResourceBundle.clearCache(this.getClass().getClassLoader());
 		final String cn = this.getClass().getSimpleName();
 		String ccn = StringTools.cutTail(cn, "Constants");
 		if (cn.equalsIgnoreCase(ccn)) {
@@ -143,6 +144,7 @@ public abstract class BaseConstants {
 	 * @param bundleName 所相关资源名
 	 */
 	protected BaseConstants(final String bundleName) {
+		ResourceBundle.clearCache(this.getClass().getClassLoader());
 		this.setBundleName(bundleName);
 		// 因为初始化加入到池
 		CoreConstantsPool.getInstance().putConstants(this);
@@ -154,6 +156,7 @@ public abstract class BaseConstants {
 	 * @param bundleFile 所相关资源文件信息
 	 */
 	protected BaseConstants(final File bundleFile) {
+		ResourceBundle.clearCache(this.getClass().getClassLoader());
 		this.setBundleFile(bundleFile);
 		// 因为初始化加入到池
 		CoreConstantsPool.getInstance().putConstants(this);
@@ -1410,6 +1413,40 @@ public abstract class BaseConstants {
 		}
 		// if (bak.size() == 0) {
 		// this.log.error("no conf strToStrStr ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析<br />
+	 * string转为string-key，jsonString为value情况<br />
+	 * 过程存在将内容转为json对象再转回的操作<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年3月4日 下午4:26:16
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Map<String, String> strToStrJson(final String cont) {
+		// this.log.debug("in strToStrJson ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<String, String> bak = new HashMap<>();
+		String js;
+		Object tjo;
+		for (final String key : jo.keySet()) {
+			js = jo.getString(key);
+			try {
+				tjo = JSON.parse(js);
+				bak.put(key, JSON.toJSONString(tjo));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf strToStrJson ... ");
 		// }
 		return bak;
 	}

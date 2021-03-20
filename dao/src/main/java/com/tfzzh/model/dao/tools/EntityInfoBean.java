@@ -204,7 +204,7 @@ public class EntityInfoBean<E extends BaseDataBean> {
 	 * @author Xu Weijie
 	 * @datetime 2017年8月2日_下午6:06:46
 	 */
-	private final static Map<String, Object> VALIDATED_TABLE = new HashMap<>();
+	private static final Map<String, Object> VALIDATED_TABLE = new HashMap<>();
 
 	/**
 	 * @author Weijie Xu
@@ -439,6 +439,17 @@ public class EntityInfoBean<E extends BaseDataBean> {
 	 */
 	public String getDefaultSQLTableName() {
 		return '`' + this.tableName + '`';
+	}
+
+	/**
+	 * 得到表说明
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月3日 下午5:47:23
+	 * @return the desc
+	 */
+	public String getDesc() {
+		return this.desc;
 	}
 
 	/**
@@ -1837,7 +1848,7 @@ public class EntityInfoBean<E extends BaseDataBean> {
 		 * @param name 原名
 		 * @return 处理后的名字
 		 */
-		private String getShortName(String name) {
+		private String getShortName(final String name) {
 			if (name.length() <= 12) {
 				return name;
 			} else {
