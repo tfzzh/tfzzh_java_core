@@ -315,10 +315,24 @@ public final class ConnectionPoolManager implements ConnectionInfoConfig, Connec
 		 */
 		@Override
 		public void run() {
-			for (final UniqueConnectionPool ucp : ConnectionPoolManager.cpm.conUniPools.values()) {
-				ucp.sysShutdown();
+			try {
+				for (final UniqueConnectionPool ucp : ConnectionPoolManager.cpm.conUniPools.values()) {
+					try {
+						ucp.sysShutdown();
+					} catch (final Exception e) {
+						e.printStackTrace();
+					}
+				}
+				try {
+					ConnectionPoolManager.cpm.conChgPool.sysShutdown();
+				} catch (final Exception e) {
+					e.printStackTrace();
+				}
+			} catch (final Exception e) {
+				// 先简版处理
+				e.printStackTrace();
+				System.exit(0);
 			}
-			ConnectionPoolManager.cpm.conChgPool.sysShutdown();
 		}
 	}
 }

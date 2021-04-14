@@ -1125,6 +1125,19 @@ public class DateFormat {
 	}
 
 	/**
+	 * 将日期字符串转为long
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年4月12日 下午1:23:02
+	 * @param day 日期字符串
+	 * @return long值
+	 */
+	public static long getTimeStrToLong(String day) {
+		day = DateFormat.getTimeShowToNone(day);
+		return Long.parseLong(day);
+	}
+
+	/**
 	 * 仅针对excel模版数据导入时，时间类型字段直接转为时间戳模型
 	 * 
 	 * @author tfzzh

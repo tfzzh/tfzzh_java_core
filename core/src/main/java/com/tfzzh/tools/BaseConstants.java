@@ -1499,6 +1499,43 @@ public abstract class BaseConstants {
 	 * 进行对应数据解析
 	 * 
 	 * @author tfzzh
+	 * @dateTime 2021年4月8日 下午5:20:34
+	 * @param <O> 目标数据对象
+	 * @param cont 配置文件内容
+	 * @param clz 目标数据对象类
+	 * @return 解析后的内容
+	 */
+	protected <O extends ObjectInfo> List<O> onlyListObject(final String cont, final Class<O> clz) {
+		// this.log.debug("in onlyListObject ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new ArrayList<>();
+		}
+		final JSONArray ja = JSON.parseArray(cont);
+		final List<O> bak = new ArrayList<>();
+		JSONObject ijo;
+		O o;
+		final Class<?>[] clza = new Class[] { JSONObject.class };
+		Object[] obja;
+		for (int i = 0; i < ja.size(); i++) {
+			ijo = ja.getJSONObject(i);
+			obja = new Object[] { ijo };
+			try {
+				o = InstanceFactory.classInstance(clz, clza, obja);
+				bak.add(o);
+			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf onlyListObject ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
 	 * @dateTime 2020年11月20日 下午8:17:26
 	 * @param <O> 目标数据对象
 	 * @param cont 配置文件内容
@@ -1528,6 +1565,37 @@ public abstract class BaseConstants {
 		}
 		// if (bak.size() == 0) {
 		// this.log.error("no conf strToListObject ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年4月8日 下午5:28:28
+	 * @param <O> 目标数据对象
+	 * @param cont 配置文件内容
+	 * @param clz 目标数据对象类
+	 * @return 解析后的内容
+	 */
+	protected <O extends ObjectInfo> O onlyObject(final String cont, final Class<O> clz) {
+		// this.log.debug("in onlyObject ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return null;
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		O bak = null;
+		final Class<?>[] clza = new Class[] { JSONObject.class };
+		Object[] obja;
+		obja = new Object[] { jo };
+		try {
+			bak = InstanceFactory.classInstance(clz, clza, obja);
+		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf onlyObject ... ");
 		// }
 		return bak;
 	}

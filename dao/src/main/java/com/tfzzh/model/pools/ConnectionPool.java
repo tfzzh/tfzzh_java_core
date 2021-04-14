@@ -409,7 +409,11 @@ public abstract class ConnectionPool {
 			// 在连接信息中移除自身
 			final Iterator<ConnectionInfoBean> it = this.userConnectionInfo.values().iterator();
 			while (it.hasNext()) {
-				it.next().shutdownPool(this);
+				try {
+					it.next().shutdownPool(this);
+				} catch (final Exception e) {
+					e.printStackTrace();
+				}
 				it.remove();
 			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
