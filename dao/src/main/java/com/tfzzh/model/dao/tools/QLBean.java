@@ -611,17 +611,19 @@ public class QLBean {
 	 * @param ic 索引计数器
 	 */
 	public void assemblyUpdateSQL(final StringBuilder sql, final IndexCounter ic) {
-		if (null != this.updateScopes) {
-			sql.append(" SET ");
-			boolean isFirst = true;
-			for (final LocalScope ls : this.updateScopes) {
-				if (isFirst) {
-					isFirst = false;
-				} else {
-					sql.append(',');
-				}
-				ls.assemblySQL(sql, ic);
+		if (null == this.updateScopes || this.updateScopes.size() == 0) {
+			final EntityInfoBean<? extends BaseDataBean>.FieldInfoBean[] prims = this.mainEib.getPrimaryFieldsCopy();
+			this.getNewUpdate(prims[0]).addField(prims[0]);
+		}
+		sql.append(" SET ");
+		boolean isFirst = true;
+		for (final LocalScope ls : this.updateScopes) {
+			if (isFirst) {
+				isFirst = false;
+			} else {
+				sql.append(',');
 			}
+			ls.assemblySQL(sql, ic);
 		}
 	}
 

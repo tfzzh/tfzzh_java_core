@@ -70,6 +70,7 @@ public class ProjectCodeTools {
 			sb.append(rc.getRandomCode(len - timeInd));
 		}
 		long time = System.currentTimeMillis();
+		time += TfzzhRandom.getInstance().nextInt(1000000);
 		final int tl = BaseToolsConstants.LONG_CODE_TIME_RANDOM_CODE.length;
 		do {
 			sb.append(BaseToolsConstants.LONG_CODE_TIME_RANDOM_CODE[(int) (time % tl)]);
