@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.tfzzh.tools.Constants;
 import com.tfzzh.view.web.tools.UploadBackCodeEnum;
 import com.tfzzh.view.web.tools.UploadFileNameTypeEnum;
 
@@ -91,8 +92,19 @@ public final class UploadByteFileBean extends BaseUploadFileBean {
 			final FileOutputStream out = new FileOutputStream(this.getFolderPath() + "/" + this.getFileName());
 			out.write(db);
 			out.close();
-			final File f = new File(this.getFolderPath() + "/" + this.getFileName());
-			return new SaveFileBackBean(UploadBackCodeEnum.OK, f);
+			final File file = new File(this.getFolderPath() + "/" + this.getFileName());
+			// 写入内容到文件
+			file.setReadable(true, false);
+			file.setWritable(true, false);
+			file.setExecutable(true, false);
+			if (!Constants.OS_WIN) {
+				try {
+					Runtime.getRuntime().exec("chmod 777 -R " + file.getPath());
+				} catch (final IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return new SaveFileBackBean(UploadBackCodeEnum.OK, file);
 		} catch (final IOException e) {
 			return new SaveFileBackBean(UploadBackCodeEnum.IOException);
 		} catch (final Exception e) {
