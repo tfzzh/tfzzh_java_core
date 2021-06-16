@@ -71,7 +71,7 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 时间到一天的开始
+	 * 时间到一天的开始时刻
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-3-26 下午2:48:24
@@ -87,7 +87,7 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 时间到一天的开始
+	 * 时间到一天的开始时刻
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年8月31日 下午7:01:40
@@ -101,7 +101,22 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 得到当天的结束时间
+	 * 目标日期开始时刻
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月3日 上午11:43:57
+	 * @param date 日期穿（yyyy-MM-dd）
+	 * @return 日历对象
+	 */
+	public static Calendar timeToDayStart(final String date) {
+		final Calendar cal = Calendar.getInstance();
+		final Date d = DateFormat.getShortDateShow(date);
+		cal.setTimeInMillis(d.getTime());
+		return CalendarExpand.timeToDayStart(cal);
+	}
+
+	/**
+	 * 得到当天的结束时刻
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年6月10日_下午8:58:58
@@ -112,7 +127,7 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 得到当前小时的节点时间
+	 * 得到当前小时的结点时刻
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年6月27日_下午2:12:18
@@ -127,7 +142,7 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 时间到一天的结束
+	 * 时间到一天的结束时刻
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-3-26 下午2:48:25
@@ -153,6 +168,21 @@ public class CalendarExpand {
 	public static Calendar timeToDayEnd(final long time) {
 		final Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToDayEnd(cal);
+	}
+
+	/**
+	 * 目标日期的结束时刻
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月3日 上午11:43:57
+	 * @param date 日期穿（yyyy-MM-dd）
+	 * @return 日历对象
+	 */
+	public static Calendar timeToDayEnd(final String date) {
+		final Calendar cal = Calendar.getInstance();
+		final Date d = DateFormat.getShortDateShow(date);
+		cal.setTimeInMillis(d.getTime());
 		return CalendarExpand.timeToDayEnd(cal);
 	}
 
@@ -569,5 +599,57 @@ public class CalendarExpand {
 	 */
 	public static int timeDifferenceHour(final long beforeTime, final long behindTime) {
 		return (int) ((beforeTime / CalendarExpand.ONE_HOUR_TIME) - (behindTime / CalendarExpand.ONE_HOUR_TIME));
+	}
+
+	/**
+	 * 去到日期<br />
+	 * 增量单位天<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月14日 上午11:37:00
+	 * @param day 起始日期
+	 * @param add 时间增量<br />
+	 *           正值为增量，负值为减量<br />
+	 * @return 得到的日期
+	 */
+	public static Calendar toDate(final String day, final int add) {
+		return CalendarExpand.toDate(day, add, 1);
+	}
+
+	/**
+	 * 去到日期
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月14日 上午11:34:18
+	 * @param day 起始日期
+	 * @param add 时间增量<br />
+	 *           正值为增量，负值为减量<br />
+	 * @param type 类型：<br />
+	 *           1，日期（默认）；<br />
+	 *           2，月份；<br />
+	 *           3，周；<br />
+	 *           4，年；<br />
+	 * @return 得到的日期
+	 */
+	public static Calendar toDate(final String day, final int add, final int type) {
+		final Date d = DateFormat.getShortDateShow(day);
+		final Calendar cal = Calendar.getInstance();
+		cal.setFirstDayOfWeek(Calendar.MONDAY);
+		cal.setTimeInMillis(d.getTime());
+		switch (type) {
+		case 2:
+			cal.add(Calendar.MONTH, add);
+			break;
+		case 3:
+			cal.add(Calendar.WEEK_OF_YEAR, add);
+			break;
+		case 4:
+			cal.add(Calendar.YEAR, add);
+			break;
+		default:
+			cal.add(Calendar.DAY_OF_YEAR, add);
+			break;
+		}
+		return cal;
 	}
 }

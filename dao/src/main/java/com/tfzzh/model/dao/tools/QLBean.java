@@ -485,7 +485,9 @@ public class QLBean {
 	}
 
 	/**
-	 * 得到拼装sql用对象
+	 * 得到拼装sql用对象<br />
+	 * 调用该方法时，同时注意对方法{putTableScope}的调用<br />
+	 * 为了目标表可能不存在时，造成问题<br />
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2015年5月16日 下午6:06:10

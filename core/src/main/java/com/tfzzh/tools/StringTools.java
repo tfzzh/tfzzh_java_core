@@ -214,6 +214,9 @@ public class StringTools {
 	 */
 	public static List<String> splitToArray(final String str, final String splitFlag) {
 		final List<String> arr = new ArrayList<>();
+		if (StringTools.isNullOrEmpty(str)) {
+			return arr;
+		}
 		// start index
 		int si = 0;
 		// end index
@@ -280,7 +283,7 @@ public class StringTools {
 	 */
 	public static List<Integer> splitToIntArray(final String str, final String splitFlag) {
 		final List<Integer> arr = new ArrayList<>();
-		if ((null == str) || (str.length() == 0)) {
+		if (StringTools.isNullOrEmpty(str)) {
 			return arr;
 		}
 		// start index
@@ -353,6 +356,9 @@ public class StringTools {
 	 */
 	public static List<Short> splitToShortArray(final String str, final String splitFlag) {
 		final List<Short> arr = new ArrayList<>();
+		if (StringTools.isNullOrEmpty(str)) {
+			return arr;
+		}
 		// start index
 		int si = 0;
 		// end index
@@ -423,6 +429,9 @@ public class StringTools {
 	 */
 	public static List<Long> splitToLongArray(final String str, final String splitFlag) {
 		final List<Long> arr = new ArrayList<>();
+		if (StringTools.isNullOrEmpty(str)) {
+			return arr;
+		}
 		// start index
 		int si = 0;
 		// end index
@@ -475,6 +484,9 @@ public class StringTools {
 	 */
 	public static List<Double> splitToDoubleArray(final String str, final String splitFlag) {
 		final List<Double> arr = new ArrayList<>();
+		if (StringTools.isNullOrEmpty(str)) {
+			return arr;
+		}
 		// start index
 		int si = 0;
 		// end index
@@ -527,6 +539,9 @@ public class StringTools {
 	 */
 	public static List<Float> splitToFloatArray(final String str, final String splitFlag) {
 		final List<Float> arr = new ArrayList<>();
+		if (StringTools.isNullOrEmpty(str)) {
+			return arr;
+		}
 		// start index
 		int si = 0;
 		// end index

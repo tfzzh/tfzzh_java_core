@@ -57,4 +57,13 @@ public @interface PropertiesMethod {
 	 * @return 目标用到的类属性对象
 	 */
 	public Class<?> tarclz() default Object.class;
+
+	/**
+	 * 当作为一个map对象时，如果接收到为list数据，则该属性对应内容为key
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年5月28日 下午9:19:36
+	 * @return 内容为key的属性
+	 */
+	public String mapKey() default "";
 }

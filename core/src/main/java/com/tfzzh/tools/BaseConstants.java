@@ -533,12 +533,12 @@ public abstract class BaseConstants {
 						if (fm.clz() != Object.class) {
 							try {
 								// m = this.getClass().getDeclaredMethod(mn, String.class, Class.class);
-								m = this.classMethod(this.getClass(), mn, String.class, Class.class);
+								m = this.classMethod(this.getClass(), mn, String.class, Class.class, String.class);
 								if (!m.trySetAccessible()) {
 									m.setAccessible(true);
 								}
 								// m.setAccessible(true);
-								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv), fm.clz()));
+								field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv), fm.clz(), fm.mapKey()));
 								// m.setAccessible(false);
 								return;
 							} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e13) {
@@ -575,12 +575,12 @@ public abstract class BaseConstants {
 										if (fm.clz() != Object.class) {
 											try {
 												// m = this.getClass().getDeclaredMethod(mn, String.class, Class.class);
-												m = this.classMethod(this.getClass(), mn, String.class, Class.class);
+												m = this.classMethod(this.getClass(), mn, String.class, Class.class, String.class);
 												if (!m.trySetAccessible()) {
 													m.setAccessible(true);
 												}
 												// m.setAccessible(true);
-												field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv), fm.clz()));
+												field.set((((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) ? null : this), m.invoke(this, this.getString(fn, fv), fm.clz(), fm.mapKey()));
 												// m.setAccessible(false);
 												return;
 											} catch (final NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e23) {
@@ -1459,27 +1459,55 @@ public abstract class BaseConstants {
 	 * @param <O> 目标数据对象
 	 * @param cont 配置文件内容
 	 * @param clz 目标数据对象类
+	 * @param mapKey 如果是列表数据，则为key对应属性
 	 * @return 解析后的内容
 	 */
-	protected <O extends ObjectInfo> Map<String, List<O>> strToListObject(final String cont, final Class<O> clz) {
+	protected <O extends ObjectInfo> Map<String, List<O>> strToListObject(final String cont, final Class<O> clz, final String mapKey) {
 		// this.log.debug("in strToListObject ... ");
 		if ((null == cont) || (cont.length() == 0)) {
 			return new HashMap<>();
 		}
-		final JSONObject jo = JSON.parseObject(cont);
 		final Map<String, List<O>> bak = new HashMap<>();
-		List<O> sl;
-		JSONArray ja;
-		JSONObject ijo;
-		O o;
-		final Class<?>[] clza = new Class[] { JSONObject.class };
-		Object[] obja;
-		for (final String key : jo.keySet()) {
-			ja = jo.getJSONArray(key);
-			sl = new ArrayList<>();
+		if (cont.startsWith("{")) {
+			final JSONObject jo = JSON.parseObject(cont);
+			List<O> sl;
+			JSONArray ja;
+			JSONObject ijo;
+			O o;
+			final Class<?>[] clza = new Class[] { JSONObject.class };
+			Object[] obja;
+			for (final String key : jo.keySet()) {
+				ja = jo.getJSONArray(key);
+				sl = new ArrayList<>();
+				for (int i = 0; i < ja.size(); i++) {
+					ijo = ja.getJSONObject(i);
+					obja = new Object[] { ijo };
+					try {
+						o = InstanceFactory.classInstance(clz, clza, obja);
+						sl.add(o);
+					} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+				bak.put(key, sl);
+			}
+		} else if (cont.startsWith("[") || !StringTools.isNullOrEmpty(mapKey)) {
+			final JSONArray ja = JSON.parseArray(cont);
+			List<O> sl;
+			JSONObject jo;
+			O o;
+			final Class<?>[] clza = new Class[] { JSONObject.class };
+			Object[] obja;
+			String key;
 			for (int i = 0; i < ja.size(); i++) {
-				ijo = ja.getJSONObject(i);
-				obja = new Object[] { ijo };
+				jo = ja.getJSONObject(i);
+				key = jo.getString(mapKey);
+				sl = bak.get(key);
+				if (null == sl) {
+					sl = new ArrayList<>();
+					bak.put(key, sl);
+				}
+				obja = new Object[] { jo };
 				try {
 					o = InstanceFactory.classInstance(clz, clza, obja);
 					sl.add(o);
@@ -1487,11 +1515,10 @@ public abstract class BaseConstants {
 					e.printStackTrace();
 				}
 			}
-			bak.put(key, sl);
-		}
-		// if (bak.size() == 0) {
-		// this.log.error("no conf strToListObject ... ");
-		// }
+		} // 其他问题数据不过多处理
+			// if (bak.size() == 0) {
+			// this.log.error("no conf strToListObject ... ");
+			// }
 		return bak;
 	}
 
@@ -1503,9 +1530,10 @@ public abstract class BaseConstants {
 	 * @param <O> 目标数据对象
 	 * @param cont 配置文件内容
 	 * @param clz 目标数据对象类
+	 * @param mapKey 通用属性，这里无效
 	 * @return 解析后的内容
 	 */
-	protected <O extends ObjectInfo> List<O> onlyListObject(final String cont, final Class<O> clz) {
+	protected <O extends ObjectInfo> List<O> onlyListObject(final String cont, final Class<O> clz, final String mapKey) {
 		// this.log.debug("in onlyListObject ... ");
 		if ((null == cont) || (cont.length() == 0)) {
 			return new ArrayList<>();
@@ -1540,32 +1568,55 @@ public abstract class BaseConstants {
 	 * @param <O> 目标数据对象
 	 * @param cont 配置文件内容
 	 * @param clz 目标数据对象类
+	 * @param mapKey 如果是列表数据，则为key对应属性
 	 * @return 解析后的内容
 	 */
-	protected <O extends ObjectInfo> Map<String, O> strToObject(final String cont, final Class<O> clz) {
+	protected <O extends ObjectInfo> Map<String, O> strToObject(final String cont, final Class<O> clz, final String mapKey) {
 		// this.log.debug("in strToListObject ... ");
 		if ((null == cont) || (cont.length() == 0)) {
 			return new HashMap<>();
 		}
-		final JSONObject jo = JSON.parseObject(cont);
 		final Map<String, O> bak = new HashMap<>();
-		JSONObject ijo;
-		O o;
-		final Class<?>[] clza = new Class[] { JSONObject.class };
-		Object[] obja;
-		for (final String key : jo.keySet()) {
-			ijo = jo.getJSONObject(key);
-			obja = new Object[] { ijo };
-			try {
-				o = InstanceFactory.classInstance(clz, clza, obja);
-				bak.put(key, o);
-			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
+		if (cont.startsWith("{")) {
+			// 正常对象
+			final JSONObject jo = JSON.parseObject(cont);
+			JSONObject ijo;
+			O o;
+			final Class<?>[] clza = new Class[] { JSONObject.class };
+			Object[] obja;
+			for (final String key : jo.keySet()) {
+				ijo = jo.getJSONObject(key);
+				obja = new Object[] { ijo };
+				try {
+					o = InstanceFactory.classInstance(clz, clza, obja);
+					bak.put(key, o);
+				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
 			}
-		}
-		// if (bak.size() == 0) {
-		// this.log.error("no conf strToListObject ... ");
-		// }
+		} else if (cont.startsWith("[") || !StringTools.isNullOrEmpty(mapKey)) {
+			// 列表模式 2021-05-28
+			final JSONArray ja = JSON.parseArray(cont);
+			JSONObject ijo;
+			O o;
+			final Class<?>[] clza = new Class[] { JSONObject.class };
+			Object[] obja;
+			String key;
+			for (int i = 0; i < ja.size(); i++) {
+				ijo = ja.getJSONObject(i);
+				key = ijo.getString(mapKey);
+				obja = new Object[] { ijo };
+				try {
+					o = InstanceFactory.classInstance(clz, clza, obja);
+					bak.put(key, o);
+				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
+		} // 其他问题数据不过多处理
+			// if (bak.size() == 0) {
+			// this.log.error("no conf strToListObject ... ");
+			// }
 		return bak;
 	}
 
@@ -1577,9 +1628,10 @@ public abstract class BaseConstants {
 	 * @param <O> 目标数据对象
 	 * @param cont 配置文件内容
 	 * @param clz 目标数据对象类
+	 * @param mapKey 通用属性，这里无效
 	 * @return 解析后的内容
 	 */
-	protected <O extends ObjectInfo> O onlyObject(final String cont, final Class<O> clz) {
+	protected <O extends ObjectInfo> O onlyObject(final String cont, final Class<O> clz, final String mapKey) {
 		// this.log.debug("in onlyObject ... ");
 		if ((null == cont) || (cont.length() == 0)) {
 			return null;

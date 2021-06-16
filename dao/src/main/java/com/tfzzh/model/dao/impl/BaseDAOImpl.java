@@ -902,6 +902,10 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 	 * @throws SQLException 抛
 	 */
 	public int updateData(final E ent) throws SQLException {
+		if (null == ent.getKeyValue()) {
+			// 存在主键问题
+			return -1;
+		}
 		return this.updateData(ent, ent.getTableName());
 	}
 
