@@ -157,6 +157,94 @@ public class QLBean {
 	protected static final int TYPE_LIST_FIELD = 11;
 
 	/**
+	 * Sql:逗号字串1
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:41:30
+	 */
+	public static final String SQL_DOU1 = ",".intern();
+
+	/**
+	 * Sql:问号字串1
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:16:10
+	 */
+	public static final String SQL_WEN1 = "?".intern();
+
+	/**
+	 * Sql:问号字串2
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:16:11
+	 */
+	public static final String SQL_WEN2 = ",?".intern();
+
+	/**
+	 * Sql:括号左字串1
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:46:54
+	 */
+	public static final String SQL_KUOHAO_ZUO1 = "(".intern();
+
+	/**
+	 * Sql:括号右字串1
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:46:55
+	 */
+	public static final String SQL_KUOHAO_YOU1 = ")".intern();
+
+	/**
+	 * Sql:双引号字串1
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:45:05
+	 */
+	public static final String SQL_SHUANGYIN1 = "\"".intern();
+
+	/**
+	 * Sql:set字串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:44:06
+	 */
+	public static final String SQL_SET1 = " SET ".intern();
+
+	/**
+	 * Sql:order by字串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:44:07
+	 */
+	public static final String SQL_ORDER_BY1 = " ORDER BY ".intern();
+
+	/**
+	 * Sql:limit字串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:48:20
+	 */
+	public static final String SQL_LIMIT1 = " LIMIT ".intern();
+
+	/**
+	 * Sql:where字串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:16:11
+	 */
+	public static final String SQL_WHERE1 = "` where ".intern();
+
+	/**
+	 * Sql:and字串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年6月26日 下午3:16:12
+	 */
+	public static final String SQL_AND1 = " = ? and ".intern();
+
+	/**
 	 * 主动放入主实例对象
 	 * 
 	 * @author Weijie Xu
@@ -532,7 +620,7 @@ public class QLBean {
 				if (isFirst) {
 					isFirst = false;
 				} else {
-					sb.append(',');
+					sb.append(QLBean.SQL_DOU1);
 				}
 				if (null == ent.getValue()) {
 					sb.append(ent.getKey().getDefaultTableName());
@@ -592,9 +680,9 @@ public class QLBean {
 				ls.assemblyRelationalSQL(sql);
 			}
 			if (null != ls.getChildScopes()) {
-				sql.append('(');
+				sql.append(QLBean.SQL_KUOHAO_ZUO1);
 				this.assemblyTermSQL(ls.getChildScopes(), sql, ic);
-				sql.append(')');
+				sql.append(QLBean.SQL_KUOHAO_YOU1);
 				// if (isFirst) {
 				// isFirst = false;
 				// }
@@ -617,13 +705,13 @@ public class QLBean {
 			final EntityInfoBean<? extends BaseDataBean>.FieldInfoBean[] prims = this.mainEib.getPrimaryFieldsCopy();
 			this.getNewUpdate(prims[0]).addField(prims[0]);
 		}
-		sql.append(" SET ");
+		sql.append(QLBean.SQL_SET1);
 		boolean isFirst = true;
 		for (final LocalScope ls : this.updateScopes) {
 			if (isFirst) {
 				isFirst = false;
 			} else {
-				sql.append(',');
+				sql.append(QLBean.SQL_DOU1);
 			}
 			ls.assemblySQL(sql, ic);
 		}
@@ -638,13 +726,13 @@ public class QLBean {
 	 */
 	public void assemblySortSQL(final StringBuilder sql) {
 		if (null != this.orderScopes) {
-			sql.append(" ORDER BY ");
+			sql.append(QLBean.SQL_ORDER_BY1);
 			boolean isFirst = true;
 			for (final LocalScope ls : this.orderScopes) {
 				if (isFirst) {
 					isFirst = false;
 				} else {
-					sql.append(',');
+					sql.append(QLBean.SQL_DOU1);
 				}
 				ls.assemblySQL(sql, null);
 			}
@@ -661,7 +749,7 @@ public class QLBean {
 	 */
 	public void assemblyPagerankSQL(final StringBuilder sql) {
 		if (null != this.prb) {
-			sql.append(" LIMIT ").append(this.prb.getDataStartIndex()).append(',').append(this.prb.getSize());
+			sql.append(QLBean.SQL_LIMIT1).append(this.prb.getDataStartIndex()).append(QLBean.SQL_DOU1).append(this.prb.getSize());
 		}
 	}
 
@@ -702,7 +790,7 @@ public class QLBean {
 					if (isFirst) {
 						isFirst = false;
 					} else {
-						log.append(',');
+						log.append(QLBean.SQL_DOU1);
 					}
 					l.setPSValue(ps, log);
 				}
@@ -857,7 +945,7 @@ public class QLBean {
 				if (isFirst) {
 					isFirst = false;
 				} else {
-					sb.append(',');
+					sb.append(QLBean.SQL_DOU1);
 				}
 				// ls.assemblyRelationalMongo(bo);
 				ls.assemblyRelationalMongo(sb);
@@ -890,7 +978,7 @@ public class QLBean {
 				if (isFirst) {
 					isFirst = false;
 				} else {
-					sb.append(',');
+					sb.append(QLBean.SQL_DOU1);
 				}
 				ls.assemblyRelationalMongo(sb);
 			}
@@ -904,7 +992,7 @@ public class QLBean {
 					if (isFirst) {
 						isFirst = false;
 					} else {
-						sb.append(',');
+						sb.append(QLBean.SQL_DOU1);
 					}
 					ls.assemblyRelationalMongo(sb);
 				}
@@ -940,7 +1028,7 @@ public class QLBean {
 	// if (isFirst) {
 	// isFirst = false;
 	// } else {
-	// sb.append(',');
+	// sb.append(QLBean.SQL_DOU1);
 	// }
 	// ls.assemblyRelationalMongo(sb);
 	// }
@@ -950,7 +1038,7 @@ public class QLBean {
 	// if (isFirst) {
 	// isFirst = false;
 	// } else {
-	// sb.append(',');
+	// sb.append(QLBean.SQL_DOU1);
 	// }
 	// ls.assemblyRelationalMongo(sb);
 	// }
@@ -1014,7 +1102,7 @@ public class QLBean {
 							if (isFirst) {
 								isFirst = false;
 							} else {
-								sb.append(',');
+								sb.append(QLBean.SQL_DOU1);
 							}
 							s.assemblyRelationalMongo(sb);
 						}
@@ -1024,7 +1112,7 @@ public class QLBean {
 							if (isFirst) {
 								isFirst = false;
 							} else {
-								sb.append(',');
+								sb.append(QLBean.SQL_DOU1);
 							}
 							s.assemblyRelationalMongo(sb);
 						}
@@ -1046,14 +1134,14 @@ public class QLBean {
 				if (isFirst) {
 					isFirst = false;
 				} else {
-					sb.append(',');
+					sb.append(QLBean.SQL_DOU1);
 				}
 				// 得到名称
 				tn = ls.getTargetName();
 				sb.append(tn);
 				sb.append(":\"$");
 				sb.append(tn);
-				sb.append('"');
+				sb.append(QLBean.SQL_SHUANGYIN1);
 			}
 			if (null != this.listFieldScopes.getTermScopes()) {
 				// 加入子条件内容
@@ -1061,14 +1149,14 @@ public class QLBean {
 					if (isFirst) {
 						isFirst = false;
 					} else {
-						sb.append(',');
+						sb.append(QLBean.SQL_DOU1);
 					}
 					// 得到名称
 					tn = ls.getTargetName();
 					sb.append(ls.getTargetName());
 					sb.append(":\"$");
 					sb.append(ls.getTargetPathName());
-					sb.append('"');
+					sb.append(QLBean.SQL_SHUANGYIN1);
 				}
 			}
 			sb.append("},");
