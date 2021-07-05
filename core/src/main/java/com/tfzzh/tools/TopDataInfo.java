@@ -149,10 +149,7 @@ public abstract class TopDataInfo<K> {
 	 */
 	public void refresh() {
 		final long newRef = this.refreshReferenceScore();
-		if (newRef == 0) {
-			return;
-		}
-		if (newRef == this.ref) {
+		if ((newRef == 0) || (newRef == this.ref)) {
 			return;
 		}
 		try {

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.exception.NestedRuntimeException;
 import com.tfzzh.log.CoreLog;
+import com.tfzzh.tools.Constants;
 import com.tfzzh.tools.ReflectControl;
 import com.tfzzh.tools.ReflectControl.ControlInfo;
 import com.tfzzh.tools.RunThreadLocal;
@@ -147,7 +148,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 						// if (null == host) {
 						// host = "*";
 						// } else {
-						// final int eh = host.indexOf("/", 10);
+						// final int eh = host.indexOf(Constants.DIAGONAL_LINE, 10);
 						// if (eh != -1) {
 						// host = host.substring(0, eh);
 						// } else {
@@ -172,21 +173,21 @@ public class CoreHttpServlet extends BaseHttpServlet {
 					if (null == cau) {
 						// 其他异常的处理
 						if (CoreLog.getInstance().errorEnabled(this.getClass())) {
-							CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\truntime error request").append(request.getServletPath()).append(((null != request.getPathInfo() ? "/" + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
+							CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\truntime error request").append(request.getServletPath()).append(((null != request.getPathInfo() ? Constants.DIAGONAL_LINE + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
 						}
 						// 进行消息的再处理
 						InfoControl.getInstantce().putExceptionRequest(request, response, link, requestParas, e, l);
 					} else if (NestedRuntimeException.class.isAssignableFrom(cau.getClass())) {
 						// 其他异常的处理
 						if (CoreLog.getInstance().errorEnabled(this.getClass())) {
-							CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\truntime error request").append(request.getServletPath()).append(((null != request.getPathInfo() ? "/" + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
+							CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\truntime error request").append(request.getServletPath()).append(((null != request.getPathInfo() ? Constants.DIAGONAL_LINE + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
 						}
 						// 进行消息的再处理
 						InfoControl.getInstantce().putRuntimeExceptionRequest(request, response, link, requestParas, (NestedRuntimeException) cau, l);
 					} else {
 						// 其他异常的处理
 						if (CoreLog.getInstance().errorEnabled(this.getClass())) {
-							CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\terror request").append(request.getServletPath()).append(((null != request.getPathInfo() ? "/" + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
+							CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\terror request").append(request.getServletPath()).append(((null != request.getPathInfo() ? Constants.DIAGONAL_LINE + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
 						}
 						// 进行消息的再处理
 						InfoControl.getInstantce().putExceptionRequest(request, response, link, requestParas, cau, l);
@@ -194,14 +195,14 @@ public class CoreHttpServlet extends BaseHttpServlet {
 				} catch (final NestedRuntimeException e) {
 					// 运行时异常的处理
 					if (CoreLog.getInstance().errorEnabled(this.getClass())) {
-						CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\truntime error request").append(request.getServletPath()).append(((null != request.getPathInfo() ? "/" + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
+						CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\truntime error request").append(request.getServletPath()).append(((null != request.getPathInfo() ? Constants.DIAGONAL_LINE + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
 					}
 					// 进行消息的再处理
 					InfoControl.getInstantce().putRuntimeExceptionRequest(request, response, link, requestParas, e, l);
 				} catch (final Exception e) {
 					// 其他异常的处理
 					if (CoreLog.getInstance().errorEnabled(this.getClass())) {
-						CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\terror request").append(request.getServletPath()).append(((null != request.getPathInfo() ? "/" + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
+						CoreLog.getInstance().error(this.getClass(), new StringBuilder().append("\terror request").append(request.getServletPath()).append(((null != request.getPathInfo() ? Constants.DIAGONAL_LINE + request.getPathInfo() : ""))).append(" >>>> params : ").append(requestParas).toString());
 					}
 					// 进行消息的再处理
 					InfoControl.getInstantce().putExceptionRequest(request, response, link, requestParas, e, l);
@@ -209,7 +210,9 @@ public class CoreHttpServlet extends BaseHttpServlet {
 					// if (null == tab.la) {
 					// }
 					if (CoreLog.getInstance().debugEnabled(this.getClass())) {
-						CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("run: ").append(System.currentTimeMillis() - l).append(" with [").append(WebTools.getClientIp(request)).append(':').append(request.getRemotePort()).append("]>").append(link.getReflectControlKey()).append('(').append(paraLog.toString()).append(')').append(isOk ? " ok" : " err").append(" > original > ").append(requestParas.toString()).toString());
+						CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("run: ").append(System.currentTimeMillis() - l).append(" with [").append(WebTools.getClientIp(request)).append(':').append(request.getRemotePort()).append("]>").append(link.getReflectControlKey()).append('(').append(paraLog.toString()).append(')').append(isOk ? " ok ct[" : " err ct[").append(request.getContentType()).append("] > original > ").append(requestParas.toString()).toString());
+						request.getHeader("User-Agent");
+						CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("\t\t >> user-agent >> ").append(request.getHeader("User-Agent")).toString());
 					}
 					if (isOk) {
 						// 成功的请求
@@ -272,7 +275,7 @@ public class CoreHttpServlet extends BaseHttpServlet {
 		if (null == host) {
 			host = "*";
 		} else {
-			final int eh = host.indexOf("/", 10);
+			final int eh = host.indexOf(Constants.DIAGONAL_LINE, 10);
 			if (eh != -1) {
 				host = host.substring(0, eh);
 			} else {

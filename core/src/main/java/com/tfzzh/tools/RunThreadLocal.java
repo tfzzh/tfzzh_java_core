@@ -101,7 +101,7 @@ public class RunThreadLocal {
 	 * @return 目标对象String类型值
 	 */
 	public String getString(final String key) {
-		Object obj = this.getObject(key);
+		final Object obj = this.getObject(key);
 		if (null != obj) {
 			return obj.toString();
 		}

@@ -55,6 +55,62 @@ public interface Constants {
 	String INIT_CONFIG_FILE_PATH_BASE = FileTools.purifyFilePath((Constants.INIT_CONFIG_PATH_BASE.indexOf(".jar") == -1) ? (Constants.INIT_CONFIG_PATH_BASE + "/../../") : (Constants.INIT_CONFIG_PATH_BASE.substring(0, Constants.INIT_CONFIG_PATH_BASE.substring(0, Constants.INIT_CONFIG_PATH_BASE.indexOf(".jar")).lastIndexOf("/")) + "/../")) + "/";
 
 	/**
+	 * 斜线
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午12:48:22
+	 */
+	String DIAGONAL_LINE = "/".intern();
+
+	/**
+	 * 下划线
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午12:49:02
+	 */
+	String UNDER_LINE = "_".intern();
+
+	/**
+	 * 分号
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午12:54:28
+	 */
+	String SEMICOLON_LINE = ";".intern();
+
+	/**
+	 * 冒号
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午12:54:29
+	 */
+	String COLON_LINE = ":".intern();
+
+	/**
+	 * 等号
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午12:54:30
+	 */
+	String EQUAL_LINE = "=".intern();
+
+	/**
+	 * 单引号
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午2:26:50
+	 */
+	String SINGLE_QUOTATION = "'".intern();
+
+	/**
+	 * 双引号
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午2:26:51
+	 */
+	String DOUBLE_QUOTATION = "\"".intern();
+
+	/**
 	 * 初始化：管理配置：DTD文件名称
 	 * 
 	 * @author TFZZH

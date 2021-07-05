@@ -9,7 +9,6 @@ package com.tfzzh.view.web.tools;
  * @dateTime 2011-3-12 上午10:18:23
  */
 public interface WebConstants {
-
 	// /**
 	// * 初始化：连接页面配置：DTD文件名称
 	// *
@@ -53,6 +52,7 @@ public interface WebConstants {
 	// * @dateTime 2011-5-4 下午03:53:06
 	// */
 	// String URL_POS = ".shtml";
+
 	/**
 	 * 私有的，连接名称，针对HttpRequest
 	 * 

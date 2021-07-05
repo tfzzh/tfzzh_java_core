@@ -392,7 +392,7 @@ public abstract class BaseUploadFileBean extends BaseBean {
 		 * @return 完整的url访问路径
 		 */
 		public String getFullUrlPath() {
-			return BaseUploadFileBean.this.relativeFolderPath + "/" + BaseUploadFileBean.this.fileName;
+			return BaseUploadFileBean.this.relativeFolderPath + Constants.DIAGONAL_LINE + BaseUploadFileBean.this.fileName;
 		}
 
 		/**

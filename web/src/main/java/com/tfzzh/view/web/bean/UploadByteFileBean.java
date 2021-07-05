@@ -89,10 +89,10 @@ public final class UploadByteFileBean extends BaseUploadFileBean {
 		try {
 			final byte[] db = Base64.decodeBase64(tfileByte);
 			// final byte[] db = decoder.decodeBuffer(tfileByte);
-			final FileOutputStream out = new FileOutputStream(this.getFolderPath() + "/" + this.getFileName());
+			final FileOutputStream out = new FileOutputStream(this.getFolderPath() + Constants.DIAGONAL_LINE + this.getFileName());
 			out.write(db);
 			out.close();
-			final File file = new File(this.getFolderPath() + "/" + this.getFileName());
+			final File file = new File(this.getFolderPath() + Constants.DIAGONAL_LINE + this.getFileName());
 			// 写入内容到文件
 			file.setReadable(true, false);
 			file.setWritable(true, false);

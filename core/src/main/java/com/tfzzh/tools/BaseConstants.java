@@ -618,10 +618,10 @@ public abstract class BaseConstants {
 	 * @return 目标 方法
 	 * @throws NoSuchMethodException 抛
 	 */
-	private Method classMethod(Class<?> clz, String methodName, Class<?>... clzs) throws NoSuchMethodException {
+	private Method classMethod(Class<?> clz, final String methodName, final Class<?>... clzs) throws NoSuchMethodException {
 		while (clz != Object.class) {
 			try {
-				Method m = clz.getDeclaredMethod(methodName, clzs);
+				final Method m = clz.getDeclaredMethod(methodName, clzs);
 				return m;
 			} catch (final NoSuchMethodException | SecurityException e) {
 			}
@@ -1129,7 +1129,7 @@ public abstract class BaseConstants {
 				char c;
 				for (int i = 0; i < tVal.length(); i++) {
 					c = tVal.charAt(i);
-					if ((int) c == 63) {
+					if (c == 63) {
 						if (++couLm >= 2) {
 							break;
 						}
@@ -1144,7 +1144,7 @@ public abstract class BaseConstants {
 						tVal = new String(tVal.getBytes("ISO-8859-1"), null == Constants.SYSTEM_CODE ? "UTF-8" : Constants.SYSTEM_CODE);
 						for (int i = 0; i < tVal.length(); i++) {
 							c = tVal.charAt(i);
-							if ((int) c == 63) {
+							if (c == 63) {
 								if (++couLm >= 2) {
 									break;
 								}
@@ -1373,6 +1373,37 @@ public abstract class BaseConstants {
 	 * 进行对应数据解析
 	 * 
 	 * @author tfzzh
+	 * @dateTime 2021年7月2日 下午9:11:03
+	 * @param cont 配置文件内容
+	 * @return 解析后的内容
+	 */
+	protected Map<String, Map<String, String>> strToStrMap(final String cont) {
+		// this.log.debug("in strToStrLinkedSet ... ");
+		if ((null == cont) || (cont.length() == 0)) {
+			return new HashMap<>();
+		}
+		final JSONObject jo = JSON.parseObject(cont);
+		final Map<String, Map<String, String>> bak = new HashMap<>();
+		Map<String, String> sm;
+		JSONObject tjo;
+		for (final String key : jo.keySet()) {
+			tjo = jo.getJSONObject(key);
+			sm = new HashMap<>();
+			bak.put(key, sm);
+			for (final String tKey : tjo.keySet()) {
+				sm.put(tKey, tjo.getString(tKey));
+			}
+		}
+		// if (bak.size() == 0) {
+		// this.log.error("no conf strToStrLinkedSet ... ");
+		// }
+		return bak;
+	}
+
+	/**
+	 * 进行对应数据解析
+	 * 
+	 * @author tfzzh
 	 * @dateTime 2020年8月17日 下午3:39:09
 	 * @param cont 配置文件内容
 	 * @return 解析后的内容
@@ -1441,7 +1472,7 @@ public abstract class BaseConstants {
 			try {
 				tjo = JSON.parse(js);
 				bak.put(key, JSON.toJSONString(tjo));
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				e.printStackTrace();
 			}
 		}

@@ -19,6 +19,7 @@ import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.core.control.tools.NewManagerMapTool;
 import com.tfzzh.exception.InitializeException;
 import com.tfzzh.tools.ClassTool;
+import com.tfzzh.tools.Constants;
 import com.tfzzh.tools.ReflectControl;
 import com.tfzzh.tools.StringTools;
 import com.tfzzh.view.web.annotation.IpRestriction;
@@ -95,7 +96,7 @@ public class LinkPageAnnotationAnalysis {
 	 * @param analysePath 解析路径
 	 */
 	public void readerAnnotationPath(final String basePath, final String analysePath) {
-		final String[] paths = StringTools.split(analysePath, "/");
+		final String[] paths = StringTools.split(analysePath, Constants.DIAGONAL_LINE);
 		for (String path : paths) {
 			if ((path = path.trim()).length() > 0) {
 				path = path.replaceAll("[/]", ".");
@@ -148,12 +149,12 @@ public class LinkPageAnnotationAnalysis {
 			final IpRestriction bir = clz.getAnnotation(IpRestriction.class);
 			String mainPath = main.mainPath();
 			// 变更符号
-			mainPath = mainPath.replaceAll("\\\\", "/");
-			if (!mainPath.startsWith("/")) {
-				mainPath = "/" + mainPath;
+			mainPath = mainPath.replaceAll("\\\\", Constants.DIAGONAL_LINE);
+			if (!mainPath.startsWith(Constants.DIAGONAL_LINE)) {
+				mainPath = Constants.DIAGONAL_LINE + mainPath;
 			}
-			if (!mainPath.endsWith("/")) {
-				mainPath += "/";
+			if (!mainPath.endsWith(Constants.DIAGONAL_LINE)) {
+				mainPath += Constants.DIAGONAL_LINE;
 			}
 			RequestMethod[] rms;
 			// 临时
@@ -212,8 +213,8 @@ public class LinkPageAnnotationAnalysis {
 								result[i] = result[i].replaceAll("#mainpath#", mainPath);
 								result[i] = result[i].replaceAll("#mp#", mainPath);
 								// 再替换符号
-								result[i] = result[i].replaceAll("//", "/");
-								if (result[i].startsWith("/")) {
+								result[i] = result[i].replaceAll("//", Constants.DIAGONAL_LINE);
+								if (result[i].startsWith(Constants.DIAGONAL_LINE)) {
 									result[i] = result[i].substring(1);
 								}
 							}
@@ -222,7 +223,7 @@ public class LinkPageAnnotationAnalysis {
 						map = this.getParamTypeMap(meth, clz);
 						{ // 判断上层路径层级
 							int tier = 1;
-							final String[] paths = StringTools.split(mainPath, "/");
+							final String[] paths = StringTools.split(mainPath, Constants.DIAGONAL_LINE);
 							for (final String path : paths) {
 								if (path.length() != 0) {
 									tier++;
@@ -252,7 +253,7 @@ public class LinkPageAnnotationAnalysis {
 						final StringBuilder prefixPath = new StringBuilder();
 						{ // 判断上层路径层级
 							prefix = "";
-							final String[] paths = StringTools.split(deploy.path(), "/");
+							final String[] paths = StringTools.split(deploy.path(), Constants.DIAGONAL_LINE);
 							for (final String path : paths) {
 								final int ind = path.indexOf("{");
 								if ((ind != -1) && (path.indexOf("}", ind) != -1)) {
@@ -289,7 +290,7 @@ public class LinkPageAnnotationAnalysis {
 						map = this.getParamTypeMap(meth, clz);
 						rms = branch.method();
 						{ // 判断上层路径层级
-							final String[] paths = StringTools.split(mainPath, "/");
+							final String[] paths = StringTools.split(mainPath, Constants.DIAGONAL_LINE);
 							int tier = 1 + paths.length;
 							prefix = "";
 							while (tier-- > 1) {

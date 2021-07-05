@@ -14,6 +14,7 @@ import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import com.tfzzh.core.control.bean.BaseSystemBean;
+import com.tfzzh.tools.Constants;
 import com.tfzzh.view.web.bean.BaseOptionsParamBean;
 import com.tfzzh.view.web.bean.BaseParamBean;
 
@@ -266,7 +267,7 @@ public class FormSourceSelectTag extends TagSupport {
 		// 插入js脚本
 		sb.append("<script type='text/javascript' def>");
 		// 设置数据源
-		sb.append("var ").append(this.att).append("Data=").append(this.source.getOptionsJson()).append(";");
+		sb.append("var ").append(this.att).append("Data=").append(this.source.getOptionsJson()).append(Constants.SEMICOLON_LINE);
 		// 调用js
 		sb.append(this.type.showJsFunction()).append("('").append(this.att).append("',");
 		if (null != this.def) {

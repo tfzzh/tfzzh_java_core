@@ -100,7 +100,7 @@ public final class UploadFileBean extends BaseUploadFileBean {
 				}
 			}
 		}
-		final File file = new File(this.getFolderPath() + "/" + this.getFileName());
+		final File file = new File(this.getFolderPath() + Constants.DIAGONAL_LINE + this.getFileName());
 		try {
 			// 创建内容文件
 			// file.createNewFile();

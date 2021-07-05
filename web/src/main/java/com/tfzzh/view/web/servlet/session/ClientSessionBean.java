@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.tools.BaseBean;
+import com.tfzzh.tools.Constants;
 import com.tfzzh.tools.StringTools;
 import com.tfzzh.view.web.bean.LoginSessionBean;
 import com.tfzzh.view.web.iface.TokenControl;
@@ -317,7 +318,7 @@ public class ClientSessionBean extends BaseBean {
 		// } else {
 		ck.setDomain(WebBaseConstants.CUSTOM_SESSION_TOKEN_HOST_NAME);
 		// }
-		ck.setPath("/");
+		ck.setPath(Constants.DIAGONAL_LINE);
 		ck.setMaxAge(lifecycle);
 		// if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 		// CoreLog.getInstance().debug(this.getClass(), "add [", ck.getDomain(), "] cookie[", ck.getName(), ":", ck.getValue(), "]");

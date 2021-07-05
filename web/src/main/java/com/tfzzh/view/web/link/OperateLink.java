@@ -79,6 +79,46 @@ import com.tfzzh.view.web.tools.WebTools;
 public class OperateLink {
 
 	/**
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午12:41:15
+	 */
+	private static final String S_JSON = "/json";
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午12:39:15
+	 */
+	private static final String S_BOUNDARY = "boundary=";
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午12:40:09
+	 */
+	private static final String S_X_WWW_FORM_URLENCODED = "/x-www-form-urlencoded";
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午2:20:20
+	 */
+	private static final String S_CONTENT_DISPOSITION = "content-disposition: form-data; name=\"";
+
+	/**
+	 * www-form传参值的开始部分
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午2:30:59
+	 */
+	private static final String S_X_WWW_VAL_START = "\r\n\r\n";
+
+	/**
+	 * www-form传参值的结束部分
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年7月5日 下午2:31:00
+	 */
+	private static final String S_X_WWW_VAL_END = "\r\n";
+
+	/**
 	 * 路径层级列表
 	 * 
 	 * @author Weijie Xu
@@ -166,19 +206,19 @@ public class OperateLink {
 	 */
 	@SuppressWarnings("unchecked")
 	public OperateLinkInfo addNewLinkInfo(String mainPath, final String path, final String matchingPath, final RequestMethod method, final LinkType type, final String branchKey, final String reflectControlKey, final String prefix, final int accessPermissions, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
-		if ((null == mainPath) || ((mainPath = mainPath.trim()).length() == 0) || mainPath.equals("/")) {
+		if ((null == mainPath) || ((mainPath = mainPath.trim()).length() == 0) || mainPath.equals(Constants.DIAGONAL_LINE)) {
 			mainPath = "";
 			// lvl = 0;
 		} else {
-			if (mainPath.startsWith("/")) {
+			if (mainPath.startsWith(Constants.DIAGONAL_LINE)) {
 				mainPath = mainPath.substring(1);
 			}
-			if (mainPath.endsWith("/")) {
+			if (mainPath.endsWith(Constants.DIAGONAL_LINE)) {
 				mainPath = mainPath.substring(0, mainPath.length() - 1);
 			}
 		}
 		{ // 新增的处理方式 2017-04-08
-			final List<String> sl = StringTools.splitToArray(mainPath + "/" + matchingPath, "/");
+			final List<String> sl = StringTools.splitToArray(mainPath + Constants.DIAGONAL_LINE + matchingPath, Constants.DIAGONAL_LINE);
 			Object toj;
 			Map<String, Object> tm = this.pathLvls;
 			Map<String, Object> ctm;
@@ -227,8 +267,8 @@ public class OperateLink {
 			result[i] = result[i].replaceAll("#mainpath#", mainPath);
 			result[i] = result[i].replaceAll("#mp#", mainPath);
 			// 再替换符号
-			result[i] = result[i].replaceAll("//", "/");
-			if (result[i].startsWith("/")) {
+			result[i] = result[i].replaceAll("//", Constants.DIAGONAL_LINE);
+			if (result[i].startsWith(Constants.DIAGONAL_LINE)) {
 				result[i] = result[i].substring(1);
 			}
 		}
@@ -322,7 +362,7 @@ public class OperateLink {
 		}
 		final RequestMethod method = RequestMethod.getMethod(request.getMethod());
 		if (method != RequestMethod.Non) {
-			final String[] str = StringTools.split(path, "/");
+			final String[] str = StringTools.split(path, Constants.DIAGONAL_LINE);
 			{
 				String last = str[str.length - 1];
 				int i;
@@ -478,7 +518,7 @@ public class OperateLink {
 		 */
 		@Override
 		protected boolean addLink(final NormalOperateLinkInfo info, String key) {
-			if (key.startsWith("/")) {
+			if (key.startsWith(Constants.DIAGONAL_LINE)) {
 				key = key.substring(1);
 			}
 			if (this.datas.containsKey(key)) {
@@ -538,7 +578,7 @@ public class OperateLink {
 		@Override
 		protected boolean addLink(final DeployOperateLinkInfo info, final String path) {
 			// 分解path
-			final List<String> paths = StringTools.splitToArray(path, "/");
+			final List<String> paths = StringTools.splitToArray(path, Constants.DIAGONAL_LINE);
 			// 层级
 			int tier = 0;
 			boolean save = false;
@@ -652,7 +692,7 @@ public class OperateLink {
 		 */
 		@Override
 		protected boolean addLink(final BranchOperateLinkInfo info, String key) {
-			if (key.startsWith("/")) {
+			if (key.startsWith(Constants.DIAGONAL_LINE)) {
 				key = key.substring(1);
 			}
 			// 是参数类型
@@ -1063,7 +1103,7 @@ public class OperateLink {
 							// 便利cookie得到目标内容
 							// System.out.println("\t>> cookie token >> start ");
 							for (final Cookie ck : cka) {
-								// System.out.println("cookie sn > " + sn + ":" + ck.getDomain() + "/" + ck.getPath() + "[" + ck.getName() + "=" + ck.getValue() + "]");
+								// System.out.println("cookie sn > " + sn + ":" + ck.getDomain() + Constants.DIAGONAL_LINE + ck.getPath() + "[" + ck.getName() + "=" + ck.getValue() + "]");
 								// if (!sn.equals(ck.getDomain())) {
 								// continue;
 								// }
@@ -1155,6 +1195,7 @@ public class OperateLink {
 					e.printStackTrace();
 				}
 				final List<String> ls = StringTools.splitToArray(qs, "&");
+				// System.out.println(" >> log 2021-07-05 >> request.getQueryString() >> " + ls);
 				List<String> lss;
 				for (final String s : ls) {
 					lss = StringTools.splitToArray(s, "=");
@@ -1174,7 +1215,8 @@ public class OperateLink {
 			if (null != ct) {
 				ct = ct.toLowerCase();
 			}
-			if ("post".equals(request.getMethod().toLowerCase()) && (null != ct) && ct.toLowerCase().startsWith("multipart/")) {
+			// System.out.println(" >> log 2021-07-05 >> request.getContentType [" + ct + "]");
+			if ("post".equals(request.getMethod().toLowerCase()) && (null != ct) && ct.startsWith("multipart/")) {
 				// 是有上传文件
 				// 继续参数控制操作
 				final List<FileItem> fileList;
@@ -1286,8 +1328,36 @@ public class OperateLink {
 				requestParas.putAll(pathParas);
 				// 放入参数
 				requestParas.putAll(map);
+				// System.out.println(" >> log 2021-07-05 >> multipart/ " + map);
+			} else if ((null != ct) && ct.indexOf(OperateLink.S_X_WWW_FORM_URLENCODED) != -1 && ct.indexOf(OperateLink.S_BOUNDARY) != -1) { // 2021-07-05 增加对x-www-form-urlencoded结构数据处理
+				int bdys = ct.indexOf(OperateLink.S_BOUNDARY);
+				int bdye = ct.indexOf(Constants.SEMICOLON_LINE, bdys);
+				final String bdy;
+				if (bdye == -1) {
+					bdy = ct.substring(bdys + OperateLink.S_BOUNDARY.length());
+				} else {
+					bdy = ct.substring(bdys + OperateLink.S_BOUNDARY.length(), bdye);
+				}
+				// 是 json结构数据
+				try (InputStreamReader reader = new InputStreamReader(request.getInputStream(), Constants.SYSTEM_CODE)) {
+					final char[] buff = new char[1024];
+					int len = 0;
+					final StringBuilder sb = new StringBuilder();
+					while ((len = reader.read(buff)) != -1) {
+						sb.append(buff, 0, len);
+					}
+					// System.out.println(" >>> " + sb.toString());
+					this.analysisFormUrlEncodeData(requestParas, sb.toString(), bdy);
+				} catch (final UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (final IOException e) {
+					e.printStackTrace();
+				} catch (final JSONException e) {
+					e.printStackTrace();
+				}
+				// System.out.println(" >> log 2021-07-05 >> read x-www-form-urlencoded boundary[" + ct + "]");
 			} else {
-				if ((null != ct) && (ct.indexOf("/json") != -1)) {
+				if ((null != ct) && (ct.indexOf(OperateLink.S_JSON) != -1)) {
 					// 是 json结构数据
 					try (InputStreamReader reader = new InputStreamReader(request.getInputStream(), Constants.SYSTEM_CODE)) {
 						final char[] buff = new char[1024];
@@ -1362,6 +1432,52 @@ public class OperateLink {
 		}
 
 		/**
+		 * 解析formUrlEncode的数据
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2021年7月5日 下午1:21:09
+		 * @param requestParas 请求参数集合
+		 * @param cont 文本内容
+		 * @param boundary 边界内容
+		 */
+		private void analysisFormUrlEncodeData(final Map<String, Object> requestParas, final String cont, final String boundary) {
+			List<String> fields = StringTools.splitToArray(cont, boundary);
+			int fns, fne, fvs, fve;
+			String key, val;
+			for (String fc : fields) {
+				if (StringTools.isNullOrEmpty(fc)) {
+					continue;
+				}
+				fc = fc.toLowerCase();
+				if ((fns = fc.indexOf(OperateLink.S_CONTENT_DISPOSITION)) == -1) {
+					// 非有效数据
+					continue;
+				}
+				fns += OperateLink.S_CONTENT_DISPOSITION.length();
+				fne = fc.indexOf(Constants.DOUBLE_QUOTATION, fns);
+				if (fne == -1) {
+					// 非有效数据
+					continue;
+				}
+				fvs = fc.indexOf(OperateLink.S_X_WWW_VAL_START, fne);
+				if (fvs == -1) {
+					// 非有效数据
+					continue;
+				}
+				fvs += OperateLink.S_X_WWW_VAL_START.length();
+				fve = fc.indexOf(OperateLink.S_X_WWW_VAL_END, fvs);
+				if (fve == -1) {
+					// 非有效数据
+					continue;
+				}
+				key = fc.substring(fns, fne);
+				val = fc.substring(fvs, fve);
+				requestParas.put(key, val);
+			}
+			// System.out.println(" >> log 2021-07-05 >> over 2 analysisFormUrlEncodeData >>> " + JSON.toJSONString(requestParas));
+		}
+
+		/**
 		 * 解析json结构数据<br />
 		 * 认为json中，只有字符串与数字(也是字符串)<br />
 		 * 
@@ -1394,6 +1510,7 @@ public class OperateLink {
 					requestParas.put(key, ent.getValue());
 				}
 			}
+			// System.out.println(" >> log 2021-07-05 >> over 1 analysisJsonData >>> " + JSON.toJSONString(requestParas));
 		}
 
 		/**
@@ -2015,7 +2132,7 @@ public class OperateLink {
 				} else {
 					target = back.getPrefix() + info.getTarget() + WebBaseConstants.URL_POS;
 				}
-				target.replaceAll(";", ":");
+				target.replaceAll(Constants.SEMICOLON_LINE, ":");
 				final StringBuilder sb = new StringBuilder(target);
 				final Map<String, ? extends Object> param = back.getAttributes();
 				// 跳转URL
@@ -2208,7 +2325,7 @@ public class OperateLink {
 		 * @throws ServletException 抛
 		 */
 		public void executeResult(final BackStringBean back, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
-			if (back.getType().indexOf("/") == -1) {
+			if (back.getType().indexOf(Constants.DIAGONAL_LINE) == -1) {
 				response.setContentType("application/" + back.getType() + "; charset=" + Constants.SYSTEM_CODE);
 			} else {
 				response.setContentType(back.getType() + "; charset=" + Constants.SYSTEM_CODE);
@@ -3044,4 +3161,58 @@ public class OperateLink {
 			return targets.size() > 0 ? targets : null;
 		}
 	}
+	// public static void main(String[] args) {
+	// Map<String, Object> requestParas = new HashMap<>();
+	// String boundary = "--------------------------9358da3a657bd0c6";
+	// String cont = "--------------------------9358da3a657bd0c6\r\n" + "Content-Disposition: form-data; name=\"cc\"\r\n" + "\r\n" + "jzzq\r\n" + "--------------------------9358da3a657bd0c6\r\n" + "Content-Disposition: form-data; name=\"v\"\r\n" + "\r\n" + "202105\r\n" + "--------------------------9358da3a657bd0c6\r\n" + "Content-Disposition: form-data; name=\"usercode\"\r\n" + "\r\n" + "001MioGa1SrFkB0psuIa184BmK2MioGY\r\n" + "--------------------------9358da3a657bd0c6\r\n"
+	// + "Content-Disposition: form-data; name=\"signature\"\r\n" + "\r\n" + "15c1e988ef9e5c0ae49f6b7590e283a60aa55231\r\n" + "--------------------------9358da3a657bd0c6\r\n" + "Content-Disposition: form-data; name=\"encryptedData\"\r\n" + "\r\n"
+	// + "wbOdEDW QAiBBCZ6TnX6gJFZotH1ujGKpPBYHaiFkDbXOsWZ1wld2wCG9vAODheFGZsALwVsm6C6bt4E5otWhSy0UDkfyNvGSX2Q63HsuHqFGLGsvQ WTKfirxhucVkOIFEl4i2J3B2vypQ4t8RoDid4cCWznhmWclLrp6Z9s962o3IHUDbKdydfqN gWZQuRP7vFhhZUTxi3hRnZn5cpeJU43NGW9D4uoI R0eRjbnW1TEv UB9ocQh0zc CHoXj 6RoL8nGuBikhsJFpu7Sm/Ridfkc3AplvFKuKx3lY3e88LVHMNAqdd/GFlS2ILXs vtCqseYg2NBdSdi6xeCkLm7qzlqU7Pr90epk2kegMGGQRrSUavHtqeudfErGLzsb0BitYBxsYlyzN1kQZOAXrxH6aJu7Axjcpw4eSSjfulW642m69BG/aAgBQ8px3dlWtOxttSDOGiQhZ3apaKZA==\r\n"
+	// + "--------------------------93";
+	// List<String> fields = StringTools.splitToArray(cont, boundary);
+	// int fns, fne, fvs, fve;
+	// String key, val;
+	// for (String fc : fields) {
+	// if (StringTools.isNullOrEmpty(fc)) {
+	// continue;
+	// }
+	// fc = fc.toLowerCase();
+	// if ((fns = fc.indexOf(OperateLink.S_CONTENT_DISPOSITION)) == -1) {
+	// // 非有效数据
+	// continue;
+	// }
+	// fns += OperateLink.S_CONTENT_DISPOSITION.length();
+	// fne = fc.indexOf(Constants.DOUBLE_QUOTATION, fns);
+	// if (fne == -1) {
+	// // 非有效数据
+	// continue;
+	// }
+	// fvs = fc.indexOf(OperateLink.S_X_WWW_VAL_START, fne);
+	// if (fvs == -1) {
+	// // 非有效数据
+	// continue;
+	// }
+	// fvs += OperateLink.S_X_WWW_VAL_START.length();
+	// fve = fc.indexOf(OperateLink.S_X_WWW_VAL_END, fvs);
+	// if (fve == -1) {
+	// // 非有效数据
+	// continue;
+	// }
+	// key = fc.substring(fns, fne);
+	// val = fc.substring(fvs, fve);
+	// requestParas.put(key, val);
+	// }
+	// System.out.println(requestParas);
+	// }
+	// public static void main(String[] args) {
+	// String ct = "application/x-www-form-urlencoded; boundary=------------------------16c1b94e3716fd25;a";
+	// int bdys = ct.indexOf(OperateLink.S_BOUNDARY);
+	// int bdye = ct.indexOf(Constants.SEMICOLON_LINE, bdys);
+	// final String bdy;
+	// if (bdye == -1) {
+	// bdy = ct.substring(bdys + OperateLink.S_BOUNDARY.length());
+	// } else {
+	// bdy = ct.substring(bdys + OperateLink.S_BOUNDARY.length(), bdye);
+	// }
+	// System.out.println(bdy);
+	// }
 }
