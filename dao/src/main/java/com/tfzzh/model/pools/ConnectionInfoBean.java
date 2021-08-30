@@ -212,9 +212,9 @@ public class ConnectionInfoBean {
 		this.name = name;
 		this.driver = driver;
 		if (url.indexOf("?") == -1) {
-			this.url = url + "?createDatabaseIfNotExist=true&useUnicode=" + useUnicode + "&characterEncoding=" + characterEncoding + "&useSSL=false";
+			this.url = url + "?createDatabaseIfNotExist=true&useUnicode=" + useUnicode + "&characterEncoding=" + characterEncoding;
 		} else {
-			this.url = url + "&createDatabaseIfNotExist=true&useUnicode=" + useUnicode + "&characterEncoding=" + characterEncoding + "&useSSL=false";
+			this.url = url + "&createDatabaseIfNotExist=true&useUnicode=" + useUnicode + "&characterEncoding=" + characterEncoding;
 		}
 		this.user = user;
 		this.pass = pass;

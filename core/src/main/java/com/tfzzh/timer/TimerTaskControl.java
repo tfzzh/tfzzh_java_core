@@ -166,6 +166,9 @@ public class TimerTaskControl implements Runnable {
 					}
 				}
 			} catch (final InterruptedException e) {
+				// 这里不处理任何 2021-08-28
+			} catch (final Exception e) {
+				e.printStackTrace();
 			}
 		}
 		// 对当前存在的任务，一个个进行系统关闭的方法调用
