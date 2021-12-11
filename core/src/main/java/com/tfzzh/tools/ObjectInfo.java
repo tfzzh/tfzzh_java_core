@@ -24,11 +24,24 @@ public abstract class ObjectInfo implements Serializable {
 	private static final long serialVersionUID = 7916854170568283525L;
 
 	/**
+	 * 非针对app相关配置相关
+	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年11月17日 下午4:54:26
 	 * @param jo 数据json
 	 */
 	protected ObjectInfo(final JSONObject jo) {
+	}
+
+	/**
+	 * 为了app环境配置而存在
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年9月18日 下午2:40:45
+	 * @param jo 数据json
+	 * @param ccode 客户端code
+	 */
+	protected ObjectInfo(final JSONObject jo, final String ccode) {
 	}
 
 	/**

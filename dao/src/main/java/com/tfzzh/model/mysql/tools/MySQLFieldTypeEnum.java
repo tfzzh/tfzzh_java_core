@@ -38,8 +38,29 @@ public enum MySQLFieldTypeEnum implements FieldType {
 	 */
 	Char() {
 
+		/**
+		 * 特殊默认值1
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2021年12月2日 下午7:34:18
+		 */
+		private final String spDef1 = "''".intern();
+
+		/**
+		 * 特殊默认值对应替换值
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2021年12月2日 下午7:34:17
+		 */
+		private final String spVal1 = "".intern();
+
 		@Override
 		public Object getDefaultValue(final String dv) {
+			if (null != dv) {
+				if (this.spDef1.equals(dv)) {
+					return spVal1;
+				}
+			}
 			return dv;
 		}
 
@@ -109,8 +130,29 @@ public enum MySQLFieldTypeEnum implements FieldType {
 	 */
 	VarChar() {
 
+		/**
+		 * 特殊默认值1
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2021年12月2日 下午7:34:18
+		 */
+		private final String spDef1 = "''".intern();
+
+		/**
+		 * 特殊默认值对应替换值
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2021年12月2日 下午7:34:17
+		 */
+		private final String spVal1 = "".intern();
+
 		@Override
 		public Object getDefaultValue(final String dv) {
+			if (null != dv) {
+				if (this.spDef1.equals(dv)) {
+					return spVal1;
+				}
+			}
 			return dv;
 		}
 
