@@ -21,7 +21,7 @@
 		<apache.codec.version>1.13</apache.codec.version>
 		<fastjson.version>1.2.73</fastjson.version>
 		<dtdparser.version>1.21</dtdparser.version>
-		<log4j2.version>2.13.3</log4j2.version>
+		<log4j2.version>2.17.0</log4j2.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<mysql-connector.version>8.0.21</mysql-connector.version>
 		<mongodb.version>3.11.0</mongodb.version>
