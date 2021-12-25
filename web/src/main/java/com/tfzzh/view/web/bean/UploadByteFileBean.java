@@ -84,7 +84,7 @@ public final class UploadByteFileBean extends BaseUploadFileBean {
 			}
 		}
 		// final Base64 decoder = new Base64();
-		final int ind = this.fileByte.indexOf(",");
+		final int ind = this.fileByte.indexOf(Constants.COMMA);
 		final String tfileByte = this.fileByte.substring(ind + 1);
 		try {
 			final byte[] db = Base64.decodeBase64(tfileByte);

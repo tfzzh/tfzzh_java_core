@@ -1771,6 +1771,10 @@ public class OperateLink {
 						paras[i] = WebTools.getClientIp(request);
 						break;
 					}
+					case WebConstants.PRIVATE_LINK_NAME_USER_AGENT: { // 来自当前请求的user-agent
+						paras[i] = request.getHeader(WebConstants.PRIVATE_LINK_NAME_USER_AGENT);
+						break;
+					}
 					case WebConstants.PRIVATE_LINK_NAME_URL: { // 来自当前请求的完整url
 						paras[i] = request.getHeader("Referer");
 						break;

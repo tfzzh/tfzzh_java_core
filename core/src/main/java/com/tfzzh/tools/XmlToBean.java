@@ -47,7 +47,7 @@ public class XmlToBean {
 		final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		// 创建DocumentBuilderFactory实例,指定DocumentBuilder
 		DocumentBuilder db = null;
-		final List<String> sl = StringTools.splitToArray(path, ",");
+		final List<String> sl = StringTools.splitToArray(path, Constants.COMMA);
 		final List<T> tl = new ArrayList<>();
 		for (String s : sl) {
 			// 创建 文本编辑实例

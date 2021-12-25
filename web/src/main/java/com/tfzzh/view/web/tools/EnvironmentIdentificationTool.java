@@ -18,14 +18,6 @@ import com.tfzzh.log.CoreLog;
 public class EnvironmentIdentificationTool {
 
 	/**
-	 * 识别用请求头信息
-	 * 
-	 * @author XuWeijie
-	 * @datetime 2015年11月19日_下午9:03:48
-	 */
-	private static final String HEAD_NAME_EI = "user-agent";
-
-	/**
 	 * 识别手机环境
 	 * 
 	 * @author XuWeijie
@@ -34,7 +26,7 @@ public class EnvironmentIdentificationTool {
 	 * @return 环境信息
 	 */
 	public static EnvironmentInfo identificationMobileEnvironment(final HttpServletRequest request) {
-		final String txt = request.getHeader(EnvironmentIdentificationTool.HEAD_NAME_EI);
+		final String txt = request.getHeader(WebConstants.PRIVATE_LINK_NAME_USER_AGENT);
 		// if (EnvironmentIdentificationTool.log.isInfoEnabled()) {
 		// final StringBuilder sb = new StringBuilder();
 		// sb.append(request.getRemoteAddr()).append(':').append(request.getRemotePort()).append("--").append(txt);

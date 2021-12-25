@@ -211,8 +211,8 @@ public class CoreHttpServlet extends BaseHttpServlet {
 					// }
 					if (CoreLog.getInstance().debugEnabled(this.getClass())) {
 						CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("run: ").append(System.currentTimeMillis() - l).append(" with [").append(WebTools.getClientIp(request)).append(':').append(request.getRemotePort()).append("]>").append(link.getReflectControlKey()).append('(').append(paraLog.toString()).append(')').append(isOk ? " ok ct[" : " err ct[").append(request.getContentType()).append("] > original > ").append(requestParas.toString()).toString());
-						request.getHeader("User-Agent");
-						CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("\t\t >> user-agent >> ").append(request.getHeader("User-Agent")).toString());
+						request.getHeader(WebConstants.PRIVATE_LINK_NAME_USER_AGENT);
+						CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("\t\t >> user-agent >> ").append(request.getHeader(WebConstants.PRIVATE_LINK_NAME_USER_AGENT)).toString());
 					}
 					if (isOk) {
 						// 成功的请求

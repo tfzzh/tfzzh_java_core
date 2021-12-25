@@ -55,7 +55,7 @@ public interface Constants {
 	String INIT_CONFIG_FILE_PATH_BASE = FileTools.purifyFilePath((Constants.INIT_CONFIG_PATH_BASE.indexOf(".jar") == -1) ? (Constants.INIT_CONFIG_PATH_BASE + "/../../") : (Constants.INIT_CONFIG_PATH_BASE.substring(0, Constants.INIT_CONFIG_PATH_BASE.substring(0, Constants.INIT_CONFIG_PATH_BASE.indexOf(".jar")).lastIndexOf("/")) + "/../")) + "/";
 
 	/**
-	 * 斜线
+	 * 斜线"/"
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午12:48:22
@@ -63,7 +63,7 @@ public interface Constants {
 	String DIAGONAL_LINE = "/".intern();
 
 	/**
-	 * 下划线
+	 * 下划线"_"
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午12:49:02
@@ -71,7 +71,31 @@ public interface Constants {
 	String UNDER_LINE = "_".intern();
 
 	/**
-	 * 分号
+	 * 连接符"-"
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:18:32
+	 */
+	String CONNECTOR = "-".intern();
+
+	/**
+	 * 逗号","
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:18:32
+	 */
+	String COMMA = ",".intern();
+
+	/**
+	 * 点"."
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:18:34
+	 */
+	String SPOT = ".".intern();
+
+	/**
+	 * 分号";"
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午12:54:28
@@ -79,7 +103,7 @@ public interface Constants {
 	String SEMICOLON_LINE = ";".intern();
 
 	/**
-	 * 冒号
+	 * 冒号":"
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午12:54:29
@@ -87,7 +111,7 @@ public interface Constants {
 	String COLON_LINE = ":".intern();
 
 	/**
-	 * 等号
+	 * 等号"="
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午12:54:30
@@ -95,7 +119,7 @@ public interface Constants {
 	String EQUAL_LINE = "=".intern();
 
 	/**
-	 * 单引号
+	 * 单引号"'"
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午2:26:50
@@ -103,7 +127,7 @@ public interface Constants {
 	String SINGLE_QUOTATION = "'".intern();
 
 	/**
-	 * 双引号
+	 * 双引号"\""
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午2:26:51

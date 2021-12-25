@@ -134,6 +134,14 @@ public interface WebConstants {
 	String PRIVATE_LINK_NAME_URL = "url";
 
 	/**
+	 * 私有的，连接名称，来自当前请求的user-agent
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 上午10:51:19
+	 */
+	String PRIVATE_LINK_NAME_USER_AGENT = "user-agent";
+
+	/**
 	 * 私有的，连接名称，针对请求后缀名
 	 * 
 	 * @author Xu Weijie

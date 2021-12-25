@@ -1684,13 +1684,15 @@ public abstract class BaseConstants {
 	}
 
 	/**
-	 * 进行对应数据解析
+	 * TODO 过段时间删除该方法 2021-12-14<br />
+	 * 进行对应数据解析<br />
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年9月12日 下午3:23:10
 	 * @param cont 配置文件内容
 	 * @return 解析后的内容
 	 */
+	@Deprecated
 	protected Map<Integer, List<String>> strToMilTask(final String cont) {
 		// this.log.debug("in strToMilTask ... ");
 		if ((null == cont) || (cont.length() == 0)) {
@@ -1715,13 +1717,15 @@ public abstract class BaseConstants {
 	}
 
 	/**
-	 * 进行对应数据解析
+	 * TODO 过段时间删除该方法 2021-12-14<br />
+	 * 进行对应数据解析<br />
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年9月19日 下午5:49:23
 	 * @param cont 配置文件内容
 	 * @return 解析后的内容
 	 */
+	@Deprecated
 	protected Map<Integer, String> strToFTTask(final String cont) {
 		// this.log.debug("in strToFTTask ... ");
 		if ((null == cont) || (cont.length() == 0)) {

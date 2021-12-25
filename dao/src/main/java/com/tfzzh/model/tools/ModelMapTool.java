@@ -709,7 +709,7 @@ public class ModelMapTool extends NewManagerMapTool {
 									params = new LinkedList<>();
 									this.paramDao.put(managerObject, params);
 								}
-								params.add(propertyMethod + "," + propertyMethodParameter);
+								params.add(propertyMethod + Constants.COMMA + propertyMethodParameter);
 								// final Class[] cla = (this.DAO_MAP.get(propertyMethodParameter)).getClass()
 								// .getInterfaces();
 								// final Method method = managerObject.getClass().getMethod(propertyMethod, cla);
@@ -722,7 +722,7 @@ public class ModelMapTool extends NewManagerMapTool {
 									params = new LinkedList<>();
 									super.paramManager.put(managerObject, params);
 								}
-								params.add(propertyMethod + "," + propertyMethodParameter);
+								params.add(propertyMethod + Constants.COMMA + propertyMethodParameter);
 							} else if (propertyType.containsKey(super.xmlManagerPropertyStringTag)) {
 								// String 类的控制
 								propertyMethod = "set" + propertyMethod.substring(0, 1).toUpperCase() + propertyMethod.substring(1);
@@ -1108,7 +1108,7 @@ public class ModelMapTool extends NewManagerMapTool {
 					params = new LinkedList<>();
 					this.paramManager.put(managerObject, params);
 				}
-				params.add(field.getName() + "," + name + "," + field.getType().getName());
+				params.add(field.getName() + Constants.COMMA + name + Constants.COMMA + field.getType().getName());
 			} else if (null != (dao = field.getAnnotation(DaoIoc.class))) {
 				// 存在注入
 				if ((name = dao.value()).length() == 0) {
@@ -1118,7 +1118,7 @@ public class ModelMapTool extends NewManagerMapTool {
 					params = new LinkedList<>();
 					this.paramDao.put(managerObject, params);
 				}
-				params.add(field.getName() + "," + name + "," + field.getType().getName());
+				params.add(field.getName() + Constants.COMMA + name + Constants.COMMA + field.getType().getName());
 			} else if (null != (mdao = field.getAnnotation(MongoDaoIoc.class))) {
 				// 存在注入
 				if ((name = mdao.value()).length() == 0) {
@@ -1128,7 +1128,7 @@ public class ModelMapTool extends NewManagerMapTool {
 					params = new LinkedList<>();
 					this.paramDao.put(managerObject, params);
 				}
-				params.add(field.getName() + "," + name + "," + field.getType().getName());
+				params.add(field.getName() + Constants.COMMA + name + Constants.COMMA + field.getType().getName());
 			}
 		}
 	}

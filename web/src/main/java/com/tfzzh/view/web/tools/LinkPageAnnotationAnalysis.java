@@ -36,6 +36,7 @@ import com.tfzzh.view.web.annotation.LinkNormal;
 import com.tfzzh.view.web.annotation.LinkParam;
 import com.tfzzh.view.web.annotation.LinkSuffix;
 import com.tfzzh.view.web.annotation.LinkUrl;
+import com.tfzzh.view.web.annotation.LinkUserAgent;
 import com.tfzzh.view.web.bean.BaseParamBean;
 import com.tfzzh.view.web.iface.ReflectLinkOperate;
 import com.tfzzh.view.web.link.LinkType;
@@ -378,6 +379,8 @@ public class LinkPageAnnotationAnalysis {
 					map.put(WebConstants.PRIVATE_LINK_NAME_IP, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkIp) {
 					map.put(WebConstants.PRIVATE_LINK_NAME_FIRST_IP, parasClz[i]);
+				} else if (parasAnn[i][0] instanceof LinkUserAgent) { // add xwj 2021-12-25
+					map.put(WebConstants.PRIVATE_LINK_NAME_USER_AGENT, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkUrl) {
 					map.put(WebConstants.PRIVATE_LINK_NAME_URL, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkAllParam) {

@@ -4,6 +4,7 @@
  */
 package com.tfzzh.model.dao.tools;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
@@ -57,7 +58,7 @@ public class EntityTool {
 	 * @author Weijie Xu
 	 * @dateTime 2015年4月20日 下午1:55:18
 	 */
-	private final static EntityTool et = new EntityTool();
+	private static final EntityTool et = new EntityTool();
 
 	/**
 	 * @author Weijie Xu
@@ -150,6 +151,17 @@ public class EntityTool {
 	@SuppressWarnings("unchecked")
 	public <E extends BaseDataBean> EntityInfoBean<E> getEntityInfo(final Long id) {
 		return (EntityInfoBean<E>) this.entIdMap.get(id);
+	}
+
+	/**
+	 * 得到所有实例的列表
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月3日 下午5:12:36
+	 * @return 所有实例的列表
+	 */
+	public Collection<EntityInfoBean<? extends BaseDataBean>> getAllEntitys() {
+		return this.entIdMap.values();
 	}
 
 	// /**

@@ -11,6 +11,7 @@ import com.mongodb.BasicDBObject;
 import com.tfzzh.exception.NotAvailableOperationModeException;
 import com.tfzzh.model.dao.tools.QLLocation.FieldLocation;
 import com.tfzzh.model.dao.tools.QLLocation.ValueLocation;
+import com.tfzzh.tools.Constants;
 
 /**
  * 操作符号<br />
@@ -139,7 +140,7 @@ public enum SymbolEnum {
 					if (isFirst) {
 						isFirst = false;
 					} else {
-						sb.append(",");
+						sb.append(Constants.COMMA);
 					}
 					sb.append(this.getMongoSymbol(false));
 					ql.assemblyMongo(sb);
@@ -214,7 +215,7 @@ public enum SymbolEnum {
 					if (isFirst) {
 						isFirst = false;
 					} else {
-						sb.append(",");
+						sb.append(Constants.COMMA);
 					}
 					sb.append(this.getMongoSymbol(false));
 					ql.assemblyMongo(sb);
@@ -289,7 +290,7 @@ public enum SymbolEnum {
 					if (isFirst) {
 						isFirst = false;
 					} else {
-						sb.append(",");
+						sb.append(Constants.COMMA);
 					}
 					sb.append(this.getMongoSymbol(false));
 					ql.assemblyMongo(sb);
@@ -364,7 +365,7 @@ public enum SymbolEnum {
 					if (isFirst) {
 						isFirst = false;
 					} else {
-						sb.append(",");
+						sb.append(Constants.COMMA);
 					}
 					sb.append(this.getMongoSymbol(false));
 					ql.assemblyMongo(sb);
@@ -439,7 +440,7 @@ public enum SymbolEnum {
 					if (isFirst) {
 						isFirst = false;
 					} else {
-						sb.append(",");
+						sb.append(Constants.COMMA);
 					}
 					sb.append(this.getMongoSymbol(false));
 					ql.assemblyMongo(sb);
@@ -824,7 +825,7 @@ public enum SymbolEnum {
 				if (isFirst) {
 					isFirst = false;
 				} else {
-					sb.append(",");
+					sb.append(Constants.COMMA);
 				}
 				ql.assemblyMongo(sb);
 			}
@@ -900,7 +901,7 @@ public enum SymbolEnum {
 				if (isFirst) {
 					isFirst = false;
 				} else {
-					sb.append(",");
+					sb.append(Constants.COMMA);
 				}
 				ql.assemblyMongo(sb);
 			}
@@ -974,7 +975,7 @@ public enum SymbolEnum {
 				if (isFirst) {
 					isFirst = false;
 				} else {
-					sb.append(",");
+					sb.append(Constants.COMMA);
 				}
 				ql.assemblyMongo(sb);
 			}

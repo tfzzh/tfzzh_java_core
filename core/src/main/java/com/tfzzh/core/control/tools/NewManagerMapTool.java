@@ -45,7 +45,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:18:04
 	 */
-	protected final String xmlRoot = "controller";
+	protected final String xmlRoot = "controller".intern();
 
 	/**
 	 * 对应配置文件
@@ -53,7 +53,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2012-6-25 下午1:53:58
 	 */
-	protected final String xmlPropertyTag = "property";
+	protected final String xmlPropertyTag = "property".intern();
 
 	/**
 	 * 对应配置文件的调取ID
@@ -61,7 +61,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2012-6-25 下午1:54:03
 	 */
-	protected final String xmlPropertyIdAttlist = "id";
+	protected final String xmlPropertyIdAttlist = "id".intern();
 
 	/**
 	 * 对应配置文件的文件相对或绝对路径
@@ -69,7 +69,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2012-6-25 下午1:54:05
 	 */
-	protected final String xmlPropertyFileAttlist = "file";
+	protected final String xmlPropertyFileAttlist = "file".intern();
 
 	/**
 	 * 控制类相关
@@ -77,13 +77,13 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:31
 	 */
-	protected final String xmlManagerListTag = "manager-list";
+	protected final String xmlManagerListTag = "manager-list".intern();
 
 	/**
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:32
 	 */
-	protected final String xmlManagerTag = "manager";
+	protected final String xmlManagerTag = "manager".intern();
 
 	/**
 	 * 控制类名称
@@ -91,7 +91,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:33
 	 */
-	protected final String xmlManagerNameAttlist = "name";
+	protected final String xmlManagerNameAttlist = "name".intern();
 
 	/**
 	 * 控制类对应实现路径
@@ -99,7 +99,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:35
 	 */
-	protected final String xmlManagerClassTag = "manager-class";
+	protected final String xmlManagerClassTag = "manager-class".intern();
 
 	/**
 	 * 需要有参数注入的控制列表
@@ -107,13 +107,13 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:37
 	 */
-	protected final String xmlManagerPropertyListTag = "manager-property-list";
+	protected final String xmlManagerPropertyListTag = "manager-property-list".intern();
 
 	/**
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:39
 	 */
-	protected final String xmlManagerPropertyTag = "manager-property";
+	protected final String xmlManagerPropertyTag = "manager-property".intern();
 
 	/**
 	 * 控制类代设置参数名称
@@ -121,7 +121,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:41
 	 */
-	protected final String xmlManagerPropertyNameAttlist = "name";
+	protected final String xmlManagerPropertyNameAttlist = "name".intern();
 
 	/**
 	 * DAO注入
@@ -129,7 +129,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:42
 	 */
-	protected final String xmlManagerPropertyDaoTag = "manager-property-dao";
+	protected final String xmlManagerPropertyDaoTag = "manager-property-dao".intern();
 
 	/**
 	 * Manager注入
@@ -137,7 +137,7 @@ public class NewManagerMapTool {
 	 * @author tfzzh
 	 * @dateTime 2010-8-2 上午02:54:34
 	 */
-	protected final String xmlManagerPropertyManagerTag = "manager-property-manager";
+	protected final String xmlManagerPropertyManagerTag = "manager-property-manager".intern();
 
 	/**
 	 * 字符型注入
@@ -145,7 +145,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:44
 	 */
-	protected final String xmlManagerPropertyStringTag = "manager-property-string";
+	protected final String xmlManagerPropertyStringTag = "manager-property-string".intern();
 
 	/**
 	 * 整型注入
@@ -153,7 +153,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:45
 	 */
-	protected final String xmlManagerPropertyIntegerTag = "manager-property-integer";
+	protected final String xmlManagerPropertyIntegerTag = "manager-property-integer".intern();
 
 	/**
 	 * 短整形注入
@@ -161,7 +161,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:47
 	 */
-	protected final String xmlManagerPropertyShortTag = "manager-property-short";
+	protected final String xmlManagerPropertyShortTag = "manager-property-short".intern();
 
 	/**
 	 * 长整型注入
@@ -169,7 +169,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:48
 	 */
-	protected final String xmlManagerPropertyLongTag = "manager-property-long";
+	protected final String xmlManagerPropertyLongTag = "manager-property-long".intern();
 
 	/**
 	 * 长浮点型注入
@@ -177,7 +177,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:49
 	 */
-	protected final String xmlManagerPropertyDoubleTag = "manager-property-double";
+	protected final String xmlManagerPropertyDoubleTag = "manager-property-double".intern();
 
 	/**
 	 * 浮点型注入
@@ -185,7 +185,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:51
 	 */
-	protected final String xmlManagerPropertyFloatTag = "manager-property-float";
+	protected final String xmlManagerPropertyFloatTag = "manager-property-float".intern();
 
 	/**
 	 * 布尔型注入
@@ -193,7 +193,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:52
 	 */
-	protected final String xmlManagerPropertyBooleanTag = "manager-property-boolean";
+	protected final String xmlManagerPropertyBooleanTag = "manager-property-boolean".intern();
 
 	/**
 	 * 接口相关
@@ -201,13 +201,13 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:19:54
 	 */
-	protected final String xmlInterfaceListTag = "interface-list";
+	protected final String xmlInterfaceListTag = "interface-list".intern();
 
 	/**
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:20:04
 	 */
-	protected final String xmlInterfaceTag = "interface";
+	protected final String xmlInterfaceTag = "interface".intern();
 
 	/**
 	 * 接口名称
@@ -215,7 +215,7 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:20:06
 	 */
-	protected final String xmlInterfaceNameAttlist = "name";
+	protected final String xmlInterfaceNameAttlist = "name".intern();
 
 	/**
 	 * 对应实现列表中ID
@@ -223,7 +223,55 @@ public class NewManagerMapTool {
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 上午11:20:07
 	 */
-	protected final String xmlInterfaceImplementAttlist = "implement";
+	protected final String xmlInterfaceImplementAttlist = "implement".intern();
+
+	/**
+	 * 管理类实现
+	 *
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:31:17
+	 */
+	private final String STR_MANAGERIMPL = "ManagerImpl".intern();
+
+	/**
+	 * 管理类接口
+	 *
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:31:17
+	 */
+	private final String STR_MANAGER = "Manager".intern();
+
+	/**
+	 * 控制类实现
+	 *
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:31:17
+	 */
+	private final String STR_CONTROLIMPL = "ControlImpl".intern();
+
+	/**
+	 * 控制类接口
+	 *
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:31:17
+	 */
+	private final String STR_CONTROL = "Control".intern();
+
+	/**
+	 * 服务类实现
+	 *
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:31:17
+	 */
+	private final String STR_SERVICEIMPL = "ServiceImpl".intern();
+
+	/**
+	 * 服务类接口
+	 *
+	 * @author tfzzh
+	 * @dateTime 2021年12月25日 下午1:31:17
+	 */
+	private final String STR_SERVICE = "Service".intern();
 
 	/**
 	 * 配置文件相关数据
@@ -457,7 +505,7 @@ public class NewManagerMapTool {
 									params = new LinkedList<>();
 									this.paramManager.put(managerObject, params);
 								}
-								params.add(propertyMethod + "," + propertyMethodParameter);
+								params.add(propertyMethod + Constants.COMMA + propertyMethodParameter);
 							} else if (propertyType.containsKey(this.xmlManagerPropertyStringTag)) {
 								// String 类的控制
 								propertyMethod = "set" + propertyMethod.substring(0, 1).toUpperCase() + propertyMethod.substring(1);
@@ -554,18 +602,27 @@ public class NewManagerMapTool {
 			final String suf;
 			// final String fmName;
 			String managerName = clz.getSimpleName();
-			if (managerName.indexOf("ManagerImpl") != -1) {
-				// fmName = StringTools.cutTail(managerName, "ManagerImpl", false);
-				managerName = StringTools.cutTail(managerName, "ManagerImpl") + "Manager";
-				suf = "Manager";
-			} else if (managerName.indexOf("ControlImpl") != -1) {
-				// fmName = StringTools.cutTail(managerName, "ControlImpl", false);
-				managerName = StringTools.cutTail(managerName, "ControlImpl") + "Control";
-				suf = "Control";
-			} else if (managerName.indexOf("ServiceImpl") != -1) {
-				// fmName = StringTools.cutTail(managerName, "ServiceImpl", false);
-				managerName = StringTools.cutTail(managerName, "ServiceImpl") + "Service";
-				suf = "Service";
+			// if (managerName.indexOf("ManagerImpl") != -1) {
+			// // fmName = StringTools.cutTail(managerName, "ManagerImpl", false);
+			// managerName = StringTools.cutTail(managerName, "ManagerImpl") + "Manager";
+			// suf = "Manager";
+			// } else if (managerName.indexOf("ControlImpl") != -1) {
+			// // fmName = StringTools.cutTail(managerName, "ControlImpl", false);
+			// managerName = StringTools.cutTail(managerName, "ControlImpl") + "Control";
+			// suf = "Control";
+			// } else if (managerName.indexOf("ServiceImpl") != -1) {
+			// // fmName = StringTools.cutTail(managerName, "ServiceImpl", false);
+			// managerName = StringTools.cutTail(managerName, "ServiceImpl") + "Service";
+			// suf = "Service";
+			if (managerName.indexOf(this.STR_MANAGERIMPL) != -1) {
+				managerName = StringTools.cutTail(managerName, this.STR_MANAGERIMPL) + this.STR_MANAGER;
+				suf = this.STR_MANAGER;
+			} else if (managerName.indexOf(this.STR_CONTROLIMPL) != -1) {
+				managerName = StringTools.cutTail(managerName, this.STR_CONTROLIMPL) + this.STR_CONTROL;
+				suf = this.STR_CONTROL;
+			} else if (managerName.indexOf(this.STR_SERVICEIMPL) != -1) {
+				managerName = StringTools.cutTail(managerName, this.STR_SERVICEIMPL) + this.STR_SERVICE;
+				suf = this.STR_SERVICE;
 			} else {
 				throw new InitializeException("The MVC-Control Name Not Conform To Rules: " + clz.getName());
 			}
@@ -703,7 +760,7 @@ public class NewManagerMapTool {
 					params = new LinkedList<>();
 					this.paramManager.put(managerObject, params);
 				}
-				params.add(field.getName() + "," + name + "," + field.getType().getName());
+				params.add(field.getName() + Constants.COMMA + name + Constants.COMMA + field.getType().getName());
 				// } else if (null != (dao = field.getAnnotation(DaoIoc.class))) {
 				// // 存在注入
 				// if ((name = dao.value()).length() == 0) {

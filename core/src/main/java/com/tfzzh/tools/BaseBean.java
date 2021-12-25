@@ -284,7 +284,7 @@ public class BaseBean implements Serializable {
 					}
 					{ // 在通过反射，顺利得到数据后进行
 						if (sb.length() > 1) {
-							sb.append(",");
+							sb.append(Constants.COMMA);
 						}
 						sb.append(lName.toLowerCase());
 						sb.append("=");
