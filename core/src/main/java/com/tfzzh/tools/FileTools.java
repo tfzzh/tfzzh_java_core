@@ -128,7 +128,10 @@ public class FileTools {
 	 * @param clz 所相关类对象
 	 * @return 资源文件内容对象
 	 */
-	public static ResourceBundle getResourceBundle(final String bundleName, final String folderName, final Class<?> clz) {
+	public static ResourceBundle getResourceBundle(String bundleName, final String folderName, final Class<?> clz) {
+		if (bundleName.startsWith("./")) {
+			bundleName = bundleName.substring(2);
+		}
 		if (Constants.class.getResource("/") != null) {
 			if (null == clz) {
 				return ResourceBundle.getBundle(bundleName);

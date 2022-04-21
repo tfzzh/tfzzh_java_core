@@ -355,10 +355,14 @@ public class OperateLink {
 	public OperateLinkInfo getOperateLink(final HttpServletRequest request, final Map<String, List<String>> pathParas) {
 		final String pathInfo = request.getPathInfo();
 		final String path;
+		String sPath = request.getServletPath();
+		if (sPath.length() > 0) {
+			sPath = sPath.substring(1);
+		}
 		if (null == pathInfo) {
-			path = request.getServletPath().substring(1);
+			path = sPath;
 		} else {
-			path = request.getServletPath().substring(1) + pathInfo;
+			path = pathInfo;
 		}
 		final RequestMethod method = RequestMethod.getMethod(request.getMethod());
 		if (method != RequestMethod.Non) {
