@@ -119,6 +119,20 @@ public class OperateLink {
 	private static final String S_X_WWW_VAL_END = "\r\n";
 
 	/**
+	 * @author tfzzh
+	 * @dateTime 2022年5月27日 下午12:14:29
+	 */
+	private static final String MMP = "m_m_p";
+
+	/**
+	 * 链接通配符
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2022年5月27日 下午12:17:08
+	 */
+	private static final String LINK_WILDCARD = "*";
+
+	/**
 	 * 路径层级列表
 	 * 
 	 * @author Weijie Xu
@@ -236,10 +250,12 @@ public class OperateLink {
 			// 创建信息
 			final OperateLinkInfo link = this.createOperateLinkInfo(type, path, reflectControlKey, prefix, accessPermissions, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
 			Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>> methodMap;
-			methodMap = (Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>>) tm.get("m_m_p");
+			// methodMap = (Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>>) tm.get("m_m_p");
+			methodMap = (Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>>) tm.get(OperateLink.MMP);
 			if (null == methodMap) {
 				methodMap = new HashMap<>();
-				tm.put("m_m_p", methodMap);
+				// tm.put("m_m_p", methodMap);
+				tm.put(OperateLink.MMP, methodMap);
 			}
 			final OperateLinkList<? extends OperateLinkInfo> linkList = this.createOperateLinkList(type, branchKey);
 			methodMap.put(method, linkList);
@@ -362,7 +378,11 @@ public class OperateLink {
 		if (null == pathInfo) {
 			path = sPath;
 		} else {
-			path = pathInfo;
+			if (sPath.length() > 0) {
+				path = Constants.DIAGONAL_LINE + sPath + pathInfo;
+			} else {
+				path = pathInfo;
+			}
 		}
 		final RequestMethod method = RequestMethod.getMethod(request.getMethod());
 		if (method != RequestMethod.Non) {
@@ -405,9 +425,17 @@ public class OperateLink {
 			if (lvl > 0) {
 				lvl--;
 			}
-			toj = tm.get("m_m_p");
+			// toj = tm.get("m_m_p");
+			toj = tm.get(OperateLink.MMP);
 			if (null == toj) {
-				return null;
+				tm = (Map<String, Object>) tm.get(OperateLink.LINK_WILDCARD);
+				if (null == tm) {
+					return null;
+				}
+				toj = tm.get(OperateLink.MMP);
+				if (null == toj) {
+					return null;
+				}
 			}
 			final Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>> methodMap = (Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>>) toj;
 			final OperateLinkList<? extends OperateLinkInfo> linkList = methodMap.get(method);
@@ -429,6 +457,15 @@ public class OperateLink {
 					// 放入信息
 					pathParas.putAll(map);
 				}
+			} else if (null != (info = linkList.getLink(OperateLink.LINK_WILDCARD, request))) {
+				final Map<String, List<String>> map;
+				if (null != (map = info.getKeyBack(str))) {
+					// 放入信息
+					pathParas.putAll(map);
+				}
+				final List<String> sl = new ArrayList<>(1);
+				sl.add(path);
+				pathParas.put("lwPath", sl);
 			}
 			return info;
 		} // 一定错误的情况
@@ -2264,13 +2301,17 @@ public class OperateLink {
 			final BackLinkOperationInfo info = this.getBackResult(back.getTarget());
 			// 文件名后半部分
 			final String target;
-			if (null != back.getFormats()) {
-				target = String.format(info.getTarget(), back.getFormats());
+			if (null != info) {
+				if (null != back.getFormats()) {
+					target = String.format(info.getTarget(), back.getFormats());
+				} else {
+					target = info.getTarget();
+				}
 			} else {
-				target = info.getTarget();
+				target = back.getTarget();
 			}
 			// 得到完整文件名
-			final String filePath = Constants.INIT_CONFIG_PATH_BASE + target;
+			final String filePath = target.startsWith("file:") ? target.substring(7) : (Constants.INIT_CONFIG_PATH_BASE + target);
 			// 读及输出文件内容
 			final byte[] b = new byte[8192];
 			final FileInputStream fis = new FileInputStream(filePath);

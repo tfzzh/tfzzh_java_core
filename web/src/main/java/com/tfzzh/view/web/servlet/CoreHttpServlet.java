@@ -38,7 +38,7 @@ import com.tfzzh.view.web.tools.WebTools;
  * @author xuweijie
  * @dateTime 2012-1-31 下午4:38:45
  */
-@WebServlet({ "*.shtml", "/upload/*", "/util/*" })
+@WebServlet({ "*.shtml", "*.j", "/upload/*", "/util/*", "/cdn/*" })
 public class CoreHttpServlet extends BaseHttpServlet {
 
 	/**
