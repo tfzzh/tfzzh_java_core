@@ -296,7 +296,7 @@ public class NSListFieldBean extends LocalScope {
 			if (o instanceof BaseMongoBean) {
 				final BaseMongoBean bmb = (BaseMongoBean) o;
 				mdd.putIncrementValue(bmb);
-				// TODO 标注，待删除
+				// XXX 标注，待删除
 				bl.add(bmb.getInsertData());
 			} else {
 				bl.add(o);

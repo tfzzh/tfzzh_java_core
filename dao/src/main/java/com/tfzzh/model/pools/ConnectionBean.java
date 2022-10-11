@@ -99,6 +99,22 @@ public class ConnectionBean implements AutoCloseable {
 	}
 
 	/**
+	 * 得到当前链接的目标库名
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2022年10月12日 上午3:35:16
+	 * @return 当前链接的目标库名
+	 */
+	public String getDatabaseName() {
+		try {
+			return this.conn.getCatalog();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
 	 * 得到表结构
 	 * 
 	 * @author Weijie Xu

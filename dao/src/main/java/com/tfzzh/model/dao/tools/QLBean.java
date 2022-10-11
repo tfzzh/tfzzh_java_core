@@ -616,7 +616,7 @@ public class QLBean {
 			final StringBuilder sb = new StringBuilder(this.tsm.size() * 12);
 			boolean isFirst = true;
 			for (final Entry<EntityInfoBean<? extends BaseDataBean>, String> ent : this.tsm.entrySet()) {
-				// TODO 需要增加对应逻辑，主要是最名称符号`的控制，之后考虑，暂时掠过
+				// XXX 需要增加对应逻辑，主要是最名称符号`的控制，之后考虑，暂时掠过
 				if (isFirst) {
 					isFirst = false;
 				} else {

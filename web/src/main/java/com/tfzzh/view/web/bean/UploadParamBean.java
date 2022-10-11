@@ -219,7 +219,7 @@ public abstract class UploadParamBean extends BaseParamBean {
 						}
 					}
 				} else if (clz == UploadFileBean[].class) {
-					// TODO 数组
+					// 数组
 					if (null != (fo = this.getParamValue(field, paraMap))) {
 						final UploadFileInfo info = field.getAnnotation(UploadFileInfo.class);
 						if (fo instanceof List) {
@@ -258,7 +258,7 @@ public abstract class UploadParamBean extends BaseParamBean {
 						}
 					}
 				} else if (clz == UploadByteFileBean[].class) {
-					// TODO 数组
+					// 数组
 					final String[] fileInfo = this.getByteFileParamValue(field, paraMap);
 					if (null != fileInfo) {
 						final UploadFileInfo info = field.getAnnotation(UploadFileInfo.class);

@@ -1682,63 +1682,61 @@ public abstract class BaseConstants {
 		// }
 		return bak;
 	}
-
-	/**
-	 * TODO 过段时间删除该方法 2021-12-14<br />
-	 * 进行对应数据解析<br />
-	 * 
-	 * @author tfzzh
-	 * @dateTime 2020年9月12日 下午3:23:10
-	 * @param cont 配置文件内容
-	 * @return 解析后的内容
-	 */
-	@Deprecated
-	protected Map<Integer, List<String>> strToMilTask(final String cont) {
-		// this.log.debug("in strToMilTask ... ");
-		if ((null == cont) || (cont.length() == 0)) {
-			return new HashMap<>();
-		}
-		final JSONObject jo = JSON.parseObject(cont);
-		final Map<Integer, List<String>> bak = new HashMap<>();
-		List<String> sl;
-		JSONArray ja;
-		for (final String key : jo.keySet()) {
-			sl = new ArrayList<>();
-			ja = jo.getJSONArray(key);
-			for (int i = 0; i < ja.size(); i++) {
-				sl.add(ja.getString(i));
-			}
-			bak.put(Integer.parseInt(key), sl);
-		}
-		// if (bak.size() == 0) {
-		// this.log.error("no conf ORUN_MILEAGE_TASK ... ");
-		// }
-		return bak;
-	}
-
-	/**
-	 * TODO 过段时间删除该方法 2021-12-14<br />
-	 * 进行对应数据解析<br />
-	 * 
-	 * @author tfzzh
-	 * @dateTime 2020年9月19日 下午5:49:23
-	 * @param cont 配置文件内容
-	 * @return 解析后的内容
-	 */
-	@Deprecated
-	protected Map<Integer, String> strToFTTask(final String cont) {
-		// this.log.debug("in strToFTTask ... ");
-		if ((null == cont) || (cont.length() == 0)) {
-			return new HashMap<>();
-		}
-		final JSONObject jo = JSON.parseObject(cont);
-		final Map<Integer, String> bak = new HashMap<>();
-		for (final String key : jo.keySet()) {
-			bak.put(Integer.parseInt(key), jo.getString(key));
-		}
-		// if (bak.size() == 0) {
-		// this.log.error("no conf TASK_FILETYPE_CODE ... ");
-		// }
-		return bak;
-	}
+	// /**
+	// * 过段时间删除该方法 2021-12-14<br />
+	// * 进行对应数据解析<br />
+	// *
+	// * @author tfzzh
+	// * @dateTime 2020年9月12日 下午3:23:10
+	// * @param cont 配置文件内容
+	// * @return 解析后的内容
+	// */
+	// @Deprecated
+	// protected Map<Integer, List<String>> strToMilTask(final String cont) {
+	// // this.log.debug("in strToMilTask ... ");
+	// if ((null == cont) || (cont.length() == 0)) {
+	// return new HashMap<>();
+	// }
+	// final JSONObject jo = JSON.parseObject(cont);
+	// final Map<Integer, List<String>> bak = new HashMap<>();
+	// List<String> sl;
+	// JSONArray ja;
+	// for (final String key : jo.keySet()) {
+	// sl = new ArrayList<>();
+	// ja = jo.getJSONArray(key);
+	// for (int i = 0; i < ja.size(); i++) {
+	// sl.add(ja.getString(i));
+	// }
+	// bak.put(Integer.parseInt(key), sl);
+	// }
+	// // if (bak.size() == 0) {
+	// // this.log.error("no conf ORUN_MILEAGE_TASK ... ");
+	// // }
+	// return bak;
+	// }
+	// /**
+	// * 过段时间删除该方法 2021-12-14<br />
+	// * 进行对应数据解析<br />
+	// *
+	// * @author tfzzh
+	// * @dateTime 2020年9月19日 下午5:49:23
+	// * @param cont 配置文件内容
+	// * @return 解析后的内容
+	// */
+	// @Deprecated
+	// protected Map<Integer, String> strToFTTask(final String cont) {
+	// // this.log.debug("in strToFTTask ... ");
+	// if ((null == cont) || (cont.length() == 0)) {
+	// return new HashMap<>();
+	// }
+	// final JSONObject jo = JSON.parseObject(cont);
+	// final Map<Integer, String> bak = new HashMap<>();
+	// for (final String key : jo.keySet()) {
+	// bak.put(Integer.parseInt(key), jo.getString(key));
+	// }
+	// // if (bak.size() == 0) {
+	// // this.log.error("no conf TASK_FILETYPE_CODE ... ");
+	// // }
+	// return bak;
+	// }
 }

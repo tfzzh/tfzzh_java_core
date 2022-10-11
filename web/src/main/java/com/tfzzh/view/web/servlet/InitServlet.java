@@ -71,7 +71,7 @@ public class InitServlet extends HttpServlet {
 				CoreLog.getInstance().debug(this.getClass(), "ManagerMap over. run: ", Long.toString((l2 = System.currentTimeMillis()) - l1));
 			}
 		}
-		// { // TODO 暂时不支持对XML文件的读取
+		// { // 暂时不支持对XML文件的读取
 		// if ((null != this.getInitParameter("linkpage")) && (null == this.getInitParameter("linkpage"))) {
 		// // 2初始化页面对象控制
 		// new LinkPageXmlAnalysis().readerAmountXML(basePath, WebConstants.INIT_LINK_PAGE_DTD,

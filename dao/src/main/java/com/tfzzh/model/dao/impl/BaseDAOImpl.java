@@ -96,7 +96,8 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 			if (null == tableName) {
 				tableName = this.eib.getDefaultTableName();
 			}
-			rs = dmd.getTables(null, null, tableName, new String[] { "TABLE" });
+			final String dbName = conn.getDatabaseName();
+			rs = dmd.getTables(dbName, null, tableName, new String[] { "TABLE" });
 			// 对字段的处理，先增加，再修改，再移除
 			// 对索引的处理，先删除，再增加
 			// 整体，字段增加，字段修改，索引删除，字段移除，索引增加
@@ -110,7 +111,7 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 				boolean isFirst = true;
 				{ // 字段的控制
 					// 从新关联字段
-					rs = dmd.getColumns(null, null, tableName, null);
+					rs = dmd.getColumns(dbName, null, tableName, null);
 					// 一定是copy的
 					final Map<String, EntityInfoBean<E>.FieldInfoBean> fis = this.eib.getTpFiledsCopy();
 					final Map<String, EntityInfoBean<E>.FieldInfoBean> efs = new LinkedHashMap<>(fis.size());
@@ -215,7 +216,7 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 				final Map<String, EntityInfoBean<E>.IndexInfoBean> iis = this.eib.getIndexsCopy();
 				EntityInfoBean<E>.IndexInfoBean priKey = null;
 				{ // 索引的设置
-					rs = dmd.getIndexInfo(null, null, tableName, false, false);
+					rs = dmd.getIndexInfo(dbName, null, tableName, false, false);
 					// 直接从索引队列中移除，如果存在，并增加进“安全队列”
 					// 如果不存在于队列，判定是否存在于“安全队列”，如果存在不管，如果不存在加入到要“移除队列（附带去重功能的）”
 					// 如果是主键，如果不存在于索引队列，则直接进入“移除队列”
