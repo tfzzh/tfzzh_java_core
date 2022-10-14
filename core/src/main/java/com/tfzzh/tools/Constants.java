@@ -100,7 +100,7 @@ public interface Constants {
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午12:54:28
 	 */
-	String SEMICOLON_LINE = ";".intern();
+	String SEMICOLON = ";".intern();
 
 	/**
 	 * 冒号":"
@@ -108,7 +108,15 @@ public interface Constants {
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午12:54:29
 	 */
-	String COLON_LINE = ":".intern();
+	String COLON = ":".intern();
+
+	/**
+	 * 竖线“|”
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年9月5日 上午10:29:48
+	 */
+	String VERTICAL_LINE = "|".intern();
 
 	/**
 	 * 等号"="
@@ -116,7 +124,7 @@ public interface Constants {
 	 * @author tfzzh
 	 * @dateTime 2021年7月5日 下午12:54:30
 	 */
-	String EQUAL_LINE = "=".intern();
+	String EQUAL = "=".intern();
 
 	/**
 	 * 单引号"'"
@@ -133,6 +141,70 @@ public interface Constants {
 	 * @dateTime 2021年7月5日 下午2:26:51
 	 */
 	String DOUBLE_QUOTATION = "\"".intern();
+
+	/**
+	 * 大括号：左部“{”
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年2月24日 下午12:49:42
+	 */
+	String BRACE_LEFT = "{".intern();
+
+	/**
+	 * 大括号：右部“}”
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年2月24日 下午12:49:42
+	 */
+	String BRACE_RIGHT = "}".intern();
+
+	/**
+	 * 中括号：左部“[”
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年2月24日 下午12:49:43
+	 */
+	String BRACKET_LEFT = "[".intern();
+
+	/**
+	 * 中括号：右部“]”
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年2月24日 下午12:49:44
+	 */
+	String BRACKET_RIGHT = "]".intern();
+
+	/**
+	 * 存库用零长字符串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年8月28日 下午2:01:50
+	 */
+	String EMPTY = "".intern();
+
+	/**
+	 * 基础换行
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年2月24日 下午1:51:24
+	 */
+	String ENTRY = "\n".intern();
+
+	/**
+	 * 存库用空列表字符串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年2月8日 下午8:16:03
+	 */
+	String EMPTY_LIST_STR = "[]".intern();
+
+	/**
+	 * 存库用空对象字符串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2021年2月8日 下午8:16:04
+	 */
+	String EMPTY_OBJECT_STR = "{}".intern();
 
 	/**
 	 * 初始化：管理配置：DTD文件名称

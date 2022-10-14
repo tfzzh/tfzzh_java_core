@@ -1372,7 +1372,7 @@ public class OperateLink {
 				// System.out.println(" >> log 2021-07-05 >> multipart/ " + map);
 			} else if ((null != ct) && ct.indexOf(OperateLink.S_X_WWW_FORM_URLENCODED) != -1 && ct.indexOf(OperateLink.S_BOUNDARY) != -1) { // 2021-07-05 增加对x-www-form-urlencoded结构数据处理
 				int bdys = ct.indexOf(OperateLink.S_BOUNDARY);
-				int bdye = ct.indexOf(Constants.SEMICOLON_LINE, bdys);
+				int bdye = ct.indexOf(Constants.SEMICOLON, bdys);
 				final String bdy;
 				if (bdye == -1) {
 					bdy = ct.substring(bdys + OperateLink.S_BOUNDARY.length());
@@ -2177,7 +2177,7 @@ public class OperateLink {
 				} else {
 					target = back.getPrefix() + info.getTarget() + WebBaseConstants.URL_POS;
 				}
-				target.replaceAll(Constants.SEMICOLON_LINE, ":");
+				target.replaceAll(Constants.SEMICOLON, ":");
 				final StringBuilder sb = new StringBuilder(target);
 				final Map<String, ? extends Object> param = back.getAttributes();
 				// 跳转URL

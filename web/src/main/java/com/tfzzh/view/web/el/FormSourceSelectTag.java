@@ -267,7 +267,7 @@ public class FormSourceSelectTag extends TagSupport {
 		// 插入js脚本
 		sb.append("<script type='text/javascript' def>");
 		// 设置数据源
-		sb.append("var ").append(this.att).append("Data=").append(this.source.getOptionsJson()).append(Constants.SEMICOLON_LINE);
+		sb.append("var ").append(this.att).append("Data=").append(this.source.getOptionsJson()).append(Constants.SEMICOLON);
 		// 调用js
 		sb.append(this.type.showJsFunction()).append("('").append(this.att).append("',");
 		if (null != this.def) {
