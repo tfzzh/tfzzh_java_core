@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<servlet.version>3.1.0</servlet.version>
 		<servlet.jsp.version>2.3.1</servlet.jsp.version>
-		<tomcat.version>8.0.41</tomcat.version>
+		<tomcat.version>8.5.9</tomcat.version>
 		<apache.commons.version>1.4</apache.commons.version>
 		<apache.codec.version>1.15</apache.codec.version><!--2022-10-15  -->
 		<fastjson.version>1.2.83</fastjson.version><!--2022-10-15  -->
