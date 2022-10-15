@@ -18,14 +18,14 @@
 		<servlet.jsp.version>2.3.1</servlet.jsp.version>
 		<tomcat.version>8.0.41</tomcat.version>
 		<apache.commons.version>1.4</apache.commons.version>
-		<apache.codec.version>1.13</apache.codec.version>
-		<fastjson.version>1.2.73</fastjson.version>
+		<apache.codec.version>1.15</apache.codec.version><!--2022-10-15  -->
+		<fastjson.version>1.2.83</fastjson.version><!--2022-10-15  -->
 		<dtdparser.version>1.21</dtdparser.version>
-		<log4j2.version>2.17.0</log4j2.version>
-		<slf4j.version>1.7.32</slf4j.version>
-		<mysql-connector.version>8.0.21</mysql-connector.version>
-		<mongodb.version>3.11.0</mongodb.version>
-		<netty.version>4.1.51.Final</netty.version>
+		<log4j2.version>2.19.0</log4j2.version><!--2022-10-15  -->
+		<slf4j.version>1.7.36</slf4j.version><!--2022-10-15  -->
+		<mysql-connector.version>8.0.30</mysql-connector.version><!--2022-10-15  -->
+		<mongodb.version>3.12.11</mongodb.version><!--2022-10-15  -->
+		<netty.version>4.1.82.Final</netty.version><!--2022-10-15  -->
 		<!-- 项目自身版本 -->
 		<project.version>0.0.1-SNAPSHOT</project.version>
 	</properties>
