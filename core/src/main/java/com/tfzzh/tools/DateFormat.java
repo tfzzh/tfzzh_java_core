@@ -4,6 +4,7 @@
  */
 package com.tfzzh.tools;
 
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -110,6 +111,14 @@ public class DateFormat {
 	 * @dateTime 2020年12月10日 下午3:21:59
 	 */
 	private static final String DATE_FORMAT_EXPIRE = "yyyy-MM-dd HH:mm:ss";
+
+	/**
+	 * RFC3339格式
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2022年10月23日 下午7:51:00
+	 */
+	private static final String DATE_RFC3339 = "yyyy-MM-dd'T'HH:mm:ssZ";
 
 	/**
 	 * 将日期转换为字符串:完整(yyyyMMddHHmmssSSS)
@@ -629,6 +638,50 @@ public class DateFormat {
 		} catch (final ParseException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * 得到Rfc3339格式时间字串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2022年10月23日 上午2:17:28
+	 * @param date 目标时间
+	 * @return Rfc3339格式时间字串
+	 */
+	public static String getRfc3339(final Date date) {
+		// final Format f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+		final Format f = new SimpleDateFormat(DateFormat.DATE_RFC3339);
+		String str = f.format(new Date());
+		if (!str.endsWith(":00")) {
+			str = str.substring(0, str.length() - 2) + ":00";
+		}
+		return str;
+	}
+
+	/**
+	 * 根据Rfc3339格式时间字串得到时间对象
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2022年10月23日 下午7:49:38
+	 * @param date Rfc3339格式时间字串
+	 * @return 时间对象
+	 */
+	public static Date getRfc3339(String date) {
+		if ((null == date) || (date.length() < 20)) {
+			return null;
+		}
+		// final Format f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+		final Format f = new SimpleDateFormat(DateFormat.DATE_RFC3339);
+		if (date.endsWith(":00")) {
+			date = date.substring(0, date.length() - 3) + "00";
+		}
+		try {
+			final Date d = (Date) f.parseObject(date);
+			return d;
+		} catch (final ParseException e) {
+			// e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
