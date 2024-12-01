@@ -99,7 +99,7 @@ public final class UploadByteFileBean extends BaseUploadFileBean {
 			file.setExecutable(true, false);
 			if (!Constants.OS_WIN) {
 				try {
-					Runtime.getRuntime().exec("chmod 777 -R " + file.getPath());
+					Runtime.getRuntime().exec(new String[] { "chmod 777 -R " + file.getPath() });
 				} catch (final IOException e) {
 					e.printStackTrace();
 				}

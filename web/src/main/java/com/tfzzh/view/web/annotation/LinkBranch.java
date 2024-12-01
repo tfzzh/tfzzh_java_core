@@ -70,5 +70,6 @@ public @interface LinkBranch {
 	 * @dateTime 2012-7-9 下午3:04:15
 	 * @return 权限值；默认0；
 	 */
+	@Deprecated
 	int accessPermissions() default 0;
 }

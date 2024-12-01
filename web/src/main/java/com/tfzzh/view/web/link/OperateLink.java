@@ -36,15 +36,16 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.util.ParameterMap;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONException;
+import com.alibaba.fastjson2.JSONObject;
 import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.exception.InitializeException;
 import com.tfzzh.log.CoreLog;
@@ -52,15 +53,11 @@ import com.tfzzh.tools.Constants;
 import com.tfzzh.tools.InnerIndex;
 import com.tfzzh.tools.RunThreadLocal;
 import com.tfzzh.tools.StringTools;
-import com.tfzzh.view.web.annotation.LinkBranch;
 import com.tfzzh.view.web.annotation.LinkMain;
 import com.tfzzh.view.web.bean.BaseParamBean;
 import com.tfzzh.view.web.bean.LoginSessionBean;
 import com.tfzzh.view.web.bean.UploadParamBean;
 import com.tfzzh.view.web.iface.TokenControl;
-import com.tfzzh.view.web.purview.AccessPermissionsControl;
-import com.tfzzh.view.web.purview.AccessPermissionsInfo;
-import com.tfzzh.view.web.purview.AccessPermissionsInfo.AccessPermissionsNodeInfo;
 import com.tfzzh.view.web.servlet.CoreHttpServlet.TmpSessionBean;
 import com.tfzzh.view.web.servlet.session.ClientSessionBean;
 import com.tfzzh.view.web.servlet.session.SessionPool;
@@ -179,19 +176,20 @@ public class OperateLink {
 	 * @param type 链接类型
 	 * @param reflectControlKey 反射控制键
 	 * @param prefix 路径前缀
-	 * @param accessPermission 访问权限值
 	 * @param targetNode 目标节点连接
 	 * @param result 结果控制集合
 	 * @param params 参数集合，有序的<br />
 	 *           <参数对应key,参数的对象类型><br />
+	 * @param readStreamJSON 是否读取stream相关json信息 add 2023-11-24
 	 * @param canCrossDomain 是否可以跨域，true，可以跨域
 	 * @param needToken 是否需要token验证
 	 * @param description 说明
 	 * @param ipRestr ip限制标识
 	 * @return 控制连接
 	 */
-	public OperateLinkInfo addNewLinkInfo(final String mainPath, final String path, final String matchingPath, final RequestMethod method, final LinkType type, final String reflectControlKey, final String prefix, final int accessPermission, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
-		return this.addNewLinkInfo(mainPath, path, matchingPath, method, type, null, reflectControlKey, prefix, accessPermission, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
+	public OperateLinkInfo addNewLinkInfo(final String mainPath, final String path, final String matchingPath, final RequestMethod method, final LinkType type, final String reflectControlKey, final String prefix, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean readStreamJSON, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+		// * @param accessPermissions 访问权限值 del 2023-11-24
+		return this.addNewLinkInfo(mainPath, path, matchingPath, method, type, null, reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 	}
 
 	/**
@@ -207,11 +205,11 @@ public class OperateLink {
 	 * @param branchKey 分流KEY，针对分流模式
 	 * @param reflectControlKey 反射控制键
 	 * @param prefix 路径前缀
-	 * @param accessPermissions 访问权限值
 	 * @param targetNode 目标节点连接
 	 * @param result 结果控制集合
 	 * @param params 参数集合，有序的<br />
 	 *           <参数对应key,参数的对象类型><br />
+	 * @param readStreamJSON 是否读取stream相关json信息 add 2023-11-24
 	 * @param canCrossDomain 是否可以跨域，true，可以跨域
 	 * @param needToken 是否需要token验证
 	 * @param description 说明
@@ -219,7 +217,8 @@ public class OperateLink {
 	 * @return 控制连接
 	 */
 	@SuppressWarnings("unchecked")
-	public OperateLinkInfo addNewLinkInfo(String mainPath, final String path, final String matchingPath, final RequestMethod method, final LinkType type, final String branchKey, final String reflectControlKey, final String prefix, final int accessPermissions, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+	public OperateLinkInfo addNewLinkInfo(String mainPath, final String path, final String matchingPath, final RequestMethod method, final LinkType type, final String branchKey, final String reflectControlKey, final String prefix, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean readStreamJSON, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+		// * @param accessPermissions 访问权限值 del 2023-11-24
 		if ((null == mainPath) || ((mainPath = mainPath.trim()).length() == 0) || mainPath.equals(Constants.DIAGONAL_LINE)) {
 			mainPath = "";
 			// lvl = 0;
@@ -248,7 +247,7 @@ public class OperateLink {
 				tm = ctm;
 			}
 			// 创建信息
-			final OperateLinkInfo link = this.createOperateLinkInfo(type, path, reflectControlKey, prefix, accessPermissions, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
+			final OperateLinkInfo link = this.createOperateLinkInfo(type, path, reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 			Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>> methodMap;
 			// methodMap = (Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>>) tm.get("m_m_p");
 			methodMap = (Map<RequestMethod, OperateLinkList<? extends OperateLinkInfo>>) tm.get(OperateLink.MMP);
@@ -276,6 +275,7 @@ public class OperateLink {
 	 * @return 控制连接
 	 */
 	public OperateLinkNodeInfo addNewLinkNodeInfo(final LinkMain linkMain, final OperateLinkNodeInfo targetNode) {
+		// public OperateLinkNodeInfo addNewLinkNodeInfo(final LinkMain linkMain, final OperateLinkNodeInfo targetNode) {
 		final String mainPath = linkMain.mainPath();
 		final String[] result = linkMain.resultList();
 		for (int i = result.length - 1; i >= 0; i--) {
@@ -288,20 +288,26 @@ public class OperateLink {
 				result[i] = result[i].substring(1);
 			}
 		}
-		return new OperateLinkNodeInfo(mainPath, linkMain.accessPermissions(), linkMain.description(), targetNode, result);
+		// return new OperateLinkNodeInfo(mainPath, linkMain.accessPermissions(), linkMain.description(), targetNode, result);
+		return new OperateLinkNodeInfo(result);
 	}
 
 	/**
 	 * @author Weijie Xu
 	 * @dateTime 2013-12-21 下午5:25:59
-	 * @param linkBranch 分流连接信息
 	 * @param linkMain 链接主信息
-	 * @param targetNode 目标节点连接
 	 * @return 控制连接
 	 */
-	public OperateLinkNodeInfo addNewLinkNodeInfo(final LinkBranch linkBranch, final LinkMain linkMain, final OperateLinkNodeInfo targetNode) {
-		return new OperateLinkNodeInfo(linkBranch.path(), linkBranch.accessPermissions(), linkBranch.description(), targetNode, linkMain.resultList());
+	public OperateLinkNodeInfo addNewLinkNodeInfo(final LinkMain linkMain) {
+		return new OperateLinkNodeInfo(linkMain.resultList());
 	}
+	// * @param linkBranch 分流连接信息
+	// * @param linkMain 链接主信息
+	// * @param targetNode 目标节点连接
+	// * @return 控制连接
+	// public OperateLinkNodeInfo addNewLinkNodeInfo(final LinkBranch linkBranch, final LinkMain linkMain, final OperateLinkNodeInfo targetNode) {
+	// return new OperateLinkNodeInfo(linkBranch.path(), linkBranch.accessPermissions(), linkBranch.description(), targetNode, linkMain.resultList());
+	// }
 
 	/**
 	 * 创建一个控制连接信息
@@ -312,25 +318,26 @@ public class OperateLink {
 	 * @param deployPath 适配路径，针对适配模式
 	 * @param reflectControlKey 反射控制键
 	 * @param prefix 路径前缀
-	 * @param accessPermissions 访问权限值
 	 * @param targetNode 目标节点连接
 	 * @param result 结果控制集合
 	 * @param params 参数集合，有序的<br />
 	 *           <参数对应key,参数的对象类型><br />
+	 * @param readStreamJSON 是否读取stream相关json信息 add 2023-11-24
 	 * @param canCrossDomain 是否可以跨域，true，可以跨域
 	 * @param needToken 是否需要token验证
 	 * @param description 说明
 	 * @param ipRestr ip限制标识
 	 * @return 控制连接
 	 */
-	private OperateLinkInfo createOperateLinkInfo(final LinkType type, final String deployPath, final String reflectControlKey, final String prefix, final int accessPermissions, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+	private OperateLinkInfo createOperateLinkInfo(final LinkType type, final String deployPath, final String reflectControlKey, final String prefix, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean readStreamJSON, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+		// * @param accessPermissions 访问权限值 del 2023-11-24
 		switch (type) {
 		case Normal:
-			return new NormalOperateLinkInfo(reflectControlKey, prefix, accessPermissions, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
+			return new NormalOperateLinkInfo(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 		case Deploy:
-			return new DeployOperateLinkInfo(deployPath, reflectControlKey, prefix, accessPermissions, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
+			return new DeployOperateLinkInfo(deployPath, reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 		case Branch:
-			return new BranchOperateLinkInfo(reflectControlKey, prefix, accessPermissions, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
+			return new BranchOperateLinkInfo(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 		default: // 不可能出现的情况
 			throw new InitializeException("Exist not type: " + type.name());
 		}
@@ -361,13 +368,12 @@ public class OperateLink {
 	/**
 	 * 根据链接条件得到链接信息
 	 * 
-	 * @author xuweijie
-	 * @dateTime 2012-2-2 上午11:36:27
+	 * @author tfzzh
+	 * @dateTime 2024年7月20日 05:31:46
 	 * @param request 请求信息
 	 * @param pathParas 路径参数，针对适配情况
 	 * @return 控制连接
 	 */
-	@SuppressWarnings("unchecked")
 	public OperateLinkInfo getOperateLink(final HttpServletRequest request, final Map<String, List<String>> pathParas) {
 		final String pathInfo = request.getPathInfo();
 		final String path;
@@ -384,13 +390,43 @@ public class OperateLink {
 				path = pathInfo;
 			}
 		}
+		return this.getOperateLink(path, request, pathParas);
+	}
+
+	/**
+	 * 根据链接条件得到链接信息
+	 * 
+	 * @author xuweijie
+	 * @dateTime 2012-2-2 上午11:36:27
+	 * @param path 目标路径
+	 * @param request 请求信息
+	 * @param pathParas 路径参数，针对适配情况
+	 * @return 控制连接
+	 */
+	@SuppressWarnings("unchecked")
+	public OperateLinkInfo getOperateLink(final String path, final HttpServletRequest request, final Map<String, List<String>> pathParas) {
+		// final String pathInfo = request.getPathInfo();
+		// final String path;
+		// String sPath = request.getServletPath();
+		// if (sPath.length() > 0) {
+		// sPath = sPath.substring(1);
+		// }
+		// if (null == pathInfo) {
+		// path = sPath;
+		// } else {
+		// if (sPath.length() > 0) {
+		// path = Constants.DIAGONAL_LINE + sPath + pathInfo;
+		// } else {
+		// path = pathInfo;
+		// }
+		// }
 		final RequestMethod method = RequestMethod.getMethod(request.getMethod());
 		if (method != RequestMethod.Non) {
 			final String[] str = StringTools.split(path, Constants.DIAGONAL_LINE);
 			{
 				String last = str[str.length - 1];
 				int i;
-				if ((i = last.lastIndexOf(".")) != -1) {
+				if ((i = last.lastIndexOf(Constants.SPOT)) != -1) {
 					// 放入后缀信息
 					final List<String> cL = new LinkedList<>();
 					pathParas.put(WebConstants.PRIVATE_LINK_NAME_SUFFIX, cL);
@@ -779,7 +815,7 @@ public class OperateLink {
 	 * @author xuweijie
 	 * @dateTime 2012-1-31 下午3:20:01
 	 */
-	public abstract class OperateLinkInfo implements AccessPermissionsInfo {
+	public abstract class OperateLinkInfo {
 
 		/**
 		 * 反射控制键
@@ -796,22 +832,20 @@ public class OperateLink {
 		 * @dateTime 2012-2-15 下午3:30:55
 		 */
 		private final String prefix;
-
-		/**
-		 * 访问权限值
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-9 下午3:05:50
-		 */
-		private final int accessPermissionsValue;
-
-		/**
-		 * 访问权限对象
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-11 下午8:05:08
-		 */
-		private AccessPermissionsInfo accessPermissions = null;
+		// /**
+		// * 访问权限值
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-9 下午3:05:50
+		// */
+		// private final int accessPermissionsValue;
+		// /**
+		// * 访问权限对象
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-11 下午8:05:08
+		// */
+		// private AccessPermissionsInfo accessPermissions = null;
 
 		/**
 		 * 目标节点连接
@@ -837,6 +871,14 @@ public class OperateLink {
 		 * @dateTime 2012-1-31 下午3:15:43
 		 */
 		private final Map<String, Class<?>> params;
+
+		/**
+		 * 是否读取stream相关json信息
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2023年11月24日 11:52:31
+		 */
+		private final boolean readStreamJSON;
 
 		/**
 		 * 是否可以跨域
@@ -869,14 +911,13 @@ public class OperateLink {
 		 * @dateTime 2012-9-12 下午1:29:59
 		 */
 		private final String fileSuffixLimit;
-
-		/**
-		 * 说明
-		 * 
-		 * @author xuweijie
-		 * @dateTime 2012-2-7 下午6:16:32
-		 */
-		private final String description;
+		// /**
+		// * 说明
+		// *
+		// * @author xuweijie
+		// * @dateTime 2012-2-7 下午6:16:32
+		// */
+		// private final String description;
 
 		/**
 		 * ip限制标识
@@ -891,23 +932,25 @@ public class OperateLink {
 		 * @dateTime 2012-1-31 下午6:07:29
 		 * @param reflectControlKey 反射控制键
 		 * @param prefix 路径前缀
-		 * @param accessPermissions 访问权限值
 		 * @param targetNode 目标节点连接
 		 * @param result 结果控制集合
 		 * @param params 参数集合，有序的<br />
 		 *           <参数对应key,参数的对象类型><br />
+		 * @param readStreamJSON 是否读取stream相关json信息 add 2023-11-24
 		 * @param canCrossDomain 是否可以跨域，true，可以跨域
 		 * @param needToken 是否需要token验证
 		 * @param description 说明
 		 * @param ipRestr ip限制标识
 		 */
-		public OperateLinkInfo(final String reflectControlKey, final String prefix, final int accessPermissions, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+		public OperateLinkInfo(final String reflectControlKey, final String prefix, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean readStreamJSON, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+			// * @param accessPermissions 访问权限值 del 2023-11-24
 			this.reflectControlKey = reflectControlKey;
-			this.accessPermissionsValue = accessPermissions;
+			// this.accessPermissionsValue = accessPermissions;
 			this.prefix = prefix;
 			this.targetNode = targetNode;
 			this.targets = new TmpTool().getResultMap(result);
 			this.params = params;
+			this.readStreamJSON = readStreamJSON; // add 2023-11-24
 			this.canCrossDomain = canCrossDomain;
 			this.needToken = needToken;
 			{ // 进行是否存在上传文件，以及可上传文件大小限制设置
@@ -931,9 +974,9 @@ public class OperateLink {
 				this.fileMaxSize = maxSize;
 				this.fileSuffixLimit = suffixLimit;
 			}
-			this.description = description;
+			// this.description = description;
 			this.ipRestr = ipRestr;
-			AccessPermissionsControl.getInstance().putAccessPermissions(this);
+			// AccessPermissionsControl.getInstance().putAccessPermissions(this);
 		}
 
 		/**
@@ -1204,10 +1247,10 @@ public class OperateLink {
 				}
 			}
 			tab.setClientSession(cs);
-			if (!this.validateAccessPermission(request, response, cs)) {
-				// 未通过权限验证
-				return 1;
-			}
+			// if (!this.validateAccessPermission(request, response, cs)) {
+			// // 未通过权限验证
+			// return 1;
+			// }
 			// 进行对象信息放入
 			return this.handleParam(request, response, cs, requestParas, methodParas, paraLog, errorMap);
 		}
@@ -1239,7 +1282,7 @@ public class OperateLink {
 				// System.out.println(" >> log 2021-07-05 >> request.getQueryString() >> " + ls);
 				List<String> lss;
 				for (final String s : ls) {
-					lss = StringTools.splitToArray(s, "=");
+					lss = StringTools.splitToArray(s, Constants.EQUAL);
 					switch (lss.size()) {
 					case 0:
 						continue;
@@ -1257,7 +1300,7 @@ public class OperateLink {
 				ct = ct.toLowerCase();
 			}
 			// System.out.println(" >> log 2021-07-05 >> request.getContentType [" + ct + "]");
-			if ("post".equals(request.getMethod().toLowerCase()) && (null != ct) && ct.startsWith("multipart/")) {
+			if ("post".equals(request.getMethod().toLowerCase()) && (null != ct) && ct.startsWith(FileUploadBase.MULTIPART)) {
 				// 是有上传文件
 				// 继续参数控制操作
 				final List<FileItem> fileList;
@@ -1328,7 +1371,7 @@ public class OperateLink {
 							if (this.fileSuffixLimit.indexOf("|*|") == -1) {
 								// 需要验证文件名
 								String fn = file.getFieldName();
-								final int lastPoint = fn.lastIndexOf(".");
+								final int lastPoint = fn.lastIndexOf(Constants.SPOT);
 								if (lastPoint >= 0) {
 									fn = fn.substring(lastPoint) + 1;
 									// 此时fn是文件后缀名
@@ -1370,16 +1413,16 @@ public class OperateLink {
 				// 放入参数
 				requestParas.putAll(map);
 				// System.out.println(" >> log 2021-07-05 >> multipart/ " + map);
-			} else if ((null != ct) && ct.indexOf(OperateLink.S_X_WWW_FORM_URLENCODED) != -1 && ct.indexOf(OperateLink.S_BOUNDARY) != -1) { // 2021-07-05 增加对x-www-form-urlencoded结构数据处理
-				int bdys = ct.indexOf(OperateLink.S_BOUNDARY);
-				int bdye = ct.indexOf(Constants.SEMICOLON, bdys);
+			} else if ((null != ct) && (ct.indexOf(OperateLink.S_X_WWW_FORM_URLENCODED) != -1) && (ct.indexOf(OperateLink.S_BOUNDARY) != -1)) { // 2021-07-05 增加对x-www-form-urlencoded结构数据处理
+				final int bdys = ct.indexOf(OperateLink.S_BOUNDARY);
+				final int bdye = ct.indexOf(Constants.SEMICOLON, bdys);
 				final String bdy;
 				if (bdye == -1) {
 					bdy = ct.substring(bdys + OperateLink.S_BOUNDARY.length());
 				} else {
 					bdy = ct.substring(bdys + OperateLink.S_BOUNDARY.length(), bdye);
 				}
-				// 是 json结构数据
+				// 是 form data 结构数据
 				try (InputStreamReader reader = new InputStreamReader(request.getInputStream(), Constants.SYSTEM_CODE)) {
 					final char[] buff = new char[1024];
 					int len = 0;
@@ -1399,25 +1442,29 @@ public class OperateLink {
 				// System.out.println(" >> log 2021-07-05 >> read x-www-form-urlencoded boundary[" + ct + "]");
 			} else {
 				if ((null != ct) && (ct.indexOf(OperateLink.S_JSON) != -1)) {
-					// 是 json结构数据
-					try (InputStreamReader reader = new InputStreamReader(request.getInputStream(), Constants.SYSTEM_CODE)) {
-						final char[] buff = new char[1024];
-						int len = 0;
-						final StringBuilder sb = new StringBuilder();
-						while ((len = reader.read(buff)) != -1) {
-							sb.append(buff, 0, len);
+					// TODO 是 json结构数据
+					if (this.readStreamJSON) {
+						try (InputStreamReader reader = new InputStreamReader(request.getInputStream(), Constants.SYSTEM_CODE)) {
+							final char[] buff = new char[1024];
+							int len = 0;
+							final StringBuilder sb = new StringBuilder();
+							while ((len = reader.read(buff)) != -1) {
+								sb.append(buff, 0, len);
+							}
+							// JSON
+							// System.out.println(" >>> " + sb.toString());
+							final JSONObject jo = JSON.parseObject(sb.toString());
+							requestParas.putAll(pathParas);
+							if (null != jo) {
+								this.analysisJsonData(requestParas, jo, null);
+							}
+						} catch (final UnsupportedEncodingException e) {
+							e.printStackTrace();
+						} catch (final IOException e) {
+							e.printStackTrace();
+						} catch (final JSONException e) {
+							e.printStackTrace();
 						}
-						// JSON
-						System.out.println(" >>> " + sb.toString());
-						final JSONObject jo = JSON.parseObject(sb.toString());
-						requestParas.putAll(pathParas);
-						this.analysisJsonData(requestParas, jo, null);
-					} catch (final UnsupportedEncodingException e) {
-						e.printStackTrace();
-					} catch (final IOException e) {
-						e.printStackTrace();
-					} catch (final JSONException e) {
-						e.printStackTrace();
 					}
 					// 各种异常相关，都不再继续向下处理
 				} else {
@@ -1446,10 +1493,7 @@ public class OperateLink {
 					final Iterator<Entry<String, String[]>> it = request.getParameterMap().entrySet().iterator();
 					while (it.hasNext()) {
 						ent = it.next();
-						if (null != requestParas.get(ent.getKey())) {
-							continue;
-						}
-						if (ent.getValue().length == 0) {
+						if ((null != requestParas.get(ent.getKey())) || (ent.getValue().length == 0)) {
 							continue;
 						}
 						if (ent.getValue().length == 1) {
@@ -1482,7 +1526,7 @@ public class OperateLink {
 		 * @param boundary 边界内容
 		 */
 		private void analysisFormUrlEncodeData(final Map<String, Object> requestParas, final String cont, final String boundary) {
-			List<String> fields = StringTools.splitToArray(cont, boundary);
+			final List<String> fields = StringTools.splitToArray(cont, boundary);
 			int fns, fne, fvs, fve;
 			String key, val;
 			for (String fc : fields) {
@@ -1531,7 +1575,7 @@ public class OperateLink {
 		private void analysisJsonData(final Map<String, Object> requestParas, final JSONObject jo, final String path) {
 			String key;
 			for (final Entry<String, Object> ent : jo.entrySet()) {
-				key = null == path ? ent.getKey() : (path + "." + ent.getKey());
+				key = null == path ? ent.getKey() : (path + Constants.SPOT + ent.getKey());
 				if (null != requestParas.get(key)) {
 					continue;
 				}
@@ -1544,7 +1588,7 @@ public class OperateLink {
 					JSONObject jao;
 					for (int i = 0, s = ja.size(); i < s; i++) {
 						jao = ja.getJSONObject(i);
-						this.analysisJsonData(requestParas, jao, key + "." + i);
+						this.analysisJsonData(requestParas, jao, key + Constants.SPOT + i);
 					}
 				} else {
 					// 其他
@@ -1586,6 +1630,7 @@ public class OperateLink {
 				if (i++ != -1) {
 					paraLog.append(',');
 				}
+				// TODO 之后考虑整体优化方案 2023-11-24
 				paraLog.append(ent.getKey()).append('=');
 				clzName = ent.getValue().getSimpleName();
 				if (ent.getValue().isArray()) {
@@ -1714,6 +1759,7 @@ public class OperateLink {
 					}
 					paraLog.append(']');
 				} else {
+					// TODO 之后考虑整体优化方案 2023-11-24
 					// 非数组
 					nas: switch (ent.getKey()) {
 					case WebConstants.PRIVATE_LINK_NAME_REQUEST: { // 请求
@@ -1781,10 +1827,7 @@ public class OperateLink {
 					}
 					case WebConstants.PRIVATE_LINK_NAME_ACCOUNT: { // 登陆帐号信息
 						// 验证基础权限情况
-						if (null == cs.getLoginInfo()) {
-							return 1;
-						}
-						if (!ent.getValue().isAssignableFrom(cs.getLoginInfo().getClass())) {
+						if ((null == cs.getLoginInfo()) || !ent.getValue().isAssignableFrom(cs.getLoginInfo().getClass())) {
 							return 1;
 						}
 						paras[i] = cs.getLoginInfo();
@@ -1829,11 +1872,22 @@ public class OperateLink {
 						paras[i] = response;
 						break;
 					}
+					case WebConstants.KEY_REQUEST_DECRYPT_STREAM_ATTRIBUTE: { // KEY，加密POST stream 请求，解密后数据到request.attribute
+						paras[i] = request.getAttribute(WebConstants.KEY_REQUEST_DECRYPT_STREAM_ATTRIBUTE);
+						break;
+					}
 					case WebConstants.PRIVATE_LINK_NAME_SUFFIX: { // 后缀名
 						paras[i] = ((List<String>) requestParas.get(WebConstants.PRIVATE_LINK_NAME_SUFFIX)).get(0);
+						break;
 					}
 					default: { // 其他
-						os = requestParas.get(ent.getKey());
+						final String key = ent.getKey();
+						if (key.startsWith(WebConstants.KEY_REQUEST_ATTRIBUTE)) { // 判定是否对应request.attribute
+							final String raKey = key.substring(WebConstants.KEY_REQUEST_ATTRIBUTE.length());
+							paras[i] = request.getAttribute(raKey);
+							break;
+						}
+						os = requestParas.get(key);
 						// 非数组情况
 						if (null == os) {
 							s = null;
@@ -1844,7 +1898,7 @@ public class OperateLink {
 							case "float":
 							case "double":
 							case "boolean":
-								errorMap.put(ent.getKey(), "cannt be null!");
+								errorMap.put(key, "cannt be null!");
 								paraLog.append("null");
 								return 8;
 							}
@@ -1987,61 +2041,57 @@ public class OperateLink {
 		private boolean isNeedToken() {
 			return this.needToken;
 		}
-
-		/**
-		 * 得到说明
-		 * 
-		 * @author xuweijie
-		 * @dateTime 2012-2-7 下午6:17:23
-		 * @return the description
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getDescription()
-		 */
-		@Override
-		public String getDescription() {
-			return this.description;
-		}
-
-		/**
-		 * 设置访问权限对象
-		 * 
-		 * @author Weijie Xu
-		 * @dateTime 2012-7-9 下午11:16:26
-		 * @param accessPermissions the accessPermissions to set
-		 */
-		@Override
-		public void setAccessPermissions(final AccessPermissionsInfo accessPermissions) {
-			if (null == this.accessPermissions) {
-				this.accessPermissions = accessPermissions;
-			}
-		}
-
-		/**
-		 * 得到访问权限对象
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-12 上午10:58:46
-		 * @return the accessPermissions
-		 */
-		public AccessPermissionsInfo getAccessPermissions() {
-			return this.accessPermissions;
-		}
-
-		/**
-		 * 得到访问权限值
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-9 下午4:36:52
-		 * @return the accessPermission
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getAccessPermissionsValue()
-		 */
-		@Override
-		public int getAccessPermissionsValue() {
-			if (null == this.accessPermissions) {
-				return this.accessPermissionsValue;
-			} else {
-				return this.accessPermissions.getAccessPermissionsValue();
-			}
-		}
+		// /**
+		// * 得到说明
+		// *
+		// * @author xuweijie
+		// * @dateTime 2012-2-7 下午6:17:23
+		// * @return the description
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getDescription()
+		// */
+		// @Override
+		// public String getDescription() {
+		// return this.description;
+		// }
+		// /**
+		// * 设置访问权限对象
+		// *
+		// * @author Weijie Xu
+		// * @dateTime 2012-7-9 下午11:16:26
+		// * @param accessPermissions the accessPermissions to set
+		// */
+		// @Override
+		// public void setAccessPermissions(final AccessPermissionsInfo accessPermissions) {
+		// if (null == this.accessPermissions) {
+		// this.accessPermissions = accessPermissions;
+		// }
+		// }
+		// /**
+		// * 得到访问权限对象
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-12 上午10:58:46
+		// * @return the accessPermissions
+		// */
+		// public AccessPermissionsInfo getAccessPermissions() {
+		// return this.accessPermissions;
+		// }
+		// /**
+		// * 得到访问权限值
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-9 下午4:36:52
+		// * @return the accessPermission
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getAccessPermissionsValue()
+		// */
+		// @Override
+		// public int getAccessPermissionsValue() {
+		// if (null == this.accessPermissions) {
+		// return this.accessPermissionsValue;
+		// } else {
+		// return this.accessPermissions.getAccessPermissionsValue();
+		// }
+		// }
 
 		/**
 		 * 组合参数
@@ -2413,6 +2463,55 @@ public class OperateLink {
 		}
 
 		/**
+		 * 返回简单加密字节串
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2023年10月15日 13:59:54
+		 * @param back 返回的数据
+		 * @param request 请求
+		 * @param response 返回
+		 * @throws IOException 抛
+		 * @throws ServletException 抛
+		 */
+		public void executeResult(final BackSimpleEncryptionBean back, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
+			// // 设置响应的类型格式为图片格式
+			// response.setContentType("application/octet-stream;");
+			// // 禁止图像缓存。
+			// response.setHeader("Pragma", "no-cache");
+			// response.setHeader("Cache-Control", "no-cache");
+			// response.setDateHeader("Expires", 0);
+			// final ServletOutputStream out = response.getOutputStream();
+			// // 写入到out
+			// out.write(back.getOutBytes());
+			// out.close();
+			OperateLinkInfo.executeEncryptionResult(back, request, response);
+		}
+
+		/**
+		 * 返回简单加密字节串
+		 * 
+		 * @author tfzzh
+		 * @dateTime 2024年6月4日 11:13:32
+		 * @param back 返回的数据
+		 * @param request 请求
+		 * @param response 返回
+		 * @throws IOException 抛
+		 * @throws ServletException 抛
+		 */
+		public static void executeEncryptionResult(final BackSimpleEncryptionBean back, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
+			// 设置响应的类型格式为图片格式
+			response.setContentType("application/octet-stream;");
+			// 禁止图像缓存。
+			response.setHeader("Pragma", "no-cache");
+			response.setHeader("Cache-Control", "no-cache");
+			response.setDateHeader("Expires", 0);
+			final ServletOutputStream out = response.getOutputStream();
+			// 写入到out
+			out.write(back.getOutBytes());
+			out.close();
+		}
+
+		/**
 		 * 得到返回的操作信息
 		 * 
 		 * @author Weijie Xu
@@ -2432,21 +2531,20 @@ public class OperateLink {
 				return this.targetNode.getBackResult(target);
 			}
 		}
-
-		/**
-		 * 验证访问权限
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-13 上午11:28:26
-		 * @param request 请求的信息
-		 * @param response 返回数据
-		 * @param cs 客户端会话
-		 * @return true，验证成功；<br />
-		 *         false，验证失败，但该情况一般多认为抛出了异常；<br />
-		 */
-		public boolean validateAccessPermission(final HttpServletRequest request, final HttpServletResponse response, final ClientSessionBean cs) {
-			return AccessPermissionsControl.getInstance().validateAccessPermission(this.accessPermissions, request, response, cs);
-		}
+		// /**
+		// * 验证访问权限
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-13 上午11:28:26
+		// * @param request 请求的信息
+		// * @param response 返回数据
+		// * @param cs 客户端会话
+		// * @return true，验证成功；<br />
+		// * false，验证失败，但该情况一般多认为抛出了异常；<br />
+		// */
+		// public boolean validateAccessPermission(final HttpServletRequest request, final HttpServletResponse response, final ClientSessionBean cs) {
+		// return AccessPermissionsControl.getInstance().validateAccessPermission(this.accessPermissions, request, response, cs);
+		// }
 
 		/**
 		 * 得到连接中的对应Key内容<br />
@@ -2459,46 +2557,43 @@ public class OperateLink {
 		 *         null，不存在匹配；<br />
 		 */
 		protected abstract Map<String, List<String>> getKeyBack(final String[] paths);
-
-		/**
-		 * 得到目标
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-16 下午12:31:21
-		 * @return 目标值
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getTarget()
-		 */
-		@Override
-		public String getTarget() {
-			return this.reflectControlKey;
-		}
-
-		/**
-		 * 得到目标节点连接
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:24:22
-		 * @return 目标节点连接
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getTargetNode()
-		 */
-		@Override
-		public AccessPermissionsNodeInfo getTargetNode() {
-			return this.targetNode;
-		}
-
-		/**
-		 * 是否节点
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-18 下午8:16:00
-		 * @return true，是节点；<br />
-		 *         false，不是节点；<br />
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#isNode()
-		 */
-		@Override
-		public boolean isNode() {
-			return false;
-		}
+		// /**
+		// * 得到目标
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-16 下午12:31:21
+		// * @return 目标值
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getTarget()
+		// */
+		// @Override
+		// public String getTarget() {
+		// return this.reflectControlKey;
+		// }
+		// /**
+		// * 得到目标节点连接
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:24:22
+		// * @return 目标节点连接
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getTargetNode()
+		// */
+		// @Override
+		// public AccessPermissionsNodeInfo getTargetNode() {
+		// return this.targetNode;
+		// }
+		// /**
+		// * 是否节点
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-18 下午8:16:00
+		// * @return true，是节点；<br />
+		// * false，不是节点；<br />
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#isNode()
+		// */
+		// @Override
+		// public boolean isNode() {
+		// return false;
+		// }
 	}
 
 	/**
@@ -2514,18 +2609,19 @@ public class OperateLink {
 		 * @dateTime 2012-2-2 上午10:40:27
 		 * @param reflectControlKey 反射控制键
 		 * @param prefix 路径前缀
-		 * @param accessPermissions 访问权限值
 		 * @param targetNode 目标节点连接
 		 * @param result 结果控制集合
 		 * @param params 参数集合，有序的<br />
 		 *           <参数对应key,参数的对象类型><br />
+		 * @param readStreamJSON 是否读取stream相关json信息 add 2023-11-24
 		 * @param canCrossDomain 是否可以跨域，true，可以跨域
 		 * @param needToken 是否需要token验证
 		 * @param description 说明
 		 * @param ipRestr ip限制标识
 		 */
-		public NormalOperateLinkInfo(final String reflectControlKey, final String prefix, final int accessPermissions, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
-			super(reflectControlKey, prefix, accessPermissions, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
+		public NormalOperateLinkInfo(final String reflectControlKey, final String prefix, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean readStreamJSON, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+			// * @param accessPermissions 访问权限值 del 2023-11-24
+			super(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 		}
 
 		/**
@@ -2656,18 +2752,19 @@ public class OperateLink {
 		 * @param path 适配路径
 		 * @param reflectControlKey 反射控制键
 		 * @param prefix 路径前缀
-		 * @param accessPermissions 访问权限值
 		 * @param targetNode 目标节点连接
 		 * @param result 结果控制集合
 		 * @param params 参数集合，有序的<br />
 		 *           <参数对应key,参数的对象类型><br />
+		 * @param readStreamJSON 是否读取stream相关json信息 add 2023-11-24
 		 * @param canCrossDomain 是否可以跨域，true，可以跨域
 		 * @param needToken 是否需要token验证
 		 * @param description 说明
 		 * @param ipRestr ip限制标识
 		 */
-		public DeployOperateLinkInfo(final String path, final String reflectControlKey, final String prefix, final int accessPermissions, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
-			super(reflectControlKey, prefix, accessPermissions, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
+		public DeployOperateLinkInfo(final String path, final String reflectControlKey, final String prefix, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean readStreamJSON, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+			// * @param accessPermissions 访问权限值 del 2023-11-24
+			super(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 			// 分解path
 			final String[] paths = path.split("[/]");
 			int effInd = 0;
@@ -2822,18 +2919,20 @@ public class OperateLink {
 		 * @dateTime 2012-2-2 上午10:40:31
 		 * @param reflectControlKey 反射控制键
 		 * @param prefix 路径前缀
-		 * @param accessPermissions 访问权限值
+		 *           // * @param accessPermissions 访问权限值
 		 * @param targetNode 目标节点连接
 		 * @param result 结果控制集合
 		 * @param params 参数集合，有序的<br />
 		 *           <参数对应key,参数的对象类型><br />
+		 * @param readStreamJSON 是否读取stream相关json信息 add 2023-11-24
 		 * @param canCrossDomain 是否可以跨域，true，可以跨域
 		 * @param needToken 是否需要token验证
 		 * @param description 说明
 		 * @param ipRestr ip限制标识
 		 */
-		public BranchOperateLinkInfo(final String reflectControlKey, final String prefix, final int accessPermissions, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
-			super(reflectControlKey, prefix, accessPermissions, targetNode, result, params, canCrossDomain, needToken, description, ipRestr);
+		public BranchOperateLinkInfo(final String reflectControlKey, final String prefix, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean readStreamJSON, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
+			// * @param accessPermissions 访问权限值 del 2023-11-24
+			super(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 		}
 
 		/**
@@ -2853,47 +2952,42 @@ public class OperateLink {
 	 * @author Xu Weijie
 	 * @dateTime 2012-7-17 下午8:55:53
 	 */
-	public class OperateLinkNodeInfo implements AccessPermissionsNodeInfo {
-
-		/**
-		 * 目标
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:12:49
-		 */
-		private final String target;
-
-		/**
-		 * 访问权限值
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:12:51
-		 */
-		private final int value;
-
-		/**
-		 * 说明
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:12:52
-		 */
-		private final String description;
-
-		/**
-		 * 目标节点连接
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:27:17
-		 */
-		private final AccessPermissionsNodeInfo targetNode;
-
-		/**
-		 * 访问权限值
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:12:53
-		 */
-		private AccessPermissionsInfo accessPermissions = null;
+	public class OperateLinkNodeInfo {
+		// /**
+		// * 目标
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:12:49
+		// */
+		// private final String target;
+		// /**
+		// * 访问权限值
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:12:51
+		// */
+		// private final int value;
+		// /**
+		// * 说明
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:12:52
+		// */
+		// private final String description;
+		// /**
+		// * 目标节点连接
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:27:17
+		// */
+		// private final AccessPermissionsNodeInfo targetNode;
+		// /**
+		// * 访问权限值
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:12:53
+		// */
+		// private AccessPermissionsInfo accessPermissions = null;
 
 		/**
 		 * 节点目标集合
@@ -2906,105 +3000,100 @@ public class OperateLink {
 		/**
 		 * @author Xu Weijie
 		 * @dateTime 2012-7-17 下午9:14:01
-		 * @param target 目标
-		 * @param value 访问权限值
-		 * @param description 说明
-		 * @param targetNode 目标节点连接
 		 * @param nodeResult 节点通用结果控制集合
 		 */
-		private OperateLinkNodeInfo(final String target, final int value, final String description, final AccessPermissionsNodeInfo targetNode, final String[] nodeResult) {
-			this.target = target;
-			this.value = value;
-			this.description = description;
-			this.targetNode = targetNode;
+		private OperateLinkNodeInfo(final String[] nodeResult) {
+			// * @param target 目标
+			// * @param value 访问权限值
+			// * @param description 说明
+			// * @param targetNode 目标节点连接
+			// private OperateLinkNodeInfo(final String target, final int value, final String description, final AccessPermissionsNodeInfo targetNode, final String[] nodeResult) {
+			// this.target = target;
+			// this.value = value;
+			// this.description = description;
+			// this.targetNode = targetNode;
 			this.nodeTargets = new TmpTool().getResultMap(nodeResult);
-			AccessPermissionsControl.getInstance().putAccessPermissions(this);
+			// AccessPermissionsControl.getInstance().putAccessPermissions(this);
 		}
-
-		/**
-		 * 得到目标
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:06:18
-		 * @return 目标值
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getTarget()
-		 */
-		@Override
-		public String getTarget() {
-			return this.target;
-		}
-
-		/**
-		 * 得到访问权限值
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:06:18
-		 * @return the accessPermission
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getAccessPermissionsValue()
-		 */
-		@Override
-		public int getAccessPermissionsValue() {
-			if (null == this.accessPermissions) {
-				return this.value;
-			} else {
-				return this.accessPermissions.getAccessPermissionsValue();
-			}
-		}
-
-		/**
-		 * 得到说明
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:06:18
-		 * @return the description
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getDescription()
-		 */
-		@Override
-		public String getDescription() {
-			return this.description;
-		}
-
-		/**
-		 * 设置访问权限对象
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:06:18
-		 * @param accessPermissions the accessPermissions to set
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#setAccessPermissions(com.tfzzh.view.web.purview.AccessPermissionsInfo)
-		 */
-		@Override
-		public void setAccessPermissions(final AccessPermissionsInfo accessPermissions) {
-			if (null == this.accessPermissions) {
-				this.accessPermissions = accessPermissions;
-			}
-		}
-
-		/**
-		 * 得到目标节点连接
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-17 下午9:27:52
-		 * @return 目标节点连接
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getTargetNode()
-		 */
-		@Override
-		public AccessPermissionsNodeInfo getTargetNode() {
-			return this.targetNode;
-		}
-
-		/**
-		 * 是否节点
-		 * 
-		 * @author Xu Weijie
-		 * @dateTime 2012-7-18 下午8:15:10
-		 * @return true，是节点；<br />
-		 *         false，不是节点；<br />
-		 * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#isNode()
-		 */
-		@Override
-		public boolean isNode() {
-			return true;
-		}
+		// /**
+		// * 得到目标
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:06:18
+		// * @return 目标值
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getTarget()
+		// */
+		// @Override
+		// public String getTarget() {
+		// return this.target;
+		// }
+		// /**
+		// * 得到访问权限值
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:06:18
+		// * @return the accessPermission
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getAccessPermissionsValue()
+		// */
+		// @Override
+		// public int getAccessPermissionsValue() {
+		// if (null == this.accessPermissions) {
+		// return this.value;
+		// } else {
+		// return this.accessPermissions.getAccessPermissionsValue();
+		// }
+		// }
+		// /**
+		// * 得到说明
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:06:18
+		// * @return the description
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getDescription()
+		// */
+		// @Override
+		// public String getDescription() {
+		// return this.description;
+		// }
+		// /**
+		// * 设置访问权限对象
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:06:18
+		// * @param accessPermissions the accessPermissions to set
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#setAccessPermissions(com.tfzzh.view.web.purview.AccessPermissionsInfo)
+		// */
+		// @Override
+		// public void setAccessPermissions(final AccessPermissionsInfo accessPermissions) {
+		// if (null == this.accessPermissions) {
+		// this.accessPermissions = accessPermissions;
+		// }
+		// }
+		// /**
+		// * 得到目标节点连接
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-17 下午9:27:52
+		// * @return 目标节点连接
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#getTargetNode()
+		// */
+		// @Override
+		// public AccessPermissionsNodeInfo getTargetNode() {
+		// return this.targetNode;
+		// }
+		// /**
+		// * 是否节点
+		// *
+		// * @author Xu Weijie
+		// * @dateTime 2012-7-18 下午8:15:10
+		// * @return true，是节点；<br />
+		// * false，不是节点；<br />
+		// * @see com.tfzzh.view.web.purview.AccessPermissionsInfo#isNode()
+		// */
+		// @Override
+		// public boolean isNode() {
+		// return true;
+		// }
 
 		/**
 		 * 得到返回的操作信息<br />

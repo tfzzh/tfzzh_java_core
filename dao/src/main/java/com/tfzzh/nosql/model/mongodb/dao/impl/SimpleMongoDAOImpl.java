@@ -10,7 +10,8 @@ import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONReader;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoIterable;
 import com.mongodb.client.result.UpdateResult;
@@ -42,8 +43,8 @@ public class SimpleMongoDAOImpl extends CoreMongoDAOImpl implements SimpleMongoD
 	 */
 	@Override
 	public MongoIterable<Document> find(final String tableName, final String find, final String sort, final Integer start, final Integer size) {
-		final Bson findb = new BasicDBObject(JSON.parseObject(find));
-		final Bson sortb = new BasicDBObject(JSON.parseObject(sort));
+		final Bson findb = new BasicDBObject(JSON.parseObject(find, JSONReader.Feature.AllowUnQuotedFieldNames));
+		final Bson sortb = new BasicDBObject(JSON.parseObject(sort, JSONReader.Feature.AllowUnQuotedFieldNames));
 		return this.find(tableName, findb, sortb, start, size);
 	}
 
@@ -79,8 +80,8 @@ public class SimpleMongoDAOImpl extends CoreMongoDAOImpl implements SimpleMongoD
 	 */
 	@Override
 	public UpdateResult update(final String tableName, final String find, final String update) {
-		final Bson findb = new BasicDBObject(JSON.parseObject(find));
-		final Bson updateb = new BasicDBObject(JSON.parseObject(update));
+		final Bson findb = new BasicDBObject(JSON.parseObject(find, JSONReader.Feature.AllowUnQuotedFieldNames));
+		final Bson updateb = new BasicDBObject(JSON.parseObject(update, JSONReader.Feature.AllowUnQuotedFieldNames));
 		return this.update(tableName, findb, updateb);
 	}
 
@@ -138,7 +139,7 @@ public class SimpleMongoDAOImpl extends CoreMongoDAOImpl implements SimpleMongoD
 		final List<Bson> bl = new ArrayList<>();
 		for (final String s : aggr) {
 			if (null != s) {
-				bl.add(new BasicDBObject(JSON.parseObject(s)));
+				bl.add(new BasicDBObject(JSON.parseObject(s, JSONReader.Feature.AllowUnQuotedFieldNames)));
 			}
 		}
 		return super.getPool().aggregateFieldFind(tableName, bl);

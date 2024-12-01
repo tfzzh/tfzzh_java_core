@@ -36,6 +36,21 @@ public interface SimpleSelectDAO {
 	<B extends BaseEntityBean> List<B> getDataList(Class<B> clz, QLBean qb) throws SQLException, InstantiationException, IllegalAccessException;
 
 	/**
+	 * 得到单一数据列表
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年1月25日 18:56:33
+	 * @param <O> 单一数据对象
+	 * @param clz 单一数据对象类
+	 * @param qb 条件的集合
+	 * @return 得到的数据列表，不可能为null
+	 * @throws SQLException 抛
+	 * @throws IllegalAccessException 抛
+	 * @throws InstantiationException 抛
+	 */
+	<O extends Object> List<O> getOnlyDataList(Class<O> clz, QLBean qb) throws SQLException, InstantiationException, IllegalAccessException;
+
+	/**
 	 * 查询得到指定表中指定信息
 	 * 
 	 * @author Weijie Xu

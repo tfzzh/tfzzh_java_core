@@ -39,15 +39,14 @@ public interface AccessPermissionsInfo {
 	 * @return 目标节点连接
 	 */
 	AccessPermissionsNodeInfo getTargetNode();
-
-	/**
-	 * 得到访问权限值
-	 * 
-	 * @author Xu Weijie
-	 * @dateTime 2012-7-11 上午11:30:03
-	 * @return 访问权限值
-	 */
-	int getAccessPermissionsValue();
+	// /**
+	// * 得到访问权限值
+	// *
+	// * @author Xu Weijie
+	// * @dateTime 2012-7-11 上午11:30:03
+	// * @return 访问权限值
+	// */
+	// int getAccessPermissionsValue();
 
 	/**
 	 * 得到说明

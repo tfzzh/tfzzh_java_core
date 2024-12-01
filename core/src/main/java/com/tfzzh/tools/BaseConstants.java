@@ -26,9 +26,10 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONReader;
 import com.tfzzh.core.annotation.PropertiesFile;
 import com.tfzzh.core.annotation.PropertiesMethod;
 import com.tfzzh.core.annotation.PropertiesValue;
@@ -641,7 +642,10 @@ public abstract class BaseConstants {
 	 */
 	private String getString(final String key, final PropertiesValue pv) {
 		// 因为不存在而需要取值
-		final String sv = this.getValue(key, pv);
+		String sv = this.getValue(key, pv);
+		if (!StringTools.isNullOrEmpty(sv)) {
+			sv = sv.intern();
+		}
 		return sv;
 	}
 
@@ -1086,7 +1090,7 @@ public abstract class BaseConstants {
 	 */
 	private JSONObject getJsonObjList(final String key, final PropertiesValue pv) {
 		final String sv = this.getValue(key, pv);
-		return JSON.parseObject(sv);
+		return JSON.parseObject(sv, JSONReader.Feature.AllowUnQuotedFieldNames);
 	}
 
 	/**
@@ -1100,7 +1104,7 @@ public abstract class BaseConstants {
 	 */
 	private JSONArray getJsonArrList(final String key, final PropertiesValue pv) {
 		final String sv = this.getValue(key, pv);
-		return JSON.parseArray(sv);
+		return JSON.parseArray(sv, JSONReader.Feature.AllowUnQuotedFieldNames);
 	}
 
 	/**
@@ -1328,7 +1332,7 @@ public abstract class BaseConstants {
 		if ((null == cont) || (cont.length() == 0)) {
 			return new HashMap<>();
 		}
-		final JSONObject jo = JSON.parseObject(cont);
+		final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 		final Map<String, Set<String>> bak = new HashMap<>();
 		Set<String> ss;
 		for (final String key : jo.keySet()) {
@@ -1355,7 +1359,7 @@ public abstract class BaseConstants {
 		if ((null == cont) || (cont.length() == 0)) {
 			return new HashMap<>();
 		}
-		final JSONObject jo = JSON.parseObject(cont);
+		final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 		final Map<String, Set<String>> bak = new HashMap<>();
 		Set<String> ss;
 		for (final String key : jo.keySet()) {
@@ -1382,7 +1386,7 @@ public abstract class BaseConstants {
 		if ((null == cont) || (cont.length() == 0)) {
 			return new HashMap<>();
 		}
-		final JSONObject jo = JSON.parseObject(cont);
+		final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 		final Map<String, Map<String, String>> bak = new HashMap<>();
 		Map<String, String> sm;
 		JSONObject tjo;
@@ -1413,7 +1417,7 @@ public abstract class BaseConstants {
 		if ((null == cont) || (cont.length() == 0)) {
 			return new HashMap<>();
 		}
-		final JSONObject jo = JSON.parseObject(cont);
+		final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 		final Map<String, Integer> bak = new HashMap<>();
 		for (final String key : jo.keySet()) {
 			bak.put(key, jo.getInteger(key));
@@ -1437,7 +1441,7 @@ public abstract class BaseConstants {
 		if ((null == cont) || (cont.length() == 0)) {
 			return new HashMap<>();
 		}
-		final JSONObject jo = JSON.parseObject(cont);
+		final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 		final Map<String, String> bak = new HashMap<>();
 		for (final String key : jo.keySet()) {
 			bak.put(key, jo.getString(key));
@@ -1463,14 +1467,14 @@ public abstract class BaseConstants {
 		if ((null == cont) || (cont.length() == 0)) {
 			return new HashMap<>();
 		}
-		final JSONObject jo = JSON.parseObject(cont);
+		final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 		final Map<String, String> bak = new HashMap<>();
 		String js;
 		Object tjo;
 		for (final String key : jo.keySet()) {
 			js = jo.getString(key);
 			try {
-				tjo = JSON.parse(js);
+				tjo = JSON.parse(js, JSONReader.Feature.AllowUnQuotedFieldNames);
 				bak.put(key, JSON.toJSONString(tjo));
 			} catch (final Exception e) {
 				e.printStackTrace();
@@ -1500,7 +1504,7 @@ public abstract class BaseConstants {
 		}
 		final Map<String, List<O>> bak = new HashMap<>();
 		if (cont.startsWith("{")) {
-			final JSONObject jo = JSON.parseObject(cont);
+			final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 			List<O> sl;
 			JSONArray ja;
 			JSONObject ijo;
@@ -1523,7 +1527,7 @@ public abstract class BaseConstants {
 				bak.put(key, sl);
 			}
 		} else if (cont.startsWith("[") || !StringTools.isNullOrEmpty(mapKey)) {
-			final JSONArray ja = JSON.parseArray(cont);
+			final JSONArray ja = JSON.parseArray(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 			List<O> sl;
 			JSONObject jo;
 			O o;
@@ -1569,7 +1573,7 @@ public abstract class BaseConstants {
 		if ((null == cont) || (cont.length() == 0)) {
 			return new ArrayList<>();
 		}
-		final JSONArray ja = JSON.parseArray(cont);
+		final JSONArray ja = JSON.parseArray(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 		final List<O> bak = new ArrayList<>();
 		JSONObject ijo;
 		O o;
@@ -1610,7 +1614,7 @@ public abstract class BaseConstants {
 		final Map<String, O> bak = new HashMap<>();
 		if (cont.startsWith("{")) {
 			// 正常对象
-			final JSONObject jo = JSON.parseObject(cont);
+			final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 			JSONObject ijo;
 			O o;
 			final Class<?>[] clza = new Class[] { JSONObject.class };
@@ -1627,7 +1631,7 @@ public abstract class BaseConstants {
 			}
 		} else if (cont.startsWith("[") || !StringTools.isNullOrEmpty(mapKey)) {
 			// 列表模式 2021-05-28
-			final JSONArray ja = JSON.parseArray(cont);
+			final JSONArray ja = JSON.parseArray(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 			JSONObject ijo;
 			O o;
 			final Class<?>[] clza = new Class[] { JSONObject.class };
@@ -1667,7 +1671,7 @@ public abstract class BaseConstants {
 		if ((null == cont) || (cont.length() == 0)) {
 			return null;
 		}
-		final JSONObject jo = JSON.parseObject(cont);
+		final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 		O bak = null;
 		final Class<?>[] clza = new Class[] { JSONObject.class };
 		Object[] obja;
@@ -1697,7 +1701,7 @@ public abstract class BaseConstants {
 	// if ((null == cont) || (cont.length() == 0)) {
 	// return new HashMap<>();
 	// }
-	// final JSONObject jo = JSON.parseObject(cont);
+	// final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 	// final Map<Integer, List<String>> bak = new HashMap<>();
 	// List<String> sl;
 	// JSONArray ja;
@@ -1729,7 +1733,7 @@ public abstract class BaseConstants {
 	// if ((null == cont) || (cont.length() == 0)) {
 	// return new HashMap<>();
 	// }
-	// final JSONObject jo = JSON.parseObject(cont);
+	// final JSONObject jo = JSON.parseObject(cont, JSONReader.Feature.AllowUnQuotedFieldNames);
 	// final Map<Integer, String> bak = new HashMap<>();
 	// for (final String key : jo.keySet()) {
 	// bak.put(Integer.parseInt(key), jo.getString(key));

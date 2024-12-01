@@ -51,4 +51,12 @@ public interface DaoConstants {
 	 * @dateTime 2016年11月18日 下午2:32:43
 	 */
 	Integer CONNECTION_GET_BUSY_MAX_TRY_TIMES = Integer.parseInt(Messages.getString("DaoBaseConstants.CONNECTION_GET_BUSY_MAX_TRY_TIMES"));
+
+	/**
+	 * dao管理配置文件路径及命名
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2020年12月4日 下午12:01:29
+	 */
+	String MG_CONF_PATH = Messages.getString("DaoBaseConstants.MG_CONF_PATH");
 }

@@ -68,6 +68,16 @@ public @interface LinkNormal {
 	String[] result() default {};
 
 	/**
+	 * 是否读取data信息<br />
+	 * 默认读取<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月24日 14:37:09
+	 * @return true，读取data信息
+	 */
+	boolean readStreamJSON() default true;
+
+	/**
 	 * 是否可以被跨域访问<br />
 	 * 默认为true<br />
 	 * 
@@ -80,6 +90,7 @@ public @interface LinkNormal {
 	/**
 	 * 是否需要进行token验证<br />
 	 * 默认需要<br />
+	 * Deprecated add 2023-11-24<br />
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年11月6日_下午3:33:57
@@ -88,11 +99,13 @@ public @interface LinkNormal {
 	boolean needToken() default true;
 
 	/**
-	 * 访问权限
+	 * 访问权限<br />
+	 * Deprecated add 2023-11-24<br />
 	 * 
 	 * @author Xu Weijie
 	 * @dateTime 2012-7-9 下午3:04:15
 	 * @return 权限值；默认0；
 	 */
+	@Deprecated
 	int accessPermissions() default 0;
 }

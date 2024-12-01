@@ -14,11 +14,13 @@ import com.tfzzh.view.web.tools.InfoControl;
 import com.tfzzh.view.web.tools.LinkPageAnnotationAnalysis;
 
 /**
- * 初始化系统消息
+ * 初始化系统消息<br />
+ * 因为古老，不再定义为初始化必要项目 2024-06-18<br />
  * 
  * @author TFZZH
  * @dateTime 2011-2-15 上午11:35:10
  */
+// @WebServlet(loadOnStartup = 1)
 public class InitServlet extends HttpServlet {
 
 	/**
@@ -36,6 +38,7 @@ public class InitServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() {
+		System.out.println(" in InitServlet init ... ");
 		this.handle();
 	}
 

@@ -10,8 +10,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.tfzzh.tools.Constants;
 
@@ -41,8 +39,8 @@ public class CoderFilter implements Filter {
 	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
 		// 进行编码设置
-		((HttpServletRequest) request).setCharacterEncoding(this.coder);
-		((HttpServletResponse) response).setCharacterEncoding(this.coder);
+		request.setCharacterEncoding(this.coder);
+		response.setCharacterEncoding(this.coder);
 		chain.doFilter(request, response);
 	}
 

@@ -40,12 +40,16 @@ public class ProjectCodeTools {
 		do {
 			sb.append(BaseToolsConstants.LONG_CODE_TIME_RANDOM_CODE[(int) (time % tl)]);
 		} while ((time /= tl) > 0);
-		sb.append(rc.getRandomCode(len - sb.length()));
+		final int s = len - sb.length();
+		if (s > 0) {
+			sb.append(rc.getRandomCode(s));
+		}
 		return sb.toString();
 	}
 
 	/**
-	 * 得到指定数位的Code，短码
+	 * 得到指定数位的Code，短码<br />
+	 * 时间+随机串，基本能保证单机模型下，有限数前提下，无重复可能 2024-07-13 验<br />
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年8月27日_下午4:13:02
@@ -81,4 +85,7 @@ public class ProjectCodeTools {
 		}
 		return sb.toString();
 	}
+	// public static void main(String[] args) {
+	// System.out.println(ProjectCodeTools.getShortCode(4, 0));
+	// }
 }

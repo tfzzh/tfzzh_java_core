@@ -17,11 +17,15 @@ import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.exception.NestedRuntimeException;
 import com.tfzzh.log.CoreLog;
 import com.tfzzh.tools.Constants;
+import com.tfzzh.tools.InstanceFactory;
 import com.tfzzh.tools.ReflectControl;
 import com.tfzzh.tools.ReflectControl.ControlInfo;
 import com.tfzzh.tools.RunThreadLocal;
+import com.tfzzh.tools.StringTools;
 import com.tfzzh.view.web.bean.BaseParamBean;
 import com.tfzzh.view.web.iface.ParamValidateControl;
+import com.tfzzh.view.web.iface.RequestEntry;
+import com.tfzzh.view.web.iface.RequestEntryResult;
 import com.tfzzh.view.web.link.BaseBackOperationBean;
 import com.tfzzh.view.web.link.OperateLink;
 import com.tfzzh.view.web.link.OperateLink.OperateLinkInfo;
@@ -38,7 +42,7 @@ import com.tfzzh.view.web.tools.WebTools;
  * @author xuweijie
  * @dateTime 2012-1-31 下午4:38:45
  */
-@WebServlet({ "*.shtml", "*.j", "/upload/*", "/util/*", "/cdn/*" })
+@WebServlet({ "*.shtml", "*.j", "*.t", "*.x", "/upload/*", "/util/*", "/cdn/*" })
 public class CoreHttpServlet extends BaseHttpServlet {
 
 	/**
@@ -46,6 +50,50 @@ public class CoreHttpServlet extends BaseHttpServlet {
 	 * @datetime 2017年11月29日_下午3:26:01
 	 */
 	private static final long serialVersionUID = -2733916220662692971L;
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2023年11月8日 17:53:02
+	 */
+	private final String KEY_ACCESS_ORIGIN = "Access-Control-Allow-Origin";
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2023年11月8日 17:53:02
+	 */
+	private final String KEY_ACCESS_METHODS = "Access-Control-Allow-Methods";
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2023年11月8日 17:53:01
+	 */
+	private final String KEY_ACCESS_HEADERS = "Access-Control-Allow-Headers";
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2023年11月8日 17:52:59
+	 */
+	private final String VALUE_ACCESS = "*";
+
+	/**
+	 * 进入状态控制；<br />
+	 * h
+	 * 0，还未初始化；<br />
+	 * 1，初始化完成，有内容；<br />
+	 * 2，初始化完成，没有内容；<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月8日 17:55:45
+	 */
+	private int entryStatus = 0;
+
+	/**
+	 * 请求入口
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月8日 18:41:26
+	 */
+	private RequestEntry re = null;
 
 	// /**
 	// * @author TFZZH
@@ -72,10 +120,44 @@ public class CoreHttpServlet extends BaseHttpServlet {
 			// System.out.println("\th >> " + hk + " >> " + request.getHeader(hk));
 			// }
 			// System.out.println("\t ==\\t=====");
-			response.setHeader("Access-Control-Allow-Origin", "*");
-			response.setHeader("Access-Control-Allow-Methods", "*");
-			response.setHeader("Access-Control-Allow-Headers", "*");
+			response.setHeader(this.KEY_ACCESS_ORIGIN, this.VALUE_ACCESS);
+			response.setHeader(this.KEY_ACCESS_METHODS, this.VALUE_ACCESS);
+			response.setHeader(this.KEY_ACCESS_HEADERS, this.VALUE_ACCESS);
 			return;
+		}
+		if (this.entryStatus == 0) {
+			// 进行初始化
+			final String requestEntryPath = this.getInitParameter("RequestEntry");
+			if (StringTools.isNullOrEmpty(requestEntryPath)) {
+				this.entryStatus = 2;
+			} else {
+				try {
+					final Object reObj = InstanceFactory.classInstance(requestEntryPath);
+					this.re = (RequestEntry) reObj;
+					this.entryStatus = 1;
+				} catch (final Exception e) {
+					System.err.println(" err RequestEntry [" + requestEntryPath + "] -> [" + e.getMessage() + "] ... ");
+					e.printStackTrace();
+					this.entryStatus = 2;
+				}
+			}
+		} else if (this.entryStatus == 1) {
+			// TODO 需要有处理的
+			final RequestEntryResult rer = this.re.entry(request);
+			if (null == rer) {
+				// 容错用，无动作，直接向下
+			} else if (rer.status() == 1) {
+				// 需要根据结果操作
+				if (null == rer.cont()) {
+					// 是json
+					this.re.executeResult(rer.objCont(), request, response);
+				} else {
+					// 是子串
+					this.re.executeResult(rer.cont(), request, response);
+				}
+			} else {
+				// 其他，直接继续向下
+			}
 		}
 		final Map<String, List<String>> pathParas = new HashMap<>();
 		// 得到目标路径，并进行路径分析

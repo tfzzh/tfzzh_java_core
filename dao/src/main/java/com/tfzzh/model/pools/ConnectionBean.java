@@ -108,7 +108,7 @@ public class ConnectionBean implements AutoCloseable {
 	public String getDatabaseName() {
 		try {
 			return this.conn.getCatalog();
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			e.printStackTrace();
 			return null;
 		}

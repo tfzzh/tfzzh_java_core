@@ -23,20 +23,22 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-		</dependency>
-	<!-- 
+		</dependency> -->
 		<dependency>
+			<groupId>com.alibaba.fastjson2</groupId>
+			<artifactId>fastjson2</artifactId>
+		</dependency>
+		<!-- <dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-		</dependency>
-	 -->
+		</dependency> -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>

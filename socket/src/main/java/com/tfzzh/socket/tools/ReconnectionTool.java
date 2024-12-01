@@ -139,17 +139,16 @@ public class ReconnectionTool implements ThreadDispose {
 	public void setContinue(final boolean isContinue) {
 		this.isContinue = isContinue;
 	}
-
-	/**
-	 * 是否已经结束了
-	 * 
-	 * @author Weijie Xu
-	 * @dateTime 2015年3月7日 下午4:37:47
-	 * @return the isOver
-	 */
-	public boolean isOver() {
-		return this.ttg.isDestroyed();
-	}
+	// /**
+	// * 是否已经结束了
+	// *
+	// * @author Weijie Xu
+	// * @dateTime 2015年3月7日 下午4:37:47
+	// * @return the isOver
+	// */
+	// public boolean isOver() {
+	// return this.ttg.isDestroyed();
+	// }
 
 	/**
 	 * 进行连接，一定是独立存在的部分

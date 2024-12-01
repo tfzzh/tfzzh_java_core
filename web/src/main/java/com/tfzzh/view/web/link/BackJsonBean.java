@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alibaba.fastjson.serializer.SerializeFilter;
+import com.alibaba.fastjson2.filter.SimplePropertyPreFilter;
 import com.tfzzh.view.web.link.OperateLink.OperateLinkInfo;
 
 /**
@@ -28,7 +28,7 @@ public class BackJsonBean extends BaseBackOperationBean {
 	 * @author Xu Weijie
 	 * @datetime 2018年2月2日_上午9:16:11
 	 */
-	private final SerializeFilter pf;
+	private final SimplePropertyPreFilter pf;
 
 	/**
 	 * @author Xu Weijie
@@ -46,7 +46,7 @@ public class BackJsonBean extends BaseBackOperationBean {
 	 * @param attributes 可用于操作的数据集合
 	 * @param pf 过滤器
 	 */
-	public BackJsonBean(final Map<String, ? extends Object> attributes, final SerializeFilter pf) {
+	public BackJsonBean(final Map<String, ? extends Object> attributes, final SimplePropertyPreFilter pf) {
 		// 确实的不需要其他参数
 		super(null, attributes);
 		this.pf = pf;
@@ -76,7 +76,7 @@ public class BackJsonBean extends BaseBackOperationBean {
 	 * @datetime 2018年2月2日_上午9:18:56
 	 * @return the pf
 	 */
-	public SerializeFilter getSerializeFilter() {
+	public SimplePropertyPreFilter getSerializeFilter() {
 		return this.pf;
 	}
 }

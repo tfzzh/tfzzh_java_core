@@ -76,7 +76,7 @@ public @interface DataField {
 	 * @return true，无符号；<br />
 	 *         false，有符号；<br />
 	 */
-	boolean unsigned() default true;
+	boolean unsigned() default false;
 
 	/**
 	 * 是否可以为null，默认不能为null

@@ -7,7 +7,7 @@ package com.tfzzh.view.web.bean;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.tfzzh.core.control.bean.BaseSessionBean;
 
 /**

@@ -29,6 +29,116 @@ import java.util.jar.JarFile;
 public class ClassTool {
 
 	/**
+	 * 得到类包下文件，最后修改时间
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年6月15日 00:15:01
+	 * @param pack 包路径
+	 * @return 最后修改时间
+	 */
+	public static long getClassesLastTime(String pack) {
+		long clcTime = 0;
+		// 获取包的名字 并进行替换
+		String packageDirName = pack.replace('.', '/');
+		if (packageDirName.endsWith("/")) {
+			// 去掉之后的分隔符
+			packageDirName = packageDirName.substring(0, packageDirName.length() - 1);
+		}
+		// 定义一个枚举的集合 并进行循环来处理这个目录下的things
+		Enumeration<URL> dirs;
+		try {
+			dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
+			while (dirs.hasMoreElements()) {
+				// 获取下一个元素
+				final URL url = dirs.nextElement();
+				// System.out.println("\t\t\t > url : [" + url.getFile() + "] > " + url.getProtocol() + " > " + packageDirName);
+				// // 得到协议的名称
+				final String protocol = url.getProtocol();
+				String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
+				// // 如果是以文件的形式保存在服务器上
+				if ("file".equals(protocol)) {
+					// // System.err.println("file类型的扫描");
+					// // 获取包的物理路径
+					// // 以文件的方式扫描整个包下的文件 并添加到集合中
+					long tclc = ClassTool.findClassesInPackageLastTime(filePath);
+					if (clcTime < tclc) {
+						clcTime = tclc;
+					}
+				} else if ("jar".equals(protocol)) {
+					// 处理!
+					filePath = filePath.substring(0, filePath.indexOf("!"));
+					long tclc = ClassTool.findClassesInPackageLastTime(filePath);
+					if (clcTime < tclc) {
+						clcTime = tclc;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return clcTime;
+	}
+
+	/**
+	 * 得到目标目录下所有class文件的最后修改时间<br />
+	 * 或目标文件修改时间<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年6月15日 17:57:47
+	 * @param filePath 目标文件路径
+	 * @return 最后修改时间，如果文件不存在为0
+	 */
+	private static long findClassesInPackageLastTime(final String filePath) {
+		// System.out.println(" in findAndAddClassesInPackageLastTime [" + filePath + "] ... ");
+		final File f = new File(filePath);
+		if (!f.exists()) {
+			// System.out.println(" err not find [" + filePath + "] ... ");
+			return 0;
+		}
+		if (f.isDirectory()) {
+			return findAndAddClassesInPackageLastTime(f);
+		} else {
+			return f.lastModified();
+		}
+	}
+
+	/**
+	 * 目标目录下所有class文件的最后修改时间
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年6月15日 17:57:46
+	 * @param dir 文件目录
+	 * @return 内部所有class文件最后修改时间
+	 */
+	private static long findAndAddClassesInPackageLastTime(File dir) {
+		long clcTime = 0;
+		// 是文件夹，向下遍历文件
+		final File[] fs = dir.listFiles(new FileFilter() {
+
+			// 自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
+			@Override
+			public boolean accept(final File file) {
+				return file.isDirectory() || (file.getName().endsWith(".class"));
+			}
+		});
+		for (File f : fs) {
+			if (f.isDirectory()) {
+				// 是文件夹
+				long tclc = ClassTool.findAndAddClassesInPackageLastTime(f);
+				if (clcTime < tclc) {
+					clcTime = tclc;
+				}
+			} else {
+				long tclc = f.lastModified();
+				if (clcTime < tclc) {
+					clcTime = tclc;
+				}
+			}
+		}
+		return clcTime;
+	}
+
+	/**
 	 * 得到包下类文件，不向下查找
 	 * 
 	 * @author Weijie Xu

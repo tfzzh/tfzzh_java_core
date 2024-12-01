@@ -133,11 +133,8 @@ public class WebTools {
 			return ClientTypeEnum.PcWeb;
 		}
 		// if (txt.indexOf("WindowsWechat") != -1) {
-		if (txt.indexOf(WebTools.CLIENT_WINDOWSWECHAT) != -1) {
-			return ClientTypeEnum.Weixin;
-		}
 		// if (txt.indexOf("MicroMessenger/") != -1) {
-		if (txt.indexOf(WebTools.CLIENT_MICROMESSENGER) != -1) {
+		if ((txt.indexOf(WebTools.CLIENT_WINDOWSWECHAT) != -1) || (txt.indexOf(WebTools.CLIENT_MICROMESSENGER) != -1)) {
 			return ClientTypeEnum.Weixin;
 		}
 		// if (txt.indexOf("iPhone") != -1) {
@@ -153,5 +150,17 @@ public class WebTools {
 			return ClientTypeEnum.PcWeb;
 		}
 		return ClientTypeEnum.PcWeb;
+	}
+
+	/**
+	 * 得到一个新的请求解码工具
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月23日 16:12:52
+	 * @param baseLetters 基础字符集合
+	 * @return 请求解码工具
+	 */
+	public static RequestDecryptTool getNewRequestDecryptTool(final String baseLetters) {
+		return new RequestDecryptTool(baseLetters);
 	}
 }

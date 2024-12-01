@@ -9,6 +9,7 @@ package com.tfzzh.view.web.tools;
  * @dateTime 2011-3-12 上午10:18:23
  */
 public interface WebConstants {
+
 	// /**
 	// * 初始化：连接页面配置：DTD文件名称
 	// *
@@ -52,6 +53,22 @@ public interface WebConstants {
 	// * @dateTime 2011-5-4 下午03:53:06
 	// */
 	// String URL_POS = ".shtml";
+	//////////////////////
+	/**
+	 * 请求：文件类提交类型
+	 *
+	 * @author tfzzh
+	 * @dateTime 2024年9月2日 10:31:39
+	 */
+	String REQUEST_MULTIPART = "multipart/";
+
+	/**
+	 * 请求：post模式
+	 *
+	 * @author tfzzh
+	 * @dateTime 2024年9月2日 10:37:39
+	 */
+	String REQUEST_POST = "post";
 
 	/**
 	 * 私有的，连接名称，针对HttpRequest
@@ -156,6 +173,22 @@ public interface WebConstants {
 	 * @datetime 2017年9月28日_下午6:01:05
 	 */
 	String PRIVATE_PARAM_ERROR = "param_err";
+
+	/**
+	 * KEY，内跳相关到request.attribute
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月25日 11:24:42
+	 */
+	String KEY_REQUEST_ATTRIBUTE = "req_attr_";
+
+	/**
+	 * KEY，加密POST stream 请求，解密后数据到request.attribute
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月25日 11:20:26
+	 */
+	String KEY_REQUEST_DECRYPT_STREAM_ATTRIBUTE = "req_dec_sr_attr";
 	// /**
 	// * 跳转请求参数Bean命名后缀
 	// *

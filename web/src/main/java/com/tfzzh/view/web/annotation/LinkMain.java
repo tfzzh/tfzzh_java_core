@@ -40,6 +40,29 @@ public @interface LinkMain {
 	String description() default "";
 
 	/**
+	 * 是否读取data信息<br />
+	 * 相关类中方法总开关<br />
+	 * 如果是关闭，则所有子方法均为关闭；<br />
+	 * 如果是开启，则子方法中可自行定义；<br />
+	 * 默认读取<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月24日 14:37:09
+	 * @return true，读取data信息
+	 */
+	boolean readStreamJSON() default true;
+
+	/**
+	 * 是否需要进行token验证<br />
+	 * 默认需要<br />
+	 * 
+	 * @author Xu Weijie
+	 * @dateTime 2024年2月21日 02:08:11
+	 * @return true，需要验证；
+	 */
+	boolean needToken() default true;
+
+	/**
 	 * 访问权限
 	 * 
 	 * @author Xu Weijie

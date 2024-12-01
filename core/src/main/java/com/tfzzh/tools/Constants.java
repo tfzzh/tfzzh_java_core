@@ -55,6 +55,14 @@ public interface Constants {
 	String INIT_CONFIG_FILE_PATH_BASE = FileTools.purifyFilePath((Constants.INIT_CONFIG_PATH_BASE.indexOf(".jar") == -1) ? (Constants.INIT_CONFIG_PATH_BASE + "/../../") : (Constants.INIT_CONFIG_PATH_BASE.substring(0, Constants.INIT_CONFIG_PATH_BASE.substring(0, Constants.INIT_CONFIG_PATH_BASE.indexOf(".jar")).lastIndexOf("/")) + "/../")) + "/";
 
 	/**
+	 * 空格" "
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年11月18日 16:34:08
+	 */
+	String SPACE = " ".intern();
+
+	/**
 	 * 斜线"/"
 	 * 
 	 * @author tfzzh
@@ -77,6 +85,14 @@ public interface Constants {
 	 * @dateTime 2021年12月25日 下午1:18:32
 	 */
 	String CONNECTOR = "-".intern();
+
+	/**
+	 * 星号"*"
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年6月23日 02:13:27
+	 */
+	String STAR = "*".intern();
 
 	/**
 	 * 逗号","
@@ -173,6 +189,30 @@ public interface Constants {
 	 * @dateTime 2021年2月24日 下午12:49:44
 	 */
 	String BRACKET_RIGHT = "]".intern();
+
+	/**
+	 * 问号，“?”
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年7月8日 01:15:15
+	 */
+	String QUESTION = "?".intern();
+
+	/**
+	 * 和、并，“&”
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年7月8日 14:57:56
+	 */
+	String AND = "&".intern();
+
+	/**
+	 * 井号，“#”
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年7月8日 14:57:54
+	 */
+	String HASH = "#".intern();
 
 	/**
 	 * 存库用零长字符串

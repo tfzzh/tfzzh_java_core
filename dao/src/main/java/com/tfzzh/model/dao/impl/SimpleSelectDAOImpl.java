@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -89,6 +90,135 @@ public class SimpleSelectDAOImpl extends CoreDAOImpl implements SimpleSelectDAO 
 				log.append('}');
 				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
 			}
+		}
+	}
+
+	/**
+	 * 得到单一数据列表
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年1月25日 18:56:33
+	 * @param <O> 单一数据对象
+	 * @param clz 单一数据对象类
+	 * @param qb 条件的集合
+	 * @return 得到的数据列表，不可能为null
+	 * @throws SQLException 抛
+	 * @throws IllegalAccessException 抛
+	 * @throws InstantiationException 抛
+	 * @see com.tfzzh.model.dao.SimpleSelectDAO#getOnlyDataList(java.lang.Class, com.tfzzh.model.dao.tools.QLBean)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <O extends Object> List<O> getOnlyDataList(final Class<O> clz, final QLBean qb) throws SQLException, InstantiationException, IllegalAccessException {
+		final QLSqlBean qs = qb.getSQL();
+		if (null == qs) {
+			return null;
+		}
+		final long l = System.currentTimeMillis();
+		// 进行所相关表名验证 add xwj 2017-11-27
+		qb.volidateTableName();
+		// 得到sql基本语句
+		final StringBuilder sql = qs.getSql();
+		// 这里只处理分页
+		qb.assemblyPagerankSQL(sql);
+		final StringBuilder log;
+		if (CoreLog.getInstance().debugEnabled(this.getClass())) {
+			log = new StringBuilder();
+			log.append('{');
+		} else {
+			log = null;
+		}
+		try (ConnectionBean conn = this.getConnection(); PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+			if (null != qb) {
+				qb.setPSValue(ps, log);
+			}
+			try (ResultSet rs = ps.executeQuery();) {
+				return (List<O>) this.resultToList(clz, rs);
+			} catch (final Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		} catch (final Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
+				log.append('}');
+				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " select data: ", sql.toString(), " >", (log.length() > DaoBaseConstants.SQL_MAX_LENGTH ? log.substring(0, DaoBaseConstants.SQL_MAX_LENGTH) : log.toString()));
+			}
+		}
+	}
+
+	/**
+	 * 将数据库返回的结果集处理为目标数据结果集
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年1月25日 18:56:25
+	 * @param clz 单一数据对象类
+	 * @param rs 数据库结果
+	 * @return 目标数据结果集
+	 */
+	private List<?> resultToList(final Class<?> clz, final ResultSet rs) {
+		try {
+			if (clz == String.class) {
+				final List<String> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getString(1));
+				}
+				return bak;
+			} else if ((clz == Integer.class) || (clz == int.class)) {
+				final List<Integer> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getInt(1));
+				}
+				return bak;
+			} else if ((clz == Long.class) || (clz == long.class)) {
+				final List<Long> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getLong(1));
+				}
+				return bak;
+			} else if ((clz == Float.class) || (clz == float.class)) {
+				final List<Float> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getFloat(1));
+				}
+				return bak;
+			} else if ((clz == Short.class) || (clz == short.class)) {
+				final List<Short> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getShort(1));
+				}
+				return bak;
+			} else if ((clz == Double.class) || (clz == double.class)) {
+				final List<Double> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getDouble(1));
+				}
+				return bak;
+			} else if ((clz == Boolean.class) || (clz == boolean.class)) {
+				final List<Boolean> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getBoolean(1));
+				}
+				return bak;
+			} else if ((clz == Date.class) || Date.class.isAssignableFrom(clz)) {
+				final List<Date> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getDate(1));
+				}
+				return bak;
+			} else {
+				// 正常不可能出现的情况
+				final List<Object> bak = new ArrayList<>();
+				while (rs.next()) {
+					bak.add(rs.getObject(1));
+				}
+				return bak;
+			}
+		} catch (final SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

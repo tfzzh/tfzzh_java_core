@@ -56,6 +56,33 @@ public class WebBaseConstants extends BaseConstants {
 	public static String SESSION_KEY_USER;
 
 	/**
+	 * 静态文件基础路径
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月13日 10:24:18
+	 */
+	@PropertiesValue
+	public static String FILE_STATIC_BASE_PATH;
+
+	/**
+	 * TODO 静态文件刷新时间
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月13日 11:27:31
+	 */
+	@PropertiesValue
+	public static long FILE_STATIC_REFRESH_TIME;
+
+	/**
+	 * 请求入口处理类全路径
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月12日 13:53:42
+	 */
+	@PropertiesValue
+	public static String REQUEST_ENTRY_PATH;
+
+	/**
 	 * web用户sess线程池中用key
 	 * 
 	 * @author tfzzh

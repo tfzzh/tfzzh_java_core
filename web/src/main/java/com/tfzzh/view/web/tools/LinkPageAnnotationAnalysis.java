@@ -25,6 +25,8 @@ import com.tfzzh.tools.StringTools;
 import com.tfzzh.view.web.annotation.IpRestriction;
 import com.tfzzh.view.web.annotation.LinkAllIp;
 import com.tfzzh.view.web.annotation.LinkAllParam;
+import com.tfzzh.view.web.annotation.LinkAttr;
+import com.tfzzh.view.web.annotation.LinkAttrDecrypt;
 import com.tfzzh.view.web.annotation.LinkBean;
 import com.tfzzh.view.web.annotation.LinkBranch;
 import com.tfzzh.view.web.annotation.LinkBranchInfo;
@@ -59,6 +61,13 @@ public class LinkPageAnnotationAnalysis {
 	 * @datetime 2015年10月27日_下午1:28:06
 	 */
 	private final NewManagerMapTool nmmt;
+	// /**
+	// * 读取request.attribute，控制key
+	// *
+	// * @author tfzzh
+	// * @dateTime 2023年11月24日 14:46:54
+	// */
+	// private final String KEY_READ_REQ_ATTR = "r_r_a".intern();
 
 	/**
 	 * @author XuWeijie
@@ -162,7 +171,7 @@ public class LinkPageAnnotationAnalysis {
 			Map<String, Class<?>> map = null;
 			String reflectControlKey;
 			String prefix;
-			int accessPermissions;
+			// int accessPermissions;
 			if (null == branch) {
 				LinkNormal normal;
 				LinkDeploy deploy;
@@ -235,16 +244,18 @@ public class LinkPageAnnotationAnalysis {
 								prefix += "../";
 							}
 						}
-						accessPermissions = normal.accessPermissions();
+						// accessPermissions = normal.accessPermissions();
 						// add by xwj 2017-08-23
 						IpRestriction ir = meth.getAnnotation(IpRestriction.class);
 						if (null == ir) {
 							ir = bir;
 						}
+						final boolean readStreamJSON = main.readStreamJSON();
+						final boolean needToken = main.needToken();
 						for (final RequestMethod rm : rms) {
 							reflectControlKey = rm.name() + mainPath + name;
 							reflect.addControlInfo(reflectControlKey, clz, meth, true);
-							operate.addNewLinkInfo(mainPath, name, name, rm, LinkType.Normal, reflectControlKey, prefix, accessPermissions, mainNode, result, map, normal.canCrossDomain(), normal.needToken(), normal.description(), null == ir ? null : ir.value());
+							operate.addNewLinkInfo(mainPath, name, name, rm, LinkType.Normal, reflectControlKey, prefix, mainNode, result, map, readStreamJSON ? normal.readStreamJSON() : false, normal.canCrossDomain(), needToken ? normal.needToken() : false, normal.description(), null == ir ? null : ir.value());
 						}
 					} else if (null != (deploy = meth.getAnnotation(LinkDeploy.class))) {
 						// 适配的
@@ -268,21 +279,24 @@ public class LinkPageAnnotationAnalysis {
 								prefix += "../";
 							}
 						}
-						accessPermissions = deploy.accessPermissions();
+						// accessPermissions = deploy.accessPermissions();
 						// add by xwj 2017-08-23
 						IpRestriction ir = meth.getAnnotation(IpRestriction.class);
 						if (null == ir) {
 							ir = bir;
 						}
+						final boolean readStreamJSON = main.readStreamJSON();
+						final boolean needToken = main.needToken();
 						for (final RequestMethod rm : rms) {
 							reflectControlKey = rm.name() + mainPath + prefixPath;
 							reflect.addControlInfo(reflectControlKey, clz, meth, true);
-							operate.addNewLinkInfo(mainPath, deploy.path(), prefixPath.toString(), rm, LinkType.Deploy, reflectControlKey, prefix, accessPermissions, mainNode, deploy.result(), map, deploy.canCrossDomain(), deploy.needToken(), deploy.description(), null == ir ? null : ir.value());
+							operate.addNewLinkInfo(mainPath, deploy.path(), prefixPath.toString(), rm, LinkType.Deploy, reflectControlKey, prefix, mainNode, deploy.result(), map, readStreamJSON ? deploy.readStreamJSON() : false, deploy.canCrossDomain(), needToken ? deploy.needToken() : false, deploy.description(), null == ir ? null : ir.value());
 						}
 					}
 				}
 			} else {
-				final OperateLinkNodeInfo branchNode = operate.addNewLinkNodeInfo(branch, main, mainNode);
+				// final OperateLinkNodeInfo branchNode = operate.addNewLinkNodeInfo(branch, main, mainNode);
+				final OperateLinkNodeInfo branchNode = operate.addNewLinkNodeInfo(main);
 				LinkBranchInfo branchInfo;
 				// 分流操作
 				for (final Method meth : methods) {
@@ -298,16 +312,18 @@ public class LinkPageAnnotationAnalysis {
 								prefix += "../";
 							}
 						}
-						accessPermissions = branch.accessPermissions();
+						// accessPermissions = branch.accessPermissions();
 						// add by xwj 2017-08-23
 						IpRestriction ir = meth.getAnnotation(IpRestriction.class);
 						if (null == ir) {
 							ir = bir;
 						}
+						final boolean readStreamJSON = main.readStreamJSON();
+						final boolean needToken = main.needToken();
 						for (final RequestMethod rm : rms) {
 							reflectControlKey = rm.name() + mainPath + branch.path() + "?" + branchInfo.value();
 							reflect.addControlInfo(reflectControlKey, clz, meth, true);
-							operate.addNewLinkInfo(mainPath + branch.path(), branchInfo.value(), mainPath + branch.path() + "?" + branchInfo.value(), rm, LinkType.Branch, branch.breachKey(), reflectControlKey, prefix, accessPermissions, branchNode, branchInfo.result(), map, branchInfo.canCrossDomain(), branchInfo.needToken(), branch.description(), null == ir ? null : ir.value());
+							operate.addNewLinkInfo(mainPath + branch.path(), branchInfo.value(), mainPath + branch.path() + "?" + branchInfo.value(), rm, LinkType.Branch, branch.breachKey(), reflectControlKey, prefix, branchNode, branchInfo.result(), map, readStreamJSON ? branchInfo.readStreamJSON() : false, branchInfo.canCrossDomain(), needToken ? branchInfo.needToken() : false, branch.description(), null == ir ? null : ir.value());
 						}
 					}
 				}
@@ -369,8 +385,15 @@ public class LinkPageAnnotationAnalysis {
 		final Map<String, Class<?>> map = new LinkedHashMap<>(sum);
 		for (int i = 0; i < sum; i++) {
 			if (parasAnn[i].length > 0) {
+				// TODO 之后考虑整体优化方案 2023-11-24
 				if (parasAnn[i][0] instanceof LinkParam) {
 					map.put(((LinkParam) parasAnn[i][0]).value(), parasClz[i]);
+				} else if (parasAnn[i][0] instanceof LinkAttr) {
+					map.put(WebConstants.KEY_REQUEST_ATTRIBUTE + ((LinkAttr) parasAnn[i][0]).value(), parasClz[i]);
+					// map.put(this.KEY_READ_REQ_ATTR, parasClz[i]);
+				} else if (parasAnn[i][0] instanceof LinkAttrDecrypt) {
+					map.put(WebConstants.KEY_REQUEST_DECRYPT_STREAM_ATTRIBUTE, parasClz[i]);
+					// map.put(this.KEY_READ_REQ_ATTR, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkLogin) {
 					map.put(WebConstants.PRIVATE_LINK_NAME_ACCOUNT, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkBean) {

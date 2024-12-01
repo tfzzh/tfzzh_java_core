@@ -16,7 +16,7 @@ import java.util.Set;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
@@ -616,7 +616,7 @@ public class QLBean {
 			final StringBuilder sb = new StringBuilder(this.tsm.size() * 12);
 			boolean isFirst = true;
 			for (final Entry<EntityInfoBean<? extends BaseDataBean>, String> ent : this.tsm.entrySet()) {
-				// XXX 需要增加对应逻辑，主要是最名称符号`的控制，之后考虑，暂时掠过
+				// FIXME 需要增加对应逻辑，主要是最名称符号`的控制，之后考虑，暂时掠过
 				if (isFirst) {
 					isFirst = false;
 				} else {
@@ -701,7 +701,7 @@ public class QLBean {
 	 * @param ic 索引计数器
 	 */
 	public void assemblyUpdateSQL(final StringBuilder sql, final IndexCounter ic) {
-		if (null == this.updateScopes || this.updateScopes.size() == 0) {
+		if ((null == this.updateScopes) || (this.updateScopes.size() == 0)) {
 			final EntityInfoBean<? extends BaseDataBean>.FieldInfoBean[] prims = this.mainEib.getPrimaryFieldsCopy();
 			this.getNewUpdate(prims[0]).addField(prims[0]);
 		}

@@ -40,6 +40,16 @@ public @interface LinkBranchInfo {
 	String[] result() default {};
 
 	/**
+	 * 是否读取data信息<br />
+	 * 默认读取<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2023年11月24日 14:37:09
+	 * @return true，读取data信息
+	 */
+	boolean readStreamJSON() default true;
+
+	/**
 	 * 是否可以被跨域访问<br />
 	 * 默认为true<br />
 	 * 
@@ -66,5 +76,6 @@ public @interface LinkBranchInfo {
 	 * @dateTime 2012-7-9 下午3:04:15
 	 * @return 权限值；默认0；
 	 */
+	@Deprecated
 	int accessPermission() default 0;
 }

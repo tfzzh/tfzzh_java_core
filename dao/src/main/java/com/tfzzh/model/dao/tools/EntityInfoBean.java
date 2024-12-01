@@ -971,9 +971,14 @@ public class EntityInfoBean<E extends BaseDataBean> {
 	 */
 	public E getEntityInstance() {
 		try {
-			return this.entClz.getDeclaredConstructor().newInstance();
-		} catch (final Exception e) {
-			e.printStackTrace();
+			return this.entClz.getDeclaredConstructor(boolean.class).newInstance();
+		} catch (final Exception e1) {
+			try {
+				return this.entClz.getDeclaredConstructor().newInstance();
+			} catch (final Exception e2) {
+				e2.printStackTrace();
+			}
+			e1.printStackTrace();
 		}
 		return null;
 	}
@@ -997,7 +1002,14 @@ public class EntityInfoBean<E extends BaseDataBean> {
 				int ind = 0;
 				// 处理rs的顺位映射
 				for (final FieldInfoBean fib : this.fibs) {
-					fi[ind++] = rs.findColumn(fib.getDataFieldName());
+					try {
+						// 完善莫名容错，2022-11-18
+						// int fInd = rs.findColumn(fib.getDataFieldName());
+						// fi[ind++] = fInd;
+						fi[ind++] = rs.findColumn(fib.getDataFieldName());
+					} catch (final Exception e) {
+						// e.printStackTrace();
+					}
 				}
 				try {
 					E e;

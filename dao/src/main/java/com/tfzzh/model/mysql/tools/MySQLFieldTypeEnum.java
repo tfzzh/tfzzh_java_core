@@ -58,7 +58,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 		public Object getDefaultValue(final String dv) {
 			if (null != dv) {
 				if (this.spDef1.equals(dv)) {
-					return spVal1;
+					return this.spVal1;
 				}
 			}
 			return dv;
@@ -93,13 +93,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateLength(df, length)) {
-				return false;
-			}
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
+			if (!super.validateLength(df, length) || !super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue)) {
 				return false;
 			}
 			return true;
@@ -150,7 +144,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 		public Object getDefaultValue(final String dv) {
 			if (null != dv) {
 				if (this.spDef1.equals(dv)) {
-					return spVal1;
+					return this.spVal1;
 				}
 			}
 			return dv;
@@ -185,13 +179,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateLength(df, length)) {
-				return false;
-			}
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
+			if (!super.validateLength(df, length) || !super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue)) {
 				return false;
 			}
 			return true;
@@ -255,16 +243,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateNumber(df, unsigned)) {
-				return false;
-			}
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
-				return false;
-			}
-			if (!super.validateIncrement(idf, isIncrement)) {
+			if (!super.validateNumber(df, unsigned) || !super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue) || !super.validateIncrement(idf, isIncrement)) {
 				return false;
 			}
 			return true;
@@ -338,16 +317,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateNumber(df, unsigned)) {
-				return false;
-			}
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
-				return false;
-			}
-			if (!super.validateIncrement(idf, isIncrement)) {
+			if (!super.validateNumber(df, unsigned) || !super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue) || !super.validateIncrement(idf, isIncrement)) {
 				return false;
 			}
 			return true;
@@ -420,16 +390,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateNumber(df, unsigned)) {
-				return false;
-			}
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
-				return false;
-			}
-			if (!super.validateIncrement(idf, isIncrement)) {
+			if (!super.validateNumber(df, unsigned) || !super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue) || !super.validateIncrement(idf, isIncrement)) {
 				return false;
 			}
 			return true;
@@ -498,16 +459,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateFloat(df, length, scale)) {
-				return false;
-			}
-			if (!super.validateNumber(df, unsigned)) {
-				return false;
-			}
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
+			if (!super.validateFloat(df, length, scale) || !super.validateNumber(df, unsigned) || !super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue)) {
 				return false;
 			}
 			return true;
@@ -571,16 +523,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateFloat(df, length, scale)) {
-				return false;
-			}
-			if (!super.validateNumber(df, unsigned)) {
-				return false;
-			}
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
+			if (!super.validateFloat(df, length, scale) || !super.validateNumber(df, unsigned) || !super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue)) {
 				return false;
 			}
 			return true;
@@ -1025,10 +968,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
+			if (!super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue)) {
 				return false;
 			}
 			return true;
@@ -1099,10 +1039,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
+			if (!super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue)) {
 				return false;
 			}
 			return true;
@@ -1164,10 +1101,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
+			if (!super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue)) {
 				return false;
 			}
 			return true;
@@ -1229,10 +1163,7 @@ public enum MySQLFieldTypeEnum implements FieldType {
 
 		@Override
 		public boolean validateData(final DataField df, final IdField idf, final int length, final boolean canNull, final boolean unsigned, final boolean isIncrement, final int scale, final String defValue, final String desc) {
-			if (!super.validateBaseData(df, canNull, desc)) {
-				return false;
-			}
-			if (!super.validateDefault(df, defValue)) {
+			if (!super.validateBaseData(df, canNull, desc) || !super.validateDefault(df, defValue)) {
 				return false;
 			}
 			return true;
