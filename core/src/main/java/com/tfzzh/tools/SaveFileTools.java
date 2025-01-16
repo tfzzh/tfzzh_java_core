@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.file.Files;
 
 /**
  * 保存文件工具
@@ -48,7 +49,10 @@ public class SaveFileTools {
 		try {
 			if (!f.exists()) {
 				// 因为不存在而创建
-				f.createNewFile();
+				// f.createNewFile();
+				Files.createFile(f.toPath(), FileTools.FILE_ATTR);
+			} else {
+				Files.setPosixFilePermissions(f.toPath(), FileTools.FILE_PERMISSION);
 			}
 			final BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), Constants.SYSTEM_CODE));
 			out.write(cont);

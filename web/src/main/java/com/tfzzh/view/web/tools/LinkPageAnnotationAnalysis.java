@@ -397,7 +397,12 @@ public class LinkPageAnnotationAnalysis {
 				} else if (parasAnn[i][0] instanceof LinkLogin) {
 					map.put(WebConstants.PRIVATE_LINK_NAME_ACCOUNT, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkBean) {
-					map.put(WebConstants.PRIVATE_LINK_NAME_BEAN, parasClz[i]);
+					LinkBean lb = (LinkBean) parasAnn[i][0];
+					String key = WebConstants.PRIVATE_LINK_NAME_BEAN + Constants.COLON + parasClz[i].getName();
+					if (lb.needValid()) {
+						key += ":1";
+					}
+					map.put(key, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkAllIp) { // add xwj 2017-10-17
 					map.put(WebConstants.PRIVATE_LINK_NAME_IP, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkIp) {

@@ -602,7 +602,7 @@ public class QLBean {
 			throw new TableNameException("Havent TableName in this QL...");
 		}
 		if ((this.tsm.size() == 0) && (null != this.mainEib)) {
-			return this.mainEib.getDefaultSQLTableName();
+			return this.mainEib.getDefaultTableName();
 		} else if (this.tsm.size() == 1) {
 			// 单表情况
 			final String tableName = this.tsm.get(this.mainEib);

@@ -18,4 +18,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface LinkBean {
+
+	/**
+	 * 是否进行有效性校验<br />
+	 * 默认需要进行校验动作<br />
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年12月31日 18:12:18
+	 * @return true，需要验证
+	 */
+	boolean needValid() default true;
 }

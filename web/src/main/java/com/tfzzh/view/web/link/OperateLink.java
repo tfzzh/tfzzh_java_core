@@ -1761,7 +1761,8 @@ public class OperateLink {
 				} else {
 					// TODO 之后考虑整体优化方案 2023-11-24
 					// 非数组
-					nas: switch (ent.getKey()) {
+					String[] keys = ent.getKey().split(Constants.COLON);
+					nas: switch (keys[0]) {
 					case WebConstants.PRIVATE_LINK_NAME_REQUEST: { // 请求
 						// 是request
 						paras[i] = request;
@@ -1803,7 +1804,7 @@ public class OperateLink {
 								// }
 								// }
 								param = (BaseParamBean) ent.getValue().getDeclaredConstructor().newInstance();
-								param.setParameters(requestParas);
+								param.setParameters(requestParas, keys.length > 2);
 								// if (errorMap.size() > 0) {
 								// return 7;
 								// }

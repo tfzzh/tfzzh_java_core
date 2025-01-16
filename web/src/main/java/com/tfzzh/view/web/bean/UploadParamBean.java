@@ -129,17 +129,21 @@ public abstract class UploadParamBean extends BaseParamBean {
 	 * @param paraMap 参数集合，包括文件部分；<br />
 	 *           List<String>：正常的页面传值；<br />
 	 *           FileItem：上传的文件；<br />
-	 * @see com.tfzzh.view.web.bean.BaseParamBean#setParameters(java.util.Map)
+	 * @param needValid 是否需要校验：<br />
+	 *           true，需要校验；<br />
+	 * @see com.tfzzh.view.web.bean.BaseParamBean#setParameters(java.util.Map, boolean)
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public void setParameters(final Map<String, Object> paraMap) {
+	public void setParameters(final Map<String, Object> paraMap, boolean needValid) {
 		Class<?> clz = this.getClass();
 		do {
 			this.setParameters((Class<? extends UploadParamBean>) clz, paraMap);
 			clz = clz.getSuperclass();
 		} while (UploadParamBean.class.isAssignableFrom(clz.getSuperclass()));
-		this.validate();
+		if (needValid) {
+			this.validate();
+		}
 	}
 
 	/**

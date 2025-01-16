@@ -514,6 +514,24 @@ public class StringTools {
 	}
 
 	/**
+	 * 将字符串转为float数组
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2024年4月1日 16:40:22
+	 * @param txt 文本内容
+	 * @param separator 分隔符
+	 * @return float数组
+	 */
+	public static float[] toFloatArray(final String txt, final String separator) {
+		final List<Float> li = StringTools.splitToFloatArray(txt, separator);
+		final float[] bak = new float[li.size()];
+		for (int i = li.size() - 1; i >= 0; i--) {
+			bak[i] = li.get(i).floatValue();
+		}
+		return bak;
+	}
+
+	/**
 	 * 将字符串转为Float数组
 	 * 
 	 * @author tfzzh
@@ -554,7 +572,7 @@ public class StringTools {
 			}
 			if (ei != si) {
 				try {
-					arr.add(Double.valueOf(str.substring(si, ei)).floatValue());
+					arr.add(Float.valueOf(str.substring(si, ei)).floatValue());
 				} catch (final Exception e) {
 				}
 			}
@@ -562,7 +580,7 @@ public class StringTools {
 		}
 		// 增加最后一段
 		try {
-			arr.add(Double.valueOf(str.substring(si)).floatValue());
+			arr.add(Float.valueOf(str.substring(si)).floatValue());
 		} catch (final Exception e) {
 		}
 		return arr;

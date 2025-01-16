@@ -83,7 +83,7 @@ public abstract class BaseUploadFileBean extends BaseBean {
 	public BaseUploadFileBean(final String fileName, final boolean addTimestamp, final String folderPath, final UploadFileNameTypeEnum fileNameType, final String targetFileName, final String suffixs, final Map<String, Object> paramMap) {
 		this.setFolderPath(folderPath);
 		this.fileOldName = fileName;
-		this.fileName = this.getTrueFileName(fileName, addTimestamp, fileNameType, targetFileName, "|" + suffixs + "|", paramMap);
+		this.fileName = this.getTrueFileName(fileName, addTimestamp, fileNameType, targetFileName, Constants.VERTICAL_LINE + suffixs + Constants.VERTICAL_LINE, paramMap);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public abstract class BaseUploadFileBean extends BaseBean {
 	 *           首位无“-”：全新的路径；<br />
 	 */
 	public void setFolderPath(final String folderPath) {
-		if (folderPath.startsWith("-")) {
+		if (folderPath.startsWith(Constants.CONNECTOR)) {
 			// 是当前运行应用相对路径
 			this.relativeFolderPath = folderPath.substring(1);
 			this.folderPath = FileTools.purifyFilePath(Constants.INIT_CONFIG_FILE_PATH_BASE + File.separator + this.relativeFolderPath);
@@ -121,10 +121,30 @@ public abstract class BaseUploadFileBean extends BaseBean {
 		urlPrefix = PropertiesTools.getConstantsValue(urlPrefix);
 		diskPath = PropertiesTools.getConstantsValue(diskPath);
 		this.relativeFolderPath = FileTools.purifyFilePath(mainUrlPath + File.separator + urlPrefix);
-		if (diskPath.startsWith("-")) {
+		if (diskPath.startsWith(Constants.CONNECTOR)) {
 			this.folderPath = FileTools.purifyFilePath(Constants.INIT_CONFIG_FILE_PATH_BASE + File.separator + diskPath.substring(1) + File.separator + urlPrefix);
 		} else {
 			this.folderPath = FileTools.purifyFilePath(diskPath + File.separator + urlPrefix);
+		}
+	}
+
+	/**
+	 * 设置硬盘为主的文件夹路径
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2025年1月10日 11:19:08
+	 * @param mainPath 硬盘基础路径
+	 * @param urlPrefix url访问路径前缀
+	 * @param diskPath 硬盘后续路径
+	 */
+	public void setDiskFolderPath(final String mainPath, String urlPrefix, String diskPath) {
+		urlPrefix = PropertiesTools.getConstantsValue(urlPrefix);
+		diskPath = PropertiesTools.getConstantsValue(diskPath);
+		this.relativeFolderPath = FileTools.purifyFilePath(urlPrefix + File.separator);
+		if (diskPath.startsWith(Constants.CONNECTOR)) {
+			this.folderPath = FileTools.purifyFilePath(Constants.INIT_CONFIG_FILE_PATH_BASE + File.separator + diskPath.substring(1) + File.separator);
+		} else {
+			this.folderPath = FileTools.purifyFilePath(mainPath + File.separator + diskPath + File.separator);
 		}
 	}
 
@@ -139,7 +159,7 @@ public abstract class BaseUploadFileBean extends BaseBean {
 	 */
 	public void setBothFolderPath(final String urlPrefix, final String diskPrefix, final String path) {
 		this.relativeFolderPath = PropertiesTools.getConstantsValue(FileTools.purifyFilePath(urlPrefix + File.separator + path));
-		if (diskPrefix.startsWith("-")) {
+		if (diskPrefix.startsWith(Constants.CONNECTOR)) {
 			this.folderPath = PropertiesTools.getConstantsValue(FileTools.purifyFilePath(Constants.INIT_CONFIG_FILE_PATH_BASE + File.separator + diskPrefix.substring(1) + File.separator + path));
 		} else {
 			this.folderPath = PropertiesTools.getConstantsValue(FileTools.purifyFilePath(diskPrefix + File.separator + path));
@@ -166,7 +186,7 @@ public abstract class BaseUploadFileBean extends BaseBean {
 		String pos = null;
 		final String fileNamePrefix;
 		// 得到后缀名
-		final int posInd = localName.lastIndexOf(".");
+		final int posInd = localName.lastIndexOf(Constants.SPOT);
 		if (posInd != -1) {
 			// if (!"||".equals(suffixs) && !"|*|".equals(suffixs)) {
 			// pos = "|" + localName.substring(posInd + 1) + "|";
@@ -218,8 +238,8 @@ public abstract class BaseUploadFileBean extends BaseBean {
 	 * @param fileName 目标文件名
 	 */
 	public void setFileName(final String fileName) {
-		if (fileName.indexOf("[.]") == -1) {
-			this.fileName = fileName + "." + this.posName;
+		if (fileName.indexOf(".") == -1) {
+			this.fileName = fileName + Constants.SPOT + this.posName;
 		} else {
 			this.fileName = fileName;
 		}

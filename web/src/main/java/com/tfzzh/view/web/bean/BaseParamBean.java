@@ -45,8 +45,10 @@ public abstract class BaseParamBean extends BaseBean {
 	 * @param paraMap 参数集合，包括文件部分；<br />
 	 *           List<String>：正常的页面传值；<br />
 	 *           FileItem：上传的文件；<br />
+	 * @param needValid 是否需要校验：<br />
+	 *           true，需要校验；<br />
 	 */
-	public abstract void setParameters(Map<String, Object> paraMap);
+	public abstract void setParameters(Map<String, Object> paraMap, boolean needValid);
 
 	/**
 	 * 消息验证

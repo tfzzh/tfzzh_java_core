@@ -502,6 +502,20 @@ public class DateFormat {
 	}
 
 	/**
+	 * 得到短日期小时(yyyyMMddHH)字串
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2025年1月10日 11:38:08
+	 * @return 日期小时字串
+	 */
+	public static String getShortHourDate() {
+		Calendar cal = Calendar.getInstance();
+		final StringBuilder sb = new StringBuilder(10);
+		sb.append(cal.get(Calendar.YEAR)).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2));
+		return sb.toString().intern();
+	}
+
+	/**
 	 * 将短型日期(yyyy-MM-dd HH:mm)字符转换为日期,如果有异常,返回null
 	 * 
 	 * @author tfzzh

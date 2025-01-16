@@ -7,11 +7,13 @@ package com.tfzzh.view.web.bean;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 
 import com.tfzzh.tools.Constants;
+import com.tfzzh.tools.FileTools;
 import com.tfzzh.view.web.tools.UploadBackCodeEnum;
 import com.tfzzh.view.web.tools.UploadFileNameTypeEnum;
 
@@ -94,16 +96,7 @@ public final class UploadByteFileBean extends BaseUploadFileBean {
 			out.close();
 			final File file = new File(this.getFolderPath() + Constants.DIAGONAL_LINE + this.getFileName());
 			// 写入内容到文件
-			file.setReadable(true, false);
-			file.setWritable(true, false);
-			file.setExecutable(true, false);
-			if (!Constants.OS_WIN) {
-				try {
-					Runtime.getRuntime().exec(new String[] { "chmod 777 -R " + file.getPath() });
-				} catch (final IOException e) {
-					e.printStackTrace();
-				}
-			}
+			Files.setPosixFilePermissions(file.toPath(), FileTools.FILE_PERMISSION);
 			return new SaveFileBackBean(UploadBackCodeEnum.OK, file);
 		} catch (final IOException e) {
 			return new SaveFileBackBean(UploadBackCodeEnum.IOException);

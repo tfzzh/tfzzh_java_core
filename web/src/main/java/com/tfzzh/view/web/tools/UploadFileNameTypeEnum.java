@@ -4,7 +4,6 @@
  */
 package com.tfzzh.view.web.tools;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public enum UploadFileNameTypeEnum {
 			final StringBuilder sb = new StringBuilder();
 			sb.append(fileName);
 			if (addTimestamp) {
-				sb.append('_').append(DateFormat.getLongDate(new Date()));
+				sb.append('_').append(DateFormat.getLongDate());
 			}
 			sb.append('.').append(fileNameSuffix);
 			return sb.toString();
@@ -51,7 +50,7 @@ public enum UploadFileNameTypeEnum {
 			final StringBuilder sb = new StringBuilder();
 			sb.append(Spelling.getInstance().getSpellingWithString(fileName));
 			if (addTimestamp) {
-				sb.append("_" + DateFormat.getLongDate(new Date()));
+				sb.append("_" + DateFormat.getLongDate());
 			}
 			sb.append('.').append(fileNameSuffix);
 			return sb.toString();
@@ -70,7 +69,7 @@ public enum UploadFileNameTypeEnum {
 			final StringBuilder sb = new StringBuilder();
 			sb.append(Spelling.getInstance().getHeadSpellingWithString(fileName));
 			if (addTimestamp) {
-				sb.append("_" + DateFormat.getLongDate(new Date()));
+				sb.append("_" + DateFormat.getLongDate());
 			}
 			sb.append('.').append(fileNameSuffix);
 			return sb.toString();
@@ -89,7 +88,7 @@ public enum UploadFileNameTypeEnum {
 			final StringBuilder sb = new StringBuilder();
 			sb.append(targetFileName);
 			if (addTimestamp) {
-				sb.append("_" + DateFormat.getLongDate(new Date()));
+				sb.append("_" + DateFormat.getLongDate());
 			}
 			sb.append('.').append(fileNameSuffix);
 			return sb.toString();
@@ -109,7 +108,7 @@ public enum UploadFileNameTypeEnum {
 			final StringBuilder sb = new StringBuilder();
 			sb.append(((List<String>) paramMap.get(targetFileName)).get(0));
 			if (addTimestamp) {
-				sb.append("_" + DateFormat.getLongDate(new Date()));
+				sb.append("_" + DateFormat.getLongDate());
 			}
 			sb.append('.').append(fileNameSuffix);
 			return sb.toString();

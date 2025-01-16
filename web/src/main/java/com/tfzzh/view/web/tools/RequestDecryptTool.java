@@ -92,13 +92,31 @@ public class RequestDecryptTool {
 		// System.out.println(" ready sKey[" + sKey + "] eContBA [" + Arrays.toString(eContBA) + "]ba[" + Arrays.toString(sContBA) + "] ... ");
 		String sCont = new String(sContBA);
 		// System.out.println(" np[" + sCont + "] ... ");
-		String fHx = sCont.substring(sCont.length() - 2);
-		if (fHx.charAt(0) == '}') {
-			fHx = sCont.substring(sCont.length() - 1);
-			sCont = sCont.substring(0, sCont.length() - 1);
-		} else {
+		String fHx = "";
+		if (sCont.indexOf("}") == -1) {
+			fHx = sCont.substring(sCont.length() - 2);
 			sCont = sCont.substring(0, sCont.length() - 2);
+		} else {
+			int last = sCont.lastIndexOf("}") + 1;
+			if (last == 0) {
+				last = sCont.length() - 2;
+			}
+			fHx = sCont.substring(last);
+			sCont = sCont.substring(0, last);
 		}
+		// int last = sCont.lastIndexOf("}") + 1;
+		// if (last == 0) {
+		// last = sCont.length() - 2;
+		// }
+		// String fHx = sCont.substring(last);
+		// sCont = sCont.substring(0, last);
+		// String fHx = sCont.substring(sCont.length() - 2);
+		// if (fHx.charAt(0) == '}') {
+		// fHx = sCont.substring(sCont.length() - 1);
+		// sCont = sCont.substring(0, sCont.length() - 1);
+		// } else {
+		// sCont = sCont.substring(0, sCont.length() - 2);
+		// }
 		int fInd = -2;
 		try {
 			fInd = Integer.valueOf(fHx, 16);

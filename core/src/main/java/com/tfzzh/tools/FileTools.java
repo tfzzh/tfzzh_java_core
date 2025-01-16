@@ -9,10 +9,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * 文件工具
@@ -21,6 +26,32 @@ import java.util.ResourceBundle;
  * @dateTime 2014年9月19日 上午11:02:50
  */
 public class FileTools {
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2025年1月16日 01:09:17
+	 */
+	public static FileAttribute<Set<PosixFilePermission>> FILE_ATTR = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwxrwxrwx"));
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2025年1月16日 01:29:21
+	 */
+	public static Set<PosixFilePermission> FILE_PERMISSION = FileTools.initPerm();
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2025年1月16日 01:29:23
+	 * @return 文件权限集合
+	 */
+	private static Set<PosixFilePermission> initPerm() {
+		Set<PosixFilePermission> permissions = new HashSet<>();
+		permissions.add(PosixFilePermission.OWNER_READ);
+		permissions.add(PosixFilePermission.OWNER_WRITE);
+		permissions.add(PosixFilePermission.GROUP_READ);
+		permissions.add(PosixFilePermission.OTHERS_READ);
+		return permissions;
+	}
 
 	/**
 	 * 净化文件路径

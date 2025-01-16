@@ -4,6 +4,7 @@
  */
 package com.tfzzh.model.dao.tools;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -164,40 +165,40 @@ public class EntityTool {
 		return this.entIdMap.values();
 	}
 
-	// /**
-	// * 进行同步表结构+数据操作，如果有调用，一定要在处理完dispose之后
-	// *
-	// * @author XuWeijie
-	// * @datetime 2015年9月18日_下午12:44:08
-	// */
-	// public void syncDataTableStructure() {
-	// if (this.synStructure) {
-	// return;
-	// }
-	// this.synStructure = true;
-	// AutomaticDataTableStructureDAO<?> adts;
-	// for (final EntityInfoBean<? extends BaseDataBean> eib : this.entMap.values()) {
-	// adts = eib.getAutomaticStructureDao();
-	// if (null != adts) {
-	// try {
-	// // 首先处理结构
-	// adts.createOrEditTable();
-	// // 然后同步基础数据
-	// adts.execInitData();
-	// } catch (final SQLException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// }
-	// }
 	/**
-	 * 为了之前版本项目的冗余方法
-	 * 
-	 * @author Xu Weijie
-	 * @datetime 2017年8月2日_下午7:01:27
+	 * 进行同步表结构+数据操作，如果有调用，一定要在处理完dispose之后
+	 *
+	 * @author XuWeijie
+	 * @datetime 2015年9月18日_下午12:44:08
 	 */
 	public void syncDataTableStructure() {
+		if (this.synStructure) {
+			return;
+		}
+		this.synStructure = true;
+		AutomaticDataTableStructureDAO<?> adts;
+		for (final EntityInfoBean<? extends BaseDataBean> eib : this.entMap.values()) {
+			adts = eib.getAutomaticStructureDao();
+			if (null != adts) {
+				try {
+					// 首先处理结构
+					adts.createOrEditTable();
+					// 然后同步基础数据
+					adts.execInitData();
+				} catch (final SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
+	// /**
+	// * 为了之前版本项目的冗余方法
+	// *
+	// * @author Xu Weijie
+	// * @datetime 2017年8月2日_下午7:01:27
+	// */
+	// public void syncDataTableStructure() {
+	// }
 
 	/**
 	 * 进行同步表数据操作

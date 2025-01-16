@@ -6,11 +6,13 @@ package com.tfzzh.view.web.bean;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Map;
 
 import org.apache.commons.fileupload.FileItem;
 
 import com.tfzzh.tools.Constants;
+import com.tfzzh.tools.FileTools;
 import com.tfzzh.view.web.tools.UploadBackCodeEnum;
 import com.tfzzh.view.web.tools.UploadFileNameTypeEnum;
 
@@ -92,7 +94,7 @@ public final class UploadFileBean extends BaseUploadFileBean {
 				folder.mkdirs();
 				if (!Constants.OS_WIN) {
 					try {
-						Runtime.getRuntime().exec(new String[] { "chmod 777 -R " + folder.getPath() });
+						Runtime.getRuntime().exec(new String[] { "chmod 777 " + folder.getPath() });
 					} catch (final IOException e) {
 						e.printStackTrace();
 					}
@@ -104,17 +106,8 @@ public final class UploadFileBean extends BaseUploadFileBean {
 			// 创建内容文件
 			// file.createNewFile();
 			// 写入内容到文件
-			file.setReadable(true, false);
-			file.setWritable(true, false);
-			file.setExecutable(true, false);
 			this.fileInfo.write(file);
-			if (!Constants.OS_WIN) {
-				try {
-					Runtime.getRuntime().exec(new String[] { "chmod 777 -R " + file.getPath() });
-				} catch (final IOException e) {
-					e.printStackTrace();
-				}
-			}
+			Files.setPosixFilePermissions(file.toPath(), FileTools.FILE_PERMISSION);
 			return new SaveFileBackBean(UploadBackCodeEnum.OK, file);
 		} catch (final IOException e) {
 			e.printStackTrace();
