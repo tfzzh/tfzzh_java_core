@@ -72,15 +72,14 @@ public class WebBaseConstants extends BaseConstants {
 	 */
 	@PropertiesValue
 	public static long FILE_STATIC_REFRESH_TIME;
-
-	/**
-	 * 请求入口处理类全路径
-	 * 
-	 * @author tfzzh
-	 * @dateTime 2023年11月12日 13:53:42
-	 */
-	@PropertiesValue
-	public static String REQUEST_ENTRY_PATH;
+	// /**
+	// * 请求入口处理类全路径
+	// *
+	// * @author tfzzh
+	// * @dateTime 2023年11月12日 13:53:42
+	// */
+	// @PropertiesValue
+	// public static String REQUEST_ENTRY_PATH;
 
 	/**
 	 * web用户sess线程池中用key

@@ -412,7 +412,11 @@ public abstract class BaseDAOImpl<E extends BaseEntityBean> extends CoreDAOImpl 
 				conn.release();
 			}
 			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
-				CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " create table: ", sql, " >", backS);
+				if (null == sql) {
+					CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), "  table [", tableName, "] exist and nochange ... ");
+				} else {
+					CoreLog.getInstance().debug(this.getClass(), "JDBCThread[", Thread.currentThread().getName(), "] run: ", Long.toString(System.currentTimeMillis() - l), " create table: ", sql, " >", backS);
+				}
 			}
 		}
 		return back;

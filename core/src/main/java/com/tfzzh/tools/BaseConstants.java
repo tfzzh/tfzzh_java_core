@@ -1170,6 +1170,7 @@ public abstract class BaseConstants {
 			// 进行可能的内容替换操作
 			return this.rep(val, pv);
 		} catch (final MissingResourceException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
