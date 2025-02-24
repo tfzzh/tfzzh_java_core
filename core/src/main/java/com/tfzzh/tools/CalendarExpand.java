@@ -127,21 +127,6 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 得到当前小时的结点时刻
-	 * 
-	 * @author XuWeijie
-	 * @datetime 2015年6月27日_下午2:12:18
-	 * @return 当前小时的节点时间
-	 */
-	public static Calendar timeToThisHourEnd() {
-		final Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.MINUTE, 59);
-		cal.set(Calendar.SECOND, 59);
-		cal.set(Calendar.MILLISECOND, 999);
-		return cal;
-	}
-
-	/**
 	 * 时间到一天的结束时刻
 	 * 
 	 * @author xuweijie
@@ -176,14 +161,79 @@ public class CalendarExpand {
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年6月3日 上午11:43:57
-	 * @param date 日期穿（yyyy-MM-dd）
+	 * @param date 日期串（yyyy-MM-dd）（yyyyMMdd）
 	 * @return 日历对象
 	 */
 	public static Calendar timeToDayEnd(final String date) {
 		final Calendar cal = Calendar.getInstance();
-		final Date d = DateFormat.getShortDateShow(date);
-		cal.setTimeInMillis(d.getTime());
+		if (date.indexOf("-") == -1) {
+			final Date d = DateFormat.getShortDate(date);
+			cal.setTimeInMillis(d.getTime());
+		} else {
+			final Date d = DateFormat.getShortDateShow(date);
+			cal.setTimeInMillis(d.getTime());
+		}
 		return CalendarExpand.timeToDayEnd(cal);
+	}
+
+	/**
+	 * 得到当前小时的结点时刻
+	 * 
+	 * @author XuWeijie
+	 * @datetime 2015年6月27日_下午2:12:18
+	 * @return 当前小时的节点时间
+	 */
+	public static Calendar timeToThisHourEnd() {
+		final Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		cal.set(Calendar.MILLISECOND, 999);
+		return cal;
+	}
+
+	/**
+	 * 得到目标时间小时的结点时刻
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2025年2月20日 11:25:02
+	 * @param cal 日历对象
+	 * @return 当前小时的节点时间
+	 */
+	public static Calendar timeToHourEnd(final Calendar cal) {
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		cal.set(Calendar.MILLISECOND, 999);
+		return cal;
+	}
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2025年2月20日 11:25:04
+	 * @param time 目标时间
+	 * @return 当前小时的节点时间
+	 */
+	public static Calendar timeToHourEnd(final long time) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
+		return CalendarExpand.timeToHourEnd(cal);
+	}
+
+	/**
+	 * @author tfzzh
+	 * @dateTime 2025年2月20日 11:25:05
+	 * @param date 日期串（yyyy-MM-dd HH）（yyyyMMddHH）
+	 * @return 当前小时的节点时间
+	 */
+	public static Calendar timeToHourEnd(final String date) {
+		final Calendar cal = Calendar.getInstance();
+		if (date.indexOf("-") == -1) {
+			final Date d = DateFormat.getShortHourDate(date);
+			cal.setTimeInMillis(d.getTime());
+		} else {
+			final Date d = DateFormat.getShortHourDateShow(date);
+			cal.setTimeInMillis(d.getTime());
+		}
+		return CalendarExpand.timeToHourEnd(cal);
 	}
 
 	/**
@@ -515,8 +565,8 @@ public class CalendarExpand {
 	 * @dateTime 2012-3-26 下午3:21:32
 	 * @param before 前一个时间
 	 * @param after 后一个时间
-	 * @return true，同一天；<br />
-	 *         false，非同一天；<br />
+	 * @return true，同一天；</br>
+	 *         false，非同一天；</br>
 	 */
 	public static boolean inSameDay(final Calendar before, final Calendar after) {
 		if (before.get(Calendar.DAY_OF_YEAR) == after.get(Calendar.DAY_OF_YEAR)) {
@@ -528,8 +578,8 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 前一个日期与后一个日期所相差的天数<br />
-	 * 前大于后为正数，前小于后为负数<br />
+	 * 前一个日期与后一个日期所相差的天数</br>
+	 * 前大于后为正数，前小于后为负数</br>
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年6月1日_下午4:45:50
@@ -548,8 +598,8 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 前一个时间点与后一个时间点所相差的天数<br />
-	 * 前大于后为正数，前小于后为负数<br />
+	 * 前一个时间点与后一个时间点所相差的天数</br>
+	 * 前大于后为正数，前小于后为负数</br>
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年7月16日_上午10:55:58
@@ -562,8 +612,8 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 前一个日期与后一个日期所相差的小时数<br />
-	 * 前大于后为正数，前小于后为负数<br />
+	 * 前一个日期与后一个日期所相差的小时数</br>
+	 * 前大于后为正数，前小于后为负数</br>
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年6月2日_下午3:15:41
@@ -588,8 +638,8 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 前一个时间点与后一个时间点所相差的小时数<br />
-	 * 前大于后为正数，前小于后为负数<br />
+	 * 前一个时间点与后一个时间点所相差的小时数</br>
+	 * 前大于后为正数，前小于后为负数</br>
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年7月16日_上午11:06:54
@@ -602,14 +652,14 @@ public class CalendarExpand {
 	}
 
 	/**
-	 * 去到日期<br />
-	 * 增量单位天<br />
+	 * 去到日期</br>
+	 * 增量单位天</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年6月14日 上午11:37:00
 	 * @param day 起始日期
-	 * @param add 时间增量<br />
-	 *           正值为增量，负值为减量<br />
+	 * @param add 时间增量</br>
+	 *           正值为增量，负值为减量</br>
 	 * @return 得到的日期
 	 */
 	public static Calendar toDate(final String day, final int add) {
@@ -621,30 +671,89 @@ public class CalendarExpand {
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年6月14日 上午11:34:18
-	 * @param day 起始日期
-	 * @param add 时间增量<br />
-	 *           正值为增量，负值为减量<br />
-	 * @param type 类型：<br />
-	 *           1，日期（默认）；<br />
-	 *           2，月份；<br />
-	 *           3，周；<br />
-	 *           4，年；<br />
+	 * @param day 起始日期（yyyy-MM-dd）（yyyyMMdd）—
+	 * @param add 时间增量</br>
+	 *           正值为增量，负值为减量</br>
+	 * @param type 类型：</br>
+	 *           1，日期（默认）；</br>
+	 *           2，月份；</br>
+	 *           3，周；</br>
+	 *           4，年；</br>
 	 * @return 得到的日期
 	 */
 	public static Calendar toDate(final String day, final int add, final int type) {
-		final Date d = DateFormat.getShortDateShow(day);
+		Date d = null;
+		if (day.indexOf("-") == -1) {
+			d = DateFormat.getShortDate(day);
+		} else {
+			d = DateFormat.getShortDateShow(day);
+		}
 		final Calendar cal = Calendar.getInstance();
 		cal.setFirstDayOfWeek(Calendar.MONDAY);
 		cal.setTimeInMillis(d.getTime());
 		switch (type) {
-		case 2:
+		case 2: // 月
 			cal.add(Calendar.MONTH, add);
 			break;
-		case 3:
+		case 3: // 周
 			cal.add(Calendar.WEEK_OF_YEAR, add);
 			break;
-		case 4:
+		case 4: // 年
 			cal.add(Calendar.YEAR, add);
+			break;
+		default:
+			cal.add(Calendar.DAY_OF_YEAR, add);
+			break;
+		}
+		return cal;
+	}
+
+	/**
+	 * 去到时间日期</br>
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2025年2月21日 17:09:16
+	 * @param dateTime 起始日期（yyyy-MM-dd HH:mm:ss）（yyyyMMddHHmmss）
+	 * @param add 时间增量</br>
+	 *           正值为增量，负值为减量</br>
+	 * @param type 类型：</br>
+	 *           1，日期（默认）；</br>
+	 *           2，月份；</br>
+	 *           3，周；</br>
+	 *           4，年；</br>
+	 *           6，小时；</br>
+	 *           7，分钟；</br>
+	 *           8，秒；</br>
+	 * @return 得到的时间日期
+	 */
+	public static Calendar toDateime(final String dateTime, final int add, final int type) {
+		Date d = null;
+		if (dateTime.indexOf("-") == -1) {
+			d = DateFormat.getLongDate(dateTime);
+		} else {
+			d = DateFormat.getLongDateShow(dateTime);
+		}
+		final Calendar cal = Calendar.getInstance();
+		cal.setFirstDayOfWeek(Calendar.MONDAY);
+		cal.setTimeInMillis(d.getTime());
+		switch (type) {
+		case 2: // 月
+			cal.add(Calendar.MONTH, add);
+			break;
+		case 3: // 周
+			cal.add(Calendar.WEEK_OF_YEAR, add);
+			break;
+		case 4: // 年
+			cal.add(Calendar.YEAR, add);
+			break;
+		case 6: // 小时
+			cal.add(Calendar.HOUR_OF_DAY, add);
+			break;
+		case 7: // 分钟
+			cal.add(Calendar.MINUTE, add);
+			break;
+		case 8: // 秒
+			cal.add(Calendar.SECOND, add);
 			break;
 		default:
 			cal.add(Calendar.DAY_OF_YEAR, add);
