@@ -20,8 +20,8 @@ import java.lang.annotation.Target;
 public @interface PropertiesMethod {
 
 	/**
-	 * 目标方法的方法名，默认为“asse”加属性转换名<br />
-	 * 同StringTools.assemblyStringWhitInterval中方法，首字符大写，中间字符转小写的数据模型<br />
+	 * 目标方法的方法名，默认为“asse”加属性转换名</br>
+	 * 同StringTools.assemblyStringWhitInterval中方法，首字符大写，中间字符转小写的数据模型</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午1:40:05
@@ -30,8 +30,8 @@ public @interface PropertiesMethod {
 	public String value() default "";
 
 	/**
-	 * 对应的配置文件属性名<br />
-	 * 可空，空时同属性名<br />
+	 * 对应的配置文件属性名</br>
+	 * 可空，空时同属性名</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年7月21日 下午2:34:54
@@ -49,8 +49,8 @@ public @interface PropertiesMethod {
 	public Class<?> clz() default Object.class;
 
 	/**
-	 * 目标用到的类属性对象<br />
-	 * 对应clz存在时<br />
+	 * 目标用到的类属性对象</br>
+	 * 对应clz存在时</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年11月17日 下午6:58:38

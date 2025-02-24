@@ -5,8 +5,8 @@
 package com.tfzzh.exception;
 
 /**
- * 游戏中设置错误或游戏中设置错误<br />
- * 不好明确辨别具体是哪里错误的情况<br />
+ * 游戏中设置错误或游戏中设置错误</br>
+ * 不好明确辨别具体是哪里错误的情况</br>
  * 
  * @author Weijie Xu
  * @dateTime 2014-3-20 下午5:13:35

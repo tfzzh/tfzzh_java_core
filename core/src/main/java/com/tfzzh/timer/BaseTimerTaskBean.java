@@ -5,8 +5,8 @@
 package com.tfzzh.timer;
 
 /**
- * 定时器基础类<br />
- * 可以设置起始运行时间点，每隔多久运行一次<br />
+ * 定时器基础类</br>
+ * 可以设置起始运行时间点，每隔多久运行一次</br>
  * 
  * @author Weijie Xu
  * @dateTime 2014年4月15日 下午6:34:50
@@ -67,9 +67,9 @@ public abstract class BaseTimerTaskBean {
 	}
 
 	/**
-	 * 设置下次运行时间<br />
-	 * 该方法在每次被执行后，被调用<br />
-	 * 中间需要通过调用{@Method setNextRunTime}来设置计算得到的下次运行时间<br />
+	 * 设置下次运行时间</br>
+	 * 该方法在每次被执行后，被调用</br>
+	 * 中间需要通过调用{@Method setNextRunTime}来设置计算得到的下次运行时间</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年4月15日 下午6:54:32
@@ -142,8 +142,8 @@ public abstract class BaseTimerTaskBean {
 	}
 
 	/**
-	 * 在结束时的操作<br />
-	 * 为了抽象方法<br />
+	 * 在结束时的操作</br>
+	 * 为了抽象方法</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年4月18日 下午2:14:45

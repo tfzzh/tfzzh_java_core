@@ -32,9 +32,9 @@ public class RangeKey implements Comparable<RangeKey> {
 	private final int maxKey;
 
 	/**
-	 * 是否为键：<br />
-	 * true，作为map的key<br />
-	 * false，作为查询用key<br />
+	 * 是否为键：</br>
+	 * true，作为map的key</br>
+	 * false，作为查询用key</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年10月30日 下午5:31:05

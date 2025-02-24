@@ -7,8 +7,8 @@ package com.tfzzh.exception;
 import com.tfzzh.tools.NestedExceptionUtils;
 
 /**
- * 基础运行时异常控制<br />
- * 抄自——spring中相对应类<br />
+ * 基础运行时异常控制</br>
+ * 抄自——spring中相对应类</br>
  * 
  * @author XuWeijie
  * @dateTime May 19, 2010 10:24:52 AM

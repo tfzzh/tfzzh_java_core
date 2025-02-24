@@ -17,9 +17,9 @@ import java.util.TreeMap;
 public class IpCalculator {
 
 	/**
-	 * 将字符串的IP转换为long型数值<br />
-	 * 暂时只支持IPv4<br />
-	 * 进入前保证该字串内容为标准ip结构<br />
+	 * 将字符串的IP转换为long型数值</br>
+	 * 暂时只支持IPv4</br>
+	 * 进入前保证该字串内容为标准ip结构</br>
 	 * 
 	 * @author XuWeijie
 	 * @dateTime Oct 30, 2010 7:16:57 PM
@@ -32,8 +32,8 @@ public class IpCalculator {
 	}
 
 	/**
-	 * 得到ip范围集合<br />
-	 * 此类中未做排序工作<br />
+	 * 得到ip范围集合</br>
+	 * 此类中未做排序工作</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月18日 下午7:16:44
@@ -68,8 +68,8 @@ public class IpCalculator {
 	 * @dateTime 2014年6月18日 下午7:28:08
 	 * @param ip 目标IP
 	 * @param ipRange 目标IP范围内
-	 * @return true，在范围内；<br />
-	 *         false，不在范围内；<br />
+	 * @return true，在范围内；</br>
+	 *         false，不在范围内；</br>
 	 */
 	public static boolean ipInRange(final String ip, final Map<Long, Long> ipRange) {
 		final long ipL = IpCalculator.ipv4StringToLong(ip);

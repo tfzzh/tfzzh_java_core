@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 运行中的线程控<br />
- * 当前主要针对数据库的根据用户的，动态连接池变换<br />
+ * 运行中的线程控</br>
+ * 当前主要针对数据库的根据用户的，动态连接池变换</br>
  * 
  * @author xuweijie
  * @dateTime 2012-2-28 上午11:59:40

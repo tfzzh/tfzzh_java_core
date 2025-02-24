@@ -5,8 +5,8 @@
 package com.tfzzh.tools;
 
 /**
- * 排行的基础信息<br />
- * 数据刷新方式为refresh()方法；该方法请尽量在子类中触发调用<br />
+ * 排行的基础信息</br>
+ * 数据刷新方式为refresh()方法；该方法请尽量在子类中触发调用</br>
  * 
  * @author 许纬杰
  * @datetime 2016年6月2日_上午11:33:05
@@ -93,8 +93,8 @@ public abstract class TopDataInfo<K> {
 	 * 
 	 * @author 许纬杰
 	 * @datetime 2016年6月3日_下午5:45:56
-	 * @return 排行的名次；<br />
-	 *         -1，未在排行中；<br />
+	 * @return 排行的名次；</br>
+	 *         -1，未在排行中；</br>
 	 */
 	public int getTop() {
 		if (null == this.top) {
@@ -141,8 +141,8 @@ public abstract class TopDataInfo<K> {
 	protected abstract long refreshReferenceScore();
 
 	/**
-	 * 进行当前排行的刷新操作<br />
-	 * 该方法进行在子类对象中进行触发调用<br />
+	 * 进行当前排行的刷新操作</br>
+	 * 该方法进行在子类对象中进行触发调用</br>
 	 * 
 	 * @author 许纬杰
 	 * @datetime 2016年6月2日_上午11:37:03

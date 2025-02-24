@@ -1210,8 +1210,8 @@ public class DateFormat {
 	 * @author tfzzh
 	 * @dateTime 2020年10月25日 下午12:26:37
 	 * @param str 目标内容
-	 * @return 被处理完成的时间戳；<br />
-	 *         null，表示不是时间格式内容；<br />
+	 * @return 被处理完成的时间戳；</br>
+	 *         null，表示不是时间格式内容；</br>
 	 */
 	public static Long formatStringToTime(final String str) {
 		if (StringTools.isNullOrEmpty(str)) {

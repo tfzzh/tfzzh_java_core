@@ -13,8 +13,8 @@ package com.tfzzh.tools;
 public class SystemCode {
 
 	/**
-	 * 得到win系统的编码<br />
-	 * 该方法还需要进一步处理验证有效性<br />
+	 * 得到win系统的编码</br>
+	 * 该方法还需要进一步处理验证有效性</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2015年2月4日 上午10:31:33

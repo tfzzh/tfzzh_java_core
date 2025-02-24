@@ -12,8 +12,8 @@ import java.util.Map;
 import com.tfzzh.exception.InitializeException;
 
 /**
- * 反射控制器<br />
- * 主要用于视图层<br />
+ * 反射控制器</br>
+ * 主要用于视图层</br>
  * 
  * @author xuweijie
  * @dateTime 2012-1-30 上午11:48:18
@@ -29,8 +29,8 @@ public class ReflectControl {
 	private final Map<String, ControlInfo> controls = new HashMap<>(10);
 
 	/**
-	 * 对象缓存信息<br />
-	 * <对象路径,对象实例><br />
+	 * 对象缓存信息</br>
+	 * <对象路径,对象实例></br>
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-2-8 下午1:10:28
@@ -64,8 +64,8 @@ public class ReflectControl {
 	}
 
 	/**
-	 * 增加一个反射控制信息<br />
-	 * 不对所增加的信息进行有效验证<br />
+	 * 增加一个反射控制信息</br>
+	 * 不对所增加的信息进行有效验证</br>
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-2-8 下午1:25:04
@@ -105,8 +105,8 @@ public class ReflectControl {
 	}
 
 	/**
-	 * 增加一个反射控制信息<br />
-	 * 不对所增加的信息进行有效验证<br />
+	 * 增加一个反射控制信息</br>
+	 * 不对所增加的信息进行有效验证</br>
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-1-31 下午6:10:08
@@ -128,8 +128,8 @@ public class ReflectControl {
 	 * @param obj 操作对象信息
 	 * @param method 方法对象
 	 * @param validate 是否进行验证：true，验证；false，不验证；
-	 * @return 反射控制对象<br />
-	 *         null，仅验证情况下出现，认为目标反射信息不正确<br />
+	 * @return 反射控制对象</br>
+	 *         null，仅验证情况下出现，认为目标反射信息不正确</br>
 	 */
 	public ControlInfo addControlInfo(final String name, final BaseReflectOperate obj, final Method method, final boolean validate) {
 		final String clzName = obj.getClass().getName();
@@ -188,8 +188,8 @@ public class ReflectControl {
 	 * @dateTime 2021年3月4日 下午1:33:44
 	 * @param <T> 目标类型
 	 * @param clz 类信息
-	 * @return 实体信息；<br />
-	 *         // * null，还不存在目标类实体<br />
+	 * @return 实体信息；</br>
+	 *         // * null，还不存在目标类实体</br>
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends BaseReflectOperate> T getReflectImpl(final Class<T> clz) {
@@ -201,8 +201,8 @@ public class ReflectControl {
 	// * @author xuweijie
 	// * @dateTime 2012-2-16 下午5:11:37
 	// * @param clz 类信息
-	// * @return 实体信息；<br />
-	// * null，还不存在目标类实体<br />
+	// * @return 实体信息；</br>
+	// * null，还不存在目标类实体</br>
 	// */
 	// public BaseReflectOperate getReflectImpl(final Class<?> clz) {
 	// return this.getReflectImpl(clz.getName());
@@ -214,8 +214,8 @@ public class ReflectControl {
 	 * @author xuweijie
 	 * @dateTime 2012-2-16 下午5:11:39
 	 * @param className 类全名
-	 * @return 实体信息；<br />
-	 *         null，还不存在目标类实体<br />
+	 * @return 实体信息；</br>
+	 *         null，还不存在目标类实体</br>
 	 */
 	public BaseReflectOperate getReflectImpl(final String className) {
 		return this.objs.get(className);
@@ -284,8 +284,8 @@ public class ReflectControl {
 		 * 
 		 * @author xuweijie
 		 * @dateTime 2012-1-31 下午6:14:28
-		 * @return true，有效；<br />
-		 *         false，无效；<br />
+		 * @return true，有效；</br>
+		 *         false，无效；</br>
 		 */
 		private boolean validate() {
 			final Class<? extends BaseReflectOperate> clz = this.obj.getClass();

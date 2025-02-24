@@ -21,8 +21,8 @@ public abstract class ValidateElement {
 	 * @datetime 2017年9月26日_下午3:50:01
 	 * @param name 目标名字，更多为了返回消息而存在
 	 * @param val 目标值
-	 * @return null，验证通过；<br />
-	 *         否则为问题信息<br />
+	 * @return null，验证通过；</br>
+	 *         否则为问题信息</br>
 	 */
 	public abstract ValidateErrorInfo validate(String name, Object val);
 }

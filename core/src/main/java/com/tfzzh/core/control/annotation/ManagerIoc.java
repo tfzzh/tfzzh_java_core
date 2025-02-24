@@ -20,8 +20,8 @@ import java.lang.annotation.Target;
 public @interface ManagerIoc {
 
 	/**
-	 * 对应对象名<br />
-	 * 如果零长，则同参数名<br />
+	 * 对应对象名</br>
+	 * 如果零长，则同参数名</br>
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-2-16 下午4:49:51

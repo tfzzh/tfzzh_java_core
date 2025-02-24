@@ -55,9 +55,9 @@ public class CoreConstants extends BaseConstants {
 	public static boolean OS_WIN = System.getProperty("os.name").toLowerCase().startsWith("win");
 
 	/**
-	 * 初始化：配置文件路径：基础路径；<br />
-	 * 用于类对象，或者配置文件路径的操作；<br />
-	 * 最后会有“/”作为结束符号；<br />
+	 * 初始化：配置文件路径：基础路径；</br>
+	 * 用于类对象，或者配置文件路径的操作；</br>
+	 * 最后会有“/”作为结束符号；</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月22日 下午5:45:12
@@ -65,9 +65,9 @@ public class CoreConstants extends BaseConstants {
 	public static String INIT_CONFIG_PATH_BASE = FileTools.purifyFilePath((Constants.class.getResource("/") != null) ? (Constants.OS_WIN ? Constants.class.getResource("/").getPath().substring(1) : Constants.class.getResource("/").getPath()) : (Constants.OS_WIN ? Constants.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1) + "/../config/" : Constants.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/../config/"));
 
 	/**
-	 * 初始化：应用文件路径：基础路径；<br />
-	 * 用于纯文件相关的路径的操作；<br />
-	 * 最后会有“/”作为结束符号；<br />
+	 * 初始化：应用文件路径：基础路径；</br>
+	 * 用于纯文件相关的路径的操作；</br>
+	 * 最后会有“/”作为结束符号；</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月22日 下午5:45:13

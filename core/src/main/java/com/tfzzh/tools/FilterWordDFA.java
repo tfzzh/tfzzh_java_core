@@ -69,8 +69,8 @@ public class FilterWordDFA {
 	 * @author 许纬杰
 	 * @datetime 2016年7月14日_下午5:53:04
 	 * @param context 文本内容
-	 * @return true，安全的不存在屏蔽词；<br />
-	 *         false，存在屏蔽词；<br />
+	 * @return true，安全的不存在屏蔽词；</br>
+	 *         false，存在屏蔽词；</br>
 	 */
 	public boolean hasFilterWord(final String context) {
 		char c;

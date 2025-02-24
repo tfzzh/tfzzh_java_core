@@ -20,8 +20,8 @@ package com.tfzzh.tools;
  * <p>
  * This class is used to encode and decode data in Base64 format as described in RFC 1521.
  * <p>
- * Project home page: <a href="http://www.source-code.biz/base64coder/java/">www.source-code.biz/base64coder/java</a><br>
- * Author: Christian d'Heureuse, Inventec Informatik AG, Zurich, Switzerland<br>
+ * Project home page: <a href="http://www.source-code.biz/base64coder/java/">www.source-code.biz/base64coder/java</a></br>
+ * Author: Christian d'Heureuse, Inventec Informatik AG, Zurich, Switzerland</br>
  * Multi-licensed: EPL / LGPL / GPL / AL / BSD / MIT.
  */
 public class Base64Coder {

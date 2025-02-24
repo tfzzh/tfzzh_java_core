@@ -20,8 +20,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * 类工具得到包下所有类文件<br />
- * 代码来源于网络<br />
+ * 类工具得到包下所有类文件</br>
+ * 代码来源于网络</br>
  * 
  * @author Weijie Xu
  * @dateTime 2014-3-22 下午2:55:28
@@ -80,8 +80,8 @@ public class ClassTool {
 	}
 
 	/**
-	 * 得到目标目录下所有class文件的最后修改时间<br />
-	 * 或目标文件修改时间<br />
+	 * 得到目标目录下所有class文件的最后修改时间</br>
+	 * 或目标文件修改时间</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2024年6月15日 17:57:47
@@ -321,8 +321,8 @@ public class ClassTool {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年10月17日 下午4:56:43
-	 * @return 类名:方法名<br />
-	 *         如果没有前一个方法，则显示当前的<br />
+	 * @return 类名:方法名</br>
+	 *         如果没有前一个方法，则显示当前的</br>
 	 */
 	public static String getBeforeMethodName() {
 		final StackTraceElement[] es = Thread.currentThread().getStackTrace();
@@ -449,8 +449,8 @@ public class ClassTool {
 	}
 
 	/**
-	 * 得到当前方法名<br />
-	 * 当时第一个看到的方法，感觉思路很有意思，虽然开销确实不小<br />
+	 * 得到当前方法名</br>
+	 * 当时第一个看到的方法，感觉思路很有意思，虽然开销确实不小</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月21日 下午1:02:31

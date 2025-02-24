@@ -25,8 +25,8 @@ import com.tfzzh.core.validate.element.ValidateElement;
 public class ValidateCenter {
 
 	/**
-	 * 有验证操作的Bean对象，以及对应的相关方法及值验证规则<br />
-	 * <目标类对象,需验证相关的属性与其值验证规则><br />
+	 * 有验证操作的Bean对象，以及对应的相关方法及值验证规则</br>
+	 * <目标类对象,需验证相关的属性与其值验证规则></br>
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年9月26日_下午4:14:28

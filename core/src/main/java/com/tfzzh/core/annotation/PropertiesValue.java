@@ -12,8 +12,8 @@ import java.lang.annotation.Target;
 import com.tfzzh.tools.PropertiesValueTypeEnum;
 
 /**
- * 针对constants文件中，需要从properties文件中取值的字段<br />
- * 需要注意类型设置，默认为string类型<br />
+ * 针对constants文件中，需要从properties文件中取值的字段</br>
+ * 需要注意类型设置，默认为string类型</br>
  * 
  * @author tfzzh
  * @dateTime 2016年11月21日 下午1:38:21
@@ -45,8 +45,8 @@ public @interface PropertiesValue {
 	public PropertiesValueTypeEnum type() default PropertiesValueTypeEnum.Auto;
 
 	/**
-	 * 特殊值，针对不同类型有不同作用<br />
-	 * 当前默认是针对列表字段所需字串间隔附<br />
+	 * 特殊值，针对不同类型有不同作用</br>
+	 * 当前默认是针对列表字段所需字串间隔附</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午3:00:13

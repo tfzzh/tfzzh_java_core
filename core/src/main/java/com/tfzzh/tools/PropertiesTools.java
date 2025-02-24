@@ -199,8 +199,8 @@ public class PropertiesTools {
 	 * @dateTime 2017年6月15日 下午4:15:52
 	 * @param fileName 文件名
 	 * @param datas 数据内容
-	 * @return true，更新成功；<br />
-	 *         false，更新失败；<br />
+	 * @return true，更新成功；</br>
+	 *         false，更新失败；</br>
 	 */
 	public static boolean updateProperties(final String fileName, final Map<String, String> datas) {
 		// 确认文件是否存在

@@ -232,8 +232,8 @@ public class FileTools {
 	 * @dateTime 2014年9月19日 上午11:12:50
 	 * @param f1 文件1
 	 * @param f2 文件2
-	 * @return true，两文件内容相同；<br />
-	 *         false，两文件内容不同；<br />
+	 * @return true，两文件内容相同；</br>
+	 *         false，两文件内容不同；</br>
 	 */
 	public static boolean compareFile(final File f1, final File f2) {
 		final FileCompareInfo fc1 = new FileCompareInfo(f1);
@@ -268,8 +268,8 @@ public class FileTools {
 	 * @author Weijie Xu
 	 * @dateTime 2014年12月10日 下午1:39:05
 	 * @param tarFolder 目标文件夹信息
-	 * @return true，被完全删除；<br />
-	 *         false，未被完全删除；<br />
+	 * @return true，被完全删除；</br>
+	 *         false，未被完全删除；</br>
 	 */
 	private static boolean deleteFolder(final File tarFolder) {
 		boolean delSelf = true;

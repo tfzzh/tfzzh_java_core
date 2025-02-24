@@ -19,8 +19,8 @@ import com.tfzzh.core.control.iface.RefreshData;
 public abstract class BasePool<T extends RefreshData> {
 
 	/**
-	 * 池中数据信息列表<br />
-	 * <对应关系内容,T><br />
+	 * 池中数据信息列表</br>
+	 * <对应关系内容,T></br>
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-3-9 上午11:58:15
@@ -45,8 +45,8 @@ public abstract class BasePool<T extends RefreshData> {
 	 * @author Xu Weijie
 	 * @dateTime 2012-11-17 下午5:20:14
 	 * @param key 目标key
-	 * @return 数据对象；<br />
-	 *         null，无目标key所对应的数据对象；<br />
+	 * @return 数据对象；</br>
+	 *         null，无目标key所对应的数据对象；</br>
 	 */
 	protected BasePoolData getData(final String key) {
 		return this.datas.get(key);
@@ -58,8 +58,8 @@ public abstract class BasePool<T extends RefreshData> {
 	 * @author Xu Weijie
 	 * @dateTime 2012-11-17 下午5:16:16
 	 * @param key 移除一个数据
-	 * @return 被移除的数据信息；<br />
-	 *         null，不存在目标key的数据对象；<br />
+	 * @return 被移除的数据信息；</br>
+	 *         null，不存在目标key的数据对象；</br>
 	 */
 	protected BasePoolData removeData(final String key) {
 		return this.datas.remove(key);
@@ -140,8 +140,8 @@ public abstract class BasePool<T extends RefreshData> {
 		 * @author Xu Weijie
 		 * @dateTime 2012-11-17 下午1:12:51
 		 * @param intervalTime 过期间隔时间
-		 * @return true，已经过期；<br />
-		 *         false，还未过期；<br />
+		 * @return true，已经过期；</br>
+		 *         false，还未过期；</br>
 		 */
 		public boolean isPastDue(final long intervalTime) {
 			return (System.currentTimeMillis() - this.lastUseTime) > intervalTime;

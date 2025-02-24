@@ -25,9 +25,9 @@ public class SaveFileTools {
 	 * @author Xu Weijie
 	 * @datetime 2017年8月10日_下午3:45:55
 	 * @param cont 目标内容
-	 * @param path 文件路径：<br />
-	 *           带“-”为当前项目执行的相对路径；<br />
-	 *           不带为绝对路径；<br />
+	 * @param path 文件路径：</br>
+	 *           带“-”为当前项目执行的相对路径；</br>
+	 *           不带为绝对路径；</br>
 	 * @param fileName 文件名
 	 * @return true，保存成功
 	 */

@@ -24,8 +24,8 @@ public class StringTools {
 	private static final String empty = "";
 
 	/**
-	 * 根据字符串中的分隔符“_”对字母进行从新组合，将存在的该符号去掉，并将其之后的字符大写<br />
-	 * 例如：“aa_a_BbbCc_c” -> “aaABbbCcC”<br />
+	 * 根据字符串中的分隔符“_”对字母进行从新组合，将存在的该符号去掉，并将其之后的字符大写</br>
+	 * 例如：“aa_a_BbbCc_c” -> “aaABbbCcC”</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午3:35:47
@@ -37,8 +37,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 根据字符串中的分隔符“_”对字母进行从新组合，将存在的该符号去掉，并将其之后的字符大写<br />
-	 * 例如：“aa_a_BbbCc_c” -> “aaABbbCcC”<br />
+	 * 根据字符串中的分隔符“_”对字母进行从新组合，将存在的该符号去掉，并将其之后的字符大写</br>
+	 * 例如：“aa_a_BbbCc_c” -> “aaABbbCcC”</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2016年11月21日 下午3:38:34
@@ -51,8 +51,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 根据字符串中的分隔符“_”对字母进行从新组合，将存在的该符号去掉，并将其之后的字符大写<br />
-	 * 例如：“aa_a_BbbCc_c” -> “aaABbbCcC”<br />
+	 * 根据字符串中的分隔符“_”对字母进行从新组合，将存在的该符号去掉，并将其之后的字符大写</br>
+	 * 例如：“aa_a_BbbCc_c” -> “aaABbbCcC”</br>
 	 * 
 	 * @author xuweijie
 	 * @datetime 2015年11月17日_下午3:11:13
@@ -96,8 +96,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 根据字符串中的大写字母进行从新组合<br />
-	 * 例如：“AaaBbbCcc” -> “aaa_bbb_ccc”<br />
+	 * 根据字符串中的大写字母进行从新组合</br>
+	 * 例如：“AaaBbbCcc” -> “aaa_bbb_ccc”</br>
 	 * 
 	 * @author XuWeijie
 	 * @dateTime 2012-2-15 下午2:32:25
@@ -122,9 +122,9 @@ public class StringTools {
 	}
 
 	/**
-	 * 最小化消耗来替代String.split的方法<br />
-	 * 会将零字长字串在结果中过滤<br />
-	 * 如果也考虑不过滤的方法，请考虑增加参数，并修改一部分代码，并增加一些对应的多态方法<br />
+	 * 最小化消耗来替代String.split的方法</br>
+	 * 会将零字长字串在结果中过滤</br>
+	 * 如果也考虑不过滤的方法，请考虑增加参数，并修改一部分代码，并增加一些对应的多态方法</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime Aug 8, 2014 10:14:08 AM
@@ -166,10 +166,10 @@ public class StringTools {
 	// System.out.println("over run >> " + (System.currentTimeMillis() - l1));
 	// }
 	/**
-	 * 最小化消耗来替代String.split的方法<br />
-	 * 未存在null判定<br />
-	 * 会将零字长字串在结果中过滤<br />
-	 * 如果也考虑不过滤的方法，请考虑增加参数，并修改一部分代码，并增加一些对应的多态方法<br />
+	 * 最小化消耗来替代String.split的方法</br>
+	 * 未存在null判定</br>
+	 * 会将零字长字串在结果中过滤</br>
+	 * 如果也考虑不过滤的方法，请考虑增加参数，并修改一部分代码，并增加一些对应的多态方法</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime Aug 8, 2014 9:54:55 AM
@@ -201,10 +201,10 @@ public class StringTools {
 	}
 
 	/**
-	 * 最小化消耗来替代String.split的方法<br />
-	 * 未存在null判定<br />
-	 * 会将零字长字串在结果中过滤<br />
-	 * 如果也考虑不过滤的方法，请考虑增加参数，并修改一部分代码，并增加一些对应的多态方法<br />
+	 * 最小化消耗来替代String.split的方法</br>
+	 * 未存在null判定</br>
+	 * 会将零字长字串在结果中过滤</br>
+	 * 如果也考虑不过滤的方法，请考虑增加参数，并修改一部分代码，并增加一些对应的多态方法</br>
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年12月24日_下午4:00:45
@@ -272,8 +272,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 最小化消耗来替代String.split的方法<br />
-	 * 直接获取到Int列表<br />
+	 * 最小化消耗来替代String.split的方法</br>
+	 * 直接获取到Int列表</br>
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2016年1月8日_下午3:06:58
@@ -345,8 +345,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 最小化消耗来替代String.split的方法<br />
-	 * 直接获取到Short列表<br />
+	 * 最小化消耗来替代String.split的方法</br>
+	 * 直接获取到Short列表</br>
 	 * 
 	 * @author 许纬杰
 	 * @datetime 2016年3月30日_下午6:01:42
@@ -418,8 +418,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 最小化消耗来替代String.split的方法<br />
-	 * 直接获取到Long列表<br />
+	 * 最小化消耗来替代String.split的方法</br>
+	 * 直接获取到Long列表</br>
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2016年1月8日_下午3:06:55
@@ -473,8 +473,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 最小化消耗来替代String.split的方法<br />
-	 * 直接获取到Double列表<br />
+	 * 最小化消耗来替代String.split的方法</br>
+	 * 直接获取到Double列表</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年7月21日 下午2:36:53
@@ -546,8 +546,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 最小化消耗来替代String.split的方法<br />
-	 * 直接获取到Float列表<br />
+	 * 最小化消耗来替代String.split的方法</br>
+	 * 直接获取到Float列表</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年7月21日 下午2:36:53
@@ -587,8 +587,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 直接获取，通过分隔符处理后的部分的，目标位置的内容<br />
-	 * 这里不会将零字长字串过滤掉，因为占位是不能被跳过的<br />
+	 * 直接获取，通过分隔符处理后的部分的，目标位置的内容</br>
+	 * 这里不会将零字长字串过滤掉，因为占位是不能被跳过的</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime Aug 8, 2014 10:15:57 AM
@@ -1019,8 +1019,8 @@ public class StringTools {
 	}
 
 	/**
-	 * 得到目标string的字符位长度<br />
-	 * 一个中文为两个字符位<br />
+	 * 得到目标string的字符位长度</br>
+	 * 一个中文为两个字符位</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年8月14日 下午12:38:57

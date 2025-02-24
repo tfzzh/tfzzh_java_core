@@ -20,8 +20,8 @@ public interface CustomValidate {
 	 * @param name 规则处理名
 	 * @param ref 验证用参考值集合
 	 * @param target 目标值
-	 * @return null，表示验证成功；<br />
-	 *         否则为问题信息<br />
+	 * @return null，表示验证成功；</br>
+	 *         否则为问题信息</br>
 	 */
 	ValidateErrorInfo validate(String name, String[] ref, Object target);
 }

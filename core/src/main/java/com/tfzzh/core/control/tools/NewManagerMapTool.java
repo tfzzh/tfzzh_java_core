@@ -314,8 +314,8 @@ public class NewManagerMapTool {
 	}
 
 	/**
-	 * 读取数量XML文件的方法<br />
-	 * 请保证文件名称的正确性<br />
+	 * 读取数量XML文件的方法</br>
+	 * 请保证文件名称的正确性</br>
 	 * 
 	 * @author XuWeijie
 	 * @dateTime 2010-3-26 下午04:57:25
@@ -332,9 +332,9 @@ public class NewManagerMapTool {
 	}
 
 	/**
-	 * 读取数量XML文件的方法<br />
-	 * 走本地限定DTD文件<br />
-	 * 按照指定前缀的方式读取<br />
+	 * 读取数量XML文件的方法</br>
+	 * 走本地限定DTD文件</br>
+	 * 按照指定前缀的方式读取</br>
 	 * 
 	 * @author Xu Weijie
 	 * @dateTime 2012-7-6 下午6:17:5025
@@ -350,9 +350,9 @@ public class NewManagerMapTool {
 	}
 
 	/**
-	 * 读取数量XML文件的方法<br />
-	 * 走网络限定DTD文件<br />
-	 * 按照指定前缀的方式读取<br />
+	 * 读取数量XML文件的方法</br>
+	 * 走网络限定DTD文件</br>
+	 * 按照指定前缀的方式读取</br>
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2018年2月1日_下午2:01:11

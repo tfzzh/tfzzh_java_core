@@ -184,8 +184,8 @@ public class BaseBean implements Serializable {
 	}
 
 	/**
-	 * 返回字符串消息<br />
-	 * 仅适合单线程调试<br />
+	 * 返回字符串消息</br>
+	 * 仅适合单线程调试</br>
 	 * 
 	 * @author XuWeijie
 	 * @dateTime Apr 24, 2010 6:11:29 PM (non-Javadoc)
@@ -347,8 +347,8 @@ public class BaseBean implements Serializable {
 	}
 
 	/**
-	 * 克隆本对象<br />
-	 * 字节型克隆（深度）<br />
+	 * 克隆本对象</br>
+	 * 字节型克隆（深度）</br>
 	 * 
 	 * @author XuWeijie
 	 * @dateTime Apr 24, 2010 6:11:15 PM (non-Javadoc)

@@ -13,8 +13,8 @@ package com.tfzzh.core.validate;
 public class ValidateErrorInfo {
 
 	/**
-	 * 错误信息的名字<br />
-	 * 一般用于匹配或说明位置<br />
+	 * 错误信息的名字</br>
+	 * 一般用于匹配或说明位置</br>
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年9月27日_上午9:59:40
@@ -38,8 +38,8 @@ public class ValidateErrorInfo {
 	private final String value;
 
 	/**
-	 * 错误信息的内容<br />
-	 * 一般用于标明内容重点<br />
+	 * 错误信息的内容</br>
+	 * 一般用于标明内容重点</br>
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年9月27日_上午9:59:41
@@ -62,8 +62,8 @@ public class ValidateErrorInfo {
 	}
 
 	/**
-	 * 得到错误信息的名字<br />
-	 * 一般用于匹配或说明位置<br />
+	 * 得到错误信息的名字</br>
+	 * 一般用于匹配或说明位置</br>
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年9月27日_上午9:51:13
@@ -96,8 +96,8 @@ public class ValidateErrorInfo {
 	}
 
 	/**
-	 * 得到错误信息的内容<br />
-	 * 一般用于标明内容重点<br />
+	 * 得到错误信息的内容</br>
+	 * 一般用于标明内容重点</br>
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年9月27日_上午9:51:13

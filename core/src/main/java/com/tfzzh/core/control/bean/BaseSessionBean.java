@@ -7,8 +7,8 @@ package com.tfzzh.core.control.bean;
 import com.tfzzh.tools.BaseBean;
 
 /**
- * 系统消息基础BEAN<br />
- * 该对象不做远端消息传递用，均为项目内调用<br />
+ * 系统消息基础BEAN</br>
+ * 该对象不做远端消息传递用，均为项目内调用</br>
  * 
  * @author XuWeijie
  * @dateTime Apr 29, 2010 11:36:51 AM

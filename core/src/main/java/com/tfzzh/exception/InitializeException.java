@@ -5,8 +5,8 @@
 package com.tfzzh.exception;
 
 /**
- * 初始化异常<br />
- * 用于项目启动过程中，所遇到的问题<br />
+ * 初始化异常</br>
+ * 用于项目启动过程中，所遇到的问题</br>
  * 
  * @author xuweijie
  * @dateTime 2012-2-1 上午10:30:54

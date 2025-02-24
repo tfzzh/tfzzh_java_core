@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 验证信息反馈<br />
- * 默认对象，可被继承，建议继承处理<br />
+ * 验证信息反馈</br>
+ * 默认对象，可被继承，建议继承处理</br>
  * 
  * @author Xu Weijie
  * @datetime 2017年9月26日_下午3:04:23
@@ -17,8 +17,8 @@ import java.util.Map;
 public class ValidateInfoBack {
 
 	/**
-	 * 问题消息列表<br />
-	 * <目标名称,验证问题类型><br />
+	 * 问题消息列表</br>
+	 * <目标名称,验证问题类型></br>
 	 * 
 	 * @author Xu Weijie
 	 * @datetime 2017年9月26日_下午3:06:33
@@ -56,8 +56,8 @@ public class ValidateInfoBack {
 	}
 
 	/**
-	 * 得到问题消息列表<br />
-	 * <目标名称,验证问题类型><br />
+	 * 得到问题消息列表</br>
+	 * <目标名称,验证问题类型></br>
 	 *
 	 * @author Xu Weijie
 	 * @datetime 2017年9月26日_下午3:15:38

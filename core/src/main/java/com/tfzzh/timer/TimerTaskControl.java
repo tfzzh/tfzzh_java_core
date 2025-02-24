@@ -293,8 +293,8 @@ public class TimerTaskControl implements Runnable {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年4月15日 下午7:24:28
-	 * @return true，已经结束；<br />
-	 *         false，还未结束；<br />
+	 * @return true，已经结束；</br>
+	 *         false，还未结束；</br>
 	 */
 	public boolean isOver() {
 		return this.isOver;

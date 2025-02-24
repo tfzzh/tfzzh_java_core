@@ -36,8 +36,8 @@ import com.tfzzh.core.annotation.PropertiesValue;
 import com.tfzzh.exception.ConfigurationException;
 
 /**
- * 基础常量消息<br />
- * 暂时不允许同对象多实例<br />
+ * 基础常量消息</br>
+ * 暂时不允许同对象多实例</br>
  * 
  * @author tfzzh
  * @dateTime 2016年11月21日 上午11:10:24
@@ -99,9 +99,9 @@ public abstract class BaseConstants {
 	private File bundleFile;
 
 	/**
-	 * 读取类型：<br />
-	 * 0，文件路径读取；<br />
-	 * 1，文件对象读取；<br />
+	 * 读取类型：</br>
+	 * 0，文件路径读取；</br>
+	 * 1，文件对象读取；</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
@@ -220,8 +220,8 @@ public abstract class BaseConstants {
 	}
 
 	// /**
-	// * 刷新数据<br />
-	// * 当前就是清理缓存<br />
+	// * 刷新数据</br>
+	// * 当前就是清理缓存</br>
 	// *
 	// * @author tfzzh
 	// * @dateTime 2016年11月21日 上午11:31:04
@@ -1254,8 +1254,8 @@ public abstract class BaseConstants {
 	}
 
 	/**
-	 * 打印所有可见属性信息<br />
-	 * 测试用方法<br />
+	 * 打印所有可见属性信息</br>
+	 * 测试用方法</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2020年7月27日 下午1:25:57
@@ -1454,9 +1454,9 @@ public abstract class BaseConstants {
 	}
 
 	/**
-	 * 进行对应数据解析<br />
-	 * string转为string-key，jsonString为value情况<br />
-	 * 过程存在将内容转为json对象再转回的操作<br />
+	 * 进行对应数据解析</br>
+	 * string转为string-key，jsonString为value情况</br>
+	 * 过程存在将内容转为json对象再转回的操作</br>
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2021年3月4日 下午4:26:16
@@ -1688,8 +1688,8 @@ public abstract class BaseConstants {
 		return bak;
 	}
 	// /**
-	// * 过段时间删除该方法 2021-12-14<br />
-	// * 进行对应数据解析<br />
+	// * 过段时间删除该方法 2021-12-14</br>
+	// * 进行对应数据解析</br>
 	// *
 	// * @author tfzzh
 	// * @dateTime 2020年9月12日 下午3:23:10
@@ -1720,8 +1720,8 @@ public abstract class BaseConstants {
 	// return bak;
 	// }
 	// /**
-	// * 过段时间删除该方法 2021-12-14<br />
-	// * 进行对应数据解析<br />
+	// * 过段时间删除该方法 2021-12-14</br>
+	// * 进行对应数据解析</br>
 	// *
 	// * @author tfzzh
 	// * @dateTime 2020年9月19日 下午5:49:23

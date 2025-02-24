@@ -80,8 +80,8 @@ public abstract class BaseTimeoutPool implements Runnable {
 	}
 
 	/**
-	 * 具体的操作内容<br />
-	 * 循环操作<br />
+	 * 具体的操作内容</br>
+	 * 循环操作</br>
 	 * 
 	 * @author Xu Weijie
 	 * @dateTime 2012-11-17 下午12:55:12
@@ -123,8 +123,8 @@ public abstract class BaseTimeoutPool implements Runnable {
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-11-17 下午2:37:13
-	 * @return true，已经停止；<br />
-	 *         false，还在运行中；<br />
+	 * @return true，已经停止；</br>
+	 *         false，还在运行中；</br>
 	 */
 	public boolean isStop() {
 		return this.isStop;

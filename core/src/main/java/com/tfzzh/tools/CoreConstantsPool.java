@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 核心常量池<br />
- * 当前，一个常量对象，仅支持一个实例的记录<br />
+ * 核心常量池</br>
+ * 当前，一个常量对象，仅支持一个实例的记录</br>
  * 
  * @author Weijie Xu
  * @dateTime 2017年3月22日 下午5:49:09
@@ -64,8 +64,8 @@ public class CoreConstantsPool {
 	}
 
 	/**
-	 * 放入常量实例到常量池<br />
-	 * 暂时不允许同对象多实例<br />
+	 * 放入常量实例到常量池</br>
+	 * 暂时不允许同对象多实例</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月22日 下午6:31:22

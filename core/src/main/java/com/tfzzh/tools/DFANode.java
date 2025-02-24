@@ -93,8 +93,8 @@ public class DFANode {
 	}
 
 	/**
-	 * 是否为结束字符<br />
-	 * true，为结束字符<br />
+	 * 是否为结束字符</br>
+	 * true，为结束字符</br>
 	 * 
 	 * @author 许纬杰
 	 * @datetime 2016年3月25日_下午1:29:53

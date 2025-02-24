@@ -163,8 +163,8 @@ public class ManagerMap {
 	}
 
 	/**
-	 * 直接得到实现<br />
-	 * 不通过接口，为工具对其直接的调用<br />
+	 * 直接得到实现</br>
+	 * 不通过接口，为工具对其直接的调用</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014-3-21 下午3:36:45

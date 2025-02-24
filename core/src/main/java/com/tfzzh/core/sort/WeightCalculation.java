@@ -20,9 +20,9 @@ import java.util.Random;
 public class WeightCalculation {
 
 	/**
-	 * 是否为权重与区间数量的对调<br />
-	 * 最大替换最小，然后次大替换次小，以此循环<br />
-	 * 默认是对调<br />
+	 * 是否为权重与区间数量的对调</br>
+	 * 最大替换最小，然后次大替换次小，以此循环</br>
+	 * 默认是对调</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月14日 上午11:38:59

@@ -10,8 +10,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 自动注入用注解<br />
- * 也可写入具体名字<br />
+ * 自动注入用注解</br>
+ * 也可写入具体名字</br>
  * 
  * @author xuweijie
  * @dateTime 2012-1-29 下午4:20:51
@@ -21,8 +21,8 @@ import java.lang.annotation.Target;
 public @interface AutoPojo {
 
 	/**
-	 * 得到待注入内容对应名称<br />
-	 * 如空，则为对应字段的字段名<br />
+	 * 得到待注入内容对应名称</br>
+	 * 如空，则为对应字段的字段名</br>
 	 * 
 	 * @author xuweijie
 	 * @dateTime 2012-1-29 下午4:21:25

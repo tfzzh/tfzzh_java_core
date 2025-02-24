@@ -118,8 +118,8 @@ public class RandomCode {
 	/**
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:51:15
-	 * @param type 类型值：1，字母小写；2，字母大写；4，数字；<br />
-	 *           与运算方式<br />
+	 * @param type 类型值：1，字母小写；2，字母大写；4，数字；</br>
+	 *           与运算方式</br>
 	 */
 	private RandomCode(final int type) {
 		this.type = type;
@@ -127,8 +127,8 @@ public class RandomCode {
 	}
 
 	/**
-	 * 得到默认的随机码生成器实例<br />
-	 * 仅有小写字符的随机码<br />
+	 * 得到默认的随机码生成器实例</br>
+	 * 仅有小写字符的随机码</br>
 	 * 
 	 * @author XuWeijie
 	 * @datetime 2015年9月9日_下午12:54:27
@@ -186,9 +186,9 @@ public class RandomCode {
 	}
 
 	/**
-	 * 得到基础码类型<br />
-	 * 类型，1，字母小写；2，字母大写；4，数字；<br />
-	 * 与运算方式<br />
+	 * 得到基础码类型</br>
+	 * 类型，1，字母小写；2，字母大写；4，数字；</br>
+	 * 与运算方式</br>
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月24日 下午7:44:59

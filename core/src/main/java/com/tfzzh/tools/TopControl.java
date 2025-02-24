@@ -11,10 +11,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 排行控制<br />
- * 可以根据KEY得到排行信息<br />
- * 可以根据top值得到排行信息<br />
- * 在触发TopDataInfo.refresh()时，可以更新排行数据<br />
+ * 排行控制</br>
+ * 可以根据KEY得到排行信息</br>
+ * 可以根据top值得到排行信息</br>
+ * 在触发TopDataInfo.refresh()时，可以更新排行数据</br>
  * 
  * @author 许纬杰
  * @datetime 2016年6月2日_上午11:31:49
@@ -56,9 +56,9 @@ public class TopControl<K, B extends TopDataInfo<K>> {
 	private TopNode<K, B> currNode;
 
 	/**
-	 * 是否升序排列<br />
-	 * true，是升序排列，0在最前；<br />
-	 * false，是降序排列，0在最后；<br />
+	 * 是否升序排列</br>
+	 * true，是升序排列，0在最前；</br>
+	 * false，是降序排列，0在最后；</br>
 	 * 
 	 * @author 许纬杰
 	 * @datetime 2016年6月2日_下午2:15:56
@@ -74,8 +74,8 @@ public class TopControl<K, B extends TopDataInfo<K>> {
 	protected final Lock kLock = new ReentrantLock();
 
 	/**
-	 * 默认为降序排列<br />
-	 * 大值在前面<br />
+	 * 默认为降序排列</br>
+	 * 大值在前面</br>
 	 * 
 	 * @author 许纬杰
 	 * @datetime 2016年6月2日_下午2:20:02
@@ -87,9 +87,9 @@ public class TopControl<K, B extends TopDataInfo<K>> {
 	/**
 	 * @author 许纬杰
 	 * @datetime 2016年6月2日_下午1:21:51
-	 * @param isAsc 是否升序排列<br />
-	 *           true，是升序排列，0在最前；<br />
-	 *           false，是降序排列，0在最后；<br />
+	 * @param isAsc 是否升序排列</br>
+	 *           true，是升序排列，0在最前；</br>
+	 *           false，是降序排列，0在最后；</br>
 	 */
 	public TopControl(final boolean isAsc) {
 		this(isAsc, 1000);
@@ -98,9 +98,9 @@ public class TopControl<K, B extends TopDataInfo<K>> {
 	/**
 	 * @author 许纬杰
 	 * @datetime 2016年6月3日_下午3:23:17
-	 * @param isAsc 是否升序排列<br />
-	 *           true，是升序排列，0在最前；<br />
-	 *           false，是降序排列，0在最后；<br />
+	 * @param isAsc 是否升序排列</br>
+	 *           true，是升序排列，0在最前；</br>
+	 *           false，是降序排列，0在最后；</br>
 	 * @param initSize 初始化空间大小
 	 */
 	public TopControl(final boolean isAsc, final int initSize) {
@@ -373,8 +373,8 @@ public class TopControl<K, B extends TopDataInfo<K>> {
 	}
 
 	/**
-	 * 进行数据刷新<br />
-	 * 是在调用方法中存在的锁<br />
+	 * 进行数据刷新</br>
+	 * 是在调用方法中存在的锁</br>
 	 * 
 	 * @author 许纬杰
 	 * @datetime 2016年6月2日_下午1:20:06
@@ -698,8 +698,8 @@ public class TopControl<K, B extends TopDataInfo<K>> {
 		private TopDataInfo<K> tdi;
 
 		/**
-		 * 前一个数据<br />
-		 * null，表示对第一个数据<br />
+		 * 前一个数据</br>
+		 * null，表示对第一个数据</br>
 		 * 
 		 * @author 许纬杰
 		 * @datetime 2016年6月2日_下午2:24:39
@@ -707,8 +707,8 @@ public class TopControl<K, B extends TopDataInfo<K>> {
 		private TopNodeInfo before;
 
 		/**
-		 * 后一个数据<br />
-		 * null，表示为最后一个数据<br />
+		 * 后一个数据</br>
+		 * null，表示为最后一个数据</br>
 		 * 
 		 * @author 许纬杰
 		 * @datetime 2016年6月2日_下午2:24:40

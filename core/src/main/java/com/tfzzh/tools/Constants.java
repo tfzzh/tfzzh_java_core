@@ -14,9 +14,9 @@ package com.tfzzh.tools;
 public interface Constants {
 
 	/**
-	 * 系统级编码设置<br />
-	 * 先从getenv()的“LANG”中获取<br />
-	 * 默认：UTF-8<br />
+	 * 系统级编码设置</br>
+	 * 先从getenv()的“LANG”中获取</br>
+	 * 默认：UTF-8</br>
 	 * 
 	 * @author XuWeijie
 	 * @dateTime Apr 25, 2010 4:49:03 PM
@@ -34,9 +34,9 @@ public interface Constants {
 	boolean OS_WIN = System.getProperty("os.name").toLowerCase().indexOf("win") != -1;
 
 	/**
-	 * 初始化：配置文件路径：基础路径；<br />
-	 * 用于类对象，或者配置文件路径的操作；<br />
-	 * 最后会有“/”作为结束符号；<br />
+	 * 初始化：配置文件路径：基础路径；</br>
+	 * 用于类对象，或者配置文件路径的操作；</br>
+	 * 最后会有“/”作为结束符号；</br>
 	 * 
 	 * @author TFZZH
 	 * @dateTime 2011-2-21 下午04:34:57
@@ -44,9 +44,9 @@ public interface Constants {
 	String INIT_CONFIG_PATH_BASE = FileTools.purifyFilePath((Constants.class.getResource("/") != null) ? (Constants.OS_WIN ? Constants.class.getResource("/").getPath().substring(1) : Constants.class.getResource("/").getPath()) : (Constants.OS_WIN ? Constants.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1) + "/../config/" : Constants.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/../config/")) + "/";
 
 	/**
-	 * 初始化：应用文件路径：基础路径；<br />
-	 * 用于纯文件相关的路径的操作；<br />
-	 * 最后会有“/”作为结束符号；<br />
+	 * 初始化：应用文件路径：基础路径；</br>
+	 * 用于纯文件相关的路径的操作；</br>
+	 * 最后会有“/”作为结束符号；</br>
 	 * 
 	 * @author Xu Weijie
 	 * @dateTime 2012-10-8 下午5:39:44
