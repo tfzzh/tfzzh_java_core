@@ -50,9 +50,17 @@ public class SaveFileTools {
 			if (!f.exists()) {
 				// 因为不存在而创建
 				// f.createNewFile();
-				Files.createFile(f.toPath(), FileTools.FILE_ATTR);
+				try {
+					Files.createFile(f.toPath(), FileTools.FILE_ATTR);
+				} catch (UnsupportedOperationException uoe) {
+					Files.createFile(f.toPath());
+				}
 			} else {
-				Files.setPosixFilePermissions(f.toPath(), FileTools.FILE_PERMISSION);
+				try {
+					Files.setPosixFilePermissions(f.toPath(), FileTools.FILE_PERMISSION);
+				} catch (UnsupportedOperationException uoe) {
+				} catch (Exception e) {
+				}
 			}
 			final BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), Constants.SYSTEM_CODE));
 			out.write(cont);

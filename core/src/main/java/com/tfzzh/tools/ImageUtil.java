@@ -94,7 +94,11 @@ public class ImageUtil {
 			String redPath = imgName + "_redu." + imgSuf;
 			File outFile = new File(imgPath, redPath);
 			ImageIO.write(inpImg, imgType, outFile);
-			Files.setPosixFilePermissions(outFile.toPath(), FileTools.FILE_PERMISSION);
+			try {
+				Files.setPosixFilePermissions(outFile.toPath(), FileTools.FILE_PERMISSION);
+			} catch (UnsupportedOperationException uoe) {
+			} catch (Exception e) {
+			}
 		}
 		// return;
 		int imgHeight = inpImg.getHeight();
@@ -114,7 +118,11 @@ public class ImageUtil {
 			File outputFile = new File(imgPath, chunkFileName);
 			fileNames.add(chunkFileName);
 			ImageIO.write(chunkImage, imgType, outputFile);
-			Files.setPosixFilePermissions(outputFile.toPath(), FileTools.FILE_PERMISSION);
+			try {
+				Files.setPosixFilePermissions(outputFile.toPath(), FileTools.FILE_PERMISSION);
+			} catch (UnsupportedOperationException uoe) {
+			} catch (Exception e) {
+			}
 			sHei += chunkHeight;
 			ind++;
 		}
@@ -176,11 +184,19 @@ public class ImageUtil {
 		}
 		File outFile = new File(diskPath, redName);
 		if (!outFile.exists()) {
-			Files.createFile(outFile.toPath(), FileTools.FILE_ATTR);
+			try {
+				Files.createFile(outFile.toPath(), FileTools.FILE_ATTR);
+			} catch (UnsupportedOperationException uoe) {
+				Files.createFile(outFile.toPath());
+			}
 		}
 		String imgType = ImageUtil.getImgType(nameSuf);
 		ImageIO.write(bi, imgType, outFile);
-		Files.setPosixFilePermissions(outFile.toPath(), FileTools.FILE_PERMISSION);
+		try {
+			Files.setPosixFilePermissions(outFile.toPath(), FileTools.FILE_PERMISSION);
+		} catch (UnsupportedOperationException uoe) {
+		} catch (Exception e) {
+		}
 		return diskPath + redName;
 	}
 

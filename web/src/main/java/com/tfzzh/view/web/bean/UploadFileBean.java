@@ -107,7 +107,11 @@ public final class UploadFileBean extends BaseUploadFileBean {
 			// file.createNewFile();
 			// 写入内容到文件
 			this.fileInfo.write(file);
-			Files.setPosixFilePermissions(file.toPath(), FileTools.FILE_PERMISSION);
+			try {
+				Files.setPosixFilePermissions(file.toPath(), FileTools.FILE_PERMISSION);
+			} catch (UnsupportedOperationException uoe) {
+			} catch (Exception e) {
+			}
 			return new SaveFileBackBean(UploadBackCodeEnum.OK, file);
 		} catch (final IOException e) {
 			e.printStackTrace();
