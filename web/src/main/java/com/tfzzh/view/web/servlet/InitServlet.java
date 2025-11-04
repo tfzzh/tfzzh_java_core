@@ -38,7 +38,7 @@ public class InitServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() {
-		System.out.println(" in InitServlet init ... ");
+		CoreLog.getInstance().debug(this.getClass(), " in InitServlet init ... ");
 		this.handle();
 	}
 

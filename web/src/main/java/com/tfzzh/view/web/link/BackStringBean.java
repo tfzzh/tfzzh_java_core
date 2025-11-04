@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tfzzh.tools.Constants;
 import com.tfzzh.view.web.link.OperateLink.OperateLinkInfo;
 
 /**
@@ -47,6 +48,18 @@ public class BackStringBean extends BaseBackOperationBean {
 	public BackStringBean(final String cont) {
 		// 确实的不需要其他参数
 		this("json", cont);
+	}
+
+	/**
+	 * 通用类型
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2025年8月7日 15:38:25
+	 * @param objCont 对象类型，toString
+	 */
+	public BackStringBean(final Object objCont) {
+		// 确实的不需要其他参数
+		this("json", null == objCont ? Constants.EMPTY : objCont.toString());
 	}
 
 	/**

@@ -9,6 +9,7 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -2364,25 +2365,31 @@ public class OperateLink {
 			// 得到完整文件名
 			final String filePath = target.startsWith("file:") ? target.substring(7) : (Constants.INIT_CONFIG_PATH_BASE + target);
 			// 读及输出文件内容
-			final byte[] b = new byte[8192];
-			final FileInputStream fis = new FileInputStream(filePath);
-			final BufferedInputStream bis = new BufferedInputStream(fis);
-			final ServletOutputStream out = response.getOutputStream();
-			final BufferedOutputStream bos = new BufferedOutputStream(out);
-			if (CoreLog.getInstance().debugEnabled(this.getClass())) {
-				CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("Back File local path >> ").append(Constants.INIT_CONFIG_PATH_BASE).append(target).toString());
+			try {
+				final byte[] b = new byte[8192];
+				final FileInputStream fis = new FileInputStream(filePath);
+				final BufferedInputStream bis = new BufferedInputStream(fis);
+				final ServletOutputStream out = response.getOutputStream();
+				final BufferedOutputStream bos = new BufferedOutputStream(out);
+				if (CoreLog.getInstance().debugEnabled(this.getClass())) {
+					CoreLog.getInstance().debug(this.getClass(), new StringBuilder().append("Back File local path >> ").append(Constants.INIT_CONFIG_PATH_BASE).append(target).toString());
+				}
+				int len;
+				// 逐段内容读入
+				while ((len = bis.read(b)) >= 0) {
+					bos.write(b, 0, len);
+				}
+				// 清理和关闭流文件
+				bis.close();
+				fis.close();
+				bos.flush();
+				bos.close();
+				out.close();
+			} catch (FileNotFoundException fnfe) {
+				CoreLog.getInstance().error(this.getClass(), fnfe.getMessage());
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			int len;
-			// 逐段内容读入
-			while ((len = bis.read(b)) >= 0) {
-				bos.write(b, 0, len);
-			}
-			// 清理和关闭流文件
-			bis.close();
-			fis.close();
-			bos.flush();
-			bos.close();
-			out.close();
 		}
 
 		/**
@@ -2462,31 +2469,31 @@ public class OperateLink {
 			javax.imageio.ImageIO.write(back.getImg(), back.getImgType().getSufName(), out);
 			out.close();
 		}
-
-		/**
-		 * 返回简单加密字节串
-		 * 
-		 * @author tfzzh
-		 * @dateTime 2023年10月15日 13:59:54
-		 * @param back 返回的数据
-		 * @param request 请求
-		 * @param response 返回
-		 * @throws IOException 抛
-		 * @throws ServletException 抛
-		 */
-		public void executeResult(final BackSimpleEncryptionBean back, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
-			// // 设置响应的类型格式为图片格式
-			// response.setContentType("application/octet-stream;");
-			// // 禁止图像缓存。
-			// response.setHeader("Pragma", "no-cache");
-			// response.setHeader("Cache-Control", "no-cache");
-			// response.setDateHeader("Expires", 0);
-			// final ServletOutputStream out = response.getOutputStream();
-			// // 写入到out
-			// out.write(back.getOutBytes());
-			// out.close();
-			OperateLinkInfo.executeEncryptionResult(back, request, response);
-		}
+		// /**
+		// * 返回简单加密字节串
+		// *
+		// * @author tfzzh
+		// * @dateTime 2023年10月15日 13:59:54
+		// * @param back 返回的数据
+		// * @param request 请求
+		// * @param response 返回
+		// * @param reqTime 端请求时间
+		// * @throws IOException 抛
+		// * @throws ServletException 抛
+		// */
+		// public void executeResult(final BackSimpleEncryptionBean back, final HttpServletRequest request, final HttpServletResponse response, final long reqTime) throws IOException, ServletException {
+		// // // 设置响应的类型格式为图片格式
+		// // response.setContentType("application/octet-stream;");
+		// // // 禁止图像缓存。
+		// // response.setHeader("Pragma", "no-cache");
+		// // response.setHeader("Cache-Control", "no-cache");
+		// // response.setDateHeader("Expires", 0);
+		// // final ServletOutputStream out = response.getOutputStream();
+		// // // 写入到out
+		// // out.write(back.getOutBytes());
+		// // out.close();
+		// OperateLinkInfo.executeEncryptionResult(back, request, response, reqTime);
+		// }
 
 		/**
 		 * 返回简单加密字节串
@@ -2496,10 +2503,11 @@ public class OperateLink {
 		 * @param back 返回的数据
 		 * @param request 请求
 		 * @param response 返回
+		 * @param reqTime 端请求时间
 		 * @throws IOException 抛
 		 * @throws ServletException 抛
 		 */
-		public static void executeEncryptionResult(final BackSimpleEncryptionBean back, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
+		public static void executeEncryptionResult(final BackSimpleEncryptionBean back, final HttpServletRequest request, final HttpServletResponse response, final long reqTime) throws IOException, ServletException {
 			// 设置响应的类型格式为图片格式
 			response.setContentType("application/octet-stream;");
 			// 禁止图像缓存。
@@ -2508,7 +2516,7 @@ public class OperateLink {
 			response.setDateHeader("Expires", 0);
 			final ServletOutputStream out = response.getOutputStream();
 			// 写入到out
-			out.write(back.getOutBytes());
+			out.write(back.getOutBytes(reqTime));
 			out.close();
 		}
 

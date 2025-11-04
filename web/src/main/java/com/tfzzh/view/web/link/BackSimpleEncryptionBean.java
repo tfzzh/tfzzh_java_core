@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.tfzzh.exception.NonPassableMethodException;
+import com.tfzzh.log.CoreLog;
 import com.tfzzh.tools.Constants;
+import com.tfzzh.tools.StringTools;
 import com.tfzzh.view.web.link.OperateLink.OperateLinkInfo;
 
 /**
@@ -41,14 +44,13 @@ public class BackSimpleEncryptionBean extends BaseBackOperationBean {
 	 * @dateTime 2023年10月9日 15:47:15
 	 */
 	private final String sessKey;
-
-	/**
-	 * 端请求时间
-	 *
-	 * @author tfzzh
-	 * @dateTime 2023年10月9日 15:47:15
-	 */
-	private final long reqTime;
+	// /**
+	// * 端请求时间
+	// *
+	// * @author tfzzh
+	// * @dateTime 2023年10月9日 15:47:15
+	// */
+	// private final long reqTime;
 
 	/**
 	 * 输出的内容
@@ -62,10 +64,12 @@ public class BackSimpleEncryptionBean extends BaseBackOperationBean {
 	 * @author tfzzh
 	 * @dateTime 2024年7月10日 21:57:45
 	 * @param sessKey 会话秘钥
-	 * @param reqTime 端请求时间
+	 *           // * @param reqTime 端请求时间
 	 */
-	public BackSimpleEncryptionBean(final String sessKey, final long reqTime) {
-		this(null, sessKey, reqTime);
+	// public BackSimpleEncryptionBean(final String sessKey, final long reqTime) {
+	public BackSimpleEncryptionBean(final String sessKey) {
+		// this(null, sessKey, reqTime);
+		this(null, sessKey);
 	}
 
 	/**
@@ -73,13 +77,14 @@ public class BackSimpleEncryptionBean extends BaseBackOperationBean {
 	 * @dateTime 2023年10月9日 13:33:05
 	 * @param data 待返回数据
 	 * @param sessKey 会话秘钥
-	 * @param reqTime 端请求时间
+	 *           // * @param reqTime 端请求时间
 	 */
-	public BackSimpleEncryptionBean(final Object data, final String sessKey, final long reqTime) {
+	// public BackSimpleEncryptionBean(final Object data, final String sessKey, final long reqTime) {
+	public BackSimpleEncryptionBean(final Object data, final String sessKey) {
 		super(null, null);
 		this.data = data;
 		this.sessKey = sessKey;
-		this.reqTime = reqTime;
+		// this.reqTime = reqTime;
 	}
 
 	/**
@@ -127,21 +132,20 @@ public class BackSimpleEncryptionBean extends BaseBackOperationBean {
 	 * @return 转为的str
 	 */
 	private String objToString(final Object obj) {
-		if (null == obj) {
-			return Constants.EMPTY;
-		} else if (obj instanceof final String s) {
-			return s;
-		} else if (obj instanceof final Number n) {
-			return String.valueOf(n);
-		} else if (obj instanceof final Map m) {
+		return switch (obj) {
+		case null -> Constants.EMPTY;
+		case String s -> s;
+		case Number n -> String.valueOf(n);
+		case Map<?, ?> m -> {
 			final JSONObject jo = new JSONObject(m);
-			return jo.toJSONString();
-		} else if (obj instanceof final List l) {
-			final JSONArray ja = new JSONArray(l);
-			return ja.toJSONString();
-		} else {
-			return JSON.toJSONString(obj);
+			yield jo.toJSONString();
 		}
+		case List<?> l -> {
+			final JSONArray ja = new JSONArray(l);
+			yield ja.toJSONString();
+		}
+		default -> JSON.toJSONString(obj);
+		};
 	}
 
 	/**
@@ -178,23 +182,28 @@ public class BackSimpleEncryptionBean extends BaseBackOperationBean {
 	 * 
 	 * @author tfzzh
 	 * @dateTime 2023年10月15日 13:54:49
+	 * @param rt 端请求时间
 	 * @return 输出的字节串
 	 */
-	public byte[] getOutBytes() {
+	public byte[] getOutBytes(final long rt) {
 		if (null == this.out) {
 			if (null == this.data) {
 				this.out = new byte[0];
 				return this.out;
 			}
 			final String cont = this.objToString(this.data);
-			final String sk = this.getSecretKey(this.sessKey, this.reqTime);
-			// System.out.println(" sk -> [" + this.sessKey + "][" + this.reqTime + "] -> [" + sk + "]");
+			// final String sk = this.getSecretKey(this.sessKey, this.reqTime);
+			final String sk = this.getSecretKey(this.sessKey, rt);
+			// System.out.println(" sk -> [" + this.sessKey + "][" + this.reqTime + "] -> [" + sk + "] -->> [" + cont + "] ... ");
 			final byte[] skBA = sk.getBytes();
 			// System.out.println(MessageFormat.format(" sessKey -> [{0}] : [{1}] ... ", sk, Arrays.toString(skBA)));
 			// ------------------------------------------------------
 			final byte[] contBA = cont.getBytes();
-			// System.out.println(MessageFormat.format(" \n\ncont ->\n [{0}] :\n [{1}] ... ", cont, Arrays.toString(contBA)));
+			// System.out.println(MessageFormat.format(" sk:rt -> [{0}]:[{1}] -> [{2}] ... \ncont ->\n [{3}] :\n [{4}] ... ", this.sessKey, this.reqTime, sk, cont, Arrays.toString(contBA)));
+			// System.out.println(MessageFormat.format("\tsk:rt -> [{0}]:[{1}] -> [{2}] ... \ncont ->\n\t[{3}]\n\t[{4}]\n... ", this.sessKey, rt, sk, cont, Arrays.toString(contBA)));
 			final byte[] bakBA = this.encryptionByte(contBA, skBA);
+			// CoreLog.getInstance().debug(this.getClass(), "\tsk:rt -> [%s]:[%d] -> [%s] ... \ncont ->\n\t[%s]\ncontbyte ->\t[%s]\ncontencry ->\t[%s]\n... ".formatted(this.sessKey, rt, sk, cont, Arrays.toString(contBA), Arrays.toString(bakBA)));
+			CoreLog.getInstance().debug(this.getClass(), "\tsk:rt -> [%s]:[%d] -> [%s] ... \ncont ->\n\t[%s]\n... ".formatted(this.sessKey, rt, sk, StringTools.sliceLenString(cont, 128)));
 			// System.out.println(MessageFormat.format("\n bak ({1})[{0}]\n\n-> [{2}] \n... ", Arrays.toString(skBA), bakBA.length, Arrays.toString(bakBA)));
 			this.out = bakBA;
 		}
@@ -207,7 +216,8 @@ public class BackSimpleEncryptionBean extends BaseBackOperationBean {
 	 * @see com.tfzzh.view.web.link.BaseBackOperationBean#linkTo(com.tfzzh.view.web.link.OperateLink.OperateLinkInfo, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
+	@Deprecated
 	public void linkTo(final OperateLinkInfo link, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
-		link.executeResult(this, request, response);
+		throw new NonPassableMethodException(" Simple Encryption don't invoke linkTo ... ");
 	}
 }

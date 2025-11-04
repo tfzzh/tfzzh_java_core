@@ -240,6 +240,25 @@ public class StringTools {
 	}
 
 	/**
+	 * 截取长度的string
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2025年10月25日 22:06:04
+	 * @param txt 文本内容
+	 * @param len 目标长度
+	 * @return 最后的内容
+	 */
+	public static String sliceLenString(String txt, final int len) {
+		if (StringTools.isNullOrEmpty(txt)) {
+			return txt;
+		}
+		if (txt.length() <= len) {
+			return txt;
+		}
+		return txt.substring(0, len);
+	}
+
+	/**
 	 * 将字符串转为int数组
 	 * 
 	 * @author XuWeijie
