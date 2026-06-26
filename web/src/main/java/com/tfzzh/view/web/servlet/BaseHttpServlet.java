@@ -2,6 +2,9 @@ package com.tfzzh.view.web.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +22,7 @@ public abstract class BaseHttpServlet extends HttpServlet {
 
 	/**
 	 * @author tfzzh
-	 * @dateTime 2024年6月11日 16:28:44
+	 * @dateTime 2026年3月18日 16:08:15
 	 */
 	private static final long serialVersionUID = 2967337876636669893L;
 
@@ -35,8 +38,14 @@ public abstract class BaseHttpServlet extends HttpServlet {
 		if (StringTools.isNullOrEmpty(cont)) {
 			return;
 		}
+		String eCont = cont;
+		try {
+			eCont = URLEncoder.encode(cont, StandardCharsets.UTF_8.toString());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		try (PrintWriter pw = response.getWriter()) {
-			pw.write(cont);
+			pw.write(eCont);
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}

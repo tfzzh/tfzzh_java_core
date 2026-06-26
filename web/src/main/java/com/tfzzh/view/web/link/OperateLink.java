@@ -1445,10 +1445,10 @@ public class OperateLink {
 				if ((null != ct) && (ct.indexOf(OperateLink.S_JSON) != -1)) {
 					// TODO 是 json结构数据
 					if (this.readStreamJSON) {
+						final StringBuilder sb = new StringBuilder();
 						try (InputStreamReader reader = new InputStreamReader(request.getInputStream(), Constants.SYSTEM_CODE)) {
 							final char[] buff = new char[1024];
 							int len = 0;
-							final StringBuilder sb = new StringBuilder();
 							while ((len = reader.read(buff)) != -1) {
 								sb.append(buff, 0, len);
 							}

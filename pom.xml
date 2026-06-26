@@ -14,10 +14,11 @@
 		<argLine>-Dfile.encoding=UTF-8</argLine>
 		<jdk.version>21</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- <servlet.version>4.0.1</servlet.version>  2026-03-22 -->
 		<servlet.version>3.1.0</servlet.version>
 		<servlet.jsp.version>2.3.1</servlet.jsp.version>
-		<!-- <tomcat.version>9.0.80</tomcat.version> -->
-		<tomcat.version>10.1.44</tomcat.version><!-- 2025-08-25 -->
+		<tomcat.version>9.0.115</tomcat.version>
+		<!-- <tomcat.version>10.1.44</tomcat.version> -->
 		<apache.commons.version>1.5</apache.commons.version><!-- 2024-02-07 -->
 		<apache.codec.version>1.16.0</apache.codec.version><!-- 2024-02-07 -->
 		<!-- <fastjson.version>1.2.83</fastjson.version> --><!--2022-10-15 -->

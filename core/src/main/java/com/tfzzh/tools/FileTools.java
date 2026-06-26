@@ -41,6 +41,12 @@ public class FileTools {
 
 	/**
 	 * @author tfzzh
+	 * @dateTime 2026年3月20日 16:28:02
+	 */
+	private static final String MESSAGE_SUF = ".properties";
+
+	/**
+	 * @author tfzzh
 	 * @dateTime 2025年1月16日 01:29:23
 	 * @return 文件权限集合
 	 */
@@ -63,11 +69,11 @@ public class FileTools {
 	 */
 	public static String purifyFilePath(String path) {
 		boolean firstX = false;
-		if (path.startsWith("/") || path.startsWith("\\\\")) {
+		if (path.startsWith(Constants.DIAGONAL_LINE) || path.startsWith(Constants.ANTIDIAGONAL_LINE)) {
 			firstX = true;
 		}
 		// 替换统一字符
-		path = path.replaceAll("\\\\", "/");
+		path = path.replaceAll(Constants.ANTIDIAGONAL_LINE, Constants.DIAGONAL_LINE);
 		int ind = path.indexOf("://");
 		if (ind == -1) {
 			if (path.startsWith("//")) {
@@ -78,10 +84,10 @@ public class FileTools {
 		} else {
 			ind += 2;
 		}
-		path = StringTools.replace(path, "//", "/", ind);
+		path = StringTools.replace(path, "//", Constants.DIAGONAL_LINE, ind);
 		// 主要针对win系统
 		StringTools.replace(path, "%20", " ", 0);
-		final List<String> ls = StringTools.splitToArray(ind == 0 ? path : path.substring(ind + 1), "/");
+		final List<String> ls = StringTools.splitToArray(ind == 0 ? path : path.substring(ind + 1), Constants.DIAGONAL_LINE);
 		String s;
 		for (int i = 0; i < ls.size();) {
 			s = ls.get(i);
@@ -99,14 +105,14 @@ public class FileTools {
 			i++;
 		}
 		if (ind > 0) {
-			return path.substring(0, ind + 1) + StringTools.listToString(ls, "/");
+			return path.substring(0, ind + 1) + StringTools.listToString(ls, Constants.DIAGONAL_LINE);
 		} else {
-			if (ls.get(0).endsWith(":")) {
+			if (ls.get(0).endsWith(Constants.COLON)) {
 				// 是盘符路径
-				return StringTools.listToString(ls, "/");
+				return StringTools.listToString(ls, Constants.DIAGONAL_LINE);
 			} else {
 				// 是一般路径
-				return (firstX ? "/" : "") + StringTools.listToString(ls, "/");
+				return (firstX ? Constants.DIAGONAL_LINE : "") + StringTools.listToString(ls, Constants.DIAGONAL_LINE);
 			}
 		}
 	}
@@ -163,7 +169,10 @@ public class FileTools {
 		if (bundleName.startsWith("./")) {
 			bundleName = bundleName.substring(2);
 		}
-		if (Constants.class.getResource("/") != null) {
+		// if (!bundleName.endsWith(FileTools.MESSAGE_SUF)) {
+		// bundleName += FileTools.MESSAGE_SUF;
+		// }
+		if (Constants.class.getResource(Constants.DIAGONAL_LINE) != null) {
 			if (null == clz) {
 				return ResourceBundle.getBundle(bundleName);
 			} else {
@@ -171,7 +180,7 @@ public class FileTools {
 			}
 		} else {
 			try {
-				final File f = new File(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + "/") + bundleName + (bundleName.endsWith(".properties") ? "" : ".properties")));
+				final File f = new File(FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + ((folderName == null) ? "" : "/../" + folderName + Constants.DIAGONAL_LINE) + bundleName + (bundleName.endsWith(FileTools.MESSAGE_SUF) ? "" : FileTools.MESSAGE_SUF)));
 				final FileInputStream fis = new FileInputStream(f);
 				final ResourceBundle rb = new PropertyResourceBundle(new InputStreamReader(new BufferedInputStream(fis), Constants.SYSTEM_CODE));
 				return rb;
@@ -210,7 +219,7 @@ public class FileTools {
 	 * @return 文件在项目中路径
 	 */
 	public static String getFileProjectPath(final String filePath) {
-		return FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + "/" + filePath);
+		return FileTools.purifyFilePath(Constants.INIT_CONFIG_PATH_BASE + Constants.DIAGONAL_LINE + filePath);
 	}
 
 	/**

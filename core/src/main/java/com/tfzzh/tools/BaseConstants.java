@@ -628,7 +628,7 @@ public abstract class BaseConstants {
 			}
 			clz = clz.getSuperclass();
 		}
-		throw new NoSuchMethodException();
+		throw new NoSuchMethodException(clz.getSimpleName() + "." + methodName);
 	}
 
 	/**
@@ -1120,7 +1120,7 @@ public abstract class BaseConstants {
 		try {
 			// 直接获取值
 			String val = this.getResourceBundle().getString(key);
-			if (null == val) {
+			if (null == val && null != pv) {
 				final String dv = pv.defVal();
 				if (!StringTools.isNullOrEmpty(dv)) {
 					return dv;
@@ -1170,6 +1170,12 @@ public abstract class BaseConstants {
 			// 进行可能的内容替换操作
 			return this.rep(val, pv);
 		} catch (final MissingResourceException e) {
+			if (null != pv) {
+				final String dv = pv.defVal();
+				if (!StringTools.isNullOrEmpty(dv)) {
+					return dv;
+				}
+			}
 			e.printStackTrace();
 			return null;
 		}

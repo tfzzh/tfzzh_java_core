@@ -248,11 +248,8 @@ public class StringTools {
 	 * @param len 目标长度
 	 * @return 最后的内容
 	 */
-	public static String sliceLenString(String txt, final int len) {
-		if (StringTools.isNullOrEmpty(txt)) {
-			return txt;
-		}
-		if (txt.length() <= len) {
+	public static String sliceLenString(final String txt, final int len) {
+		if (StringTools.isNullOrEmpty(txt) || (txt.length() <= len)) {
 			return txt;
 		}
 		return txt.substring(0, len);
@@ -518,7 +515,7 @@ public class StringTools {
 			}
 			if (ei != si) {
 				try {
-					arr.add(Double.valueOf(str.substring(si, ei)).doubleValue());
+					arr.add(Double.parseDouble(str.substring(si, ei)));
 				} catch (final Exception e) {
 				}
 			}
@@ -526,7 +523,7 @@ public class StringTools {
 		}
 		// 增加最后一段
 		try {
-			arr.add(Double.valueOf(str.substring(si)).doubleValue());
+			arr.add(Double.parseDouble(str.substring(si)));
 		} catch (final Exception e) {
 		}
 		return arr;
@@ -591,7 +588,7 @@ public class StringTools {
 			}
 			if (ei != si) {
 				try {
-					arr.add(Float.valueOf(str.substring(si, ei)).floatValue());
+					arr.add(Float.parseFloat(str.substring(si, ei)));
 				} catch (final Exception e) {
 				}
 			}
@@ -599,7 +596,7 @@ public class StringTools {
 		}
 		// 增加最后一段
 		try {
-			arr.add(Float.valueOf(str.substring(si)).floatValue());
+			arr.add(Float.parseFloat(str.substring(si)));
 		} catch (final Exception e) {
 		}
 		return arr;
@@ -654,7 +651,7 @@ public class StringTools {
 	 */
 	public static String listToString(final List<String> ls, final String splitFlag) {
 		final StringBuilder sb = new StringBuilder();
-		final boolean has = !((null == splitFlag) || (splitFlag.length() == 0));
+		final boolean has = ((null != splitFlag) && (splitFlag.length() != 0));
 		boolean isFirst = true;
 		for (final String s : ls) {
 			if (isFirst) {
@@ -1023,6 +1020,35 @@ public class StringTools {
 	 */
 	public static boolean isNullOrEmpty(final String str) {
 		return (null == str) || (str.length() == 0);
+	}
+
+	/**
+	 * 是否字母与数字
+	 * 
+	 * @author tfzzh
+	 * @dateTime 2026年4月10日 16:28:56
+	 * @param str 目标字串
+	 * @return true，均为字母与数字
+	 */
+	public static boolean isLetterNumber(final String str) {
+		if ((str == null) || str.isEmpty()) {
+			return false;
+		}
+		final char[] ca = str.toCharArray();
+		for (final int ci : ca) {
+			if ((ci >= 65) && (ci <= 90)) { // 65-90‌
+				// 大写
+				continue;
+			} else if ((ci >= 97) && (ci <= 122)) { // 97-122
+				// 小写
+				continue;
+			} else if ((ci >= 48) && (ci <= 57)) { // 48-57‌
+				// 数字
+				continue;
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**

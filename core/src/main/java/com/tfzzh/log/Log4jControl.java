@@ -74,7 +74,16 @@ public class Log4jControl implements LogControl {
 	 */
 	@Override
 	public void fatal(final String... msg) {
-		this.fatal(this.getClass(), msg);
+		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+		if (sts.length > 2) {
+			try {
+				this.fatal(Class.forName(sts[2].getClassName()), msg);
+			} catch (final ClassNotFoundException e) {
+				this.fatal(this.getClass(), msg);
+			}
+		} else {
+			this.fatal(this.getClass(), msg);
+		}
 	}
 
 	/**
@@ -102,7 +111,16 @@ public class Log4jControl implements LogControl {
 	 */
 	@Override
 	public void error(final String... msg) {
-		this.error(this.getClass(), msg);
+		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+		if (sts.length > 2) {
+			try {
+				this.error(Class.forName(sts[2].getClassName()), msg);
+			} catch (final ClassNotFoundException e) {
+				this.error(this.getClass(), msg);
+			}
+		} else {
+			this.error(this.getClass(), msg);
+		}
 	}
 
 	/**
@@ -130,7 +148,16 @@ public class Log4jControl implements LogControl {
 	 */
 	@Override
 	public void warn(final String... msg) {
-		this.warn(this.getClass(), msg);
+		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+		if (sts.length > 2) {
+			try {
+				this.warn(Class.forName(sts[2].getClassName()), msg);
+			} catch (final ClassNotFoundException e) {
+				this.warn(this.getClass(), msg);
+			}
+		} else {
+			this.warn(this.getClass(), msg);
+		}
 	}
 
 	/**
@@ -158,7 +185,16 @@ public class Log4jControl implements LogControl {
 	 */
 	@Override
 	public void info(final String... msg) {
-		this.info(this.getClass(), msg);
+		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+		if (sts.length > 2) {
+			try {
+				this.info(Class.forName(sts[2].getClassName()), msg);
+			} catch (final ClassNotFoundException e) {
+				this.info(this.getClass(), msg);
+			}
+		} else {
+			this.info(this.getClass(), msg);
+		}
 	}
 
 	/**
@@ -186,7 +222,16 @@ public class Log4jControl implements LogControl {
 	 */
 	@Override
 	public void debug(final String... msg) {
-		this.debug(this.getClass(), msg);
+		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+		if (sts.length > 2) {
+			try {
+				this.debug(Class.forName(sts[2].getClassName()), msg);
+			} catch (final ClassNotFoundException e) {
+				this.debug(this.getClass(), msg);
+			}
+		} else {
+			this.debug(this.getClass(), msg);
+		}
 	}
 
 	/**
@@ -214,7 +259,16 @@ public class Log4jControl implements LogControl {
 	 */
 	@Override
 	public void trace(final String... msg) {
-		this.trace(this.getClass(), msg);
+		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+		if (sts.length > 2) {
+			try {
+				this.trace(Class.forName(sts[2].getClassName()), msg);
+			} catch (final ClassNotFoundException e) {
+				this.trace(this.getClass(), msg);
+			}
+		} else {
+			this.trace(this.getClass(), msg);
+		}
 	}
 
 	/**

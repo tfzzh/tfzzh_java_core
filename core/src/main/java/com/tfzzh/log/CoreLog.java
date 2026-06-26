@@ -76,24 +76,56 @@ public class CoreLog {
 	 * @param msg log内容
 	 */
 	public void putLogMsg(final LogLevel lvl, final String... msg) {
+		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+		Class<?> clz = null;
+		if (sts.length > 2) {
+			try {
+				clz = Class.forName(sts[2].getClassName());
+			} catch (final ClassNotFoundException e) {
+			}
+		}
 		switch (lvl) {
 		case FATAL:
-			this.fatal(msg);
+			if (null != clz) {
+				this.fatal(clz, msg);
+			} else {
+				this.fatal(msg);
+			}
 			break;
 		case ERROR:
-			this.error(msg);
+			if (null != clz) {
+				this.error(clz, msg);
+			} else {
+				this.error(msg);
+			}
 			break;
 		case WARN:
-			this.warn(msg);
+			if (null != clz) {
+				this.warn(clz, msg);
+			} else {
+				this.warn(msg);
+			}
 			break;
 		case INFO:
-			this.info(msg);
+			if (null != clz) {
+				this.info(clz, msg);
+			} else {
+				this.info(msg);
+			}
 			break;
 		case DEBUG:
-			this.debug(msg);
+			if (null != clz) {
+				this.debug(clz, msg);
+			} else {
+				this.debug(msg);
+			}
 			break;
 		case TRACE:
-			this.trace(msg);
+			if (null != clz) {
+				this.trace(clz, msg);
+			} else {
+				this.trace(msg);
+			}
 			break;
 		}
 	}
@@ -139,7 +171,16 @@ public class CoreLog {
 	 */
 	public void fatal(final String... msg) {
 		if (null != this.log) {
-			this.log.fatal(msg);
+			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+			if (sts.length > 2) {
+				try {
+					this.log.fatal(Class.forName(sts[2].getClassName()), msg);
+				} catch (final ClassNotFoundException e) {
+					this.log.fatal(msg);
+				}
+			} else {
+				this.log.fatal(msg);
+			}
 		}
 	}
 
@@ -166,7 +207,16 @@ public class CoreLog {
 	 */
 	public void error(final String... msg) {
 		if (null != this.log) {
-			this.log.error(msg);
+			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+			if (sts.length > 2) {
+				try {
+					this.log.error(Class.forName(sts[2].getClassName()), msg);
+				} catch (final ClassNotFoundException e) {
+					this.log.error(msg);
+				}
+			} else {
+				this.log.error(msg);
+			}
 		}
 	}
 
@@ -193,7 +243,16 @@ public class CoreLog {
 	 */
 	public void warn(final String... msg) {
 		if (null != this.log) {
-			this.log.warn(msg);
+			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+			if (sts.length > 2) {
+				try {
+					this.log.warn(Class.forName(sts[2].getClassName()), msg);
+				} catch (final ClassNotFoundException e) {
+					this.log.warn(msg);
+				}
+			} else {
+				this.log.warn(msg);
+			}
 		}
 	}
 
@@ -220,7 +279,16 @@ public class CoreLog {
 	 */
 	public void info(final String... msg) {
 		if (null != this.log) {
-			this.log.info(msg);
+			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+			if (sts.length > 2) {
+				try {
+					this.log.info(Class.forName(sts[2].getClassName()), msg);
+				} catch (final ClassNotFoundException e) {
+					this.log.info(msg);
+				}
+			} else {
+				this.log.info(msg);
+			}
 		}
 	}
 
@@ -247,7 +315,16 @@ public class CoreLog {
 	 */
 	public void debug(final String... msg) {
 		if (null != this.log) {
-			this.log.debug(msg);
+			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+			if (sts.length > 2) {
+				try {
+					this.log.debug(Class.forName(sts[2].getClassName()), msg);
+				} catch (final ClassNotFoundException e) {
+					this.log.debug(msg);
+				}
+			} else {
+				this.log.debug(msg);
+			}
 		}
 	}
 
@@ -274,7 +351,16 @@ public class CoreLog {
 	 */
 	public void trace(final String... msg) {
 		if (null != this.log) {
-			this.log.trace(msg);
+			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+			if (sts.length > 2) {
+				try {
+					this.log.trace(Class.forName(sts[2].getClassName()), msg);
+				} catch (final ClassNotFoundException e) {
+					this.log.trace(msg);
+				}
+			} else {
+				this.log.trace(msg);
+			}
 		}
 	}
 

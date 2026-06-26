@@ -40,6 +40,7 @@ public class TableScope<E extends BaseEntityBean, D extends BaseDAO<E>> {
 	 * @param name 域名称
 	 * @param dao 实际相关的DAO接口实例
 	 */
+	@Deprecated
 	public TableScope(final String name, final D dao) {
 		this.name = name;
 		this.dao = dao;
@@ -52,6 +53,7 @@ public class TableScope<E extends BaseEntityBean, D extends BaseDAO<E>> {
 	 * @dateTime 2015年4月24日 下午2:12:53
 	 * @return the name
 	 */
+	@Deprecated
 	public String getName() {
 		return this.name;
 	}
@@ -63,6 +65,7 @@ public class TableScope<E extends BaseEntityBean, D extends BaseDAO<E>> {
 	 * @dateTime 2015年4月24日 下午2:12:53
 	 * @return the dao
 	 */
+	@Deprecated
 	public D getDao() {
 		return this.dao;
 	}
@@ -75,6 +78,7 @@ public class TableScope<E extends BaseEntityBean, D extends BaseDAO<E>> {
 	 * @param tfb 字段信息对象
 	 * @return 字段作用域
 	 */
+	@Deprecated
 	public FieldScope getFieldScope(final EntityInfoBean<E>.FieldInfoBean tfb) {
 		return new FieldScope(tfb);
 	}
@@ -85,6 +89,7 @@ public class TableScope<E extends BaseEntityBean, D extends BaseDAO<E>> {
 	 * @author Weijie Xu
 	 * @dateTime 2015年4月24日 下午4:10:07
 	 */
+	@Deprecated
 	protected class FieldScope {
 
 		/**
@@ -100,6 +105,7 @@ public class TableScope<E extends BaseEntityBean, D extends BaseDAO<E>> {
 		 * @dateTime 2015年4月24日 下午4:13:24
 		 * @param tfb 数据表中字段
 		 */
+		@Deprecated
 		protected FieldScope(final EntityInfoBean<E>.FieldInfoBean tfb) {
 			this.tfb = tfb;
 		}
@@ -111,6 +117,7 @@ public class TableScope<E extends BaseEntityBean, D extends BaseDAO<E>> {
 		 * @dateTime 2015年4月24日 下午4:15:11
 		 * @return 表中字段对象
 		 */
+		@Deprecated
 		protected EntityInfoBean<E>.FieldInfoBean getTableField() {
 			return this.tfb;
 		}
@@ -122,6 +129,7 @@ public class TableScope<E extends BaseEntityBean, D extends BaseDAO<E>> {
 		 * @dateTime 2015年4月24日 下午4:15:12
 		 * @return 所在的域对象
 		 */
+		@Deprecated
 		protected TableScope<E, D> getTableScope() {
 			return TableScope.this;
 		}

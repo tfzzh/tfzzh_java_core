@@ -319,16 +319,15 @@ public class Sha1 {
 	public String getDigestOfString(final byte[] byteData) {
 		return Sha1.byteArrayToHexString(this.getDigestOfBytes(byteData));
 	}
-
-	/**
-	 * @author 许纬杰
-	 * @datetime 2016年4月26日_下午6:16:26
-	 * @param args 无效果
-	 */
-	public static void main(final String[] args) {
-		final String data = "jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg&noncestr=Wm3WZYTPz0wzccnW&timestamp=1414587457&url=http://mp.weixin.qq.com?params=value";
-		System.out.println(data);
-		final String digest = new Sha1().getDigestOfString(data.getBytes());
-		System.out.println(digest);
-	}
+	// /**
+	// * @author 许纬杰
+	// * @datetime 2016年4月26日_下午6:16:26
+	// * @param args 无效果
+	// */
+	// public static void main(final String[] args) {
+	// final String data = "jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg&noncestr=Wm3WZYTPz0wzccnW&timestamp=1414587457&url=http://mp.weixin.qq.com?params=value";
+	// System.out.println(data);
+	// final String digest = new Sha1().getDigestOfString(data.getBytes());
+	// System.out.println(digest);
+	// }
 }
