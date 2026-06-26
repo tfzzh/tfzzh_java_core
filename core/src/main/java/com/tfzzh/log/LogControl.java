@@ -17,9 +17,9 @@ public interface LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	void fatal(String... msg);
+	void fatal(Object... msgObj);
 
 	/**
 	 * 写入fatal级别的log
@@ -27,9 +27,9 @@ public interface LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	void fatal(Class<?> clz, String... msg);
+	void fatal(Class<?> clz, Object... msgObj);
 
 	/**
 	 * fatal级别日志，是否开启
@@ -55,9 +55,9 @@ public interface LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	void error(String... msg);
+	void error(Object... msgObj);
 
 	/**
 	 * 写入error级别的log
@@ -65,9 +65,9 @@ public interface LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	void error(Class<?> clz, String... msg);
+	void error(Class<?> clz, Object... msgObj);
 
 	/**
 	 * error级别日志，是否开启
@@ -93,9 +93,9 @@ public interface LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	void warn(String... msg);
+	void warn(Object... msgObj);
 
 	/**
 	 * 写入warn级别的log
@@ -103,9 +103,9 @@ public interface LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	void warn(Class<?> clz, String... msg);
+	void warn(Class<?> clz, Object... msgObj);
 
 	/**
 	 * warn级别日志，是否开启
@@ -131,9 +131,9 @@ public interface LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	void info(String... msg);
+	void info(Object... msgObj);
 
 	/**
 	 * 写入info级别的log
@@ -141,9 +141,9 @@ public interface LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	void info(Class<?> clz, String... msg);
+	void info(Class<?> clz, Object... msgObj);
 
 	/**
 	 * info级别日志，是否开启
@@ -169,9 +169,9 @@ public interface LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	void debug(String... msg);
+	void debug(Object... msgObj);
 
 	/**
 	 * 写入debug级别的log
@@ -179,9 +179,9 @@ public interface LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	void debug(Class<?> clz, String... msg);
+	void debug(Class<?> clz, Object... msgObj);
 
 	/**
 	 * debug级别日志，是否开启
@@ -207,9 +207,9 @@ public interface LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	void trace(String... msg);
+	void trace(Object... msgObj);
 
 	/**
 	 * 写入trace级别的log
@@ -217,9 +217,9 @@ public interface LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	void trace(Class<?> clz, String... msg);
+	void trace(Class<?> clz, Object... msgObj);
 
 	/**
 	 * trace级别日志，是否开启

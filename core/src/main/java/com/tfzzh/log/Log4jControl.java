@@ -70,19 +70,19 @@ public class Log4jControl implements LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
 	@Override
-	public void fatal(final String... msg) {
+	public void fatal(final Object... msgObj) {
 		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 		if (sts.length > 2) {
 			try {
-				this.fatal(Class.forName(sts[2].getClassName()), msg);
+				this.fatal(Class.forName(sts[2].getClassName()), msgObj);
 			} catch (final ClassNotFoundException e) {
-				this.fatal(this.getClass(), msg);
+				this.fatal(this.getClass(), msgObj);
 			}
 		} else {
-			this.fatal(this.getClass(), msg);
+			this.fatal(this.getClass(), msgObj);
 		}
 	}
 
@@ -92,13 +92,13 @@ public class Log4jControl implements LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
 	@Override
-	public void fatal(final Class<?> clz, final String... msg) {
+	public void fatal(final Class<?> clz, final Object... msgObj) {
 		final Logger log = this.getLog(clz);
 		if (log.isFatalEnabled()) {
-			log.fatal(this.compositeMsg(msg));
+			log.fatal(this.compositeMsg(msgObj));
 		}
 	}
 
@@ -107,19 +107,19 @@ public class Log4jControl implements LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
 	@Override
-	public void error(final String... msg) {
+	public void error(final Object... msgObj) {
 		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 		if (sts.length > 2) {
 			try {
-				this.error(Class.forName(sts[2].getClassName()), msg);
+				this.error(Class.forName(sts[2].getClassName()), msgObj);
 			} catch (final ClassNotFoundException e) {
-				this.error(this.getClass(), msg);
+				this.error(this.getClass(), msgObj);
 			}
 		} else {
-			this.error(this.getClass(), msg);
+			this.error(this.getClass(), msgObj);
 		}
 	}
 
@@ -129,13 +129,13 @@ public class Log4jControl implements LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
 	@Override
-	public void error(final Class<?> clz, final String... msg) {
+	public void error(final Class<?> clz, final Object... msgObj) {
 		final Logger log = this.getLog(clz);
 		if (log.isErrorEnabled()) {
-			log.error(this.compositeMsg(msg));
+			log.error(this.compositeMsg(msgObj));
 		}
 	}
 
@@ -144,19 +144,19 @@ public class Log4jControl implements LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
 	@Override
-	public void warn(final String... msg) {
+	public void warn(final Object... msgObj) {
 		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 		if (sts.length > 2) {
 			try {
-				this.warn(Class.forName(sts[2].getClassName()), msg);
+				this.warn(Class.forName(sts[2].getClassName()), msgObj);
 			} catch (final ClassNotFoundException e) {
-				this.warn(this.getClass(), msg);
+				this.warn(this.getClass(), msgObj);
 			}
 		} else {
-			this.warn(this.getClass(), msg);
+			this.warn(this.getClass(), msgObj);
 		}
 	}
 
@@ -166,13 +166,13 @@ public class Log4jControl implements LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
 	@Override
-	public void warn(final Class<?> clz, final String... msg) {
+	public void warn(final Class<?> clz, final Object... msgObj) {
 		final Logger log = this.getLog(clz);
 		if (log.isWarnEnabled()) {
-			log.warn(this.compositeMsg(msg));
+			log.warn(this.compositeMsg(msgObj));
 		}
 	}
 
@@ -181,19 +181,19 @@ public class Log4jControl implements LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
 	@Override
-	public void info(final String... msg) {
+	public void info(final Object... msgObj) {
 		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 		if (sts.length > 2) {
 			try {
-				this.info(Class.forName(sts[2].getClassName()), msg);
+				this.info(Class.forName(sts[2].getClassName()), msgObj);
 			} catch (final ClassNotFoundException e) {
-				this.info(this.getClass(), msg);
+				this.info(this.getClass(), msgObj);
 			}
 		} else {
-			this.info(this.getClass(), msg);
+			this.info(this.getClass(), msgObj);
 		}
 	}
 
@@ -203,13 +203,13 @@ public class Log4jControl implements LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
 	@Override
-	public void info(final Class<?> clz, final String... msg) {
+	public void info(final Class<?> clz, final Object... msgObj) {
 		final Logger log = this.getLog(clz);
 		if (log.isInfoEnabled()) {
-			log.info(this.compositeMsg(msg));
+			log.info(this.compositeMsg(msgObj));
 		}
 	}
 
@@ -218,19 +218,19 @@ public class Log4jControl implements LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
 	@Override
-	public void debug(final String... msg) {
+	public void debug(final Object... msgObj) {
 		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 		if (sts.length > 2) {
 			try {
-				this.debug(Class.forName(sts[2].getClassName()), msg);
+				this.debug(Class.forName(sts[2].getClassName()), msgObj);
 			} catch (final ClassNotFoundException e) {
-				this.debug(this.getClass(), msg);
+				this.debug(this.getClass(), msgObj);
 			}
 		} else {
-			this.debug(this.getClass(), msg);
+			this.debug(this.getClass(), msgObj);
 		}
 	}
 
@@ -240,13 +240,13 @@ public class Log4jControl implements LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
 	@Override
-	public void debug(final Class<?> clz, final String... msg) {
+	public void debug(final Class<?> clz, final Object... msgObj) {
 		final Logger log = this.getLog(clz);
 		if (log.isDebugEnabled()) {
-			log.debug(this.compositeMsg(msg));
+			log.debug(this.compositeMsg(msgObj));
 		}
 	}
 
@@ -255,19 +255,19 @@ public class Log4jControl implements LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:28:58
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
 	@Override
-	public void trace(final String... msg) {
+	public void trace(final Object... msgObj) {
 		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 		if (sts.length > 2) {
 			try {
-				this.trace(Class.forName(sts[2].getClassName()), msg);
+				this.trace(Class.forName(sts[2].getClassName()), msgObj);
 			} catch (final ClassNotFoundException e) {
-				this.trace(this.getClass(), msg);
+				this.trace(this.getClass(), msgObj);
 			}
 		} else {
-			this.trace(this.getClass(), msg);
+			this.trace(this.getClass(), msgObj);
 		}
 	}
 
@@ -277,13 +277,13 @@ public class Log4jControl implements LogControl {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午10:37:06
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
 	@Override
-	public void trace(final Class<?> clz, final String... msg) {
+	public void trace(final Class<?> clz, final Object... msgObj) {
 		final Logger log = this.getLog(clz);
 		if (log.isTraceEnabled()) {
-			log.trace(this.compositeMsg(msg));
+			log.trace(this.compositeMsg(msgObj));
 		}
 	}
 
@@ -292,12 +292,12 @@ public class Log4jControl implements LogControl {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年7月11日 下午3:27:14
-	 * @param msg 消息集合
+	 * @param msgObj 消息集合
 	 * @return 组合后的消息
 	 */
-	private StringBuilder compositeMsg(final String... msg) {
-		final StringBuilder sb = new StringBuilder(msg.length * 16);
-		for (final String element : msg) {
+	private StringBuilder compositeMsg(final Object... msgObj) {
+		final StringBuilder sb = new StringBuilder(msgObj.length * 16);
+		for (final Object element : msgObj) {
 			sb.append(element);
 			if (sb.lastIndexOf(" ") != (sb.length() - 1)) {
 				sb.append(' ');

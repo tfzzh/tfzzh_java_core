@@ -73,9 +73,9 @@ public class CoreLog {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:15:22
 	 * @param lvl log级别
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	public void putLogMsg(final LogLevel lvl, final String... msg) {
+	public void putLogMsg(final LogLevel lvl, final Object... msgObj) {
 		final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 		Class<?> clz = null;
 		if (sts.length > 2) {
@@ -87,44 +87,44 @@ public class CoreLog {
 		switch (lvl) {
 		case FATAL:
 			if (null != clz) {
-				this.fatal(clz, msg);
+				this.fatal(clz, msgObj);
 			} else {
-				this.fatal(msg);
+				this.fatal(msgObj);
 			}
 			break;
 		case ERROR:
 			if (null != clz) {
-				this.error(clz, msg);
+				this.error(clz, msgObj);
 			} else {
-				this.error(msg);
+				this.error(msgObj);
 			}
 			break;
 		case WARN:
 			if (null != clz) {
-				this.warn(clz, msg);
+				this.warn(clz, msgObj);
 			} else {
-				this.warn(msg);
+				this.warn(msgObj);
 			}
 			break;
 		case INFO:
 			if (null != clz) {
-				this.info(clz, msg);
+				this.info(clz, msgObj);
 			} else {
-				this.info(msg);
+				this.info(msgObj);
 			}
 			break;
 		case DEBUG:
 			if (null != clz) {
-				this.debug(clz, msg);
+				this.debug(clz, msgObj);
 			} else {
-				this.debug(msg);
+				this.debug(msgObj);
 			}
 			break;
 		case TRACE:
 			if (null != clz) {
-				this.trace(clz, msg);
+				this.trace(clz, msgObj);
 			} else {
-				this.trace(msg);
+				this.trace(msgObj);
 			}
 			break;
 		}
@@ -137,27 +137,27 @@ public class CoreLog {
 	 * @dateTime 2017年3月23日 上午11:15:23
 	 * @param lvl log级别
 	 * @param clz 所相关操作类对象
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	public void putLogMsg(final LogLevel lvl, final Class<?> clz, final String... msg) {
+	public void putLogMsg(final LogLevel lvl, final Class<?> clz, final Object... msgObj) {
 		switch (lvl) {
 		case FATAL:
-			this.fatal(clz, msg);
+			this.fatal(clz, msgObj);
 			break;
 		case ERROR:
-			this.error(clz, msg);
+			this.error(clz, msgObj);
 			break;
 		case WARN:
-			this.warn(clz, msg);
+			this.warn(clz, msgObj);
 			break;
 		case INFO:
-			this.info(clz, msg);
+			this.info(clz, msgObj);
 			break;
 		case DEBUG:
-			this.debug(clz, msg);
+			this.debug(clz, msgObj);
 			break;
 		case TRACE:
-			this.trace(clz, msg);
+			this.trace(clz, msgObj);
 			break;
 		}
 	}
@@ -167,19 +167,19 @@ public class CoreLog {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	public void fatal(final String... msg) {
+	public void fatal(final Object... msgObj) {
 		if (null != this.log) {
 			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 			if (sts.length > 2) {
 				try {
-					this.log.fatal(Class.forName(sts[2].getClassName()), msg);
+					this.log.fatal(Class.forName(sts[2].getClassName()), msgObj);
 				} catch (final ClassNotFoundException e) {
-					this.log.fatal(msg);
+					this.log.fatal(msgObj);
 				}
 			} else {
-				this.log.fatal(msg);
+				this.log.fatal(msgObj);
 			}
 		}
 	}
@@ -190,11 +190,11 @@ public class CoreLog {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	public void fatal(final Class<?> clz, final String... msg) {
+	public void fatal(final Class<?> clz, final Object... msgObj) {
 		if (null != this.log) {
-			this.log.fatal(clz, msg);
+			this.log.fatal(clz, msgObj);
 		}
 	}
 
@@ -203,19 +203,19 @@ public class CoreLog {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	public void error(final String... msg) {
+	public void error(final Object... msgObj) {
 		if (null != this.log) {
 			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 			if (sts.length > 2) {
 				try {
-					this.log.error(Class.forName(sts[2].getClassName()), msg);
+					this.log.error(Class.forName(sts[2].getClassName()), msgObj);
 				} catch (final ClassNotFoundException e) {
-					this.log.error(msg);
+					this.log.error(msgObj);
 				}
 			} else {
-				this.log.error(msg);
+				this.log.error(msgObj);
 			}
 		}
 	}
@@ -226,11 +226,11 @@ public class CoreLog {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	public void error(final Class<?> clz, final String... msg) {
+	public void error(final Class<?> clz, final Object... msgObj) {
 		if (null != this.log) {
-			this.log.error(clz, msg);
+			this.log.error(clz, msgObj);
 		}
 	}
 
@@ -239,19 +239,19 @@ public class CoreLog {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	public void warn(final String... msg) {
+	public void warn(final Object... msgObj) {
 		if (null != this.log) {
 			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 			if (sts.length > 2) {
 				try {
-					this.log.warn(Class.forName(sts[2].getClassName()), msg);
+					this.log.warn(Class.forName(sts[2].getClassName()), msgObj);
 				} catch (final ClassNotFoundException e) {
-					this.log.warn(msg);
+					this.log.warn(msgObj);
 				}
 			} else {
-				this.log.warn(msg);
+				this.log.warn(msgObj);
 			}
 		}
 	}
@@ -262,11 +262,11 @@ public class CoreLog {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	public void warn(final Class<?> clz, final String... msg) {
+	public void warn(final Class<?> clz, final Object... msgObj) {
 		if (null != this.log) {
-			this.log.warn(clz, msg);
+			this.log.warn(clz, msgObj);
 		}
 	}
 
@@ -275,19 +275,19 @@ public class CoreLog {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	public void info(final String... msg) {
+	public void info(final Object... msgObj) {
 		if (null != this.log) {
 			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 			if (sts.length > 2) {
 				try {
-					this.log.info(Class.forName(sts[2].getClassName()), msg);
+					this.log.info(Class.forName(sts[2].getClassName()), msgObj);
 				} catch (final ClassNotFoundException e) {
-					this.log.info(msg);
+					this.log.info(msgObj);
 				}
 			} else {
-				this.log.info(msg);
+				this.log.info(msgObj);
 			}
 		}
 	}
@@ -298,11 +298,11 @@ public class CoreLog {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	public void info(final Class<?> clz, final String... msg) {
+	public void info(final Class<?> clz, final Object... msgObj) {
 		if (null != this.log) {
-			this.log.info(clz, msg);
+			this.log.info(clz, msgObj);
 		}
 	}
 
@@ -311,19 +311,19 @@ public class CoreLog {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	public void debug(final String... msg) {
+	public void debug(final Object... msgObj) {
 		if (null != this.log) {
 			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 			if (sts.length > 2) {
 				try {
-					this.log.debug(Class.forName(sts[2].getClassName()), msg);
+					this.log.debug(Class.forName(sts[2].getClassName()), msgObj);
 				} catch (final ClassNotFoundException e) {
-					this.log.debug(msg);
+					this.log.debug(msgObj);
 				}
 			} else {
-				this.log.debug(msg);
+				this.log.debug(msgObj);
 			}
 		}
 	}
@@ -334,11 +334,11 @@ public class CoreLog {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	public void debug(final Class<?> clz, final String... msg) {
+	public void debug(final Class<?> clz, final Object... msgObj) {
 		if (null != this.log) {
-			this.log.debug(clz, msg);
+			this.log.debug(clz, msgObj);
 		}
 	}
 
@@ -347,19 +347,19 @@ public class CoreLog {
 	 * 
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
-	 * @param msg log内容
+	 * @param msgObj log内容
 	 */
-	public void trace(final String... msg) {
+	public void trace(final Object... msgObj) {
 		if (null != this.log) {
 			final StackTraceElement[] sts = Thread.currentThread().getStackTrace();
 			if (sts.length > 2) {
 				try {
-					this.log.trace(Class.forName(sts[2].getClassName()), msg);
+					this.log.trace(Class.forName(sts[2].getClassName()), msgObj);
 				} catch (final ClassNotFoundException e) {
-					this.log.trace(msg);
+					this.log.trace(msgObj);
 				}
 			} else {
-				this.log.trace(msg);
+				this.log.trace(msgObj);
 			}
 		}
 	}
@@ -370,11 +370,11 @@ public class CoreLog {
 	 * @author Weijie Xu
 	 * @dateTime 2017年3月23日 上午11:02:11
 	 * @param clz 所相关操作类对象
-	 * @param msg 日志内容
+	 * @param msgObj 日志内容
 	 */
-	public void trace(final Class<?> clz, final String... msg) {
+	public void trace(final Class<?> clz, final Object... msgObj) {
 		if (null != this.log) {
-			this.log.trace(clz, msg);
+			this.log.trace(clz, msgObj);
 		}
 	}
 
