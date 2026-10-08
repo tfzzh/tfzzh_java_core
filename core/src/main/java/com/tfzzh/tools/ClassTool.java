@@ -36,7 +36,7 @@ public class ClassTool {
 	 * @param pack 包路径
 	 * @return 最后修改时间
 	 */
-	public static long getClassesLastTime(String pack) {
+	public static long getClassesLastTime(final String pack) {
 		long clcTime = 0;
 		// 获取包的名字 并进行替换
 		String packageDirName = pack.replace('.', '/');
@@ -60,20 +60,20 @@ public class ClassTool {
 					// // System.err.println("file类型的扫描");
 					// // 获取包的物理路径
 					// // 以文件的方式扫描整个包下的文件 并添加到集合中
-					long tclc = ClassTool.findClassesInPackageLastTime(filePath);
+					final long tclc = ClassTool.findClassesInPackageLastTime(filePath);
 					if (clcTime < tclc) {
 						clcTime = tclc;
 					}
 				} else if ("jar".equals(protocol)) {
 					// 处理!
 					filePath = filePath.substring(0, filePath.indexOf("!"));
-					long tclc = ClassTool.findClassesInPackageLastTime(filePath);
+					final long tclc = ClassTool.findClassesInPackageLastTime(filePath);
 					if (clcTime < tclc) {
 						clcTime = tclc;
 					}
 				}
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return clcTime;
@@ -96,7 +96,7 @@ public class ClassTool {
 			return 0;
 		}
 		if (f.isDirectory()) {
-			return findAndAddClassesInPackageLastTime(f);
+			return ClassTool.findAndAddClassesInPackageLastTime(f);
 		} else {
 			return f.lastModified();
 		}
@@ -110,7 +110,7 @@ public class ClassTool {
 	 * @param dir 文件目录
 	 * @return 内部所有class文件最后修改时间
 	 */
-	private static long findAndAddClassesInPackageLastTime(File dir) {
+	private static long findAndAddClassesInPackageLastTime(final File dir) {
 		long clcTime = 0;
 		// 是文件夹，向下遍历文件
 		final File[] fs = dir.listFiles(new FileFilter() {
@@ -121,15 +121,15 @@ public class ClassTool {
 				return file.isDirectory() || (file.getName().endsWith(".class"));
 			}
 		});
-		for (File f : fs) {
+		for (final File f : fs) {
 			if (f.isDirectory()) {
 				// 是文件夹
-				long tclc = ClassTool.findAndAddClassesInPackageLastTime(f);
+				final long tclc = ClassTool.findAndAddClassesInPackageLastTime(f);
 				if (clcTime < tclc) {
 					clcTime = tclc;
 				}
 			} else {
-				long tclc = f.lastModified();
+				final long tclc = f.lastModified();
 				if (clcTime < tclc) {
 					clcTime = tclc;
 				}

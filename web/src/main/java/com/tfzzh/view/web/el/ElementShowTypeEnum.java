@@ -65,7 +65,7 @@ enum ElementShowTypeEnum {
 
 		@Override
 		protected String getValContent(final Object val, final String format) {
-			return ">" + (null == val ? "" : (val instanceof Date ? DateFormat.customDateFormat((Date) val, format) : (val instanceof Calendar) ? DateFormat.customDateFormat(((Calendar) val).getTime(), format) : val.toString()));
+			return ">" + (null == val ? "" : (val instanceof final Date d ? DateFormat.customDateFormat(d, format) : (val instanceof final Calendar c) ? DateFormat.customDateFormat(c.getTime(), format) : val.toString()));
 		}
 
 		@Override

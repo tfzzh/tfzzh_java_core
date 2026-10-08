@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.tfzzh.view.web.link.OperateLink.OperateLinkInfo;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 数据返回操作基础控制

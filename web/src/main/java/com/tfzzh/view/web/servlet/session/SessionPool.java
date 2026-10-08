@@ -10,14 +10,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.tfzzh.log.CoreLog;
 import com.tfzzh.timer.TimerTaskControl;
 import com.tfzzh.tools.ProjectCodeTools;
 import com.tfzzh.view.web.tools.ClientTypeEnum;
 import com.tfzzh.view.web.tools.WebBaseConstants;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 会话池<br />

@@ -6,11 +6,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
-
 import com.tfzzh.tools.ObjectBack;
 import com.tfzzh.tools.StringTools;
+
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 基础Servlet
@@ -41,7 +41,7 @@ public abstract class BaseHttpServlet extends HttpServlet {
 		String eCont = cont;
 		try {
 			eCont = URLEncoder.encode(cont, StandardCharsets.UTF_8.toString());
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		try (PrintWriter pw = response.getWriter()) {

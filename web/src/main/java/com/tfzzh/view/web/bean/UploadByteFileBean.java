@@ -98,8 +98,7 @@ public final class UploadByteFileBean extends BaseUploadFileBean {
 			// 写入内容到文件
 			try {
 				Files.setPosixFilePermissions(file.toPath(), FileTools.FILE_PERMISSION);
-			} catch (UnsupportedOperationException uoe) {
-			} catch (Exception e) {
+			} catch (final Exception e) {
 			}
 			return new SaveFileBackBean(UploadBackCodeEnum.OK, file);
 		} catch (final IOException e) {

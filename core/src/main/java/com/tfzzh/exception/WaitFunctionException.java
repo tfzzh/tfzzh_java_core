@@ -24,7 +24,7 @@ public class WaitFunctionException extends RuntimeException {
 	 * @dateTime 2025年1月24日 15:27:12
 	 * @param msg 待完善功能消息内容
 	 */
-	public WaitFunctionException(String msg) {
+	public WaitFunctionException(final String msg) {
 		super(msg);
 	}
 }

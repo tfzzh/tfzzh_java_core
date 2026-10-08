@@ -6,9 +6,9 @@ package com.tfzzh.view.web.el;
 
 import java.io.IOException;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.Tag;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 /**
  * @author Xu Weijie
@@ -67,7 +67,7 @@ public class FormTypeTag extends TagSupport {
 	 * @dateTime 2012-7-19 下午9:56:52
 	 * @return 类型值
 	 * @throws JspException 抛
-	 * @see javax.servlet.jsp.tagext.TagSupport#doStartTag()
+	 * @see jakarta.servlet.jsp.tagext.TagSupport#doStartTag()
 	 */
 	@Override
 	public int doStartTag() throws JspException {
@@ -100,7 +100,7 @@ public class FormTypeTag extends TagSupport {
 	 * @dateTime 2012-7-19 下午10:05:45
 	 * @return 类型值
 	 * @throws JspException 抛
-	 * @see javax.servlet.jsp.tagext.TagSupport#doEndTag()
+	 * @see jakarta.servlet.jsp.tagext.TagSupport#doEndTag()
 	 */
 	@Override
 	public int doEndTag() throws JspException {

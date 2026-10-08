@@ -6,10 +6,10 @@ package com.tfzzh.view.web.tools;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.tfzzh.tools.Constants;
 import com.tfzzh.tools.StringTools;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * web服务工具

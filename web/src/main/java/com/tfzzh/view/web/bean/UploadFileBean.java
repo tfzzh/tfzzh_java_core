@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
 
-import org.apache.commons.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 
 import com.tfzzh.tools.Constants;
 import com.tfzzh.tools.FileTools;
@@ -36,7 +36,7 @@ public final class UploadFileBean extends BaseUploadFileBean {
 	 * @author Xu Weijie
 	 * @dateTime 2012-9-28 下午2:10:31
 	 */
-	private final FileItem fileInfo;
+	private final DiskFileItem fileInfo;
 
 	/**
 	 * @author Xu Weijie
@@ -49,7 +49,7 @@ public final class UploadFileBean extends BaseUploadFileBean {
 	 * @param suffixs 后缀名限定
 	 * @param paramMap 请求的参数集合
 	 */
-	public UploadFileBean(final FileItem fileInfo, final boolean addTimestamp, final String folderPath, final UploadFileNameTypeEnum fileNameType, final String targetFileName, final String suffixs, final Map<String, Object> paramMap) {
+	public UploadFileBean(final DiskFileItem fileInfo, final boolean addTimestamp, final String folderPath, final UploadFileNameTypeEnum fileNameType, final String targetFileName, final String suffixs, final Map<String, Object> paramMap) {
 		super(fileInfo.getName(), addTimestamp, folderPath, fileNameType, targetFileName, suffixs, paramMap);
 		this.fileInfo = fileInfo;
 	}
@@ -109,8 +109,7 @@ public final class UploadFileBean extends BaseUploadFileBean {
 			this.fileInfo.write(file);
 			try {
 				Files.setPosixFilePermissions(file.toPath(), FileTools.FILE_PERMISSION);
-			} catch (UnsupportedOperationException uoe) {
-			} catch (Exception e) {
+			} catch (final Exception e) {
 			}
 			return new SaveFileBackBean(UploadBackCodeEnum.OK, file);
 		} catch (final IOException e) {

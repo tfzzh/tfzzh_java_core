@@ -141,24 +141,12 @@ public class CoreLog {
 	 */
 	public void putLogMsg(final LogLevel lvl, final Class<?> clz, final Object... msgObj) {
 		switch (lvl) {
-		case FATAL:
-			this.fatal(clz, msgObj);
-			break;
-		case ERROR:
-			this.error(clz, msgObj);
-			break;
-		case WARN:
-			this.warn(clz, msgObj);
-			break;
-		case INFO:
-			this.info(clz, msgObj);
-			break;
-		case DEBUG:
-			this.debug(clz, msgObj);
-			break;
-		case TRACE:
-			this.trace(clz, msgObj);
-			break;
+		case FATAL -> this.fatal(clz, msgObj);
+		case ERROR -> this.error(clz, msgObj);
+		case WARN -> this.warn(clz, msgObj);
+		case INFO -> this.info(clz, msgObj);
+		case DEBUG -> this.debug(clz, msgObj);
+		case TRACE -> this.trace(clz, msgObj);
 		}
 	}
 

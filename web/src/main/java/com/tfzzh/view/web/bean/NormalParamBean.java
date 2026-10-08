@@ -37,7 +37,7 @@ public abstract class NormalParamBean extends BaseParamBean {
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public void setParameters(final Map<String, Object> paraMap, boolean needValid) {
+	public void setParameters(final Map<String, Object> paraMap, final boolean needValid) {
 		Class<?> clz = this.getClass();
 		do {
 			this.setParameters((Class<? extends NormalParamBean>) clz, paraMap);
@@ -187,8 +187,7 @@ public abstract class NormalParamBean extends BaseParamBean {
 					}
 				}
 			}
-		} catch (final IllegalArgumentException e) {
-		} catch (final IllegalAccessException e) {
+		} catch (final IllegalArgumentException | IllegalAccessException e) {
 		}
 	}
 }

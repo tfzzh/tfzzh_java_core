@@ -224,7 +224,7 @@ public class WeightCalculation {
 	 * @author Weijie Xu
 	 * @dateTime 2014年6月14日 下午2:37:14
 	 */
-	private class WeightBean {
+	private static class WeightBean {
 
 		/**
 		 * key

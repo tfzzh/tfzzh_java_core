@@ -119,7 +119,7 @@ public class RequestDecryptTool {
 		// }
 		int fInd = -2;
 		try {
-			fInd = Integer.valueOf(fHx, 16);
+			fInd = Integer.parseInt(fHx, 16);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}

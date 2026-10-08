@@ -4,10 +4,10 @@
  */
 package com.tfzzh.view.web.el;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
-
 import com.tfzzh.view.web.bean.BaseParamBean;
+
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 /**
  * 表单对象标签
@@ -53,7 +53,7 @@ public class FormParamTag extends TagSupport {
 	 * @dateTime 2012-7-19 下午9:29:30
 	 * @return 类型值
 	 * @throws JspException 抛
-	 * @see javax.servlet.jsp.tagext.TagSupport#doStartTag()
+	 * @see jakarta.servlet.jsp.tagext.TagSupport#doStartTag()
 	 */
 	@Override
 	public int doStartTag() throws JspException {

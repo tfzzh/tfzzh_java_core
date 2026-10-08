@@ -127,12 +127,8 @@ public class TimerTaskControl implements Runnable {
 									}
 									final TimerExecStatusEnum ts = t.toNext();
 									switch (ts) {
-									case Running:
-										TimerTaskControl.this.putTask(t, true);
-										break;
-									default:
-										t.inOver(ts);
-										break;
+									case Running -> TimerTaskControl.this.putTask(t, true);
+									default -> t.inOver(ts);
 									}
 								}
 							}).start();

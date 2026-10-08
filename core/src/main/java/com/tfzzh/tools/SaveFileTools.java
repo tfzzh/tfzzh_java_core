@@ -52,14 +52,13 @@ public class SaveFileTools {
 				// f.createNewFile();
 				try {
 					Files.createFile(f.toPath(), FileTools.FILE_ATTR);
-				} catch (UnsupportedOperationException uoe) {
+				} catch (final UnsupportedOperationException uoe) {
 					Files.createFile(f.toPath());
 				}
 			} else {
 				try {
 					Files.setPosixFilePermissions(f.toPath(), FileTools.FILE_PERMISSION);
-				} catch (UnsupportedOperationException uoe) {
-				} catch (Exception e) {
+				} catch (final Exception e) {
 				}
 			}
 			final BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), Constants.SYSTEM_CODE));

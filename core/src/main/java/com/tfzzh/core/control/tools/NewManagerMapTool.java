@@ -713,13 +713,7 @@ public class NewManagerMapTool {
 								field.set(obj, mgr);
 							}
 							continue;
-						} catch (final IllegalArgumentException e) {
-							throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + mgr.getClass().getName());
-						} catch (final IllegalAccessException e) {
-							throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + mgr.getClass().getName());
-						} catch (final NoSuchFieldException e) {
-							throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + mgr.getClass().getName());
-						} catch (final SecurityException e) {
+						} catch (final IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
 							throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + mgr.getClass().getName());
 						} finally {
 							if (null != field) {

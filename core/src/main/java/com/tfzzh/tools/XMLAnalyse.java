@@ -205,9 +205,7 @@ public class XMLAnalyse {
 			// 得到待读取文件
 			try {
 				doc = db.parse(file);
-			} catch (final SAXException saxe) {
-				saxe.printStackTrace();
-			} catch (final IOException ioe) {
+			} catch (final SAXException | IOException ioe) {
 				ioe.printStackTrace();
 			}
 			// 读取文件过程

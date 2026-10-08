@@ -6,10 +6,10 @@ package com.tfzzh.view.web.el;
 
 import java.io.IOException;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspTagException;
+import jakarta.servlet.jsp.tagext.Tag;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 /**
  * 表单控制区
@@ -71,7 +71,7 @@ public class FormOtherLineTag extends TagSupport {
 	 * @dateTime 2012-7-20 下午3:19:23
 	 * @return 类型值
 	 * @throws JspException 抛
-	 * @see javax.servlet.jsp.tagext.TagSupport#doStartTag()
+	 * @see jakarta.servlet.jsp.tagext.TagSupport#doStartTag()
 	 */
 	@Override
 	public int doStartTag() throws JspException {
@@ -109,7 +109,7 @@ public class FormOtherLineTag extends TagSupport {
 	 * @dateTime 2012-7-20 下午3:19:20
 	 * @return 类型值
 	 * @throws JspException 抛
-	 * @see javax.servlet.jsp.tagext.TagSupport#doEndTag()
+	 * @see jakarta.servlet.jsp.tagext.TagSupport#doEndTag()
 	 */
 	@Override
 	public int doEndTag() throws JspException {

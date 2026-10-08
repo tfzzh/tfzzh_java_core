@@ -41,7 +41,7 @@ enum ElementTypeEnum {
 
 		@Override
 		protected String getValContent(final Object val) {
-			return ">" + (val instanceof Date ? DateFormat.getShortDateShow((Date) val) : val.toString());
+			return ">" + (val instanceof final Date d ? DateFormat.getShortDateShow(d) : val.toString());
 		}
 
 		@Override

@@ -110,11 +110,7 @@ public class BaseBean implements Serializable {
 					// v1 = map1.get(k);
 					try {
 						m2[ent.getValue()].invoke(target, m1[v1].invoke(copy));
-					} catch (final IllegalArgumentException e) {
-						// e.printStackTrace();
-					} catch (final IllegalAccessException e) {
-						// e.printStackTrace();
-					} catch (final InvocationTargetException e) {
+					} catch (final IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 						// e.printStackTrace();
 					}
 				}
@@ -155,11 +151,7 @@ public class BaseBean implements Serializable {
 					// v1 = map.get(k);
 					try {
 						ms[ent.getValue()].invoke(obj, v1);
-					} catch (final IllegalArgumentException e) {
-						// e.printStackTrace();
-					} catch (final IllegalAccessException e) {
-						// e.printStackTrace();
-					} catch (final InvocationTargetException e) {
+					} catch (final IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 						// e.printStackTrace();
 					}
 				}
@@ -171,11 +163,7 @@ public class BaseBean implements Serializable {
 				if (null != (v1 = mm.get(ent.getKey()))) {
 					try {
 						ms[v1].invoke(obj, ent.getValue());
-					} catch (final IllegalArgumentException e) {
-						// e.printStackTrace();
-					} catch (final IllegalAccessException e) {
-						// e.printStackTrace();
-					} catch (final InvocationTargetException e) {
+					} catch (final IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 						// e.printStackTrace();
 					}
 				}
@@ -269,13 +257,7 @@ public class BaseBean implements Serializable {
 					try {
 						// 参数长度为0
 						obj = m.invoke(this);
-					} catch (final IllegalArgumentException e) {
-						e.printStackTrace();
-						continue;
-					} catch (final IllegalAccessException e) {
-						e.printStackTrace();
-						continue;
-					} catch (final InvocationTargetException e) {
+					} catch (final IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 						e.printStackTrace();
 						continue;
 					} catch (final NestedRuntimeException e) {
@@ -289,8 +271,7 @@ public class BaseBean implements Serializable {
 						sb.append(lName.toLowerCase());
 						sb.append("=");
 					}
-					if (obj instanceof BaseBean) {
-						final BaseBean base = (BaseBean) obj;
+					if (obj instanceof final BaseBean base) {
 						if (dispose.containsKey(base)) {
 							// 已经存在该对象，该情况可能性应仅出现在程序调试的情况
 							// 放入说明该对象已经存在的消息
@@ -363,10 +344,7 @@ public class BaseBean implements Serializable {
 			final ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
 			final ObjectInputStream in = new ObjectInputStream(byteIn);
 			return in.readObject();
-		} catch (final IOException e) {
-			e.printStackTrace();
-			return null;
-		} catch (final ClassNotFoundException e) {
+		} catch (final IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}

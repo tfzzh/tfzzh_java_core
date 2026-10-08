@@ -7,10 +7,6 @@ package com.tfzzh.view.web.servlet.session;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.tools.BaseBean;
 import com.tfzzh.tools.Constants;
@@ -19,6 +15,10 @@ import com.tfzzh.view.web.bean.LoginSessionBean;
 import com.tfzzh.view.web.iface.TokenControl;
 import com.tfzzh.view.web.tools.ClientTypeEnum;
 import com.tfzzh.view.web.tools.WebBaseConstants;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 自建客户端会话数据，以替代服务容器的session

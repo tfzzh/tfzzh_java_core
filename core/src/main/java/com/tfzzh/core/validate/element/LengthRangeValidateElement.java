@@ -121,10 +121,9 @@ public class LengthRangeValidateElement extends ValidateElement {
 			// 空认为是通过的
 			return null;
 		}
-		if (!(val instanceof CharSequence)) {
+		if (!(val instanceof final CharSequence cs)) {
 			return new ValidateErrorInfo(name, ValidateErrorTypeConstants.ERR_TYPE, this.errVal, null);
 		}
-		final CharSequence cs = (CharSequence) val;
 		if (null != this.max) {
 			if (this.eqMax) {
 				if (cs.length() > this.max) {

@@ -4,9 +4,9 @@
  */
 package com.tfzzh.view.web.tools;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.tfzzh.log.CoreLog;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 环境识别工具<br />

@@ -394,10 +394,9 @@ public final class TfzzhUUID implements java.io.Serializable, Comparable<TfzzhUU
 	 */
 	@Override
 	public boolean equals(final Object obj) {
-		if (!(obj instanceof TfzzhUUID) || (((TfzzhUUID) obj).variant() != this.variant())) {
+		if (!(obj instanceof final TfzzhUUID id) || (id.variant() != this.variant())) {
 			return false;
 		}
-		final TfzzhUUID id = (TfzzhUUID) obj;
 		return ((this.mostSigBits == id.mostSigBits) && (this.leastSigBits == id.leastSigBits));
 	}
 

@@ -289,13 +289,43 @@ public class Log4jControl implements LogControl {
 
 	/**
 	 * 组合内容消息
-	 * 
+	 * 内容数量超过1时：如果第0位内容中包含“{}”，且“{}”的数量大于等于其他位内容数量（msgObj长度-1），
+	 * 则以占位替换方式组合，即将第1位起的内容依次替换入第0位内容的“{}”占位中；
+	 * 否则按原有顺序拼接方式组合。
+	 *
 	 * @author Weijie Xu
-	 * @dateTime 2017年7月11日 下午3:27:14
+	 * @dateTime 2026年9月23日 下午4:05:00
 	 * @param msgObj 消息集合
 	 * @return 组合后的消息
 	 */
 	private StringBuilder compositeMsg(final Object... msgObj) {
+		if (msgObj.length > 1) {
+			final String first = String.valueOf(msgObj[0]);
+			// 统计第0位内容中“{}”占位数量
+			int point = 0;
+			int count = 0;
+			while ((point = first.indexOf("{}", point)) != -1) {
+				count++;
+				point += 2;
+			}
+			if (count >= (msgObj.length - 1)) {
+				// 占位替换方式：依次将第1位起的内容替换入对应“{}”占位
+				final StringBuilder sb = new StringBuilder(first);
+				point = 0;
+				for (int i = 1; i < msgObj.length; i++) {
+					final String val = String.valueOf(msgObj[i]);
+					final int p = sb.indexOf("{}", point);
+					if (p == -1) {
+						// 理论由前置数量校验保证不会进入，此处防御处理
+						sb.append(' ').append(val);
+					} else {
+						sb.replace(p, p + 2, val);
+						point = p + val.length();
+					}
+				}
+				return sb;
+			}
+		}
 		final StringBuilder sb = new StringBuilder(msgObj.length * 16);
 		for (final Object element : msgObj) {
 			sb.append(element);

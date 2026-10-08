@@ -7,12 +7,12 @@ package com.tfzzh.view.web.link;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.tfzzh.view.web.link.OperateLink.OperateLinkInfo;
 import com.tfzzh.view.web.tools.SuffixTypeEnum;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 进行图片内容的读取
@@ -64,7 +64,7 @@ public class BackImgBean extends BaseBackOperationBean {
 	 * @param response 返回数据
 	 * @throws IOException 抛
 	 * @throws ServletException 抛
-	 * @see com.tfzzh.view.web.link.BaseBackOperationBean#linkTo(com.tfzzh.view.web.link.OperateLink.OperateLinkInfo, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see com.tfzzh.view.web.link.BaseBackOperationBean#linkTo(com.tfzzh.view.web.link.OperateLink.OperateLinkInfo, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public void linkTo(final OperateLinkInfo link, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {

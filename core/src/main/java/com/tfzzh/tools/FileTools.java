@@ -51,7 +51,7 @@ public class FileTools {
 	 * @return 文件权限集合
 	 */
 	private static Set<PosixFilePermission> initPerm() {
-		Set<PosixFilePermission> permissions = new HashSet<>();
+		final Set<PosixFilePermission> permissions = new HashSet<>();
 		permissions.add(PosixFilePermission.OWNER_READ);
 		permissions.add(PosixFilePermission.OWNER_WRITE);
 		permissions.add(PosixFilePermission.GROUP_READ);
@@ -361,8 +361,7 @@ public class FileTools {
 		 */
 		@Override
 		public boolean equals(final Object obj) {
-			if (obj instanceof FileCompareInfo) {
-				final FileCompareInfo c = (FileCompareInfo) obj;
+			if (obj instanceof final FileCompareInfo c) {
 				if (this.size == c.size) {
 					// 逐字节比较内容差异
 					try (final FileInputStream is1 = new FileInputStream(this.file); final FileInputStream is2 = new FileInputStream(c.file);) {

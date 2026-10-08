@@ -2,8 +2,6 @@ package com.tfzzh.view.web.servlet;
 
 import java.lang.reflect.Field;
 
-import javax.servlet.http.HttpServlet;
-
 import com.tfzzh.core.control.tools.NewManagerMapTool;
 import com.tfzzh.log.CoreLog;
 import com.tfzzh.tools.Constants;
@@ -12,6 +10,8 @@ import com.tfzzh.view.web.annotation.SingletonHideField;
 import com.tfzzh.view.web.purview.AccessPermissionsControl;
 import com.tfzzh.view.web.tools.InfoControl;
 import com.tfzzh.view.web.tools.LinkPageAnnotationAnalysis;
+
+import jakarta.servlet.http.HttpServlet;
 
 /**
  * 初始化系统消息<br />
@@ -34,7 +34,7 @@ public class InitServlet extends HttpServlet {
 	 * 
 	 * @author TFZZH
 	 * @dateTime 2011-2-15 上午11:34:58
-	 * @see javax.servlet.GenericServlet#init()
+	 * @see jakarta.servlet.GenericServlet#init()
 	 */
 	@Override
 	public void init() {

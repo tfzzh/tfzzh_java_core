@@ -71,9 +71,7 @@ public class XmlToBean {
 					}
 				}
 				doc = db.parse(s);
-			} catch (final SAXException saxe) {
-				saxe.printStackTrace();
-			} catch (final IOException ioe) {
+			} catch (final SAXException | IOException ioe) {
 				ioe.printStackTrace();
 			}
 			// 读取文件过程

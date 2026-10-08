@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,21 +28,13 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.catalina.util.ParameterMap;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadBase;
-import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.core.FileUploadSizeException;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletDiskFileUpload;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
@@ -67,6 +60,14 @@ import com.tfzzh.view.web.tools.RequestMethod;
 import com.tfzzh.view.web.tools.WebBaseConstants;
 import com.tfzzh.view.web.tools.WebConstants;
 import com.tfzzh.view.web.tools.WebTools;
+
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 连接操作
@@ -332,16 +333,16 @@ public class OperateLink {
 	 */
 	private OperateLinkInfo createOperateLinkInfo(final LinkType type, final String deployPath, final String reflectControlKey, final String prefix, final OperateLinkNodeInfo targetNode, final String[] result, final Map<String, Class<?>> params, final boolean readStreamJSON, final boolean canCrossDomain, final boolean needToken, final String description, final String ipRestr) {
 		// * @param accessPermissions 访问权限值 del 2023-11-24
-		switch (type) {
+		return switch (type) {
 		case Normal:
-			return new NormalOperateLinkInfo(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
+			yield new NormalOperateLinkInfo(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 		case Deploy:
-			return new DeployOperateLinkInfo(deployPath, reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
+			yield new DeployOperateLinkInfo(deployPath, reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 		case Branch:
-			return new BranchOperateLinkInfo(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
+			yield new BranchOperateLinkInfo(reflectControlKey, prefix, targetNode, result, params, readStreamJSON, canCrossDomain, needToken, description, ipRestr);
 		default: // 不可能出现的情况
 			throw new InitializeException("Exist not type: " + type.name());
-		}
+		};
 	}
 
 	/**
@@ -354,16 +355,16 @@ public class OperateLink {
 	 * @return 新的控制链接列表
 	 */
 	private OperateLinkList<? extends OperateLinkInfo> createOperateLinkList(final LinkType type, final String branchKey) {
-		switch (type) {
+		return switch (type) {
 		case Normal:
-			return new NormalOperateLinkList();
+			yield new NormalOperateLinkList();
 		case Deploy:
-			return new DeployOperateLinkList();
+			yield new DeployOperateLinkList();
 		case Branch:
-			return new BranchOperateLinkList(branchKey);
+			yield new BranchOperateLinkList(branchKey);
 		default: // 不可能出现的情况
 			throw new InitializeException("Exist not type: " + type.name());
-		}
+		};
 	}
 
 	/**
@@ -612,7 +613,7 @@ public class OperateLink {
 		 * 
 		 * @author xuweijie
 		 * @dateTime 2012-2-3 下午5:01:28
-		 * @see com.tfzzh.view.web.link.OperateLink.OperateLinkList#getLink(java.lang.String, javax.servlet.http.HttpServletRequest)
+		 * @see com.tfzzh.view.web.link.OperateLink.OperateLinkList#getLink(java.lang.String, jakarta.servlet.http.HttpServletRequest)
 		 */
 		@Override
 		protected NormalOperateLinkInfo getLink(final String path, final HttpServletRequest request) {
@@ -694,7 +695,7 @@ public class OperateLink {
 		/**
 		 * @author xuweijie
 		 * @dateTime 2012-2-6 下午12:01:29
-		 * @see com.tfzzh.view.web.link.OperateLink.OperateLinkList#getLink(java.lang.String, javax.servlet.http.HttpServletRequest)
+		 * @see com.tfzzh.view.web.link.OperateLink.OperateLinkList#getLink(java.lang.String, jakarta.servlet.http.HttpServletRequest)
 		 */
 		@Override
 		protected DeployOperateLinkInfo getLink(final String path, final HttpServletRequest request) {
@@ -785,7 +786,7 @@ public class OperateLink {
 		/**
 		 * @author xuweijie
 		 * @dateTime 2012-2-6 下午12:01:19
-		 * @see com.tfzzh.view.web.link.OperateLink.OperateLinkList#getLink(java.lang.String, javax.servlet.http.HttpServletRequest)
+		 * @see com.tfzzh.view.web.link.OperateLink.OperateLinkList#getLink(java.lang.String, jakarta.servlet.http.HttpServletRequest)
 		 */
 		@Override
 		protected BranchOperateLinkInfo getLink(final String path, final HttpServletRequest request) {
@@ -956,7 +957,7 @@ public class OperateLink {
 			this.needToken = needToken;
 			{ // 进行是否存在上传文件，以及可上传文件大小限制设置
 				int maxSize = 0;
-				String suffixLimit = "";
+				final StringBuilder suffixLimit = new StringBuilder();
 				for (final Class<?> clz : this.params.values()) {
 					if (UploadParamBean.class.isAssignableFrom(clz)) {
 						// 属于有文件上传的请求
@@ -966,14 +967,14 @@ public class OperateLink {
 							if (maxSize < tmp.getMaxSize()) {
 								maxSize = tmp.getMaxSize();
 							}
-							suffixLimit += tmp.getSuffixLimit();
+							suffixLimit.append(tmp.getSuffixLimit());
 						} catch (final Exception e) {
 							// 无信息
 						}
 					}
 				}
 				this.fileMaxSize = maxSize;
-				this.fileSuffixLimit = suffixLimit;
+				this.fileSuffixLimit = suffixLimit.toString();
 			}
 			// this.description = description;
 			this.ipRestr = ipRestr;
@@ -1300,27 +1301,22 @@ public class OperateLink {
 			if (null != ct) {
 				ct = ct.toLowerCase();
 			}
-			// System.out.println(" >> log 2021-07-05 >> request.getContentType [" + ct + "]");
+			// System.out.println(" >> log 2021-07-05 >> request.getContentType [" + ct + "]"); // FileUploadBase.MULTIPART
 			if ("post".equals(request.getMethod().toLowerCase()) && (null != ct) && ct.startsWith(FileUploadBase.MULTIPART)) {
 				// 是有上传文件
 				// 继续参数控制操作
-				final List<FileItem> fileList;
-				final DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-				diskFileItemFactory.setSizeThreshold(WebBaseConstants.UPLOAD_FILE_SIZE_THRESHOLD);
-				{ // 采用系统临时文件目录作为上传的临时目录
-					final File tempfile = new File(System.getProperty("java.io.tmpdir"));
-					diskFileItemFactory.setRepository(tempfile);
-				}
-				final ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
+				final List<DiskFileItem> fileList;
+				final DiskFileItemFactory diskFileItemFactory = DiskFileItemFactory.builder().setPath(new File(System.getProperty("java.io.tmpdir")).toPath()).setThreshold(WebBaseConstants.UPLOAD_FILE_SIZE_THRESHOLD).get();
+				final JakartaServletDiskFileUpload fileUpload = new JakartaServletDiskFileUpload(diskFileItemFactory);
 				if (this.fileMaxSize > 0) {
-					fileUpload.setSizeMax(this.fileMaxSize);
+					fileUpload.setMaxSize(this.fileMaxSize);
 				}
-				fileUpload.setHeaderEncoding(Constants.SYSTEM_CODE);
+				fileUpload.setHeaderCharset(StandardCharsets.UTF_8);
 				try {
 					fileList = fileUpload.parseRequest(request);
 				} catch (final FileUploadException e) {
 					e.printStackTrace();
-					if (e instanceof SizeLimitExceededException) {
+					if (e instanceof FileUploadSizeException) {
 						// 是文件大小超过限制
 						errorMap.put("sizeLimit", "文件不可超过1：" + this.fileMaxSize + "字节");
 						return 2;
@@ -1338,7 +1334,7 @@ public class OperateLink {
 				InputStreamReader isr;
 				BufferedReader br;
 				final Map<String, Object> map = new HashMap<>();
-				for (final FileItem file : fileList) {
+				for (final DiskFileItem file : fileList) {
 					if (null == file.getName()) {
 						fieldName = file.getFieldName();
 						// 该情况，是字段非文件
@@ -1389,14 +1385,14 @@ public class OperateLink {
 								map.put(file.getFieldName(), file);
 							} else {
 								// 数量处理为列表
-								final List<FileItem> fil;
+								final List<DiskFileItem> fil;
 								if (ov instanceof List) {
 									// 已经是列表，直接增加
-									fil = (List<FileItem>) ov;
+									fil = (List<DiskFileItem>) ov;
 									fil.add(file);
 								} else {
 									// 新为列表，则变更map中值对象
-									final FileItem fi = (FileItem) ov;
+									final DiskFileItem fi = (DiskFileItem) ov;
 									fil = new ArrayList<>(2);
 									fil.add(fi);
 									map.put(file.getFieldName(), fil);
@@ -1433,8 +1429,6 @@ public class OperateLink {
 					}
 					// System.out.println(" >>> " + sb.toString());
 					this.analysisFormUrlEncodeData(requestParas, sb.toString(), bdy);
-				} catch (final UnsupportedEncodingException e) {
-					e.printStackTrace();
 				} catch (final IOException e) {
 					e.printStackTrace();
 				} catch (final JSONException e) {
@@ -1459,8 +1453,6 @@ public class OperateLink {
 							if (null != jo) {
 								this.analysisJsonData(requestParas, jo, null);
 							}
-						} catch (final UnsupportedEncodingException e) {
-							e.printStackTrace();
 						} catch (final IOException e) {
 							e.printStackTrace();
 						} catch (final JSONException e) {
@@ -1748,7 +1740,7 @@ public class OperateLink {
 									paraLog.append(',');
 								}
 								try {
-									p[j] = URLDecoder.decode(ls.get(j).replaceAll("%", "%25"), Constants.SYSTEM_CODE);
+									p[j] = URLDecoder.decode(ls.get(j).replace("%", "%25"), Constants.SYSTEM_CODE);
 									paraLog.append(p[j]);
 								} catch (final UnsupportedEncodingException e) {
 									paraLog.append(ls.get(j));
@@ -1762,7 +1754,7 @@ public class OperateLink {
 				} else {
 					// TODO 之后考虑整体优化方案 2023-11-24
 					// 非数组
-					String[] keys = ent.getKey().split(Constants.COLON);
+					final String[] keys = ent.getKey().split(Constants.COLON);
 					nas: switch (keys[0]) {
 					case WebConstants.PRIVATE_LINK_NAME_REQUEST: { // 请求
 						// 是request
@@ -1996,7 +1988,7 @@ public class OperateLink {
 						case "String":
 							if (null != s) {
 								try {
-									paras[i] = URLDecoder.decode(s.replaceAll("%", "%25"), Constants.SYSTEM_CODE);
+									paras[i] = URLDecoder.decode(s.replace("%", "%25"), Constants.SYSTEM_CODE);
 								} catch (final UnsupportedEncodingException e) {
 									paras[i] = s;
 								}
@@ -2166,9 +2158,8 @@ public class OperateLink {
 			final InnerIndex ii = new InnerIndex(sb.indexOf("?"));
 			final Object oj = RunThreadLocal.getInstance().getObject(WebBaseConstants.TL_KEY);
 			if (back.isTakeToken()) {
-				if ((null != oj) && (oj instanceof ClientSessionBean)) {
+				if ((null != oj) && (oj instanceof final ClientSessionBean cs)) {
 					// 得到当前客户端信息
-					final ClientSessionBean cs = (ClientSessionBean) oj;
 					// sb.append('?').append(WebBaseConstants.CUSTOM_SESSION_TOKEN_KEY).append('=').append(cs.getToken());
 					this.assembleParam(sb, ii, WebBaseConstants.CUSTOM_SESSION_TOKEN_KEY, cs.getToken());
 					// 放入内容到header
@@ -2181,8 +2172,7 @@ public class OperateLink {
 				}
 			} else {
 				// 放入内容到header
-				if ((null != oj) && (oj instanceof ClientSessionBean)) {
-					final ClientSessionBean cs = (ClientSessionBean) oj;
+				if ((null != oj) && (oj instanceof final ClientSessionBean cs)) {
 					response.addHeader(WebBaseConstants.CUSTOM_SESSION_TOKEN_KEY, cs.getToken());
 					if (null != cs.getClientId()) {
 						response.addHeader(WebBaseConstants.CUSTOM_SESSION_TOKEN_KEY, cs.getToken());
@@ -2385,9 +2375,9 @@ public class OperateLink {
 				bos.flush();
 				bos.close();
 				out.close();
-			} catch (FileNotFoundException fnfe) {
+			} catch (final FileNotFoundException fnfe) {
 				CoreLog.getInstance().error(this.getClass(), fnfe.getMessage());
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -2819,8 +2809,7 @@ public class OperateLink {
 		 */
 		@Override
 		public boolean equals(final Object obj) {
-			if (obj instanceof DeployOperateLinkInfo) {
-				final DeployOperateLinkInfo other = (DeployOperateLinkInfo) obj;
+			if (obj instanceof final DeployOperateLinkInfo other) {
 				// 需要进行关键词的比较
 				if (this.keys.size() != other.keys.size()) {
 					return false;
@@ -3128,7 +3117,7 @@ public class OperateLink {
 	 * @author Xu Weijie
 	 * @dateTime 2012-7-5 上午11:13:41
 	 */
-	private class BackLinkOperationInfo {
+	private static class BackLinkOperationInfo {
 
 		/**
 		 * 目标

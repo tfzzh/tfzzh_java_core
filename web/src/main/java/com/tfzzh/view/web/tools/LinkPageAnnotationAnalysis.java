@@ -11,9 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.tfzzh.core.control.annotation.ManagerIoc;
 import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.core.control.tools.NewManagerMapTool;
@@ -45,6 +42,9 @@ import com.tfzzh.view.web.link.LinkType;
 import com.tfzzh.view.web.link.OperateLink;
 import com.tfzzh.view.web.link.OperateLink.OperateLinkNodeInfo;
 import com.tfzzh.view.web.servlet.session.ClientSessionBean;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 页面连接注解解析
@@ -396,13 +396,12 @@ public class LinkPageAnnotationAnalysis {
 					// map.put(this.KEY_READ_REQ_ATTR, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkLogin) {
 					map.put(WebConstants.PRIVATE_LINK_NAME_ACCOUNT, parasClz[i]);
-				} else if (parasAnn[i][0] instanceof LinkBean) {
-					LinkBean lb = (LinkBean) parasAnn[i][0];
-					String key = WebConstants.PRIVATE_LINK_NAME_BEAN + Constants.COLON + parasClz[i].getName();
+				} else if (parasAnn[i][0] instanceof final LinkBean lb) {
+					final StringBuilder key = new StringBuilder(WebConstants.PRIVATE_LINK_NAME_BEAN).append(Constants.COLON).append(parasClz[i].getName());
 					if (lb.needValid()) {
-						key += ":1";
+						key.append(":1");
 					}
-					map.put(key, parasClz[i]);
+					map.put(key.toString(), parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkAllIp) { // add xwj 2017-10-17
 					map.put(WebConstants.PRIVATE_LINK_NAME_IP, parasClz[i]);
 				} else if (parasAnn[i][0] instanceof LinkIp) {

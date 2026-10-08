@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 
 import com.tfzzh.tools.InstanceFactory;
 import com.tfzzh.tools.PropertiesTools;
@@ -128,14 +128,14 @@ public abstract class UploadParamBean extends BaseParamBean {
 	 * @dateTime 2011-3-7 下午04:02:33
 	 * @param paraMap 参数集合，包括文件部分；<br />
 	 *           List<String>：正常的页面传值；<br />
-	 *           FileItem：上传的文件；<br />
+	 *           DiskFileItem：上传的文件；<br />
 	 * @param needValid 是否需要校验：<br />
 	 *           true，需要校验；<br />
 	 * @see com.tfzzh.view.web.bean.BaseParamBean#setParameters(java.util.Map, boolean)
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public void setParameters(final Map<String, Object> paraMap, boolean needValid) {
+	public void setParameters(final Map<String, Object> paraMap, final boolean needValid) {
 		Class<?> clz = this.getClass();
 		do {
 			this.setParameters((Class<? extends UploadParamBean>) clz, paraMap);
@@ -154,7 +154,7 @@ public abstract class UploadParamBean extends BaseParamBean {
 	 * @param pClz 类信息
 	 * @param paraMap 参数集合，包括文件部分；<br />
 	 *           List<String>：正常的页面传值；<br />
-	 *           FileItem：上传的文件；<br />
+	 *           DiskFileItem：上传的文件；<br />
 	 */
 	@SuppressWarnings("unchecked")
 	private void setParameters(final Class<? extends UploadParamBean> pClz, final Map<String, Object> paraMap) {
@@ -200,7 +200,7 @@ public abstract class UploadParamBean extends BaseParamBean {
 						final UploadFileInfo info = field.getAnnotation(UploadFileInfo.class);
 						try {
 							final Object[] objs = { fo, info.addTimestamp(), PropertiesTools.getConstantsValue(info.folderPath()), info.nameType(), PropertiesTools.getConstantsValue(info.fileName()), PropertiesTools.getConstantsValue(info.suffix()), paraMap };
-							final Class<?>[] clzs = { FileItem.class, boolean.class, String.class, UploadFileNameTypeEnum.class, String.class, String.class, Map.class };
+							final Class<?>[] clzs = { DiskFileItem.class, boolean.class, String.class, UploadFileNameTypeEnum.class, String.class, String.class, Map.class };
 							// 创建一个文件对象
 							final UploadFileBean bean = InstanceFactory.classInstance(UploadFileBean.class, clzs, objs);
 							field.set(this, bean);
@@ -228,12 +228,12 @@ public abstract class UploadParamBean extends BaseParamBean {
 						final UploadFileInfo info = field.getAnnotation(UploadFileInfo.class);
 						if (fo instanceof List) {
 							// 是列表
-							final List<FileItem> fil = (List<FileItem>) fo;
+							final List<DiskFileItem> fil = (List<DiskFileItem>) fo;
 							final List<UploadFileBean> ufl = new ArrayList<>(fil.size());
-							for (final FileItem fi : fil) {
+							for (final DiskFileItem fi : fil) {
 								try {
 									final Object[] objs = { fi, info.addTimestamp(), PropertiesTools.getConstantsValue(info.folderPath()), info.nameType(), PropertiesTools.getConstantsValue(info.fileName()), PropertiesTools.getConstantsValue(info.suffix()), paraMap };
-									final Class<?>[] clzs = { FileItem.class, boolean.class, String.class, UploadFileNameTypeEnum.class, String.class, String.class, Map.class };
+									final Class<?>[] clzs = { DiskFileItem.class, boolean.class, String.class, UploadFileNameTypeEnum.class, String.class, String.class, Map.class };
 									// 创建一个文件对象
 									ufl.add(InstanceFactory.classInstance(UploadFileBean.class, clzs, objs));
 								} catch (InstantiationException | InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
@@ -251,9 +251,9 @@ public abstract class UploadParamBean extends BaseParamBean {
 							// 是个体
 							try {
 								final Object[] objs = { fo, info.addTimestamp(), PropertiesTools.getConstantsValue(info.folderPath()), info.nameType(), PropertiesTools.getConstantsValue(info.fileName()), PropertiesTools.getConstantsValue(info.suffix()), paraMap };
-								final Class<?>[] clzs = { FileItem.class, boolean.class, String.class, UploadFileNameTypeEnum.class, String.class, String.class, Map.class };
+								final Class<?>[] clzs = { DiskFileItem.class, boolean.class, String.class, UploadFileNameTypeEnum.class, String.class, String.class, Map.class };
 								// 创建一个文件对象
-								final UploadFileBean[] beans = new UploadFileBean[] { InstanceFactory.classInstance(UploadFileBean.class, clzs, objs) };
+								final UploadFileBean[] beans = { InstanceFactory.classInstance(UploadFileBean.class, clzs, objs) };
 								field.set(this, beans);
 							} catch (InstantiationException | InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 								e.printStackTrace();

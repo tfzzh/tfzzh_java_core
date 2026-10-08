@@ -6,8 +6,8 @@ package com.tfzzh.view.web.el;
 
 import java.io.IOException;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 /**
  * 表单提交用图片按钮标签
@@ -92,7 +92,7 @@ public class FormLinkTag extends TagSupport {
 	 * @dateTime 2012-7-21 上午12:21:16
 	 * @return 类型值
 	 * @throws JspException 抛
-	 * @see javax.servlet.jsp.tagext.TagSupport#doStartTag()
+	 * @see jakarta.servlet.jsp.tagext.TagSupport#doStartTag()
 	 */
 	@Override
 	public int doStartTag() throws JspException {

@@ -8,10 +8,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
@@ -20,6 +16,10 @@ import com.tfzzh.log.CoreLog;
 import com.tfzzh.tools.Constants;
 import com.tfzzh.tools.StringTools;
 import com.tfzzh.view.web.link.OperateLink.OperateLinkInfo;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 返回简单加密字节流信息
@@ -134,13 +134,13 @@ public class BackSimpleEncryptionBean extends BaseBackOperationBean {
 	private String objToString(final Object obj) {
 		return switch (obj) {
 		case null -> Constants.EMPTY;
-		case String s -> s;
-		case Number n -> String.valueOf(n);
-		case Map<?, ?> m -> {
+		case final String s -> s;
+		case final Number n -> String.valueOf(n);
+		case final Map<?, ?> m -> {
 			final JSONObject jo = new JSONObject(m);
 			yield jo.toJSONString();
 		}
-		case List<?> l -> {
+		case final List<?> l -> {
 			final JSONArray ja = new JSONArray(l);
 			yield ja.toJSONString();
 		}
@@ -213,7 +213,7 @@ public class BackSimpleEncryptionBean extends BaseBackOperationBean {
 	/**
 	 * @author tfzzh
 	 * @dateTime 2023年10月9日 18:43:40
-	 * @see com.tfzzh.view.web.link.BaseBackOperationBean#linkTo(com.tfzzh.view.web.link.OperateLink.OperateLinkInfo, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see com.tfzzh.view.web.link.BaseBackOperationBean#linkTo(com.tfzzh.view.web.link.OperateLink.OperateLinkInfo, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	@Deprecated

@@ -284,11 +284,11 @@ public class Sha1 {
 	 * @return 结果内容
 	 */
 	private static String byteArrayToHexString(final byte[] bytearray) {
-		String strDigest = "";
+		final StringBuilder strDigest = new StringBuilder();
 		for (final byte element : bytearray) {
-			strDigest += Sha1.byteToHexString(element);
+			strDigest.append(Sha1.byteToHexString(element));
 		}
-		return strDigest;
+		return strDigest.toString();
 	}
 
 	/**

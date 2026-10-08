@@ -1120,7 +1120,7 @@ public abstract class BaseConstants {
 		try {
 			// 直接获取值
 			String val = this.getResourceBundle().getString(key);
-			if (null == val && null != pv) {
+			if ((null == val) && (null != pv)) {
 				final String dv = pv.defVal();
 				if (!StringTools.isNullOrEmpty(dv)) {
 					return dv;

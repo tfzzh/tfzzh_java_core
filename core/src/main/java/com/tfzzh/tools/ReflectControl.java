@@ -293,9 +293,7 @@ public class ReflectControl {
 				if (null != (clz.getMethod(this.method.getName(), this.method.getParameterTypes()))) {
 					return true;
 				}
-			} catch (final NoSuchMethodException e) {
-				e.printStackTrace();
-			} catch (final SecurityException e) {
+			} catch (final NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
 			}
 			return false;

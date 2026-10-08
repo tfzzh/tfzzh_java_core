@@ -8,11 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.tfzzh.core.control.tools.ManagerMap;
 import com.tfzzh.exception.NestedRuntimeException;
 import com.tfzzh.log.CoreLog;
@@ -34,6 +29,11 @@ import com.tfzzh.view.web.tools.InfoControl;
 import com.tfzzh.view.web.tools.WebBaseConstants;
 import com.tfzzh.view.web.tools.WebConstants;
 import com.tfzzh.view.web.tools.WebTools;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 新的核心控制方法<br />
@@ -220,9 +220,8 @@ public class CoreHttpServlet extends BaseHttpServlet {
 					final ControlInfo ci = ReflectControl.getInstance().getReflectControl(link.getReflectControlKey());
 					final Object backInfo = ci.reflect(methodParas);
 					isOk = true;
-					if (backInfo instanceof BaseBackOperationBean) {
+					if (backInfo instanceof final BaseBackOperationBean operation) {
 						// 进行返回数据控制操作
-						final BaseBackOperationBean operation = (BaseBackOperationBean) backInfo;
 						operation.setPrefix(link.getPrefix());
 						// if (link.isCanCrossDomain()) {
 						// 是可以被跨域访问的
