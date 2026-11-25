@@ -37,7 +37,7 @@ public class WebSocketParser {
 	 * @author Weijie Xu
 	 * @dateTime 2015年2月7日 下午6:03:13
 	 */
-	private byte[] content = new byte[0];
+	private byte[] content = {};
 
 	/**
 	 * 消息体实际的总长度

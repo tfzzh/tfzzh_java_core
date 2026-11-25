@@ -96,9 +96,8 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 	 */
 	@Override
 	public void channelRead(final ChannelHandlerContext ctx, final Object msg) throws Exception {
-		if (msg instanceof InputMessageBean) {
+		if (msg instanceof final InputMessageBean bean) {
 			final Channel channel = ctx.channel();
-			final InputMessageBean bean = (InputMessageBean) msg;
 			final RequestNettySession rs = ChannelPool.getInstance().getChannelSession(channel);
 			bean.transpondExec(rs);
 			if (this.log.isDebugEnabled()) {

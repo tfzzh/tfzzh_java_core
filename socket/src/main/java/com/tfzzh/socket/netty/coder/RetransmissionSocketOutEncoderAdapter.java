@@ -51,11 +51,10 @@ public class RetransmissionSocketOutEncoderAdapter extends ChannelOutboundHandle
 	@Override
 	public void write(final ChannelHandlerContext ctx, final Object msg, final ChannelPromise promise) throws Exception {
 		final long l1 = System.currentTimeMillis();
-		if (msg instanceof OutputSocketMessageBean) {
+		if (msg instanceof final OutputSocketMessageBean omb) {
 			// 进行对消息的组合与发送
 			final ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			final TfzzhDataOutputStream tdos = new TfzzhDataOutputStream(stream);
-			final OutputSocketMessageBean omb = (OutputSocketMessageBean) msg;
 			omb.write(tdos);
 			final ByteBuf buf = Unpooled.buffer();
 			final int l = stream.size() + 4;

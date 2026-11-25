@@ -90,8 +90,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 	 */
 	@Override
 	public void channelRead(final ChannelHandlerContext ctx, final Object msg) throws Exception {
-		if (msg instanceof InputMessageBean) {
-			final InputMessageBean imsg = (InputMessageBean) msg;
+		if (msg instanceof final InputMessageBean imsg) {
 			if (imsg.hasProblem()) {
 				// 存在问题的情况，需要向请求端进行数据返回
 				if (this.log.isDebugEnabled()) {

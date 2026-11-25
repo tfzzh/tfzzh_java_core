@@ -244,9 +244,8 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
 		// check if the decoder was constructed before
 		// if not it handles the form get
 		if (this.decoder != null) {
-			if (msg instanceof HttpContent) {
+			if (msg instanceof final HttpContent chunk) {
 				// New chunk is received
-				final HttpContent chunk = (HttpContent) msg;
 				try {
 					this.decoder.offer(chunk);
 				} catch (final ErrorDataDecoderException e1) {

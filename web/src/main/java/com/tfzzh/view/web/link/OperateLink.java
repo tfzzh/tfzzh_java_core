@@ -1429,9 +1429,7 @@ public class OperateLink {
 					}
 					// System.out.println(" >>> " + sb.toString());
 					this.analysisFormUrlEncodeData(requestParas, sb.toString(), bdy);
-				} catch (final IOException e) {
-					e.printStackTrace();
-				} catch (final JSONException e) {
+				} catch (final IOException | JSONException e) {
 					e.printStackTrace();
 				}
 				// System.out.println(" >> log 2021-07-05 >> read x-www-form-urlencoded boundary[" + ct + "]");
@@ -1453,9 +1451,7 @@ public class OperateLink {
 							if (null != jo) {
 								this.analysisJsonData(requestParas, jo, null);
 							}
-						} catch (final IOException e) {
-							e.printStackTrace();
-						} catch (final JSONException e) {
+						} catch (final IOException | JSONException e) {
 							e.printStackTrace();
 						}
 					}
@@ -3218,7 +3214,7 @@ public class OperateLink {
 	 * @author Weijie Xu
 	 * @dateTime 2013-12-21 下午4:54:02
 	 */
-	private class TmpTool {
+	private static class TmpTool {
 
 		/**
 		 * 进行结果串的分析

@@ -913,13 +913,7 @@ public class EntityInfoBean<E extends BaseDataBean> {
 				return DigitalTools.longToint(l);
 			}
 			return 0;
-		} catch (final IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (final IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (final InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (final SQLException e) {
+		} catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException | SQLException e) {
 			e.printStackTrace();
 		}
 		return -3;
@@ -1257,12 +1251,8 @@ public class EntityInfoBean<E extends BaseDataBean> {
 			this.df = df;
 			this.sqlField = "`" + this.df.fieldName() + "`";
 			switch (EntityInfoBean.this.databaseType) {
-			case Mongo:
-				this.type = DatabaseFactroy.getMongoFieldType(df.fieldType());
-				break;
-			default:
-				this.type = DatabaseFactroy.getSqlFieldType(df.fieldType());
-				break;
+			case Mongo -> this.type = DatabaseFactroy.getMongoFieldType(df.fieldType());
+			default -> this.type = DatabaseFactroy.getSqlFieldType(df.fieldType());
 			}
 			this.idf = f.getAnnotation(IdField.class);
 			if (null != this.idf) {
@@ -1310,19 +1300,13 @@ public class EntityInfoBean<E extends BaseDataBean> {
 				}
 				try {
 					this.getM = clz.getMethod(gmS);
-				} catch (final NoSuchMethodException e) {
-					e.printStackTrace();
-					throw new ConfigurationException("Error getMethod with " + EntityInfoBean.this.entClz.getName() + " (" + f.getName() + ")> " + gmS);
-				} catch (final SecurityException e) {
+				} catch (final NoSuchMethodException | SecurityException e) {
 					e.printStackTrace();
 					throw new ConfigurationException("Error getMethod with " + EntityInfoBean.this.entClz.getName() + " (" + f.getName() + ")> " + gmS);
 				}
 				try {
 					this.setM = clz.getMethod(smS, f.getType());
-				} catch (final NoSuchMethodException e) {
-					e.printStackTrace();
-					throw new ConfigurationException("Error setMethod with " + EntityInfoBean.this.entClz.getName() + " (" + f.getName() + ")> " + smS);
-				} catch (final SecurityException e) {
+				} catch (final NoSuchMethodException | SecurityException e) {
 					e.printStackTrace();
 					throw new ConfigurationException("Error setMethod with " + EntityInfoBean.this.entClz.getName() + " (" + f.getName() + ")> " + smS);
 				}
@@ -1338,12 +1322,8 @@ public class EntityInfoBean<E extends BaseDataBean> {
 				this.defValue = null;
 			}
 			switch (EntityInfoBean.this.databaseType) {
-			case Mongo:
-				this.baseAlter = null;
-				break;
-			default:
-				this.baseAlter = this.makeBaseAlter(df, this.idf);
-				break;
+			case Mongo -> this.baseAlter = null;
+			default -> this.baseAlter = this.makeBaseAlter(df, this.idf);
 			}
 			this.tl = new FieldLocation<>(this);
 		}
@@ -1479,13 +1459,7 @@ public class EntityInfoBean<E extends BaseDataBean> {
 						log.append(this.field.getName()).append('=').append(val.toString());
 					}
 				}
-			} catch (final IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (final IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (final InvocationTargetException e) {
-				e.printStackTrace();
-			} catch (final SQLException e) {
+			} catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException | SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -1518,13 +1492,7 @@ public class EntityInfoBean<E extends BaseDataBean> {
 						log.append(this.field.getName()).append('=').append(val.toString());
 					}
 				}
-			} catch (final IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (final IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (final InvocationTargetException e) {
-				e.printStackTrace();
-			} catch (final SQLException e) {
+			} catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException | SQLException e) {
 				e.printStackTrace();
 			}
 		}

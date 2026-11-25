@@ -152,9 +152,7 @@ public class RequestAnnotationTool extends BaseAnnotationTool {
 									try {
 										field.set(ra, mgr);
 										continue;
-									} catch (final IllegalArgumentException e) {
-										throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + mgr.getClass().getName());
-									} catch (final IllegalAccessException e) {
+									} catch (final IllegalArgumentException | IllegalAccessException e) {
 										throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + mgr.getClass().getName());
 									} catch (final Exception e) {
 										e.printStackTrace();

@@ -374,8 +374,7 @@ public class ConnectionBean implements AutoCloseable {
 		try {
 			this.toClose(CloseType.InfoFall);
 		} catch (final Exception e) {
-			final boolean isClosed;
-			isClosed = this.isClosed();
+			final boolean isClosed = this.isClosed();
 			if (!isClosed) {
 				try {
 					this.conn.close();

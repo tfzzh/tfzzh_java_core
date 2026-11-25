@@ -306,7 +306,7 @@ public final class ConnectionPoolManager implements ConnectionInfoConfig, Connec
 	 * @author Weijie Xu
 	 * @dateTime 2015年5月4日 下午7:04:53
 	 */
-	private class ConnectionShutDownListener implements Runnable {
+	private static class ConnectionShutDownListener implements Runnable {
 
 		/**
 		 * @author Weijie Xu

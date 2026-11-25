@@ -293,8 +293,7 @@ public class NSListFieldBean extends LocalScope {
 			return;
 		}
 		for (final Object o : this.insertList) {
-			if (o instanceof BaseMongoBean) {
-				final BaseMongoBean bmb = (BaseMongoBean) o;
+			if (o instanceof final BaseMongoBean bmb) {
 				mdd.putIncrementValue(bmb);
 				bl.add(bmb.getInsertData());
 			} else {

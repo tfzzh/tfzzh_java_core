@@ -48,7 +48,7 @@ public enum MongoFieldTypeEnum implements FieldType {
 
 		@Override
 		public void putValueToDBObject(final StringBuilder mongo, final java.lang.Object val) {
-			mongo.append('"').append(val.toString().replaceAll("\"", "\\\\\"")).append('"');
+			mongo.append('"').append(val.toString().replace("\"", "\\\"")).append('"');
 		}
 	},
 	/**
@@ -200,7 +200,7 @@ public enum MongoFieldTypeEnum implements FieldType {
 
 		@Override
 		public void putValueToDBObject(final StringBuilder mongo, final java.lang.Object val) {
-			mongo.append('"').append(val.toString().replaceAll("\"", "\\\\\"")).append('"');
+			mongo.append('"').append(val.toString().replace("\"", "\\\"")).append('"');
 		}
 	},
 	/**
@@ -218,7 +218,7 @@ public enum MongoFieldTypeEnum implements FieldType {
 
 		@Override
 		public void putValueToDBObject(final StringBuilder mongo, final java.lang.Object val) {
-			mongo.append('"').append(val.toString().replaceAll("\"", "\\\\\"")).append('"');
+			mongo.append('"').append(val.toString().replace("\"", "\\\"")).append('"');
 		}
 	};
 

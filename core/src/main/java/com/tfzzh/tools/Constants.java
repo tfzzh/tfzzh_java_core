@@ -266,8 +266,7 @@ public interface Constants {
 	 * @author TFZZH
 	 * @dateTime 2011-2-21 下午04:34:57
 	 */
-	String INIT_CONFIG_PATH_BASE = FileTools.purifyFilePath((Constants.class.getResource(Constants.DIAGONAL_LINE) != null) ? (Constants.OS_WIN ? Constants.class.getResource(Constants.DIAGONAL_LINE).getPath().substring(1) : Constants.class.getResource(Constants.DIAGONAL_LINE).getPath()) : (Constants.OS_WIN ? Constants.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1) + "/../config/" : Constants.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/../config/"))
-			+ Constants.DIAGONAL_LINE;
+	String INIT_CONFIG_PATH_BASE = FileTools.purifyFilePath((Constants.class.getResource(Constants.DIAGONAL_LINE) != null) ? (Constants.OS_WIN ? Constants.class.getResource(Constants.DIAGONAL_LINE).getPath().substring(1) : Constants.class.getResource(Constants.DIAGONAL_LINE).getPath()) : (Constants.OS_WIN ? Constants.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1) + "/../config/" : Constants.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/../config/")) + Constants.DIAGONAL_LINE;
 
 	/**
 	 * 初始化：应用文件路径：基础路径；</br>

@@ -179,8 +179,7 @@ public class RequestNettySession extends RequestSession {
 		}
 		if (msg instanceof OutputSocketMessageBean) {
 			this.channel.writeAndFlush(msg);
-		} else if (msg instanceof OutputHttpMessageBean) {
-			final OutputHttpMessageBean ohm = (OutputHttpMessageBean) msg;
+		} else if (msg instanceof final OutputHttpMessageBean ohm) {
 			final StringBuilder sb = new StringBuilder();
 			ohm.getMsg().writeContent(sb);
 			try {

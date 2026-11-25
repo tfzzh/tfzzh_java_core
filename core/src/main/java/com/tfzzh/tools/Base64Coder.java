@@ -27,10 +27,10 @@ package com.tfzzh.tools;
 public class Base64Coder {
 
 	/**
-	* The line separator string of the operating system.
-	* 
-	* @datetime 2016年4月26日_下午6:20:48
-	*/
+	 * The line separator string of the operating system.
+	 * 
+	 * @datetime 2016年4月26日_下午6:20:48
+	 */
 	private static final String systemLineSeparator = System.lineSeparator();
 
 	/**

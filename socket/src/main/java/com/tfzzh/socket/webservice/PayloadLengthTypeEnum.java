@@ -136,14 +136,11 @@ public enum PayloadLengthTypeEnum {
 	 * @return 负载长度类型
 	 */
 	public static PayloadLengthTypeEnum getType(final byte len) {
-		switch (len) {
-		case 126:
-			return Short;
-		case 127:
-			return Long;
-		default:
-			return Normal;
-		}
+		return switch (len) {
+		case 126 -> Short;
+		case 127 -> Long;
+		default -> Normal;
+		};
 	}
 
 	/**

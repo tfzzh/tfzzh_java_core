@@ -115,14 +115,10 @@ public class MongoConnectionInfoBean {
 		final List<ServerAddress> list = new ArrayList<>();
 		final ServerAddress sa;
 		final List<String> us = StringTools.splitToArray(url, ":");
-		switch (us.size()) {
-		case 1:
-			sa = new ServerAddress(us.get(0));
-			break;
-		default:
-			sa = new ServerAddress(us.get(0), Integer.parseInt(us.get(1)));
-			break;
-		}
+		sa = switch (us.size()) {
+		case 1 -> new ServerAddress(us.get(0));
+		default -> new ServerAddress(us.get(0), Integer.parseInt(us.get(1)));
+		};
 		list.add(sa);
 		return list;
 	}

@@ -45,8 +45,7 @@ public enum SymbolEnum {
 			fl.assemblyMongo(ks);
 			if (locs.size() == 1) {
 				final QLLocation ql = locs.get(0);
-				if (ql instanceof ValueLocation) {
-					final ValueLocation vl = (ValueLocation) ql;
+				if (ql instanceof final ValueLocation vl) {
 					bo.append(ks.toString(), vl.getValue());
 					return;
 				}
@@ -107,8 +106,7 @@ public enum SymbolEnum {
 			fl.assemblyMongo(ks);
 			if (locs.size() == 1) {
 				final QLLocation ql = locs.get(0);
-				if (ql instanceof ValueLocation) {
-					final ValueLocation vl = (ValueLocation) ql;
+				if (ql instanceof final ValueLocation vl) {
 					bo.append(ks.toString(), new BasicDBObject(this.getMongoSymbol(), vl.getValue()));
 					return;
 				}
@@ -182,8 +180,7 @@ public enum SymbolEnum {
 			fl.assemblyMongo(ks);
 			if (locs.size() == 1) {
 				final QLLocation ql = locs.get(0);
-				if (ql instanceof ValueLocation) {
-					final ValueLocation vl = (ValueLocation) ql;
+				if (ql instanceof final ValueLocation vl) {
 					bo.append(ks.toString(), new BasicDBObject(this.getMongoSymbol(), vl.getValue()));
 					return;
 				}
@@ -257,8 +254,7 @@ public enum SymbolEnum {
 			fl.assemblyMongo(ks);
 			if (locs.size() == 1) {
 				final QLLocation ql = locs.get(0);
-				if (ql instanceof ValueLocation) {
-					final ValueLocation vl = (ValueLocation) ql;
+				if (ql instanceof final ValueLocation vl) {
 					bo.append(ks.toString(), new BasicDBObject(this.getMongoSymbol(), vl.getValue()));
 					return;
 				}
@@ -332,8 +328,7 @@ public enum SymbolEnum {
 			fl.assemblyMongo(ks);
 			if (locs.size() == 1) {
 				final QLLocation ql = locs.get(0);
-				if (ql instanceof ValueLocation) {
-					final ValueLocation vl = (ValueLocation) ql;
+				if (ql instanceof final ValueLocation vl) {
 					bo.append(ks.toString(), new BasicDBObject(this.getMongoSymbol(), vl.getValue()));
 					return;
 				}
@@ -407,8 +402,7 @@ public enum SymbolEnum {
 			fl.assemblyMongo(ks);
 			if (locs.size() == 1) {
 				final QLLocation ql = locs.get(0);
-				if (ql instanceof ValueLocation) {
-					final ValueLocation vl = (ValueLocation) ql;
+				if (ql instanceof final ValueLocation vl) {
 					bo.append(ks.toString(), new BasicDBObject(this.getMongoSymbol(), vl.getValue()));
 					return;
 				}

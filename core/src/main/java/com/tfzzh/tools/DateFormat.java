@@ -229,8 +229,7 @@ public class DateFormat {
 	 */
 	public static String getFullDateShow(final Calendar cal) {
 		final StringBuilder sb = new StringBuilder(23);
-		sb.append(cal.get(Calendar.YEAR)).append(Constants.CONNECTOR).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(Constants.CONNECTOR).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(Constants.SPACE).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(Constants.COLON).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(Constants.COLON).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(Constants.SPACE)
-				.append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
+		sb.append(cal.get(Calendar.YEAR)).append(Constants.CONNECTOR).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(Constants.CONNECTOR).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(Constants.SPACE).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(Constants.COLON).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(Constants.COLON).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(Constants.SPACE).append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
 		return sb.toString().intern();
 	}
 
@@ -1211,8 +1210,7 @@ public class DateFormat {
 	public static String getFullDateShow() {
 		final Calendar cal = Calendar.getInstance();
 		final StringBuilder sb = new StringBuilder(23);
-		sb.append(cal.get(Calendar.YEAR)).append(Constants.CONNECTOR).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(Constants.CONNECTOR).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(Constants.SPACE).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(Constants.COLON).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(Constants.COLON).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(Constants.SPACE)
-				.append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
+		sb.append(cal.get(Calendar.YEAR)).append(Constants.CONNECTOR).append(StringTools.intToString(cal.get(Calendar.MONTH) + 1, 2)).append(Constants.CONNECTOR).append(StringTools.intToString(cal.get(Calendar.DAY_OF_MONTH), 2)).append(Constants.SPACE).append(StringTools.intToString(cal.get(Calendar.HOUR_OF_DAY), 2)).append(Constants.COLON).append(StringTools.intToString(cal.get(Calendar.MINUTE), 2)).append(Constants.COLON).append(StringTools.intToString(cal.get(Calendar.SECOND), 2)).append(Constants.SPACE).append(StringTools.intToString(cal.get(Calendar.MILLISECOND), 3));
 		return sb.toString().intern();
 	}
 

@@ -852,19 +852,14 @@ public class ModelMapTool extends NewManagerMapTool {
 						method = daoObject.getClass().getMethod(propertyMethod, cla);
 						// 成功而跳出
 						break;
-					} catch (final NoSuchMethodException e) {
-					} catch (final SecurityException e) {
+					} catch (final NoSuchMethodException | SecurityException e) {
 					}
 					cla = new Class[] { cla[0].getSuperclass() };
 				}
 				try {
 					// 对指定类的指定方法注入相应的对象消息
 					method.invoke(daoObject, pc);
-				} catch (final IllegalAccessException e) {
-					throw new InitializeException(e.getMessage());
-				} catch (final IllegalArgumentException e) {
-					throw new InitializeException(e.getMessage());
-				} catch (final InvocationTargetException e) {
+				} catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					throw new InitializeException(e.getMessage());
 				}
 			}
@@ -921,18 +916,13 @@ public class ModelMapTool extends NewManagerMapTool {
 				method = clz.getMethod(di.connMethod(), cla);
 				// 因为成功而跳出
 				break;
-			} catch (final NoSuchMethodException e) {
-			} catch (final SecurityException e) {
+			} catch (final NoSuchMethodException | SecurityException e) {
 			}
 			cla = new Class[] { cla[0].getSuperclass() };
 		}
 		try {
 			method.invoke(daoObject, pc);
-		} catch (final IllegalAccessException e) {
-			throw new InitializeException(e.getMessage());
-		} catch (final IllegalArgumentException e) {
-			throw new InitializeException(e.getMessage());
-		} catch (final InvocationTargetException e) {
+		} catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new InitializeException(e.getMessage());
 		}
 	}
@@ -974,20 +964,14 @@ public class ModelMapTool extends NewManagerMapTool {
 				method = clz.getMethod(di.connMethod(), cla);
 				// 因为成功而跳出
 				break;
-			} catch (final NoSuchMethodException e) {
-				e.printStackTrace();
-			} catch (final SecurityException e) {
+			} catch (final NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
 			}
 			cla = new Class[] { cla[0].getSuperclass() };
 		}
 		try {
 			method.invoke(daoObject, pc);
-		} catch (final IllegalAccessException e) {
-			throw new InitializeException(e.getMessage());
-		} catch (final IllegalArgumentException e) {
-			throw new InitializeException(e.getMessage());
-		} catch (final InvocationTargetException e) {
+		} catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new InitializeException(e.getMessage());
 		}
 	}
@@ -1062,11 +1046,7 @@ public class ModelMapTool extends NewManagerMapTool {
 								field.set(obj, dr);
 							}
 							continue;
-						} catch (final IllegalArgumentException e) {
-							throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + dr.getClass().getName());
-						} catch (final IllegalAccessException e) {
-							throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + dr.getClass().getName());
-						} catch (final SecurityException e) {
+						} catch (final IllegalArgumentException | IllegalAccessException | SecurityException e) {
 							throw new InitializeException("Link Control Field set value Error: " + clz.getName() + "-" + field.getName() + " > " + dr.getClass().getName());
 						} finally {
 							if (null != field) {
